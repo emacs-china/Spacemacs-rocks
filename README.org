@@ -1,0 +1,28 @@
+* Spacemacs Rocks
+** Navigation Your Lisp Code Faster
+*** Features
+**** Find Function definition
+ C-h f & C-h C-f
+**** Find variable definition
+ C-h v & C-h C-v
+**** Navigation functions in current file
+ SPC s l
+**** Go to your .spacemacs file
+ SPC f e d 
+**** Go to .emacs.d/init.el
+ SPC f e i
+**** Find an elpa library
+ SPC h L 
+
+**** Find Spacemacs layers, docs and package configuration
+ SPC f e h
+*** Workflow
+**** Navigation spacemacs layers/docs
+SPC f e h ->  SPC s l -> c-h c-f/c-v/f/v
+**** Navigation elpa libraries
+SPC h L  -> SPC s l -> c-h c-f/c-v/f/v
+**** Navigation you own configuration
+SPC f e d -> SPC s l -> c-h c-f/c-v/f/v
+**** navigation spacemacs repository
+SPC f e i -> SPC s l -> c-h c-f/c-v/f/v
+
