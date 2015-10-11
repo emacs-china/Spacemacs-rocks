@@ -26,3 +26,15 @@ SPC f e d -> SPC s l -> c-h c-f/c-v/f/v
 **** navigation spacemacs repository
 SPC f e i -> SPC s l -> c-h c-f/c-v/f/v
 
+
+** Navigation Your Source Code Faster
+*** Feature
+**** Use helm-imenu-semantic(current buffer)
+**** Use swiper & evil search(current buffer)
+**** Use helm-swoop (current buffer or all buffers)
+**** Use helm-ag(project wide)
+**** Go to definition and go back
+*** Workflow
+**** C/C++ Source Code Navigation
+**** Python Source Code  Navigation
+**** Javascript Source Code Navigation
