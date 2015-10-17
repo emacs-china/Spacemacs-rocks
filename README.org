@@ -27,6 +27,39 @@ SPC f e d -> SPC s l -> c-h c-f/c-v/f/v
 SPC f e i -> SPC s l -> c-h c-f/c-v/f/v
 
 
+**  Use Org-mode to Management Your Time
+*** Org-agenda is your friend
+Never start to do anything before looking at the agenda view.
+Why agenda matters?
+Every successful people almost have a secret who will organize your time and maximize the value of your time. 
+This is the key to long term success.
+Remember how many times you waste your time with QQ, WeChat, Weibo and B site.
+
+*** What should be in org agenda view?
+1. Important and emergency things goes first, they got A priority, along with important and not emergency tasks.
+2. A few habits to keep you update to date. Good habit always makes you a good person.
+Like: Health, Reading, blogging, family and friendship.
+
+***  When you start to do a task in the org-agenda view, don't forget to clock in with pomodoro technicals
+1. This way you could track your time and effect.
+2. All the goodness of the pomodoro technicals
+
+*** Weekly review and adjust the priority of todo items. And weekly archive done items.
+You need only one gtd.org file. And many files in org agenda files.
+
+*** Keep a eye on what you have spent on each day, each week and each month.
+Show it in my gtd.org file.
+
+*** demonstration the usage of Org capture 
+1. Capture a todo with priority and tags.
+2. capture a chrome links for later reading.
+3. capture a task with a source code file.
+
+*** A few tips.
+1. embed pdf links to todo items such that you could easily access them.
+2. insert the current chrome tab into place.
+3. Learn GTD method now!
+
 ** Navigation Your Source Code Faster
 *** Feature
 **** Use helm-imenu-semantic(current buffer)
