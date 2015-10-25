@@ -60,6 +60,26 @@ Show it in my gtd.org file.
 2. insert the current chrome tab into place.
 3. Learn GTD method now!
 
+** Emacs as a C/C++ IDE
+*** Jump to definition (of class, function, etc.)
+1. Gtags
+2. ycmd.
+
+tips: Call helm-gtags-update in the .cpp file.
+
+*** Autocompletion
+ycmd + comapny-mode
+
+*** On-the-fly syntax check
+flycheck-ycmd
+
+*** Find file in project
+projectile and find-file-in-project
+
+*** Compile??
+
+*** Debugging??
+   
 ** Navigation Your Source Code Faster
 *** Feature
 **** Use helm-imenu-semantic(current buffer)
