@@ -84,9 +84,23 @@ projectile and find-file-in-project
 
 ** Magit workflow
 *** Magit init, commit and commit messages
+1. SPC g i(magit-init)
+2. SPC g s(magit-status)
+3. s-1 (goto unstaged section)
+4. press tab to view diffs(code review)
+5. s to stage all changes
+6. c c ->  c-c c-c to commit
+7. editing the commit message and the diff on the right
 *** Commits in Action
-1. Ammend
-2.
+1. Ammend ( c a)
+2. write good commit messages
+3. squash unpushed commits (r l)
+4. reset commits
+5. select a few line to commits
+6. discard changes, file wide or line wide
+7. revert commits
+
+*** Branching basics
 
 ** Navigation Your Source Code Faster
 *** Feature
