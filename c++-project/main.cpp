@@ -10,5 +10,11 @@ int main(int argc, char *argv[])
     obj2->sayHello("zilongshanren");
 
     obj2->xxx();
+    obj2->guanghui();
+    obj2->ggmm();
+    obj2->mmmm();
+    obj2->xxoo();
+    obj2->gagaga();
+    obj2->jj();
     return 0;
 }

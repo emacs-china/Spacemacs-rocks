@@ -80,6 +80,14 @@ projectile and find-file-in-project
 
 *** Debugging??
    
+
+
+** Magit workflow
+*** Magit init, commit and commit messages
+*** Commits in Action
+1. Ammend
+2.
+
 ** Navigation Your Source Code Faster
 *** Feature
 **** Use helm-imenu-semantic(current buffer)

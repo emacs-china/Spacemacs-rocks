@@ -15,3 +15,31 @@ void Demo::xxx()
 {
     std::cout<<"xxxx"<<std::endl;
 }
+
+void Demo::guanghui()
+{
+    std::cout<<"xxxx"<<std::endl;
+}
+
+void Demo::ggmm()
+{
+    std::cout<<"xxxx"<<std::endl;
+}
+
+void Demo::mmmm()
+{
+}
+
+void Demo::xxoo()
+{
+}
+
+void Demo::gagaga()
+{
+    std::cout<<"gagaga"<<std::endl;
+}
+
+void Demo::jj()
+{
+    std::cout<<"gagaga"<<std::endl;
+}
