@@ -116,14 +116,33 @@ projectile and find-file-in-project
 3. F to pull
 4. s-g to send pull request
 
-** Navigation Your Source Code Faster
-*** Feature
-**** Use helm-imenu-semantic(current buffer)
-**** Use swiper & evil search(current buffer)
-**** Use helm-swoop (current buffer or all buffers)
-**** Use helm-ag(project wide)
-**** Go to definition and go back
-*** Workflow
-**** C/C++ Source Code Navigation
-**** Python Source Code  Navigation
-**** Javascript Source Code Navigation
+*** Misc
+1. cherry pick
+2. view github files
+
+** Find, Search and replace
+*** Evil search
+1. Use / and * to start search.
+2. Use n & N to search forward and backward
+*** Swiper
+C-s to start search.
+C-c C-o to enter ivy-occur
+*** Helm-swoop
+SPC s s/S to search search
+C-c C-e to enter edit mode
+SPC h l(helm-resume)
+*** Helm-imenu-or-semantic
+To search structured word.
+SPC s l
+*** Occur to search and multiple editing
+M-s o to use occur and e to enter edit mode. C-c to finish editing.
+Edit search result one by one.
+Edit search result with iedit and multiple cursor.
+*** Helm -ag
+F3 to save search result, SPC s L to open last save search buffer.
+*** SPC s p to search project wide
+C-c c-e
+*** SPC s f to search for files and certain suffix files.
+*** SPC s b to search all the open buffer
+*** SPC n f to narrow to function, SPC n w to restore
+After narrowing, you could use :%s/old/new/g to replace
