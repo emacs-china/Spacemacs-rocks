@@ -8,13 +8,6 @@ class Demo{
 public:
     void sayHello(const std::string& name);
     void print();
-    void xxx();
-    void guanghui();
-    void ggmm();
-    void mmmm();
-    void xxoo();
-    void gagaga();
-    void jj();
 private:
 };
 
