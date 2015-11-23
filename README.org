@@ -146,3 +146,51 @@ C-c c-e
 *** SPC s b to search all the open buffer
 *** SPC n f to narrow to function, SPC n w to restore
 After narrowing, you could use :%s/old/new/g to replace
+** Org-mode as a blogging engine.
+*** Start to blogging any place and any time.
+Press F1 to launch a menu and type =blog= to choose.
+Navigation all the blog posts
+*** Press W to new post
+Enter the title of your new post
+*** Start writing
+You could use all the Org syntax here. But org table is not well supported.
+1. Headings.
+2. Insert links.
+3. Insert Images
+4. Insert Code(We can even execute the code in the documents, oh my!)
+*** Preview and publish
+*  Spacemacs buffer, file, project and layout management
+*** SPC f  --->    file related operations
+SPC f f  --> helm-find-file
+SPC f r  --> open recent file
+SPC f R  --> rename file
+SPC f c  --> copy file
+SPC f j  --> jump to dired
+SPC f t  --> open neo tree
+SPC f o  --> open in external application
+*** SPC b --->  buffer related operations
+SPC b b & SPC b B(i)
+SPC b h (spacemacs home buffer)
+SPC b s (scratch buffer)
+SPC b f (reveal in finder)
+SPC b w in dired buffer.
+SPC b n/p (previous or next buffer)
+SPC b TAB to switch back and forth.
+*** SPC p  ---> project related operations
+SPC p f  and SPC p b
+*** SPC l ---> layout replated operations
+SPC l o  --> custom layout
+SPC l L/s --> load or save layout
+SPC l l --> switch bewteen layout
+SPC l TAB --> quick way to switch
+SPC l ?  --> open up the help.
+SPC p l --> switch to project and create a layout
+
+*** dired related operations
+new file/delete file/rename file
+new folder/delete folder/rename folder
+
+*** Ranger
+ SPC a r
+h l to navigate folder
+j k to preview file
