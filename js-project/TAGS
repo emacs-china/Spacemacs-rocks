@@ -1,0 +1,14 @@
+
+lib/math.js,232
+exports = module.exports  = {};exports1,0
+exports.sum =  function(a, b) {sum3,33
+exports.sum =  function(a, b) {function3,33
+exports.substract = function(a, b){substract7,87
+exports.substract = function(a, b){function7,87
+
+lib/test.js,123
+exports = module.exports = {};exports1,0
+exports.test = function() {test3,32
+exports.test = function() {function3,32
+
+main.js,0

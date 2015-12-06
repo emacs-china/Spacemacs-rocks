@@ -6,4 +6,4 @@ exports.sum =  function(a, b) {
 
 exports.substract = function(a, b){
     return a - b;
-};
+}

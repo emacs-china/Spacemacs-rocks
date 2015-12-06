@@ -1,6 +1,5 @@
-exports = {};
+exports = module.exports = {};
 
-exports.test =  function() {
+exports.test = function() {
     console.log("test");
 };
-

@@ -196,30 +196,23 @@ h l to navigate folder
 j k to preview file
 
 ** Spacemacs as a JavaScript/Node.js IDE
+*** Autocompletion
+1. company-etags vs company-tern
+2. hippie-expand
 *** Jump to definition
 1. SPC s l to jump to function definitions.  ctags.
 2. SPC m g d/ etags-select
 3. SPC s p / SPC o s to search keywords
 4. SPC m g g if use tern.js
-*** Autocompletion
-1. company-etags vs company-tern
-2. hippie-expand
-
 *** Syntax check
 1. flycheck with jshint / eslint
 2. js2-mode checking
-*** Find file across project
-1. find file in project
-2. counsel-git, very fast than helm-git-ls-git
 *** REPL
 1. jscomint
-jscomint has better ES6 support. But is seems lack module support.
+jscomint has better ES6 support. But the keybinding are not perfect
 
 2. nodejs repl
-better module system support
+ES6 support is not good, but has better keybinding.
 
-*** Refresh browser
-CMD+R
 *** Format code
 1. js beautify
-*** js2 refactor
