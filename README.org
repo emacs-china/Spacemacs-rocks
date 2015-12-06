@@ -213,6 +213,11 @@ j k to preview file
 2. counsel-git, very fast than helm-git-ls-git
 *** REPL
 1. jscomint
+jscomint has better ES6 support. But is seems lack module support.
+
+2. nodejs repl
+better module system support
+
 *** Refresh browser
 CMD+R
 *** Format code
