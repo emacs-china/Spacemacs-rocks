@@ -159,7 +159,7 @@ You could use all the Org syntax here. But org table is not well supported.
 3. Insert Images
 4. Insert Code(We can even execute the code in the documents, oh my!)
 *** Preview and publish
-*  Spacemacs buffer, file, project and layout management
+**  Spacemacs buffer, file, project and layout management
 *** SPC f  --->    file related operations
 SPC f f  --> helm-find-file
 SPC f r  --> open recent file
@@ -194,3 +194,27 @@ new folder/delete folder/rename folder
  SPC a r
 h l to navigate folder
 j k to preview file
+
+** Spacemacs as a JavaScript/Node.js IDE
+*** Jump to definition
+1. SPC s l to jump to function definitions.  ctags.
+2. SPC m g d/ etags-select
+3. SPC s p / SPC o s to search keywords
+4. SPC m g g if use tern.js
+*** Autocompletion
+1. company-etags vs company-tern
+2. hippie-expand
+
+*** Syntax check
+1. flycheck with jshint / eslint
+2. js2-mode checking
+*** Find file across project
+1. find file in project
+2. counsel-git, very fast than helm-git-ls-git
+*** REPL
+1. jscomint
+*** Refresh browser
+CMD+R
+*** Format code
+1. js beautify
+*** js2 refactor
