@@ -18,7 +18,7 @@
  SPC f e h
 *** Workflow
 **** Navigation spacemacs layers/docs
-SPC f e h ->  SPC s l -> c-h c-f/c-v/f/v
+SPC h SPC ->  SPC s l -> c-h c-f/c-v/f/v
 **** Navigation elpa libraries
 SPC h L  -> SPC s l -> c-h c-f/c-v/f/v
 **** Navigation you own configuration
