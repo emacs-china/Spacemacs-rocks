@@ -1,0 +1,40 @@
+* Spacemacs Rocks Episode 2 ( Day one)
+
+** Install Emacs
+- Mac
+- Windows
+- Linux(apt get install emacs)
+** Go over the Emacs tutorial at least once
+- C-h t to open the tutorial.
+- You need be familiar with cursor movement(C-f/C-b/C-n/C-p/C-a/C-e) and basic editing (C-k)
+- You should be familiar with M(eta), s(uper, command key), S(hift), C(trl)  M-x s-p S-p C-p
+- Prefix key(c-h is a prefix key) and C-g  (C-x c-f) 
+
+** Learn to active some built-in functionality (org-mode)
+- linum-mode to display line numbers (M-x linum-mode)
+- C-x C-f(find/file) to open files, C-x C-s(ave) to save files. (You could also use your mouse to do all the file operations.)
+- you should always ask Emacs the right question
+- C-h k/ C-h v / C-h f (Emacs is a self document, extensiable editor.)
+- The key bindings are actually a quick way to command Emacs. 
+** Learn some elisp(emacs lisp)
+- use learnxinyminutes website to learn emacs lisp.
+- at least you know how to define variable, functions
+- You should know how to make a function callable and how to set a key binding for the function.
+** Start to hacking Emacs from the day one!
+- turn off tool-bar
+- turn off scroll-bar
+- show linum-mode
+- turn off splash screen
+- save your config
+- define a function to quickly open your config file.
+** Emacs package system in the first glance.
+- How to use the built-in Package system of Emacs.
+- Install company mode and active it.
+- Major mode and minor mode (C-h m)
+- Happy hacking. :)
+
+** Bonus(org-mode basics)
+*** TODO 3rd level
+- use * to define headings
+- C-c C-t to toggle TODO states
+GTD(getting things done)
