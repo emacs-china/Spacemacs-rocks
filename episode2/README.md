@@ -63,7 +63,7 @@ Emacs 功能强大，但是部分功能默认情况下并为开启。下面做�
 
 编辑器内显示行号可使用 `M-x linum-mode` 来开启。
 
-** 获取帮助**
+**获取帮助**
 
 Emacs 是一个富文档编辑器（Self document, extensible editor）而下面的三种方法在学习 Emacs 的过程中也非常重要。他们分别是，
 
@@ -167,4 +167,4 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ## 感谢
 
-再次感谢子龙山人（[@zilongshanren](https://github.com/zilongshanren)）花费时间和经历分享他的知识和经验。
+再次感谢子龙山人（[@zilongshanren](https://github.com/zilongshanren)）花费时间和精力分享他的知识和经验。
