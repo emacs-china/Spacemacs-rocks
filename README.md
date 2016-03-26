@@ -14,8 +14,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-[[TOC]]
-
 # Spacemacs Rocks （第二季）
 
 在这一季中计划在21天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
