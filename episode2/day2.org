@@ -1,0 +1,39 @@
+* Spacemacs Rocks Episode 2 ( Day two)
+
+** Fixes some annoying stuff
+1. The difference between .emacs and .emacs.d/init.el
+2. disable backup file
+3. enable recentf-mode
+
+** Make Emacs more fancy
+1. Open with full screen
+2. install a theme (monokai)
+3. Highlight current line (global-hl-line-mode)
+
+** Improve built-in package system
+1. make package system more powerful with Melpa
+2. use customize-group to customize the package settings
+3. package-list-packages (add/delete/update packages)
+4. install and configure smex and ivy mode
+5. install and configure smartparens mode
+6. Don't try to update the package daily, the updating process might failed.
+
+** Setup a javascript IDE
+1. Install js2-mode and start to write javascript
+2. Install nodejs-repl to execute code inside Emacs
+
+
+** Split your configurations into multiple files
+1. split your configurations into multiple files (init.el, js.el)
+2. explain the theory of package loading, autoload comments/require/load-path
+
+** Learn more from Emacs itself
+1. c-h c-f(find-function), c-h c-v(find-variable), c-h c-k(find-function-on-key)
+2. Tell users to learn more about elisp(M-x info)
+
+** Org-mode(Bonus section)
+*** Agenda files and agenda view
+1. one gtd.org file
+*** Learn how to schedule items and set deadline
+1. c-c c-s to schedule item
+2. c-c c-d to set deadline of item.
