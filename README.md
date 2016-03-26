@@ -1,3 +1,17 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+**Table of Contents**
+
+- [Spacemacs Rocks （第二季）](#spacemacs-rocks-)
+    - [第一集：准备开始](#)
+        - [基础操作](#)
+        - [内置功能](#)
+        - [学习基础 Elisp](#-elisp)
+        - [开始 Hacking！](#-hacking)
+        - [插件管理](#)
+        - [Org-mode](#org-mode)
+    - [感谢](#)
+
+<!-- markdown-toc end -->
 # Spacemacs Rocks （第二季）
 
 在这一季中计划在21天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
@@ -173,4 +187,4 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ## 感谢
 
-再次感谢子龙山人（[@zilongshanren](https://github.com/zilongshanren)）花费时间和精力分享他的知识和经验。
+@li-xinyang
