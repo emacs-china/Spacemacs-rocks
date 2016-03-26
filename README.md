@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Spacemacs Rocks （第二季）](#spacemacs-rocks-%EF%BC%88%E7%AC%AC%E4%BA%8C%E5%AD%A3%EF%BC%89)
+  - [第一集：准备开始](#%E7%AC%AC%E4%B8%80%E9%9B%86%EF%BC%9A%E5%87%86%E5%A4%87%E5%BC%80%E5%A7%8B)
+    - [基础操作](#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C)
+    - [内置功能](#%E5%86%85%E7%BD%AE%E5%8A%9F%E8%83%BD)
+    - [学习基础 Elisp](#%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-elisp)
+    - [开始 Hacking！](#%E5%BC%80%E5%A7%8B-hacking%EF%BC%81)
+    - [插件管理](#%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86)
+    - [Org-mode](#org-mode)
+  - [贡献人列表](#%E8%B4%A1%E7%8C%AE%E4%BA%BA%E5%88%97%E8%A1%A8)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 [[TOC]]
 
 # Spacemacs Rocks （第二季）
