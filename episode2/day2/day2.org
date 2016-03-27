@@ -1,12 +1,22 @@
-* Spacemacs Rocks Episode 2 ( Day two )
+* Spacemacs Rocks Episode 2 ( Day two )                                 :TOC:
+   - [[#fixes-some-annoying-stuff][Fixes some annoying stuff]]
+   - [[#make-emacs-more-fancy][Make Emacs more fancy]]
+   - [[#improve-built-in-package-system][Improve built-in package system]]
+   - [[#setup-a-javascript-ide][Setup a javascript IDE]]
+   - [[#learn-more-from-emacs-itself][Learn more from Emacs itself]]
+   - [[#org-modebonus-time][Org-mode(Bonus Time)]]
+     - [[#agenda-files-and-agenda-view][Agenda files and agenda view]]
+     - [[#learn-how-to-schedule-items-and-set-deadline][Learn how to schedule items and set deadline]]
+   - [[#excercise][Excercise]]
+     - [[#the-difference-between-emacs-and-emacsdinitel-file][the difference between .emacs and .emacs.d/init.el file]]
+     - [[#try-to-configure-company-mode-via-customize-group][try to configure company mode via customize-group]]
 
 ** Fixes some annoying stuff
 1. make cursor style to bar
 
 2. disable backup file
 #+BEGIN_SRC emacs-lisp
-  (setq make-backup-f(global-set-key "\C-(packagesetq            emacs-lisp-mode  initial-f(setq  initial-frame-alist (quote ((fullscreen . maximizesuccessfullyd))))rame-alist (quote ((fullscreen . maximized))))x\ \C-r" 'recentf-open-files)
-iles nil)
+(setq make-backup-files nil)
 #+END_SRC
 use C-' to open another buffer to edit source code.
 Make source code fancy in the org file.

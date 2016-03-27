@@ -1,4 +1,12 @@
-* Spacemacs Rocks Episode 2 ( Day one)
+* Spacemacs Rocks Episode 2 ( Day one)                                  :TOC:
+   - [[#install-emacs][Install Emacs]]
+   - [[#go-over-the-emacs-tutorial-at-least-once][Go over the Emacs tutorial at least once]]
+   - [[#learn-to-active-some-built-in-functionality-org-mode][Learn to active some built-in functionality (org-mode)]]
+   - [[#learn-some-elispemacs-lisp][Learn some elisp(emacs lisp)]]
+   - [[#start-to-hacking-emacs-from-the-day-one][Start to hacking Emacs from the day one!]]
+   - [[#emacs-package-system-in-the-first-glance][Emacs package system in the first glance.]]
+   - [[#bonusorg-mode-basics][Bonus(org-mode basics)]]
+     - [[#3rd-level][3rd level]]
 
 ** Install Emacs
 - Mac
