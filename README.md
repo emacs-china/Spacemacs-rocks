@@ -240,11 +240,13 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [MELPA](https://melpa.org/) （Milkypostman's Emacas Lisp Package Archive）它有非常多的插件（3000 多个插件）。下载的次数并不能说明它非常有用，也许这个插件是其他的插件依赖。在[这里](https://melpa.org/#/getting-started)你可以找到其安装使用方法。添加源后，我们就可以使用 `M-x package-list-packages` 来查看所有 MELPA 上的插件了。在表单中可以使用 `I` 来标记安装 `D` 来标记删除，`U` 来更新，并用 `X` 来确认。
 
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 `YOUR_NAME_HERE/packages` 中，Emacs 在启动时会自动下载未被安装的插件。
+
 ```elisp
 (when (>= emacs-major-version 24)
     (require 'package)
     (package-initialize)
-    (add-to-list 'package-archives '("melpa" . "http://melpRETa.org/packages/") t)
+    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
     )
 
 ;; cl - Common Lisp Extension
@@ -252,16 +254,22 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ;; Add Packages
 (defvar YOUR_NAME_HERE/packages '(
-			   company
-			   hungry-delete
-			   swiper
-			   counsel
-			   smartparens
-			   js2-mode
-			   nodejs-repl
-			   exec-path-from-shell
-			   monokai-theme
-			   ) "Default packages")
+               ;; --- Auto-completion ---
+               company
+               ;; --- Better Editor ---
+               hungry-delete
+               swiper
+               counsel
+               smartparens
+               ;; --- Major Mode ---
+               js2-mode
+               ;; --- Minor Mode ---
+               nodejs-repl
+               exec-path-from-shell
+               ;; --- Themes ---
+               monokai-theme
+               ;; solarized-theme
+               ) "Default packages")
 
 (setq package-selected-packages YOUR_NAME_HERE/packages)
 (defun YOUR_NAME_HERE/packages-installed-p ()
@@ -279,7 +287,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
   (exec-path-from-shell-initialize))
 ```
 
-我们可以将 Emacs 设置为开启默认全屏，
+我们可以用下面代码将 Emacs 设置为开启默认全屏，
 
 ```elisp
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
@@ -329,7 +337,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 	   auto-mode-alist))
 ```
 
-这个新模式提供会提供
+在 js2-mode 模式中会提供
 
 - 语法高亮
 - 语法检查器（Linter）
@@ -363,7 +371,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 (setq org-src-fontify-natively t)
 ```
 
-在 Org-mode 中重置有序列表序号可以直接使用 M-<Ret> 。
+在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
 
 **Agenda 的使用**
 
