@@ -1,6 +1,6 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Spacemacs Rocks （第二季）](#spacemacs-rocks-第二季)
+- [Spacemacs Rocks（第二季）](#spacemacs-rocks-第二季)
 	- [第一天：准备开始](#第一天准备开始)
 		- [基础操作](#基础操作)
 		- [内置功能](#内置功能)
@@ -16,9 +16,9 @@
 
 <!-- /TOC -->
 
-# Spacemacs Rocks （第二季）
+# Spacemacs Rocks（第二季）
 
-在这一季中计划在21天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+在这一季中计划在 21 天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
 ## 第一天：准备开始
 
@@ -34,7 +34,7 @@
 
 如果你还没有安装 Emacs 可以在 [Mac OS X 安装链接](http://emacsformacosx.com/builds)以及 [Window 安装链接](http://emacsbinw64.sourceforge.net/)找到它。
 
-在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约30分钟），它可以通过使用 `C-h t`（同时按住 Ctrl 与 h 键，接着按 t 键（t 代表 tutorial）） 在 Emacs 中直接将其打开。
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 `C-h t`（同时按住 Ctrl 与 h 键，接着按 t 键（t 代表 tutorial）） 在 Emacs 中直接将其打开。
 
 Elisp 是 Emacs 所用的编程语言，你可以在阅读[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)后很快的了解它的基础用法。
 
@@ -61,7 +61,7 @@ Elisp 是 Emacs 所用的编程语言，你可以在阅读[这篇教程（Learn 
 常用的文件操作快捷键组合也必须熟记。
 
 - C-x C-f 为打开目标文件，f 代表 find/file
-- C-x C-s 为保存当前缓冲区（Buffer）， s 代表 save
+- C-x C-s 为保存当前缓冲区（Buffer），s 代表 save
 
 打断组合键为 C-g 用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
 
@@ -81,7 +81,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 ### 学习基础 Elisp
 
-请务必完成[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)来了解 Elisp 的使用（阅读时间大约15分钟），你也可以在[这里](https://learnxinyminutes.com/docs/zh-cn/elisp-cn/)找到它的中文版。Elisp 为一个函数式的语言其所有功能都是由函数来实现的。
+请务必完成[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[这里](https://learnxinyminutes.com/docs/zh-cn/elisp-cn/)找到它的中文版。Elisp 为一个函数式的语言其所有功能都是由函数来实现的。
 
 下面为一些简单的例子
 
@@ -117,7 +117,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果不存在可自行创建）
 
-在开始之前我们先来区别 Emacs 中 Major Mode 与 Minor Mode。 Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。Minor Mode 除去核心功能以外的编辑功能均为 Minor Mode 所提供。
+在开始之前我们先来区别 Emacs 中 Major Mode 与 Minor Mode。Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。Minor Mode 除去核心功能以外的编辑功能均为 Minor Mode 所提供。
 
 一个文件类型同时只能存在一个 Major Mode 但是它可以同时激活多个 Minor Mode。
 
@@ -320,8 +320,8 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 **推荐插件**
 
 - [`hungry-delete`](https://github.com/nflath/hungry-delete)
-- [`Smex`](https://github.com/nonsequitur/smex)
-- [`Swiper`](https://github.com/abo-abo/swiper)
+- [`Smex`](https://github.com/nonsequitur/smex) (如果你使用 Counsel 来增强你的 M-x，那么就不需要再安装 Smex 了)
+- [`Swiper & Counsel`](https://github.com/abo-abo/swiper)
 - [`smartparens`](https://github.com/Fuco1/smartparens)
 
 使用 `M-x customize-group` 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。 当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（`init.el`）中。
@@ -342,7 +342,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 - 语法高亮
 - 语法检查器（Linter）
 
-执行缓冲区的代码可以使用 `nodejs-repl` 插件，它需要你的机器上已经安装了 NodeJS 。在 Mac 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 `exec-path-from-shell` 的插件。
+执行缓冲区的代码可以使用 `nodejs-repl` 插件，它需要你的机器上已经安装了 NodeJS。在 Mac 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 `exec-path-from-shell` 的插件。
 
 ```
 (when (memq window-system '(mac ns))
