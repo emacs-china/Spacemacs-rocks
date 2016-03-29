@@ -1,14 +1,14 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Spacemacs Rocks （第二季）](#spacemacs-rocks-第二季)
-	- [第一集：准备开始](#第一集准备开始)
+	- [第一天：准备开始](#第一天准备开始)
 		- [基础操作](#基础操作)
 		- [内置功能](#内置功能)
 		- [学习基础 Elisp](#学习基础-elisp)
 		- [开始 Hacking！](#开始-hacking)
 		- [插件管理](#插件管理)
 		- [Org-mode](#org-mode)
-	- [第二集：高级自定义](#第二集高级自定义)
+	- [第二天：高级自定义](#第二天高级自定义)
 		- [Emacs 也很美](#emacs-也很美)
 		- [JavaScript IDE](#javascript-ide)
 		- [Org-mode 进阶](#org-mode-进阶)
@@ -20,7 +20,7 @@
 
 在这一季中计划在21天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
-## 第一集：准备开始
+## 第一天：准备开始
 
 视频地址如下
 
@@ -179,14 +179,13 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 *** 为三级标题并以此类推
 ```
 
-## 第二集：高级自定义
+## 第二天：高级自定义
 
 视频地址如下
 
 - [优酷视频](http://v.youku.com/v_show/id_XMTUxMzQyODI4MA==.html)
 - [百度网盘](http://pan.baidu.com/s/1c2Cw9ck)
 - [YouTube](https://youtu.be/aQRZxaU3pAI)
-
 
 **说在最前面**
 
@@ -239,7 +238,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 **配置插件源**
 
-在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [MELPA](https://melpa.org/) （Milkypostman's Emacas Lisp Package Archive）它有非常多的插件（3010 个插件）。下载的次数并不能说明它非常有用，也许这个插件是其他的插件依赖。在[这里](https://melpa.org/#/getting-started)你可以找到其安装使用方法。添加源后，我们就可以使用 `M-x package-list-packages` 来查看所有 MELPA 上的插件了。在表单中可以使用 `I` 来标记安装 `D` 来标记删除，`U` 来更新，并用 `X` 来确认。
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [MELPA](https://melpa.org/) （Milkypostman's Emacas Lisp Package Archive）它有非常多的插件（3000 多个插件）。下载的次数并不能说明它非常有用，也许这个插件是其他的插件依赖。在[这里](https://melpa.org/#/getting-started)你可以找到其安装使用方法。添加源后，我们就可以使用 `M-x package-list-packages` 来查看所有 MELPA 上的插件了。在表单中可以使用 `I` 来标记安装 `D` 来标记删除，`U` 来更新，并用 `X` 来确认。
 
 ```elisp
 (when (>= emacs-major-version 24)
@@ -348,7 +347,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代码块内的内容。在代码块中使用 `C-c '` 会直接打开对应模式的缓冲区（不仅限于 Lisp）。这样就使在 Org-mode 中编辑代码变的十分方便快捷。
 
-使用 `<s` 然后 <kbd>Tab</kbd> 可以直接插入代码块的模板（Snippet）。
+使用 `<s` 然后 <kbd>Tab</kbd> 可以直接插入代码块的代码片段（Snippet）。
 
 ```
  #+BEGIN_SRC emacs-lisp
@@ -381,4 +380,4 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ## 贡献人列表
 
-- [li-xinyang](https://github.com/li-xinyan)
+- [li-xinyang](https://github.com/li-xinyang)
