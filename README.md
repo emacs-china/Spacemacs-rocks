@@ -1,40 +1,32 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Spacemacs Rocks （第二季）](#spacemacs-rocks-%EF%BC%88%E7%AC%AC%E4%BA%8C%E5%AD%A3%EF%BC%89)
-  - [第一集：准备开始](#%E7%AC%AC%E4%B8%80%E9%9B%86%EF%BC%9A%E5%87%86%E5%A4%87%E5%BC%80%E5%A7%8B)
-    - [基础操作](#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C)
-    - [内置功能](#%E5%86%85%E7%BD%AE%E5%8A%9F%E8%83%BD)
-    - [学习基础 Elisp](#%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80-elisp)
-    - [开始 Hacking！](#%E5%BC%80%E5%A7%8B-hacking%EF%BC%81)
-    - [插件管理](#%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86)
-    - [Org-mode](#org-mode)
-  - [贡献人列表](#%E8%B4%A1%E7%8C%AE%E4%BA%BA%E5%88%97%E8%A1%A8)
+- [Spacemacs Rocks （第二季）](#spacemacs-rocks-第二季)
+	- [第一天：准备开始](#第一天准备开始)
+		- [基础操作](#基础操作)
+		- [内置功能](#内置功能)
+		- [学习基础 Elisp](#学习基础-elisp)
+		- [开始 Hacking！](#开始-hacking)
+		- [插件管理](#插件管理)
+		- [Org-mode](#org-mode)
+	- [第二天：高级自定义](#第二天高级自定义)
+		- [Emacs 也很美](#emacs-也很美)
+		- [JavaScript IDE](#javascript-ide)
+		- [Org-mode 进阶](#org-mode-进阶)
+	- [贡献人列表](#贡献人列表)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- /TOC -->
 
 # Spacemacs Rocks （第二季）
 
 在这一季中计划在21天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
-## 第一集：准备开始
-
-**内容大纲**
-
-- `00:00 - 01:55` Emacs 的安装
-- `02:00 - 10:00` Emacs 基础操作
-- `10:00 - 16:00` Emacs 内置功能
-- `16:00 - 24:00` 基础 Emacs Lisp
-- `24:00 - 34:00` 开始 Hacking ！
-- `34:00 - 41:00` 插件管理系统（Company 插件安装及 Mode 介绍）
-- `41:00 - 46:00` 基础 Org-mode 使用
+## 第一天：准备开始
 
 视频地址如下
 
 - [优酷视频](http://v.youku.com/v_show/id_XMTUwNjU0MjE0OA==.html)
 - [百度网盘](http://pan.baidu.com/s/1gep9DQV)
-- [YouTube](https://www.youtube.com/watch?v=0hpVuoyO8_o&feature=youtu.be)
+- [YouTube](https://www.youtube.com/watch?v=2Q0MhOR59u8)
 
 **说在最前面**
 
@@ -94,27 +86,27 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 下面为一些简单的例子
 
 ```elisp
-; 2 + 2
+;; 2 + 2
 (+ 2 2)
 
-; 2 + 3 * 4
+;; 2 + 3 * 4
 (+ 2 (* 3 4))
 
-; 定义变量
+;; 定义变量
 (setq name "username")
 (messasge name) ; -> "username"
 
-; 定义函数
+;; 定义函数
 (defun func()
   (message "Hello, %s" username))
 
-; 执行函数
+;; 执行函数
 (func) ; -> Hello, usernam
 
-; 设置快捷键
+;; 设置快捷键
 (global-set-key (kbd "<f1>") 'func)
 
-; 使函数可直接被调用可添加 (interactive)
+;; 使函数可直接被调用可添加 (interactive)
 (defun func()
   (interactive)
   (message "Hello, %s" username))
@@ -129,39 +121,39 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 一个文件类型同时只能存在一个 Major Mode 但是它可以同时激活多个 Minor Mode。
 
-使用 C-h m 可以显示当前所有开启的 Minor Mode。
+使用 `C-h m` 可以显示当前所有开启的 Minor Mode。
 
 **简单的编辑器自定义**
 
 ```elisp
-; 关闭工具栏 tool-bar-mode 即为一个 Minor Mode
+;; 关闭工具栏 tool-bar-mode 即为一个 Minor Mode
 (tool-bar-mode -1)
 
-; 关闭文件滑动控件
+;; 关闭文件滑动控件
 (scroll-bar-mode -1)
 
-; 显示行号
+;; 显示行号
 (global-linum-mode t)
 
-; 更改光标的样式
+;; 更改光标的样式（不能生效，解决方案见第二集）
 (setq cursor-type 'bar)
 
-; 关闭启动帮助画面
+;; 关闭启动帮助画面
 (setq inhibit-splash-screen t)
 
-; 关闭缩进
-(electric-indent-mode -1)
+;; 关闭缩进 (第二集中被去除)
+;; (electric-indent-mode -1)
 
-; 更改显示字体大小 16pt
-; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
 (set-face-attribute 'default nil :height 160)
 
-; 快速打开配置文件
+;; 快速打开配置文件
 (def open-init-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(global-set-key (kbd "<f2>") 'open-init-file')
+(global-set-key (kbd "<f2>") 'open-init-file)
 ```
 
 在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 `M-x load-file` 双击两次回车确认默认文件名，既可使刚刚修改的配置文件生效。当然你也可以将其绑定为快捷键。
@@ -186,6 +178,205 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 ** 为二级标题
 *** 为三级标题并以此类推
 ```
+
+## 第二天：高级自定义
+
+视频地址如下
+
+- [优酷视频](http://v.youku.com/v_show/id_XMTUxMzQyODI4MA==.html)
+- [百度网盘](http://pan.baidu.com/s/1c2Cw9ck)
+- [YouTube](https://youtu.be/aQRZxaU3pAI)
+
+**说在最前面**
+
+如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [An Introduction to Programming in Emacs Lisp](https://www.gnu.org/software/emacs/manual/html_mono/eintr.html) 。（`M-x info` 然后选择 Emacs Lisp Intro）
+
+我们先解决上一集中的一些问题。首先是区分 `setq` 与 `setq-default` 的区别，`setq` 为设置当前缓冲区（Buffer）中的变量值，`setq-default` 设置的为全局的变量的值（具体内容可以在 [StackOverflow 找到](http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp)）。下面是一个例子，用于设置光标样式的方法。
+
+```elisp
+(setq-default cursor-type 'bar)
+```
+
+禁止 Emacs 自动生成备份文件，例如 `init.el~`。`~` 为后缀的文件为自动生成的备份文件。因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余，我们可以使用下面的方法将其关闭。
+
+```elisp
+(setq make-backup-files nil)
+```
+
+分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了如何分屏操作的方法了。关于分屏的更多内容你可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html)找到。
+
+- `C-x 1` 仅保留当前窗口，
+- `C-x 2` 将当前窗口分到上边
+- `C-x 3` 将当前窗口分到右边
+
+我们再使用下面的配置加入最近打开过文件的选项让我们更快捷的打开最近编辑过的文件。
+
+```elisp
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+(global-set-key "\C-x\ \C-r" 'recent-open-files)
+```
+
+`require` 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统的更多内容，文章在[这里](http://ergoemacs.org/emacs/elisp_library_system.html)。
+
+*你可以使用 `C-x C-e` 来执行这一行的 Lisp 代码，或者使用 `M-x eval-buffer` 来执行整个缓冲区的 Lisp 代码*
+
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，
+
+```elisp
+(delete-selection-mode t)
+```
+
+下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
+
+- `find-function`（`C-h C-f`）
+- `find-variable`（`C-h C-v`）
+- `find-function-on-key`（`C-h C-k`）
+
+### Emacs 也很美
+
+**配置插件源**
+
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [MELPA](https://melpa.org/) （Milkypostman's Emacas Lisp Package Archive）它有非常多的插件（3000 多个插件）。下载的次数并不能说明它非常有用，也许这个插件是其他的插件依赖。在[这里](https://melpa.org/#/getting-started)你可以找到其安装使用方法。添加源后，我们就可以使用 `M-x package-list-packages` 来查看所有 MELPA 上的插件了。在表单中可以使用 `I` 来标记安装 `D` 来标记删除，`U` 来更新，并用 `X` 来确认。
+
+```elisp
+(when (>= emacs-major-version 24)
+    (require 'package)
+    (package-initialize)
+    (add-to-list 'package-archives '("melpa" . "http://melpRETa.org/packages/") t)
+    )
+
+;; cl - Common Lisp Extension
+(require 'cl)
+
+;; Add Packages
+(defvar YOUR_NAME_HERE/packages '(
+			   company
+			   hungry-delete
+			   swiper
+			   counsel
+			   smartparens
+			   js2-mode
+			   nodejs-repl
+			   exec-path-from-shell
+			   monokai-theme
+			   ) "Default packages")
+
+(setq package-selected-packages YOUR_NAME_HERE/packages)
+(defun YOUR_NAME_HERE/packages-installed-p ()
+    (loop for pkg in YOUR_NAME_HERE/packages
+          when (not (package-installed-p pkg)) do (return nil)
+          finally (return t)))
+(unless (YOUR_NAME_HERE/packages-installed-p)
+    (message "%s" "Refreshing package database...")
+    (package-refresh-contents)
+    (dolist (pkg YOUR_NAME_HERE/packages)
+      (when (not (package-installed-p pkg))
+        (package-install pkg))))
+;; Find Executable Path on OS X
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+```
+
+我们可以将 Emacs 设置为开启默认全屏，
+
+```elisp
+(setq initial-frame-alist (quote ((fullscreen . maximized))))
+```
+
+我们也可以启用自动括号匹配（Highlight Matching Parenthesis），随后会介绍插件来增强这个匹配的功能。你可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html)读到关于钩子的更多信息。
+
+```elisp
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+```
+
+高亮当前行，当文本内容很多时可以很容易找到光标的位置。
+
+```elisp
+(global-hl-line-mode t)
+```
+
+**安装主题**
+
+```elisp
+(add-to-list 'monokai-theme)
+```
+
+然后使用下面的配置使其每次打开编辑器时加载主题，
+
+```elisp
+(load-theme 'monokai t)
+```
+
+**推荐插件**
+
+- [`hungry-delete`](https://github.com/nflath/hungry-delete)
+- [`Smex`](https://github.com/nonsequitur/smex)
+- [`Swiper`](https://github.com/abo-abo/swiper)
+- [`smartparens`](https://github.com/Fuco1/smartparens)
+
+使用 `M-x customize-group` 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。 当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（`init.el`）中。
+
+### JavaScript IDE
+
+将默认的 JavaScript 的模式设置为 `js2-mode` 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 下载。
+
+```elisp
+(setq auto-mode-alist
+	  (append
+	   '(("\\.js\\'" . js2-mode))
+	   auto-mode-alist))
+```
+
+这个新模式提供会提供
+
+- 语法高亮
+- 语法检查器（Linter）
+
+执行缓冲区的代码可以使用 `nodejs-repl` 插件，它需要你的机器上已经安装了 NodeJS 。在 Mac 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 `exec-path-from-shell` 的插件。
+
+```
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+```
+
+有了 `nodejs-repl` 我们就可以方便的测试和开发我们的 JavaScript 代码了。
+
+### Org-mode 进阶
+
+在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代码块内的内容。在代码块中使用 `C-c '` 会直接打开对应模式的缓冲区（不仅限于 Lisp）。这样就使在 Org-mode 中编辑代码变的十分方便快捷。
+
+使用 `<s` 然后 <kbd>Tab</kbd> 可以直接插入代码块的代码片段（Snippet）。
+
+```
+ #+BEGIN_SRC emacs-lisp
+ ;; Your code goes here
+ ;; 你的代码写在这里
+ #+END_SRC
+```
+
+**添加 Org-mode 文本内语法高亮**
+
+```elisp
+(require 'org)
+(setq org-src-fontify-natively t)
+```
+
+在 Org-mode 中重置有序列表序号可以直接使用 M-<Ret> 。
+
+**Agenda 的使用**
+
+```
+(setq org-agenda-files '("~/org"))
+  (global-set-key (kbd "C-c a") 'org-agenda)
+```
+
+你只需将你的 `*.org` 文件放入指定的文件夹中就可以开始使用 Agenda 模式了。
+
+- `C-c C-s` 选择想要完成的时间
+- `C-c C-d` 选择想要结束的时间
+- `C-c a` 可以打开 Agenda 模式菜单并选择不同的可视方式（`r` 可以在不同的可视方式中更新）
 
 ## 贡献人列表
 
