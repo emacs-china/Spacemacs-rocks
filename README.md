@@ -162,7 +162,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ### 插件管理
 
-使用默认的插件管理系统（可在菜单栏中找到 `Options > Manage Emacs Packages` 中），安装 `Company`插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（Complete Anything）。
+使用默认的插件管理系统（可在菜单栏中找到 `Options > Manage Emacs Packages` 中），安装 [`Company`](http://company-mode.github.io/) 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（Complete Anything）。
 
 ```elisp
 ; 开启全局 Company 补全
@@ -196,6 +196,8 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 ```elisp
 (setq-default cursor-type 'bar)
 ```
+
+今天我们将第一天关闭的自动缩进(`electric-indent-mode`)从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[文章](http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/)中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Elisp 中用分号做注释时 `fancy-comment` 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 `;;`，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
 禁止 Emacs 自动生成备份文件，例如 `init.el~`。`~` 为后缀的文件为自动生成的备份文件。因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余，我们可以使用下面的方法将其关闭。
 
@@ -272,20 +274,70 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
                ) "Default packages")
 
 (setq package-selected-packages YOUR_NAME_HERE/packages)
+
 (defun YOUR_NAME_HERE/packages-installed-p ()
     (loop for pkg in YOUR_NAME_HERE/packages
           when (not (package-installed-p pkg)) do (return nil)
           finally (return t)))
+
 (unless (YOUR_NAME_HERE/packages-installed-p)
     (message "%s" "Refreshing package database...")
     (package-refresh-contents)
     (dolist (pkg YOUR_NAME_HERE/packages)
       (when (not (package-installed-p pkg))
         (package-install pkg))))
+
 ;; Find Executable Path on OS X
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 ```
+
+关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 `loop for ... in`，它来自 `cl` 既 Common Lisp 扩展。`for`, `in`, `collection` 均为 `cl-loop` 中的保留关键字。下面是一些简单的 `cl-loop` 的使用示例，
+
+```Lisp
+;; 遍历每一个缓冲区（Buffer）
+(cl-loop for buf in (buffer-list)
+				 collection (buffer-file-name buf))
+
+;; 寻找 729 的平方根（设置最大为 100 为了防止无限循环）
+(cl-loop for x from 1 to 100
+				 for y = (* x x)
+				 until (>= y 729)
+				 finally return (list x (= y 729)))
+```
+
+你可以在[这里](http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility)找到更多关于循环的使用说明。
+
+
+其次就是它使用到了 `quote`, 它其实就是我们之前常常见到的 `'`（单引号）的完全体。
+
+```Lisp
+;; 下面两行的效果完全等同
+(quote foo)
+'foo
+```
+
+它的意思是不要执行后面的内容，返回它原本的内容（参加下面的例子）
+
+```
+(print '(+ 1 1)) ;; -> (+ 1 1)
+(print (+ 1 1))  ;; -> 2
+```
+
+更多关于 `quote` 的内容可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html)找到，或者在[这里](http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp)找到 StackOverflow 上对于 `'` 的讨论。
+
+这样我们就可以区分下面三行代码的区别，
+
+```Lisp
+;; 第一种
+(setq package-selected-packages YOUR_NAME_HERE/packages)
+;; 第二种
+(setq package-selected-packages 'YOUR_NAME_HERE/packages)
+;; 第三种
+(setq package-selected-packages (quote YOUR_NAME_HERE/packages))
+```
+
+第一种设置是在缓冲区中设置一个名为 `package-selected-packages` 的变量，将其的值设定为 `YOUR_NAME_HERE/packages` 变量的值 。第二种和第三种其实是完全相同的，将一个名为 `package-selected-packages` 的变量设置为 `YOUR_NAME_HERE/packages`。
 
 我们可以用下面代码将 Emacs 设置为开启默认全屏，
 
@@ -319,16 +371,17 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 **推荐插件**
 
+- [`company`](http://company-mode.github.io/)
 - [`hungry-delete`](https://github.com/nflath/hungry-delete)
 - [`Smex`](https://github.com/nonsequitur/smex) (如果你使用 Counsel 来增强你的 M-x，那么就不需要再安装 Smex 了)
 - [`Swiper & Counsel`](https://github.com/abo-abo/swiper)
 - [`smartparens`](https://github.com/Fuco1/smartparens)
 
-使用 `M-x customize-group` 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。 当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（`init.el`）中。
+使用 `M-x customize-group` 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。 当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（`init.el`）中。关于各个插件的安装与使用方法通常都可以在其官方页面找到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
 ### JavaScript IDE
 
-将默认的 JavaScript 的模式设置为 `js2-mode` 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 下载。
+将默认的 JavaScript 的模式设置为 [`js2-mode`](https://github.com/mooz/js2-mode) 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 下载。
 
 ```elisp
 (setq auto-mode-alist
@@ -337,7 +390,35 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 	   auto-mode-alist))
 ```
 
-在 js2-mode 模式中会提供
+你可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html)（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何种 Major Mode 的方法。
+
+在这里我们需要知道 `auto-mode-alist` 的作用，这个变量是一个 [`AssociationList`](https://www.emacswiki.org/emacs/AssociationList)，它使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Model 。 下面是几个正则表达式匹配的例子，
+
+```Lisp
+(("\\`/tmp/fol/" . text-mode)
+ ("\\.texinfo\\'" . texinfo-mode)
+ ("\\.texi\\'" . texinfo-mode)
+ ("\\.el\\'" . emacs-lisp-mode)
+ ("\\.c\\'" . c-mode)
+ ("\\.h\\'" . c-mode)
+ …)
+```
+
+下面是如何添加新的模式的例子（与我们的所使用的配置 `js2-mode` 的例子相似），
+
+```Lisp
+(setq auto-mode-alist
+  (append
+   ;; File name (within directory) starts with a dot.
+   '(("/\\.[^/]*\\'" . fundamental-mode)
+     ;; File name has no dot.
+     ("/[^\\./]*\\'" . fundamental-mode)
+     ;; File name ends in ‘.C’.
+     ("\\.C\\'" . c++-mode))
+   auto-mode-alist))
+```
+
+在 `js2-mode` 模式中会提供
 
 - 语法高亮
 - 语法检查器（Linter）
@@ -371,16 +452,19 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 (setq org-src-fontify-natively t)
 ```
 
-在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
+在 Org-mode 中重置有序列表序号可以直接使用 M-\<RET\> 。
 
 **Agenda 的使用**
 
 ```
+;; 设置默认 Org Agenda 文件目录
 (setq org-agenda-files '("~/org"))
-  (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; 设置 org-agenda 打开快捷键
+(global-set-key (kbd "C-c a") 'org-agenda)
 ```
 
-你只需将你的 `*.org` 文件放入指定的文件夹中就可以开始使用 Agenda 模式了。
+你只需将你的 `*.org` 文件放入上面所指定的文件夹中就可以开始使用 Agenda 模式了。
 
 - `C-c C-s` 选择想要完成的时间
 - `C-c C-d` 选择想要结束的时间
