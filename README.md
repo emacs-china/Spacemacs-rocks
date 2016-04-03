@@ -20,7 +20,7 @@
 
 ![Artwork](./Artwork.png)
 
-在这一季中计划在 21 天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+在这一季中我们计划用 21 天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
 ## 第一天：准备开始
 
@@ -36,36 +36,36 @@
 
 如果你还没有安装 Emacs 可以在 [Mac OS X 安装链接](http://emacsformacosx.com/builds)以及 [Window 安装链接](http://emacsbinw64.sourceforge.net/)找到它。
 
-在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 `C-h t`（同时按住 Ctrl 与 h 键，接着按 t 键（t 代表 tutorial）） 在 Emacs 中直接将其打开。
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 `C-h t`（同时按住 <kbd>Ctrl</kbd> 与 <kbd>h</kbd> 键，接着按 <kbd>t</kbd> 键 `t` 在这里代表 tutorial ） 在 Emacs 中直接将其打开。
 
 Elisp 是 Emacs 所用的编程语言，你可以在阅读[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)后很快的了解它的基础用法。
 
 ### 基础操作
 
-因为 Control 键在 Emacs 中极为常用所以为了更方便的使用 Emacs 的键位修改，需要对其做出修改。建议将大写锁定键（Caps Lock）替换为 Control 键。各个系统下的具体修改方式请自行搜索。
+因为 <kbd>Control</kbd> 键在 Emacs 中极为常用所以为了更方便的使用 Emacs 的键位修改，需要对其做出修改。建议将大写锁定键（Caps Lock）替换为 <kbd>Control</kbd> 键。各个系统下的具体修改方式请自行搜索。
 
 常见符号所代表的意义如下
 
-- M(eta)，在 Mac 下为 Option 键
-- s(uper)，在 Mac 环境下为左 Command 键
+- M(eta)，在 Mac 下为 <kbd>Option</kbd> 键
+- s(uper)，在 Mac 环境下为左 <kbd>Command</kbd> 键
 - S(Shift)
 - C(trl)
 
 光标的移动是编辑器中最常用的操作所以必须熟知。
 
-- C-f 为前移一个字符，f 代表 forward。
-- C-b 为后移一个字符，b 代表 backward。
-- C-p 为上移至前一行，p 代表 previous。
-- C-n 为上移至下一行，n 代表 next。
-- C-a 为移至行首，a 可以理解为最前端。
-- C-e 为移至行尾，e 代表 end。
+- `C-f` 为前移一个字符，`f` 代表 forward。
+- `C-b` 为后移一个字符，`b` 代表 backward。
+- `C-p` 为上移至前一行，`p` 代表 previous。
+- `C-n` 为上移至下一行，`n` 代表 next。
+- `C-a` 为移至行首，`a` 可以理解为最前端。
+- `C-e` 为移至行尾，`e` 代表 end。
 
 常用的文件操作快捷键组合也必须熟记。
 
-- C-x C-f 为打开目标文件，f 代表 find/file
-- C-x C-s 为保存当前缓冲区（Buffer），s 代表 save
+- `C-x C-f` 为打开目标文件，`f` 代表 find/file
+- `C-x C-s` 为保存当前缓冲区（Buffer），`s` 代表 save
 
-打断组合键为 C-g 用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
+打断组合键为 `C-g` 用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
 
 ### 内置功能
 
@@ -83,7 +83,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 ### 学习基础 Elisp
 
-请务必完成[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[这里](https://learnxinyminutes.com/docs/zh-cn/elisp-cn/)找到它的中文版。Elisp 为一个函数式的语言其所有功能都是由函数来实现的。
+请务必完成[这篇教程（Learn X in Y Minutes）](https://learnxinyminutes.com/docs/elisp/)来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[这里](https://learnxinyminutes.com/docs/zh-cn/elisp-cn/)找到它的中文版。Elisp 为一个函数式的语言其，所以它全部功能都是由函数来实现的。
 
 下面为一些简单的例子
 
@@ -117,15 +117,15 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 ### 开始 Hacking！
 
-Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果不存在可自行创建）
+Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果其不存在可自行创建，配置文件也可保存在`~/.emacs` 文件中，他们之间的区别我们会在后面做讨论）
 
-在开始之前我们先来区别 Emacs 中 Major Mode 与 Minor Mode。Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。Minor Mode 除去核心功能以外的编辑功能均为 Minor Mode 所提供。
+在开始配置之前让我们先来区别 Emacs 中 Major Mode 与 Minor Mode 的区别。Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。而 Minor Mode 是除去 Major Mode 所提供的核心功能以外的额外编辑功能（辅助功能）。例如在下面的配置文件中 `tool-bar-mode` 与 `linum-mode` 等均为 Minor Mode*。
 
-一个文件类型同时只能存在一个 Major Mode 但是它可以同时激活多个 Minor Mode。
-
-使用 `C-h m` 可以显示当前所有开启的 Minor Mode。
+简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多种 Minor Mode。如果你希望知道当前的模式信息，可以使用 `C-h m` 来显示当前所有开启的全部 Minor Mode 的信息。
 
 **简单的编辑器自定义**
+
+下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中（`~/.emacs.d/init.el`）即可。
 
 ```elisp
 ;; 关闭工具栏 tool-bar-mode 即为一个 Minor Mode
@@ -143,7 +143,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 ;; 关闭启动帮助画面
 (setq inhibit-splash-screen t)
 
-;; 关闭缩进 (第二集中被去除)
+;; 关闭缩进 (第二天中被去除)
 ;; (electric-indent-mode -1)
 
 ;; 更改显示字体大小 16pt
@@ -155,16 +155,17 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
+;; 这种快捷键，将函数 open-init-file 绑定 <f2> 键
 (global-set-key (kbd "<f2>") 'open-init-file)
 ```
 
-在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 `M-x load-file` 双击两次回车确认默认文件名，既可使刚刚修改的配置文件生效。当然你也可以将其绑定为快捷键。
-
-`tool-bar-mode` 与 `linum-mode` 等均为 *minor mode*。
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 `M-x load-file` 双击两次回车确认默认文件名，或者使用 `M-x eval-buffer` 去执行当前缓冲区的所以 Lisp 命令。你也可以使用 `C-x C-e` 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。当然你也可以将他们绑定为快捷键。
 
 ### 插件管理
 
-使用默认的插件管理系统（可在菜单栏中找到 `Options > Manage Emacs Packages` 中），安装 [`Company`](http://company-mode.github.io/) 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（Complete Anything）。
+使用默认的插件管理系统（可在菜单栏中找到 `Options > Manage Emacs Packages` 中），安装 [`Company`](http://company-mode.github.io/) 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（Complete Anything）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
+
+使用的下面的配置将 Comany-mode 在全局模式下激活
 
 ```elisp
 ; 开启全局 Company 补全
@@ -193,38 +194,38 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [An Introduction to Programming in Emacs Lisp](https://www.gnu.org/software/emacs/manual/html_mono/eintr.html) 。（`M-x info` 然后选择 Emacs Lisp Intro）
 
-我们先解决上一集中的一些问题。首先是区分 `setq` 与 `setq-default` 的区别，`setq` 为设置当前缓冲区（Buffer）中的变量值，`setq-default` 设置的为全局的变量的值（具体内容可以在 [StackOverflow 找到](http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp)）。下面是一个例子，用于设置光标样式的方法。
+我们先解决前一天中遇到的一些问题。首先是区分 `setq` 与 `setq-default` 的区别，`setq` 为设置当前缓冲区（Buffer）中的变量值，`setq-default` 设置的为全局的变量的值（具体内容可以在 [StackOverflow 找到](http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp)）。下面是一个例子，用于设置光标样式的方法。
 
 ```elisp
 (setq-default cursor-type 'bar)
 ```
 
-今天我们将第一天关闭的自动缩进(`electric-indent-mode`)从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[文章](http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/)中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Elisp 中用分号做注释时 `fancy-comment` 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 `;;`，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
+今天我们需要将第一天关闭的自动缩进(`electric-indent-mode`)从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[文章](http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/)中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Elisp 中用分号做注释时 `fancy-comment` 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 `;;`，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
-禁止 Emacs 自动生成备份文件，例如 `init.el~`。`~` 为后缀的文件为自动生成的备份文件。因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余，我们可以使用下面的方法将其关闭。
+因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 `init.el~`。（`~` 为后缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
 
 ```elisp
 (setq make-backup-files nil)
 ```
 
-分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了如何分屏操作的方法了。关于分屏的更多内容你可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html)找到。
+关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏操作方法了。关于分屏的更多内容你可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html)找到。
 
 - `C-x 1` 仅保留当前窗口，
 - `C-x 2` 将当前窗口分到上边
 - `C-x 3` 将当前窗口分到右边
 
-我们再使用下面的配置加入最近打开过文件的选项让我们更快捷的打开最近编辑过的文件。
+使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近编辑过的文件。
 
 ```elisp
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-item 10)
-(global-set-key "\C-x\ \C-r" 'recent-open-files)
+
+;; 这个快捷键绑定可以用之后的插件 counsel 代替
+;; (global-set-key "\C-x\ \C-r" 'recent-open-files)
 ```
 
 `require` 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统的更多内容，文章在[这里](http://ergoemacs.org/emacs/elisp_library_system.html)。
-
-*你可以使用 `C-x C-e` 来执行这一行的 Lisp 代码，或者使用 `M-x eval-buffer` 来执行整个缓冲区的 Lisp 代码*
 
 使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，
 
@@ -315,23 +316,22 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 你可以在[这里](http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility)找到更多关于循环的使用说明。
 
-
-其次就是它使用到了 `quote`, 它其实就是我们之前常常见到的 `'`（单引号）的完全体。
+其次就是它使用到了 `quote`, 它其实就是我们之前常常见到的 `'`（单引号）的完全体。因为它在 Lisp 中十分常用，所以就提供了简写的方法。
 
 ```Lisp
-;; 下面两行的效果完全等同
+;; 下面两行的效果完全相同的
 (quote foo)
 'foo
 ```
 
-它的意思是不要执行后面的内容，返回它原本的内容（参加下面的例子）
+`quote` 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
 
 ```
 (print '(+ 1 1)) ;; -> (+ 1 1)
 (print (+ 1 1))  ;; -> 2
 ```
 
-更多关于 `quote` 的内容可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html)找到，或者在[这里](http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp)找到 StackOverflow 上对于 `'` 的讨论。
+更多关于 `quote` 的内容可以在[这里](https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html)找到，或者在[这里](http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp)找到 StackOverflow 上对于它的讨论。
 
 这样我们就可以区分下面三行代码的区别，
 
@@ -388,7 +388,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 ### JavaScript IDE
 
-将默认的 JavaScript 的模式设置为 [`js2-mode`](https://github.com/mooz/js2-mode) 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 下载。
+ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式替换成 [`js2-mode`](https://github.com/mooz/js2-mode) 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然后用下面的代码将其启用。
 
 ```elisp
 (setq auto-mode-alist
@@ -411,7 +411,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
  …)
 ```
 
-下面是如何添加新的模式的例子（与我们的所使用的配置 `js2-mode` 的例子相似），
+下面是如何添加新的模式与对应文件类型的例子（与我们配置 `js2-mode` 时相似的例子），
 
 ```Lisp
 (setq auto-mode-alist
@@ -430,14 +430,14 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 - 语法高亮
 - 语法检查器（Linter）
 
-执行缓冲区的代码可以使用 `nodejs-repl` 插件，它需要你的机器上已经安装了 NodeJS。在 Mac 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 `exec-path-from-shell` 的插件。
+执行缓冲区的代码可以使用 `nodejs-repl` 插件，它需要你的机器上已经安装了 NodeJS。然而在 Mac  OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 `exec-path-from-shell` 的插件并将其启用。
 
 ```
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 ```
 
-有了 `nodejs-repl` 我们就可以方便的测试和开发我们的 JavaScript 代码了。
+有了 `nodejs-repl` 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在[这里](https://github.com/mooz/js2-mode)找到更多关于它的使用方法）。
 
 ### Org-mode 进阶
 
