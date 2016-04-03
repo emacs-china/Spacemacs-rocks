@@ -443,7 +443,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 
 在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代码块内的内容。在代码块中使用 `C-c '` 会直接打开对应模式的缓冲区（不仅限于 Lisp）。这样就使在 Org-mode 中编辑代码变的十分方便快捷。
 
-使用 `<s` 然后 <kbd>Tab</kbd> 可以直接插入代码块的代码片段（Snippet）。
+使用 `<s` 然后 <kbd>Tab</kbd> 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段（Org-mode Easy Templates）可以在[这里](http://orgmode.org/manual/Easy-Templates.html)找到。
 
 ```
  #+BEGIN_SRC emacs-lisp
