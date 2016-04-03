@@ -236,6 +236,11 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 - `find-variable`（`C-h C-v`）
 - `find-function-on-key`（`C-h C-k`）
 
+在我们进入下一个部分之间让我们来看看使用 `~/.emacs.d/init.el` 与 `~/.emacs` 的区别（更多关于他们区别的讨论可以在[这里](http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs)找到）。简单来说请使用前者它有下面的两天有点，
+
+- 它可以更好将所有 Emacs 相关的文件整合在一个目录内（干净的 `HOME`，网盘备份等优点）
+- 更好的版本控制
+
 ### Emacs 也很美
 
 **配置插件源**
@@ -245,7 +250,7 @@ Emacs 的配置文件默认保存在 `~/.emacs.d/init.el` 文件中。（如果�
 你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 `YOUR_NAME_HERE/packages` 中，Emacs 在启动时会自动下载未被安装的插件。
 
 ```elisp
-(when (>= emacs-major-version 24)
+(when (>= emacs-majooar-version 24)
     (require 'package)
     (package-initialize)
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
