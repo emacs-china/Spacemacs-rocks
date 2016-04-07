@@ -6,6 +6,30 @@
 3. features, provide and require, autoload
 4. naming conventions
    all of the names should have a prefix, such that the naming conflicts could be minimal.  
+5. define your abbrevs
+#+BEGIN_SRC emacs-lisp
+    (abbrev-mode t)
+
+  (define-abbrev-table 'global-abbrev-table '(
+                                              ;; signature
+                                              ("8zl" "zilongshanren")
+                                              ;; emacs regex
+                                              
+                                              ))
+#+END_SRC
+6. use `counsel-git` to find file in git managed project.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c p f") 'counsel-git)
+#+END_SRC
+
+** Major mode and minor mode in details
+1. conventions
+text-mode/special-mode/prog-mode
+naming:  xxx-mode,  xxx-mode-key-map  xxx-mode-hook
+
+2. mode key map and mode hook
+
+3. eval-after-load and with-eval-after-load
    
 ** Better defaults
 1. C-a to smart move to the beginning of the line.
@@ -62,7 +86,7 @@
 
 
 #+END_SRC
-3. You might want to swap meta and super key on Mac.
+3. another way to complete things in Emacs.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "s-/") 'hippie-expand)
 ;; hippie expand is dabbrev expand on steroids
@@ -85,6 +109,11 @@
 5. auto revert file when they are changed outside the editor
 #+BEGIN_SRC emacs-lisp
 (global-auto-revert-mode t)
+#+END_SRC
+
+6. disable wired copy & paste issue
+#+BEGIN_SRC emacs-lisp 
+(setq mouse-yank-at-point t)
 #+END_SRC
 
 ** Dired mode and file related operations
@@ -126,21 +155,17 @@ Packages:
 
 reveal-in-osx-finder for openning the finder of the current file.
 
-   
-** ansi-term mode and execute shell command inside Emacs!
-1. demo the basics of ansi-term mode
-execute the basic shell
 
-2. fix executing copied shell commands (C-c C-j  vs C-c C-k)
-toggle between line mode and char mode.
 
-3. Windows users might want to use eshell
-demo
-   
-** Bonus Time
-   Use Org-mode to organize your Emacs configurations. 
+** Bonus Time. Use Org-mode literate programming to organize your Emacs configurations. 
 #+BEGIN_SRC emacs-lisp
 (require 'org-install)
 (require 'ob-tangle)
 (org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
 #+END_SRC
+
+
+
+** Exercise
+1. define C-x C-e in Js2-mode to eval js expression after node-repl mode is actived.
+2. Only turn on Linum-mode when doing programming (tips: use prog-mode-hook)
