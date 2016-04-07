@@ -2,6 +2,15 @@
   
 ** Split your configs into multiple files
 1. use Git to management your init file
+
+2. help window is anoyying.. 
+#+BEGIN_SRC emacs-lisp
+;; add popwin mode
+;; why this line is needed
+(require 'popwin)    ;;when require, when not require
+(popwin-mode t)
+#+END_SRC
+
 2. load-file, load-path and load
 3. features, provide and require, autoload
 4. naming conventions
@@ -21,6 +30,7 @@
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c p f") 'counsel-git)
 #+END_SRC
+
 
 ** Major mode and minor mode in details
 1. conventions
