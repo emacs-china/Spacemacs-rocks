@@ -1,0 +1,107 @@
+* Spacemacs Rocks Episode 2 (Day Three)
+  
+** Split your configs into multiple files
+1. use Git to management your init file
+2. load-file, load-path and load
+3. features, provide and require, autoload
+4.** Better defaults
+ naming conventions
+   all of the names should have a prefix, such that the naming conflicts could be minimal.  
+   
+** Better defaults
+1. C-a to smart move to the beginning of the line.
+#+BEGIN_SRC emacs-lisp
+  ;;http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
+
+  (defun smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
+
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
+
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+     
+  ;; remap C-a to `smarter-move-beginning-of-line'
+  (global-set-key [remap move-beginning-of-line]
+                  'smarter-move-beginning-of-line)
+#+END_SRC
+2. Indent-region
+#+BEGIN_SRC emacs-lisp
+  (defun indent-buffer ()
+    "Indent the currently visited buffer."
+    (interactive)
+    (indent-region (point-min) (point-max)))
+
+  (defun indent-region-or-buffer ()
+    "Indent a region if selected, otherwise the whole buffer."
+    (interactive)
+    (save-excursion
+      (if (region-active-p)
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indented selected region."))
+        (progn
+          (indent-buffer)
+          (message "Indented buffer.")))))
+
+  (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+
+
+#+END_SRC
+3. You might want to swap meta and super key on Mac.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-/") 'hippie-expand)
+#+END_SRC
+4. disable audio bell
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+** Dired mode and file related operations
+1. copy, delete and rename file
+C/D/R 
+
+2. add new file and folder
+
++ for adding new folders,
+C-x C-f to create a new file.
+
+3. open dired of current buffer
+#+BEGIN_SRC emacs-lisp
+  (require 'dired-x)
+#+END_SRC
+after applying this setting, we could press `C-x C-j` to jump to the dired buffer of current file.
+
+4. open finder on Mac. (optional)
+Packages:
+
+reveal-in-osx-finder for openning the finder of the current file.
+
+   
+** ansi-term mode and execute shell command inside Emacs!
+1. demo the basics of ansi-term mode
+execute the basic shell
+
+2. fix executing copied shell commands (C-c C-j  vs C-c C-k)
+toggle between line mode and char mode.
+
+3. Windows users might want to use eshell
+demo
+   
+** Bonus Time
+   Use Org-mode to organize your Emacs configurations. 
