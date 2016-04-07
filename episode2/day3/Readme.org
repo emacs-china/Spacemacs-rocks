@@ -4,8 +4,7 @@
 1. use Git to management your init file
 2. load-file, load-path and load
 3. features, provide and require, autoload
-4.** Better defaults
- naming conventions
+4. naming conventions
    all of the names should have a prefix, such that the naming conflicts could be minimal.  
    
 ** Better defaults
@@ -66,15 +65,50 @@
 3. You might want to swap meta and super key on Mac.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "s-/") 'hippie-expand)
+;; hippie expand is dabbrev expand on steroids
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name-partially
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-list
+                                         try-expand-line
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol))
 #+END_SRC
 4. disable audio bell
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
 #+END_SRC
 
+5. auto revert file when they are changed outside the editor
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode t)
+#+END_SRC
+
 ** Dired mode and file related operations
 1. copy, delete and rename file
-C/D/R 
+Copy/Delete/Rname files and folders
+
+#+BEGIN_SRC emacs-lisp
+  ;; dired - reuse current buffer by pressing 'a'
+  (put 'dired-find-alternate-file 'disabled nil)
+
+  ;; always delete and copy recursively
+  (setq dired-recursive-deletes 'always)
+  (setq dired-recursive-copies 'always)
+
+  ;; if there is a dired buffer displayed in the next window, use its
+  ;; current subdir, instead of the current subdir of this dired buffer
+  (setq dired-dwim-target t)
+
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+
+;; less typing when Emacs ask you yes or no
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+#+END_SRC
 
 2. add new file and folder
 
@@ -105,3 +139,8 @@ demo
    
 ** Bonus Time
    Use Org-mode to organize your Emacs configurations. 
+#+BEGIN_SRC emacs-lisp
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
+#+END_SRC
