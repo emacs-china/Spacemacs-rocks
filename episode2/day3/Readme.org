@@ -7,15 +7,21 @@
 #+BEGIN_SRC emacs-lisp
 ;; add popwin mode
 ;; why this line is needed
-(require 'popwin)    ;;when require, when not require
+(require 'popwin) (require 'init-packages)
+   ;;when require, wh(setq company-minimum-prefix-length 1)en not require
 (popwin-mode t)
 #+END_SRC
 
-2. load-file, load-path and load
-3. features, provide and require, autoload
-4. naming conventions
+3. load-file, load-path and load
+4. features, provide and require, autoload
+5. naming conventions
+zilongshanren/xxxx
+minor mode or major mode.
+niubi-mode
+niubi-xxx 
+
    all of the names should have a prefix, such that the naming conflicts could be minimal.  
-5. define your abbrevs
+6. define your abbrevs
 #+BEGIN_SRC emacs-lisp
     (abbrev-mode t)
 
@@ -26,7 +32,17 @@
                                               
                                               ))
 #+END_SRC
-6. use `counsel-git` to find file in git managed project.
+7. how to organize your configs
+- init-packages.el
+- init-ui.el
+- init-better-defaults.el
+- init-keybindings.el
+- custom.el
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+#+END_SRC
+
+8. use `counsel-git` to find file in git managed project.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c p f") 'counsel-git)
 #+END_SRC
@@ -39,7 +55,7 @@ naming:  xxx-mode,  xxx-mode-key-map  xxx-mode-hook
 
 2. mode key map and mode hook
 
-3. eval-after-load and with-eval-after-load
+3. let's take a look at a pacakge in elpa (company)
    
 ** Better defaults
 1. C-a to smart move to the beginning of the line.
@@ -73,7 +89,7 @@ naming:  xxx-mode,  xxx-mode-key-map  xxx-mode-hook
   (global-set-key [remap move-beginning-of-line]
                   'smarter-move-beginning-of-line)
 #+END_SRC
-2. Indent-region
+2. Indent-region or buffer
 #+BEGIN_SRC emacs-lisp
   (defun indent-buffer ()
     "Indent the currently visited buffer."
