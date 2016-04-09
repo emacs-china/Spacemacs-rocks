@@ -1,4 +1,4 @@
-* Spacemacs Rocks Episode 2 ( Day one)                                  :TOC:
+* Spacemacs Rocks Season 2 ( Day one)                                   :TOC:
    - [[#install-emacs][Install Emacs]]
    - [[#go-over-the-emacs-tutorial-at-least-once][Go over the Emacs tutorial at least once]]
    - [[#learn-to-active-some-built-in-functionality-org-mode][Learn to active some built-in functionality (org-mode)]]

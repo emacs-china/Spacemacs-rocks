@@ -1,4 +1,4 @@
-* Spacemacs Rocks Episode 2 ( Day two )                                 :TOC:
+* Spacemacs Rocks Season 2 ( Day two )                                  :TOC:
    - [[#fixes-some-annoying-stuff][Fixes some annoying stuff]]
    - [[#make-emacs-more-fancy][Make Emacs more fancy]]
    - [[#improve-built-in-package-system][Improve built-in package system]]
