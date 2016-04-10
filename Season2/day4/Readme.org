@@ -1,0 +1,108 @@
+* Spacemacs Rocks Season 2 (Day 4)
+** Talk more about load, load-file, require, provide and auto-load
+
+** Better defaults
+1. Indent-region or buffer
+#+BEGIN_SRC emacs-lisp
+  (defun indent-buffer ()
+    "Indent the currently visited buffer."
+    (interactive)
+ reveal-in-osx-finder   It is bound to RET, a.
+(indent-rSpacemacsegion (point-min) (point-max)))
+
+  (defun indent-region-or-buffer ()
+    "Indent a region if selected, otherwise the whole buffer."
+    (interactive)
+    (save-excursion
+      (if (region-active-p)
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indented selected region."))
+        (progn
+          (indent-buffer)
+          (message "Indented buffer.")))))
+
+  (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+
+
+#+END_SRC
+2. another way to complete things in Emacs.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-/") 'hippie-expand)
+
+;; hippie expand is dabbrev expand on steroids
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name-partially
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-list
+                                         try-expand-line
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol))
+#+END_SRC
+
+
+** Dired mode and file related operations
+1. copy, delete and rename file
+Copy/Delete/Rname files and folders
+
++:  to create directory
+C-x C-f: to create file
+g:  to refersh dired buffer
+C: copy file
+d: delete file
+D: delete after confirm 
+R: rename files
+
+
+#+BEGIN_SRC emacs-lisp
+  ;; dired - reuse current buffer by pressing 'a'
+  (put 'dired-find-alternate-file 'disabled nil)
+
+  ;; always delete and copy recursively
+  (setq dired-recursive-deletes 'always)
+  (setq dired-recursive-copies 'always)
+
+  ;; if there is a dired buffer displayed in the next window, use its
+  ;; current subdir, instead of the current subdir of this dired buffer
+  (setq dired-dwim-target t)
+
+  (put 'dired-find-alternate-file 'disabled nil)
+
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+
+;; less typing when Emacs ask you yes or no
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+#+END_SRC
+
+2. add new file and folder
+
++ for adding new folders,
+C-x C-f to create a new file.
+
+3. open dired of current buffer
+#+BEGIN_SRC emacs-lisp
+  (require 'dired-x)
+#+END_SRC
+after applying this setting, we could press `C-x C-j` to jump to the dired buffer of current file.
+
+4. open finder on Mac. (optional)
+Packages:
+
+reveal-in-osx-finder for openning the finder of the current file.
+
+
+
+** Bonus Time. Use Org-mode literate programming to organize your Emacs configurations. 
+#+BEGIN_SRC emacs-lisp
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
+#+END_SRC
+
+
+** Exercise
+1. define C-x C-e in Js2-mode to eval js expression after node-repl mode is actived.
