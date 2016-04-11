@@ -641,6 +641,13 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
 
 * 第四天：配置文件模块化（下）以及使用优化
+
+视频地址如下
+
+- [[http://v.youku.com/v_show/id_XMTUzMDAwMDYwMA%3D%3D.html][优酷视频]]
+- [[http://pan.baidu.com/s/1o8QWrHK][百度网盘]]
+- [[https://www.youtube.com/watch?v%3DBGecmDgPAiw][YouTube]]
+
 ** 配置文件模块化（下）
 
 在这一部分我们首先需要知道的是什么是 =features= 。在 Emacs 中每一个 =feature= 都是一个 Elisp 符号，用于代表一个 Lisp 插件（Package）。
