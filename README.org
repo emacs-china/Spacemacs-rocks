@@ -460,7 +460,7 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 -  =C-c C-d= 选择想要结束的时间
 -  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
 
-* 第三天：配置文件模块化及使用优化
+* 第三天：配置文件模块化（上）
 
 视频地址如下
 
@@ -468,20 +468,18 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 - [[http://pan.baidu.com/s/1nuJWyLF][百度网盘]]
 - [[https://www.youtube.com/watch?v%3DZ83xnsiLtI0&feature%3Dyoutu.be][YouTube]]
 
-** 多文件存储配置文件
+** 多文件存储配置文件(上)
 
 将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。下面是我们现在的 =~/.emacs.d/= 目录的样子，
 
 #+BEGIN_EXAMPLE
 ├── auto-save-list # 自动生成的保存数据
-├── elpa # 下载的插件目录
-├── init.el # 我们的配置文件
-└── recentf # 最近访问的文件列表
+├── elpa           # 下载的插件目录
+├── init.el        # 我们的配置文件
+└── recentf        # 最近访问的文件列表
 #+END_EXAMPLE
 
 通常我们只保存配置文件，其他均为在第一次使用的时再去网络经行重新下载，当然你也可以选择将全部内容进行版本控制来保证自己时刻拥有稳定的工作环境。
-
-# TODO: 补充 load-file load-path 和 load 的使用方法
 
 Elisp 中并没有命名空间（Namespace）所以其命名方法就变的非常重要，换句话说就是所有的变量均为全局变量。下面是一个简单的命名规则，
 
@@ -494,7 +492,8 @@ YourName/XXXX
 ModeName-mode
 
 #模式内的变量则可以使用
-ModeName-VariableName
+ModeName-Var*** 自动加载外部内容变更
+iableName
 #+END_EXAMPLE
 
 使用上面的命名规则可以最大程度的避免命名冲突的可能性。
@@ -506,6 +505,7 @@ init-packages.el        # 插件管理
 init-ui.el              # 视觉层配置
 init-better-defaults.el # 增强内置功能
 init-keybindings.el     # 快捷键绑定
+init-org.el             # Org 模式相关的全部设定
 custome.el              # 存放使用编辑器接口产生的配置信息
 #+END_EXAMPLE
 
@@ -520,7 +520,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
     ├── init-keybindings.el
     ├── init-packages.el
     ├── init-ui.el
-    └── org.el
+    └── init-org.el
 #+END_EXAMPLE
 
 这样我们就可以在之后的配置中迅速的定位于更改我们的配置文件，让整个过程更有条理也更高效。
@@ -638,9 +638,30 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 在每一个模式中（mode）都是有特定的命名规则，比如所有的模式都被命名为 ~ModeName-mode~ ，里面所设置的快捷键则为 ~ModeName-mode-key-map~ ，而所有的钩子则会被命名为 ~ModeName-mode-hook~ 。
 
+注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
+
+* 第四天：配置文件模块化（下）以及使用优化
+** 配置文件模块化（下）
+
+在这一部分我们首先需要知道的是什么是 =features= 。在 Emacs 中每一个 =feature= 都是一个 Elisp 符号，用于代表一个 Lisp 插件（Package）。
+
+当一个插件调用 =(provide 'symbol_name)= 函数时，Emacs 就会将这个符号加入到 =features= 的列表中去。你可以在[[http://ergoemacs.org/emacs/elisp_feature_name.html][这里]]读到更多关于 feature 的内容。
+
+接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。（他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
+
+=load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件时（ =.el= 或者 =.elc= 文件）。
+
+=load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于你预先不知道文件路径的时候。
+
+=require= 加载还未被加载的插件。首先它会查看变量 =features= 中是否存在所要加载的符号如果不存在则使用上面提到的 =load= 将其载入。（有点类似于其他编程语言中的 =import= ）
+
+=autoload= 用于仅在函数调用时加载文件，使用此方法可以大大节省编辑器的启动时间。
+
+# TODO: 补充魔法注释的内容
+
 ** 更好的默认设置
 
-在这一节我们会配置我们的编辑器使其有更好的使用体验。
+在这一节我们会配置我们的编辑器使其有更好的使用体验。整个过程就如同搭积木一般，将更好的体验建立在已有的功能基础之上。这样的优化使整个过程变得更高效，也更有趣。
 
 下面的代码可以是 Emacs 自动加载外部修改过的文件。
 
@@ -669,6 +690,39 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (setq ring-bell-function 'ignore)
 #+END_SRC
 
+每一次当 Emacs 需要与你确认某个命令时需要输入 =(yes or no)= 比较麻烦，所有我们可以使用下面的代码，设置一个别名将其简化为只输入 =(y or n)= 。
+
+#+BEGIN_SRC lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** 代码缩进
+
+=indent-region= 可以帮我们重新缩进所选区域的代码，但是每一次都选中十分麻烦。使用下面的代码可以一次重新缩进全部缓冲区的代码。（之后也会介绍更好用的，代码格式美化的插件）
+
+#+BEGIN_SRC lisp
+  (defun indent-buffer()
+    (interactive)
+    (indent-rSpacemacsegion (point-min) (point-max)))
+
+  (defun indent-region-or-buffer()
+    (interactive)
+    (save-excursion
+      (if (region-active-p
+           (progn
+             (indent-region (region-beginning) (region-end))
+             (message "Indent selected region."))
+           (progn
+             (indent-buffer)
+             (message "Indent buffer."))))))
+#+END_SRC
+
+然后再将其用下面的代码将其绑定为快捷键，第一个 =\= 用于将下一个 =\= 逃脱（escape）。
+
+#+BEGIN_SRC lisp
+(global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+#+END_SRC
+
 *** 缩写补全
 
 使用下面的代码我们可以开启 ~abbrev~ 模式并定义一个缩写表，每当我们输入下面的缩写并以空格结束时，Emacs 就会将其自动展开成为我们所需要的字符串。
@@ -678,17 +732,92 @@ custome.el              # 存放使用编辑器接口产生的配置信息
   (define-abbrev-table 'global-abbrev-table '(
                                               ;; Shifu
                                               ("8zl" "zilongshanren")
-                                              ;; contributor
+                                              ;; Tudi
                                               ("8lxy" "lixinyang")
                                              ))
 #+END_SRC
 
 上面的缩写的 ~8~ 也类似于命名空间，使其不会与我们所常用的
 
+*** Hippie 补全
+
+Company 有时候补全功能并不是非常理想，这时就可以使用 Hippie Expand 来完成补全。Company Mode 补全效果不理想的原因是在不同的区域中会使用不同的后端函数来完成补全，但是当后端补全函数不能被激活时，则补全就不会被激活。
+
+
+我们可以将下面的代码加入到我们的配置文件中，来增强 Hippie Expand 的功能，
+
+#+BEGIN_SRC lisp
+  (setq hippie-expand-try-function-list '(try-expand-debbrev
+                                          try-expand-debbrev-all-buffers
+                                          try-expand-debbrev-from-kill
+                                          try-complete-file-name-partially
+                                          try-complete-file-name
+                                          try-expand-all-abbrevs
+                                          try-expand-list
+                                          try-expand-line
+                                          try-complete-lisp-symbol-partially
+                                          try-complete-lisp-symbol))
+#+END_SRC
 ** Dired Mode
 
 Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有工作。
 
+=C-x d= 可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你可以在其中查看文件和目录的详细信息，对他们进行各种操作，以及复制粘贴里面的内容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
+
+- =+= 创建目录
+- =g= 刷新目录
+- =C= 拷贝
+- =D= 删除
+- =R= 重命名
+- =d= 标记删除
+- =u= 取消标记
+- =x= 执行所有的标记
+
+这里有几点可以优化的地方。第一是删除目录的时候 Emacs 会询问是否递归删除或拷贝，这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录（因为更安全的编辑，也许你需要保持此行为。请务必按需配置）。
+
+#+BEGIN_SRC lisp
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)
+#+END_SRC
+
+第二是，每一次你进入一个回车进入一个新的目录中是，一个新的缓冲区就会被建立。这使得我们的缓冲区列表中充满了大量没有实际意义的记录。我们可以使用下面的代码，让 Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。
+
+#+BEGIN_SRC lisp
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; 主动加载 Dired Mode
+;; (require 'dired)
+;; (defined-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+
+;; 延迟加载
+(with-eval-alter-load 'dired
+    (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+#+END_SRC
+
+使用延迟加载可以使编辑器加载速度有所提升。
+
+最后，启用 =dired-x= 可以让每一次进入 Dired 模式时，使用新的快捷键 =C-x C-g= 就可以进入当前文件夹的所在的路径。
+
+#+BEGIN_SRC lisp
+(require 'dired-x)
+#+END_SRC
+
+使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
+
+最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载运行 Emacs 时，它就会自动帮你完成下载。
+
 ** Org-mode 管理 Emacs 配置
 
-Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。
+Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和师傅其实更倾向于模块管理配置文件）。
+
+你需要将下面的代码放入配置入口文件（=init.el=）中，
+
+#+BEGIN_SRC lisp
+(package-initialize)
+
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "org-file-name.rog" user-emacs-directory))
+#+END_SRC
+
+之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
