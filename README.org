@@ -797,7 +797,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 ;; (defined-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
 
 ;; 延迟加载
-(with-eval-alter-load 'dired
+(with-eval-after-load 'dired
     (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 #+END_SRC
 
@@ -817,7 +817,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 
 Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和师傅其实更倾向于模块管理配置文件）。
 
-你需要将下面的代码放入配置入口文件（=init.el=）中，
+你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
 #+BEGIN_SRC lisp
 (package-initialize)
