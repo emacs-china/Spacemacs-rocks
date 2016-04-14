@@ -371,6 +371,10 @@ It will be better to briefly introduce a little about org-mode and literate prog
 
 使用 =M-x customize-group= 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（ =init.el= ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
+*** COMMENT About the source code
+I hope, however, you have read, or consulted, the code convention or standard of some 
+authority or google coding standard.
+
 *** JavaScript IDE
 
 Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然后用下面的代码将其启用。
@@ -462,7 +466,6 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 -  =C-c C-s= 选择想要完成的时间
 -  =C-c C-d= 选择想要结束的时间
 -  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
-
 * 第三天：配置文件模块化（上）
 
 视频地址如下
