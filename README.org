@@ -164,6 +164,9 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     *** 为三级标题并以此类推
 #+END_EXAMPLE
 
+*** COMMENT Comment On this Chapter
+It will be better to briefly introduce a little about org-mode and literate programming.
+
 * 第二天：高级自定义
 
 视频地址如下
