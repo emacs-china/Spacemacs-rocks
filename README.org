@@ -821,7 +821,6 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
 最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载启动 Emacs 时，它就会自动帮你完成下载。
-
 ** Org-mode 管理 Emacs 配置
 
 Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
@@ -837,3 +836,11 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 #+END_SRC
 
 之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为 ~org-file-name.org~ ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
+
+** COMMENT Some issues here
+Org-mode might has conflicts with other modes. It will be better if you mention that
+you should wrap the org-mode configuration in code like this:
+(with-eval-after-load 'org
+ ;;; someyoru configurations here:
+ )
+ 
