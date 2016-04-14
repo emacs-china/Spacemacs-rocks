@@ -192,7 +192,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏操作方法了。关于分屏的更多内容你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html][这里]]找到。
 
--  =C-x 1= 仅保留当前窗口，
+-  =C-x 1= 仅保留当前窗口
 -  =C-x 2= 将当前窗口分到上边
 -  =C-x 3= 将当前窗口分到右边
 
@@ -470,7 +470,7 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 
 ** 多文件存储配置文件(上)
 
-将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。下面是我们现在的 =~/.emacs.d/= 目录的样子，
+将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。下面是我们现在的 =~/.emacs.d/= 目录中的样子，
 
 #+BEGIN_EXAMPLE
 ├── auto-save-list # 自动生成的保存数据
@@ -479,12 +479,11 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 └── recentf        # 最近访问的文件列表
 #+END_EXAMPLE
 
-通常我们只保存配置文件，其他均为在第一次使用的时再去网络经行重新下载，当然你也可以选择将全部内容进行版本控制来保证自己时刻拥有稳定的工作环境。
+通常我们只保存配置文件和对其进行版本控制，其他的插件均为在第一次使用编辑器时再通过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳定的生产环境。
 
-Elisp 中并没有命名空间（Namespace）所以其命名方法就变的非常重要，换句话说就是所有的变量均为全局变量。下面是一个简单的命名规则，
+Elisp 中并没有命名空间（Namespace），换句话说就是所有的变量均为全局变量，所以其命名方法就变的非常重要。下面是一个简单的命名规则，
 
 #+BEGIN_EXAMPLE
-
 #自定义变量可以使用自己的名字作为命名方式（可以是变量名或者函数名）
 YourName/XXXX
 
@@ -492,14 +491,13 @@ YourName/XXXX
 ModeName-mode
 
 #模式内的变量则可以使用
-ModeName-Var*** 自动加载外部内容变更
-iableName
+ModeName-VariableName
 #+END_EXAMPLE
 
-使用上面的命名规则可以最大程度的避免命名冲突的可能性。
+遵守上面的命名规则可以最大程度的减少命名冲突发生的可能性。
 
-现在我们需要将配置分为下面的几个模块（独立的配置文件并将其保存在指定的子目录中），他们分别是
- 
+现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配置文件并将其保存在指定的子目录中），它们分别是
+
 #+BEGIN_EXAMPLE
 init-packages.el        # 插件管理
 init-ui.el              # 视觉层配置
@@ -509,7 +507,7 @@ init-org.el             # Org 模式相关的全部设定
 custome.el              # 存放使用编辑器接口产生的配置信息
 #+END_EXAMPLE
 
-下面为将配置文件模块化后的目录结构，
+下面为将配置文件进行模块化后的目录结构，
 
 #+BEGIN_EXAMPLE
 ├── init.el
@@ -523,13 +521,13 @@ custome.el              # 存放使用编辑器接口产生的配置信息
     └── init-org.el
 #+END_EXAMPLE
 
-这样我们就可以在之后的配置中迅速的定位于更改我们的配置文件，让整个过程更有条理也更高效。
+使用模块化配置就可以让我们在之后的配置中迅速的定位与更改配置内容，让整个过程变得更有条理也更加高效。
 
-~init.el~ 是所有模块配置文件的入口，所以要使用这些模块我们需要在其中进行引用。下面以 ~init-packages.el~ 为例，详细说明如何模块化以及应用的方法。
+和之前一样 ~init.el~ 是配置文件的入口，现在它便成为了所有模块配置文件的入口，所以要使用这些模块时，我们需要在其中引用需要加载的模块。下面以 ~init-packages.el~ （此配置为添加插件的模块） 为例，详细说明如何模块化以及应用的方法。
 
-在模块化配置之前，我们所使用的配置文件为 =~/.emacs.d/init.el= 并将所以的配置代码都放在其中（如下所示）
+下面是在模块化配置之前，我们所使用的配置文件 =~/.emacs.d/init.el= 的样子，我们将所有的配置代码都放置在了同一个文件中（如下所示）
 
-=~/.emacs.d/init.el=
+下面为 =~/.emacs.d/init.el= 文件的内容
 
 #+BEGIN_SRC lisp
 ;;  __        __             __   ___
@@ -568,9 +566,9 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 ;; ...
 #+END_SRC
 
-为了更好的区分不同的区域我使用的方法是使用 ASCII ART 然后再以关键字来使用所搜跳转，但是这样再编辑工程中依旧十分缓慢和麻烦。于是我们现在将其全部模块化，将不同的配置代码放置在不同的配置文件中，并在入口文件（ =~/.emacs.d/init.el= ）中将其引用。
+之前为了更好的区分不同的区域我使用的方法是使用 ASCII Art 然后再以关键字来做搜索跳转，但是这样再编辑工程中依旧十分缓慢和麻烦。于是我们现在要将配置文件全部模块化，把不同部分的配置代码放置在不同的配置文件中，并在入口文件（ =~/.emacs.d/init.el= ）中依次引用不用的模块。
 
-=~/.emacs.d/lisp/init-packages.el=
+下面为 =~/.emacs.d/lisp/init-packages.el= 模块中的代码
 
 #+BEGIN_SRC lisp
 ;;  __        __             __   ___
@@ -608,7 +606,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (provide 'init-packages)
 #+END_SRC
 
-=~/.emacs.d/init.el=
+下面为 =~/.emacs.d/init.el= 入口文件中的代码
 
 #+BEGIN_SRC lisp
 (package-initialize)
@@ -620,13 +618,15 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (require 'init-packages)
 #+END_SRC
 
-模块化其实非常简单，我们要做的就是把某一个更改编辑器某个特定部分（例如，插件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加 =(provide 'modul-name)= (这里我们的模块名为 =init-packages= ) ，然后再在入口文件中将其引用既可。
+模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加 =(provide 'modul-name)= (这里我们的模块名为 =init-packages= )使其可以在入口文件中被调用，然后再在入口文件中将其引用既可。
 
-这里需要注意的是，我们在入口文件中使用了 =(add-to-list 'load-path "~/.emacs.d/lisp/")= 它可以让 Emacs 找到模块的位置。
+这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path "~/.emacs.d/lisp/")= 这可以让 Emacs 找到需要加载的模块所处的位置。
+
+更多模块化的配置文件可以在[[https://github.com/zilongshanren/Learning-Emacs/tree/day3][这里]]找到。
 
 ** Major 与 Minor Mode 详解
 
-这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型 对应一个 Major Mode，它提供语法高亮以及缩进等基本的编辑支持，而 Minor Mode 则提供其余的增强性的功能（例如 ~linum-mode~ ）。
+在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个 Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供其余的增强性的功能（例如 ~linum-mode~ ）。
 
 在 Emacs 中，Major Mode 又分为三种，
 
@@ -636,7 +636,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 # TODO: Explan what is prog-mode
 
-在每一个模式中（mode）都是有特定的命名规则，比如所有的模式都被命名为 ~ModeName-mode~ ，里面所设置的快捷键则为 ~ModeName-mode-key-map~ ，而所有的钩子则会被命名为 ~ModeName-mode-hook~ 。
+在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的模式都被命名为 ~ModeName-mode~ ，里面所设置的快捷键则为 ~ModeName-mode-key-map~ ，而所有的钩子则会被命名为 ~ModeName-mode-hook~ 。
 
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
 
@@ -656,7 +656,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。（他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
 
-=load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件时（ =.el= 或者 =.elc= 文件）。
+简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件时（ =.el= 或者 =.elc= 文件）。
 
 =load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于你预先不知道文件路径的时候。
 
@@ -708,23 +708,23 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 =indent-region= 可以帮我们重新缩进所选区域的代码，但是每一次都选中十分麻烦。使用下面的代码可以一次重新缩进全部缓冲区的代码。（之后也会介绍更好用的，代码格式美化的插件）
 
 #+BEGIN_SRC lisp
-(defun indent-buffer()
-  (interactive)
-  (indent-region (point-min) (point-max)))
+  (defun indent-buffer()
+    (interactive)
+    (indent-region (point-min) (point-max)))
 
-(defun indent-region-or-buffer()
-  (interactive)
-  (save-excursion
-    (if (region-active-p)
+  (defun indent-region-or-buffer()
+    (interactive)
+    (save-excursion
+      (if (region-active-p)
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indent selected region."))
         (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indent selected region."))
-      (progn
-        (indent-buffer)
-        (message "Indent buffer.")))))
+          (indent-buffer)
+          (message "Indent buffer.")))))
 #+END_SRC
 
-然后再将其用下面的代码将其绑定为快捷键，第一个 =\= 用于将下一个 =\= 逃脱（escape）。
+然后再将其用下面的代码将其绑定为快捷键，第一个 =\= 用于将紧跟的 =\= 进行逃脱（escape）。
 
 #+BEGIN_SRC lisp
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
@@ -744,7 +744,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
                                              ))
 #+END_SRC
 
-上面的缩写的 ~8~ 也类似于命名空间，使其不会与我们所常用的
+上面的缩写前使用的 ~8~ 也类似于命名空间的作用，使其不会与我们所常用的字符串冲突。
 
 *** Hippie 补全
 
@@ -765,11 +765,17 @@ Company 有时候补全功能并不是非常理想，这时就可以使用 Hippi
                                           try-complete-lisp-symbol-partially
                                           try-complete-lisp-symbol))
 #+END_SRC
+
+然后将其绑定为快捷键，使我们可以更方便的使用它。
+
+#+BEGIN_SRC lisp
+(global-set-key (kbd "s-/") 'hippie-expand)
+#+END_SRC
 ** Dired Mode
 
-Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有工作。
+Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。
 
-=C-x d= 可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你可以在其中查看文件和目录的详细信息，对他们进行各种操作，以及复制粘贴里面的内容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
+使用 =C-x d= 就可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你可以在其中查看文件和目录的详细信息，对他们进行各种操作，甚至复制粘贴缓冲区中的内容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
 
 - =+= 创建目录
 - =g= 刷新目录
@@ -780,7 +786,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 - =u= 取消标记
 - =x= 执行所有的标记
 
-这里有几点可以优化的地方。第一是删除目录的时候 Emacs 会询问是否递归删除或拷贝，这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录（因为更安全的编辑，也许你需要保持此行为。请务必按需配置）。
+这里有几点可以优化的地方。第一是删除目录的时候 Emacs 会询问是否递归删除或拷贝，这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录（出于安全原因的考虑，也许你需要保持此行为。所有文中的配置请务必按需配置）。
 
 #+BEGIN_SRC lisp
 (setq dired-recursive-deletes 'always)
@@ -803,7 +809,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 
 使用延迟加载可以使编辑器加载速度有所提升。
 
-最后，启用 =dired-x= 可以让每一次进入 Dired 模式时，使用新的快捷键 =C-x C-j= 就可以进入当前文件夹的所在的路径。
+启用 =dired-x= 可以让每一次进入 Dired 模式时，使用新的快捷键 =C-x C-j= 就可以进入当前文件夹的所在的路径。
 
 #+BEGIN_SRC lisp
 (require 'dired-x)
@@ -811,11 +817,11 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 
 使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
-最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载运行 Emacs 时，它就会自动帮你完成下载。
+最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载启动 Emacs 时，它就会自动帮你完成下载。
 
 ** Org-mode 管理 Emacs 配置
 
-Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和师傅其实更倾向于模块管理配置文件）。
+Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
 
 你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
@@ -824,7 +830,7 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 
 (require 'org-install)
 (require 'ob-tangle)
-(org-babel-load-file (expand-file-name "org-file-name.rog" user-emacs-directory))
+(org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
 #+END_SRC
 
-之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
+之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为 ~org-file-name.org~ ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
