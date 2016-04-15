@@ -14,7 +14,6 @@ git config --global user.name "Travis CI"
 emacs README.org --batch -f org-html-export-to-html --kill
 mv README.html ./public/index.html
 
-cp CNAME ./public/CNAME
 cp Artwork.png ./public/Artwork.png
 
 # deploy
