@@ -1,3 +1,10 @@
+#+TITLE: Mastering Emacs in 21 Days
+#+AUTHOR: zilongshanren, li xinyang
+#+EMAIL: guanghui.qu@cocos2d-x.org
+#+OPTIONS: toc:3 num:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
+#+STARTUP: showall
+
 * Spacemacs Rocks 第二季
 
 #+CAPTION: Spacemacs Rocks Artwork
@@ -19,7 +26,7 @@
 
 如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。
 
-在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial ） 在 Emacs 中直接将其打开。
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial） 在 Emacs 中直接将其打开。
 
 Elisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]后很快的了解它的基础用法。
 
@@ -182,7 +189,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (setq-default cursor-type 'bar)
 #+END_EXAMPLE
 
-今天我们需要将第一天关闭的自动缩进(=electric-indent-mode=)从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在Eli 中用分号做注释时 =fancy-comment= 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
+今天我们需要将第一天关闭的自动缩进(=electric-indent-mode=)从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Eli 中用分号做注释时 =fancy-comment= 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
 因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
 
@@ -381,7 +388,7 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 
 你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何种 Major Mode 的方法。
 
-在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode 。 下面是几个正则表达式匹配的例子，
+在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个正则表达式匹配的例子，
 
 #+BEGIN_SRC lisp
     (("\\`/tmp/fol/" . text-mode)
