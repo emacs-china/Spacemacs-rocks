@@ -1,5 +1,4 @@
 #!/bin/bash
-# See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
 set -o errexit
 
 # Create public folder
@@ -14,6 +13,7 @@ git config --global user.name "Travis CI"
 emacs README.org --batch -f org-html-export-to-html --kill
 mv README.html ./public/index.html
 
+cp CNAME ./public/CNAME
 cp Artwork.png ./public/Artwork.png
 
 # deploy
