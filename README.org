@@ -183,6 +183,9 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     *** 为三级标题并以此类推
 #+END_EXAMPLE
 
+*** COMMENT Comment On this Chapter
+It will be better to briefly introduce a little about org-mode and literate programming.
+
 * 第二天：高级自定义
 
 视频地址如下
@@ -387,6 +390,10 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 使用 =M-x customize-group= 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（ =init.el= ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
+*** COMMENT About the source code
+I hope, however, you have read, or consulted, the code convention or standard of some 
+authority or google coding standard.
+
 *** JavaScript IDE
 
 Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然后用下面的代码将其启用。
@@ -478,7 +485,6 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 -  =C-c C-s= 选择想要完成的时间
 -  =C-c C-d= 选择想要结束的时间
 -  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
-
 * 第三天：配置文件模块化（上）
 
 视频地址如下
@@ -837,7 +843,6 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
 最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载启动 Emacs 时，它就会自动帮你完成下载。
-
 ** Org-mode 管理 Emacs 配置
 
 Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
@@ -853,3 +858,11 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 #+END_SRC
 
 之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为 ~org-file-name.org~ ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
+
+** COMMENT Some issues here
+Org-mode might has conflicts with other modes. It will be better if you mention that
+you should wrap the org-mode configuration in code like this:
+(with-eval-after-load 'org
+ ;;; someyoru configurations here:
+ )
+ 
