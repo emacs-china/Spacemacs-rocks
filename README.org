@@ -85,7 +85,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 *** 学习基础 Elisp
 
-请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Elisp 为一个函数式的语言其，所以它全部功能都是由函数来实现的。
+请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Elisp 为一个函数式的语言，所以它全部功能都是由函数来实现的。
 
 下面为一些简单的例子
 
@@ -105,7 +105,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
       (message "Hello, %s" username))
 
     ;; 执行函数
-    (func) ; -> Hello, usernam
+    (func) ; -> Hello, username
 
     ;; 设置快捷键
     (global-set-key (kbd "<f1>") 'func)
