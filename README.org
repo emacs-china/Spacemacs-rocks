@@ -67,7 +67,7 @@ Elisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinymin
 -  =C-x C-s= 为保存当前缓冲区（Buffer）， =s= 代表 save
 
 =C-x= 是 Emacs 的快捷键中常用的前缀命令。这些前缀命令常常代表了一系列有关联的指令，十分重要，请特别牢记。其它常见的还有 =C-c=, =C-h= 。
-打断组合键为 =C-g= 用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
+打断组合键为 =C-g= ，它用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
 
 *** 内置功能
 
@@ -129,7 +129,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中（ =~/.emacs.d/init.el= ）即可。
 
 #+BEGIN_EXAMPLE
-    ;; 关闭工具栏 tool-bar-mode 即为一个 Minor Mode
+    ;; 关闭工具栏， tool-bar-mode 即为一个 Minor Mode
     (tool-bar-mode -1)
 
     ;; 关闭文件滑动控件
@@ -156,7 +156,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
       (interactive)
       (find-file "~/.emacs.d/init.el"))
 
-    ;; 这种快捷键，将函数 open-init-file 绑定 <f2> 键
+    ;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
     (global-set-key (kbd "<f2>") 'open-init-file)
 #+END_EXAMPLE
 
@@ -164,7 +164,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *** 插件管理
 
-使用默认的插件管理系统（可在菜单栏中找到 =Options > Manage Emacs Packages= 中），安装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（Complete Anything）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
+使用默认的插件管理系统（可在菜单栏中找到 =Options > Manage Emacs Packages= 中），安装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（*Comp*lete *Any*thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
 
 使用的下面的配置将 Comany-mode 在全局模式下激活
 
@@ -193,9 +193,9 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *说在最前面*
 
-如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming in Emacs Lisp]] 。（ =M-x info= 然后选择 Emacs Lisp Intro）
+如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming in Emacs Lisp]] 。（也可以 =M-x info= 然后选择 Emacs Lisp Intro）
 
-我们先解决前一天中遇到的一些问题。首先是区分 =setq= 与 =setq-default= 的区别， =setq= 为设置当前缓冲区（Buffer）中的变量值， =setq-default= 设置的为全局的变量的值（具体内容可以在 [[http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow 找到]]）。下面是一个例子，用于设置光标样式的方法。
+我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq= 与 =setq-default= ： =setq= 设置当前缓冲区（Buffer）中的变量值， =setq-default= 设置的为全局的变量的值（具体内容可以在 [[http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow 找到]]）。下面是一个例子，用于设置光标样式的方法。
 
 #+BEGIN_EXAMPLE
     (setq-default cursor-type 'bar)
@@ -228,7 +228,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 =require= 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统的更多内容，文章在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]。
 
-使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字之后输入一个字符会替换掉你选中部分的文字。
 
 #+BEGIN_EXAMPLE
     (delete-selection-mode t)
@@ -240,7 +240,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 -  =find-variable= （ =C-h C-v= ）
 -  =find-function-on-key= （ =C-h C-k= ）
 
-在我们进入下一个部分之间让我们来看看使用 =~/.emacs.d/init.el= 与 =~/.emacs= 的区别（更多关于他们区别的讨论可在[[http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs][这里]]找到） 简单来说请使用前者因为它有下面的两个优点，
+在我们进入下一个部分之间让我们来看看使用 =~/.emacs.d/init.el= 与 =~/.emacs= 的区别（更多关于他们区别的讨论可在[[http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs][这里]]找到）。简单来说请使用前者，因为它有下面的两个优点，
 
 -  它可以更好将所有 Emacs 相关的文件整合在一个目录内（干净的 =HOME= ，网盘备份等优点）
 -  更好的版本控制
@@ -249,7 +249,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *配置插件源*
 
-在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]] （Milkypostman's Emacas Lisp Package Archive）它有非常多的插件（3000 多个插件）。下载的次数并不能说明它非常有用，也许这个插件是其他的插件依赖。在[[https://melpa.org/#/getting-started][这里]]你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages= 来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除， =U= 来更新，并用 =X= 来确认。
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]] （Milkypostman's Emacas Lisp Package Archive）。它有非常多的插件（3000 多个插件）。一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages= 来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除， =U= 来更新，并用 =X= 来确认。
 
 你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 =YOUR_NAME_HERE/packages= 中，Emacs 在启动时会自动下载未被安装的插件。
 
@@ -301,7 +301,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
       (exec-path-from-shell-initialize))
 #+END_EXAMPLE
 
-关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in= ，它来自 =cl= 既 Common Lisp 扩展。 =for= , =in=, =collection= 均为 =cl-loop= 中的保留关键字。下面是一些简单的 =cl-loop= 的使用示例，
+关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in= ，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collection= 均为 =cl-loop= 中的保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
 
 #+BEGIN_SRC lisp
     ;; 遍历每一个缓冲区（Buffer）
