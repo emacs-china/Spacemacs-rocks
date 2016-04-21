@@ -301,12 +301,12 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
       (exec-path-from-shell-initialize))
 #+END_EXAMPLE
 
-关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in= ，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collection= 均为 =cl-loop= 中的保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
+关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in= ，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collect= 均为 =cl-loop= 中的保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
 
 #+BEGIN_SRC lisp
     ;; 遍历每一个缓冲区（Buffer）
     (cl-loop for buf in (buffer-list)
-                     collection (buffer-file-name buf))
+                     collect (buffer-file-name buf))
 
     ;; 寻找 729 的平方根（设置最大为 100 为了防止无限循环）
     (cl-loop for x from 1 to 100
