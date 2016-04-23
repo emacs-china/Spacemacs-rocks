@@ -160,11 +160,11 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (global-set-key (kbd "<f2>") 'open-init-file)
 #+END_EXAMPLE
 
-在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 =M-x load-file= 双击两次回车确认默认文件名，或者使用 =M-x eval-buffer= 去执行当前缓冲区的所以 Lisp 命令。你也可以使用 =C-x C-e= 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。当然你也可以将他们绑定为快捷键。
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 =M-x load-file= 双击两次回车确认默认文件名，或者使用 =M-x eval-buffer= 去执行当前缓冲区的所有 Lisp 命令。你也可以使用 =C-x C-e= 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。当然你也可以将这些函数绑定为快捷键。
 
 *** 插件管理
 
-使用默认的插件管理系统（可在菜单栏中找到 =Options > Manage Emacs Packages= 中），安装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（*Comp*lete *Any*thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
+使用默认的插件管理系统（可在菜单栏 =Options > Manage Emacs Packages= 中找到）安装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（ *Comp* lete *Any* thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
 
 使用的下面的配置将 Comany-mode 在全局模式下激活
 
@@ -368,7 +368,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 *安装主题*
 
 #+BEGIN_EXAMPLE
-    (add-to-list 'monokai-theme)
+    (add-to-list YOUR_NAME_HERE/packages 'monokai-theme)
 #+END_EXAMPLE
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
@@ -836,7 +836,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 
 使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
-最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），他可以将任意文件直接在 Finder 中打开。你要做的就是将其添加至，第二天的插件列表中即可，下载启动 Emacs 时，它就会自动帮你完成下载。
+最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），它可以将任意文件直接在 Finder 中打开。你想安装这个插件，将其添加至第二天的插件列表中即可，下次启动 Emacs 时，它就会自动帮你完成下载。
 
 ** Org-mode 管理 Emacs 配置
 
