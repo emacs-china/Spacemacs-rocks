@@ -2,6 +2,7 @@ script: bash ./deploy.sh
 before_install:
   - sudo apt-add-repository -y ppa:ubuntu-elisp/ppa
   - sudo apt-get update
+  - sudo apt-get install emacs-goodies-el
   - sudo apt-get install emacs-snapshot
 env:
   global:
