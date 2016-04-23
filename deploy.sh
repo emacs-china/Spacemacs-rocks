@@ -12,6 +12,7 @@ git config --global user.name "Travis CI"
 # make
 emacs README.org --batch --eval="(require 'htmlize)" -f org-html-export-to-html --kill
 mv README.html ./public/index.html
+mv readtheorg ./public/readtheorg/
 
 cp CNAME ./public/CNAME
 cp Artwork.png ./public/Artwork.png
