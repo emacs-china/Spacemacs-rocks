@@ -173,7 +173,7 @@ dl dd{
         -ms-filter:none !important}
 
     a,a:visited{
-          text-decoration:underline}
+        text-decoration:underline}
 
     pre.src,blockquote{
         page-break-inside:avoid}
@@ -288,7 +288,7 @@ code{
     max-width:100%;
     overflow-x:auto;
     padding:0 5px;
-    white-space:nowrap;
+    /* white-space:nowrap; */
 }
 
 .codeblock-example{
