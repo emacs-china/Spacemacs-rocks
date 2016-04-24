@@ -1,6 +1,7 @@
 * Spacemacs Rocks Season 2 (Day 6)
-** Bonus Time
+** Bonus Time: Org-mdoe
 Use org-capture to take notes
+
 #+BEGIN_SRC emacs-lisp
 
   (setq org-capture-templates
@@ -15,6 +16,7 @@ http://orgmode.org/manual/Capture.html
 
 ** clean up configs
 1. move keybindings into one place
+2. make c-n and c-p to select company condicate
 
 ** Batch rename files
 1. press `C-x C-q` in dired mode
