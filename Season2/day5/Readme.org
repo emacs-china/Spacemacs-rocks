@@ -1,6 +1,34 @@
 * Spacemacs Rocks Season 2 (Day 5)
+**  Fix smartparen quote issue
+#+BEGIN_SRC emacs-lisp
+
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+        (t (save-excursion
+             (ignore-errors (backward-up-list))
+             (funcall fn)))))
+
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+#+END_SRC
+
+** Editing large web page 
+#+BEGIN_SRC emacs-lisp
+(defun remove-dos-eol ()
+  "Replace DOS eolns CR LF with Unix eolns CR"
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\r" nil t) (replace-match "")))
+
+(defun hidden-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+#+END_SRC
+
 ** Add more useful packages for web development
-1. web-mode
+*** web-mode
 toggle indent in web-mode
 #+BEGIN_SRC emacs-lisp
   (defun my-web-mode-indent-setup ()
@@ -32,7 +60,7 @@ toggle indent in web-mode
 #+END_SRC
 
 
-** js2-refactor
+*** js2-refactor
 - extract method
 - extract function
 
@@ -56,26 +84,28 @@ toggle indent in web-mode
 
 2. improve imenu
 #+BEGIN_SRC emacs-lisp
-(defun js2-imenu-make-index ()
-      (interactive)
-      (save-excursion
-        ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
-        (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                                   ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
-                                   ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
-(add-hook 'js2-mode-hook
-              (lambda ()
-                (setq imenu-create-index-function 'js2-imenu-make-index)))
+  (defun js2-imenu-make-index ()
+        (interactive)
+        (save-excursion
+          ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
+          (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                     ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
+                                     ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
+  (add-hook 'js2-mode-hook
+                (lambda ()
+                  (setq imenu-create-index-function 'js2-imenu-make-index)))
+
+  (global-set-key (kbd "M-s i") 'counsel-imenu)
 #+END_SRC
-**  wrap region mode, expand-region, and iedit mode
+**  expand-region and iedit mode
 
 ** Bonus Time. Org export
 export to html,  you could also export to pdf
