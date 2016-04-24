@@ -1,4 +1,18 @@
 * Spacemacs Rocks Season 2 (Day 6)
+** Bonus Time
+Use org-capture to take notes
+#+BEGIN_SRC emacs-lisp
+
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/.emacs.d/gtd.org" "工作安排")
+           "* TODO [#B] %?\n  %i\n"
+           :empty-lines 1)))
+#+END_SRC
+
+Further reading:
+http://orgmode.org/manual/Capture.html
+*** Install Org pomodoro to track my time
+
 ** clean up configs
 1. move keybindings into one place
 
@@ -22,20 +36,6 @@ apt-get install silversearcher-ag
 
 
 ** Snippets and auto snippet
-
-
-** Bonus Time
-Use org-capture to take notes
-#+BEGIN_SRC emacs-lisp
-
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org-notes/gtd.org" "Workspace")
-           "* TODO [#B] %?\n  %i\n"
-           :empty-lines 1)))
-#+END_SRC
-
-Further reading:
-http://orgmode.org/manual/Capture.html
 
 ** exercises
 1. give `helm-swoop` package a try: https://github.com/ShingoFukuyama/helm-swoop
