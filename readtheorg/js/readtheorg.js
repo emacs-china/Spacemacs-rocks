@@ -35,6 +35,15 @@ $( document ).ready(function() {
                                         // ScrollSpy also requires that we use
                                         // a Bootstrap nav component.
     $('body').scrollspy({target: '#text-table-of-contents'});
+
+
+    // replace the 'Created' to 'Updated'
+    var $postamble = $('#postamble');
+    var $date = $postamble.find('.date');
+    var date = $date.text();
+    var updateDate = date.replace('Created', 'Updated');
+    $date.text(updateDate);
+    // end replace
 });
 
 window.SphinxRtdTheme = (function (jquery) {
