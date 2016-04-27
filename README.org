@@ -868,7 +868,7 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 - 优酷： http://v.youku.com/v_show/id_XMTU0NjMyNDg5Ng==.html
 - Youtube: https://www.youtube.com/watch?v=BpjwzSB2d00&feature=youtu.be
 
-照理我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Lisp 中我们有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 =init-default.el= 配置文件中）。
+照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Lisp 中我们有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 =init-default.el= 配置文件中）。
 
 #+BEGIN_SRC emacs-lisp
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
@@ -1064,7 +1064,7 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 ** Org 导出
 
-使用 =C-x C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。你现在看到的这本教程就是由 Org-mode 所导出生产的。
+使用 =C-c C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。你现在看到的这本教程就是由 Org-mode 所导出生产的。
 
 * 第六天：代码片段与语法检查器
 
@@ -1125,7 +1125,7 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 更多有关 Org-capture 的内容可以在[[http://orgmode.org/manual/Capture.html][这里]]找到。
 
-Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作法的信息可以在[[https://en.wikipedia.org/wiki/Pomodoro_Technique][这里]]找到）。它的 GitHub 地址在[[https://github.com/lolownia/org-pomodoro][这里]]。在 =(require 'org-pomodoro)= 后可以通过 Customiz-group 来对其进行设置，包括不同休息种类的时常。
+Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作法的信息可以在[[https://en.wikipedia.org/wiki/Pomodoro_Technique][这里]]找到）。它的 GitHub 地址在[[https://github.com/lolownia/org-pomodoro][这里]]。在 =(require 'org-pomodoro)= 后可以通过 Customize-group 来对其进行设置，包括不同休息种类的时长。
 
 因为每次保存中文的时候都需要选择解码，我们可以使用下面的配置将文本解码设置默认为 UTF-8，
 
