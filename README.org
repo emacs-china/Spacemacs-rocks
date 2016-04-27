@@ -22,8 +22,11 @@
 
 * Spacemacs Rocks 第二季
 
-#+CAPTION: Spacemacs Rocks Artwork
 [[./Artwork.png]]
+
+*作者* [[https://github.com/zilongshanren/][zilongshanren]]
+
+*编者* [[https://github.com/li-xinyang][li-xinyang]]
 
 在这一季中我们计划用 21 天的时间内学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
@@ -39,7 +42,7 @@
 
 如果你第一次听说 Emacs 你可以在[[http://emacs.sexy/][性感的 Emacs（Emacs is Sexy）]]一文中找到使用它的理由！我相信你一定被它的强大所吸引。
 
-如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。
+如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。本文我们使用的为 Emacs 25.0.x Pretest 版本，一些配置在 Emacs 24 中可能并不适用。
 
 在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial） 在 Emacs 中直接将其打开。
 
@@ -1008,7 +1011,7 @@ js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mod
 
 Occur 可以用于显示变量或函数的定义，我们可以通过 popwin 的 customize-group 将定义显示设置为右边而不是默认的底部（ =customize-group > popwin > Popup Window Position= 设置为 right），也可以在这里对其宽度进行调节。
 
-Occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (在弹出的窗口中按 =1= 进入编辑模式) 对搜索到的结果进行之间的编辑。
+Occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (在弹出的窗口中按 =e= 进入编辑模式) 对搜索到的结果进行之间的编辑。
 
 imenu 可以显示当前所有缓冲区的列表，下面的配置可以让其拥有更精确的跳转，
 
