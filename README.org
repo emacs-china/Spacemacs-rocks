@@ -136,7 +136,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中（ =~/.emacs.d/init.el= ）即可。
 
 #+BEGIN_SRC emacs-lisp
-    ;; 关闭工具栏， tool-bar-mode 即为一个 Minor Mode
+    ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
     (tool-bar-mode -1)
 
     ;; 关闭文件滑动控件
@@ -159,7 +159,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (set-face-attribute 'default nil :height 160)
 
     ;; 快速打开配置文件
-    (def open-init-file()
+    (defun open-init-file()
       (interactive)
       (find-file "~/.emacs.d/init.el"))
 
