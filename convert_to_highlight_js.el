@@ -12,3 +12,10 @@
 ;; (require 'htmlize)
 (add-to-list 'org-export-filter-src-block-functions
              'rasmus/org-html-wrap-blocks-in-code)
+
+(setq org-emphasis-regexp-components
+      '("     ('\"{“”"
+        "-   .,!?;''“”\")}/\\“”"
+        "    \r\n,"
+        "."
+        1))
