@@ -264,8 +264,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (when (>= emacs-major-version 24)
         (require 'package)
         (package-initialize)
-        (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-        )
+        (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t))
 
     ;; cl - Common Lisp Extension
     (require 'cl)
@@ -313,13 +312,13 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 #+BEGIN_SRC emacs-lisp
     ;; 遍历每一个缓冲区（Buffer）
     (cl-loop for buf in (buffer-list)
-                     collect (buffer-file-name buf))
+             collect (buffer-file-name buf))
 
     ;; 寻找 729 的平方根（设置最大为 100 为了防止无限循环）
     (cl-loop for x from 1 to 100
-                     for y = (* x x)
-                     until (>= y 729)
-                     finally return (list x (= y 729)))
+             for y = (* x x)
+             until (>= y 729)
+             finally return (list x (= y 729)))
 #+END_SRC
 
 你可以在[[http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility][这里]]找到更多关于循环的使用说明。
