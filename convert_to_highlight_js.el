@@ -7,15 +7,17 @@
      (replace-regexp-in-string "<pre class=\"src src-\\([^\"]*?\\)\">"
                                "<pre>\n<code class=\"\\1\">" src))))
 
-(require 'org)
-(require 'ox-html)
-;; (require 'htmlize)
-(add-to-list 'org-export-filter-src-block-functions
-             'rasmus/org-html-wrap-blocks-in-code)
-
 (setq org-emphasis-regexp-components
       '("     ('\"{“”"
         "-   .,!?;''“”\")}/\\“”"
         "    \r\n,"
         "."
         1))
+
+(require 'org)
+(require 'ox-html)
+;; (require 'htmlize)
+(add-to-list 'org-export-filter-src-block-functions
+             'rasmus/org-html-wrap-blocks-in-code)
+
+
