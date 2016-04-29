@@ -3,7 +3,8 @@ before_install:
   - sudo apt-add-repository -y ppa:ubuntu-elisp/ppa
   - sudo apt-get update
   - sudo apt-get install emacs-snapshot
-  - sudo apt-get install emacs-goodies-el
+  - wget http://orgmode.org/org-8.3.4.tar.gz
+  - tar xzf org-8.3.4.tar.gz
 env:
   global:
   - GH_REF: github.com/emacser-cn/Spacemacs-rocks.git

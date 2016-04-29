@@ -14,6 +14,9 @@
 ;;         "."
 ;;         1))
 
+(add-to-list 'load-path "./org-8.3.4/lisp")
+(add-to-list 'load-path "./org-8.3.4/contrib/lisp")
+
 (require 'org)
 (require 'org-element)
 (require 'ox-html)
