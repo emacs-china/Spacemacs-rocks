@@ -323,7 +323,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 你可以在[[http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility][这里]]找到更多关于循环的使用说明。
 
-其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='=（单引号）的完全体。因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。因为它在 Lisp 中十分常用，所以就提供了简写的方法。
 
 #+BEGIN_SRC emacs-lisp
     ;; 下面两行的效果完全相同的
