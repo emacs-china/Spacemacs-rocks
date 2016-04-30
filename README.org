@@ -872,6 +872,9 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 #+BEGIN_SRC emacs-lisp
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+
+  ;; 也可以把上面两句合起来
+  (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
 #+END_SRC
 
 在添加配置代码后重启 Emacs 使其生效。当然这个方法你也可以运用在其他的各个 Major Mode 中，如果你不想 Emacs 对某些符号进行类似的自动匹配补全。
@@ -889,33 +892,34 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 
 Lisp 的宏（Macro）类似于 C++ 中的模板，并可以生产新的代码（你可以在[[http://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special][这里]]找到更多关于宏的讨论）。使用它，我们可以增强某个函数的功能而不去更改这个函数的代码。
 
-还有一个小问题就是解决在不同系统中的换行符，例如在 DOS 系统下的 =\M= 换行符，这让我们有时候在 Unix 系统中很是头疼，因为它的存在会使版本控制误以为整行的代码都被修改过而造成不必要的麻烦。（你可以在[[http://unix.stackexchange.com/questions/32001/what-is-m-and-how-do-i-get-rid-of-it][这里]]找到更多关于 =\M= 的信息）
+还有一个小问题就是解决在不同系统中的换行符，例如在 DOS 系统下的 =\r(^M)= 换行符，这让我们有时候在 Unix 系统中很是头疼，因为它的存在会使版本控制误以为整行的代码都被修改过而造成不必要的麻烦。（你可以在[[http://unix.stackexchange.com/questions/32001/what-is-m-and-how-do-i-get-rid-of-it][这里]]找到更多关于 =\r(^M)= 的信息）
 
 我们用两种方式来处理这个问题，隐藏这个换行符或者将其删除。首先下面是隐藏的方法，
 
 #+BEGIN_SRC emacs-lisp
-(defun hidden-dos-eol ()
-  "Do not show ^M in files containing mixed UNIX and DOS line endings."
-  (interactive)
-  (setq buffer-display-table (make-display-table))
-  (aset buffer-display-table ?\^M []))
+  (defun hidden-dos-eol ()
+    "Do not show ^M in files containing mixed UNIX and DOS line endings."
+    (interactive)
+    (unless buffer-display-table
+      (setq buffer-display-table (make-display-table)))
+    (aset buffer-display-table ?\^M []))
 #+END_SRC
 
 使用下面的代码则可以定义函数将此换行符删除，
 
 #+BEGIN_SRC emacs-lisp
-(defun remove-dos-eol ()
-  "Replace DOS eolns CR LF with Unix eolns CR"
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\r" nil t) (replace-match "")))
+  (defun remove-dos-eol ()
+    "Replace DOS eolns CR LF with Unix eolns CR"
+    (interactive)
+    (goto-char (point-min))
+    (while (search-forward "\r" nil t) (replace-match "")))
 #+END_SRC
 
 ** web-mode
 
 Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode 则是一个非常常用也很强大的用于编辑前端代码的 Major Mode（你可以在[[https://github.com/fxbois/web-mode][这里]]找到更多关于它的信息）。
 
-首先我们需要安装它，照理我们需要将其添加至我们的插件列表中去。
+首先我们需要安装它，照例我们需要将其添加至我们的插件列表中去。
 
 #+BEGIN_SRC emacs-lisp
   (defvar xinyang/packages '(
@@ -977,36 +981,36 @@ js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mod
 
 我们使用刚刚所提到的方法来安装 js2-refactor 插件。
 
-在安装完成后，添加一个钩子（Hook）
+在安装完成后，添加一个钩子（Hook）：
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "C-c C-m")
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-m")
 #+END_SRC
 
 我们可以使用 =C-c C-m= 然后输入功能前缀，例如 =em= 是 extract-method 的前缀。更多的功能和使用方法也可以在上面给出的链接中找到，所有的前缀也可以在[[https://github.com/magnars/js2-refactor.el#refactorings][这里]]找到。
 
 ** 优化 occur 与 imenu
 
-下面的代码用于配置 Occur Mode 使其默认搜索当前光标下的字符串，
+下面的代码用于配置 Occur Mode 使其默认搜索当前被选中的或者在光标下的字符串：
 
 #+BEGIN_SRC emacs-lisp
-(defun occur-dwim ()
-  "Call `occur' with a sane default."
-  (interactive)
-  (push (if (region-active-p)
-            (buffer-substring-no-properties
-             (region-beginning)
-             (region-end))
-          (let ((sym (thing-at-point 'symbol)))
-            (when (stringp sym)
-              (regexp-quote sym))))
-        regexp-history)
-  (call-interactively 'occur))
-(global-set-key (kbd "M-s o") 'occur-dwim)
+  (defun occur-dwim ()
+    "Call `occur' with a sane default."
+    (interactive)
+    (push (if (region-active-p)
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            (let ((sym (thing-at-point 'symbol)))
+              (when (stringp sym)
+                (regexp-quote sym))))
+          regexp-history)
+    (call-interactively 'occur))
+  (global-set-key (kbd "M-s o") 'occur-dwim)
 #+END_SRC
 
-=dwin= 是按我说的做的缩写（Do what I mean）。
+=dwim= 是按我说的做的缩写（Do what I mean）。
 
 Occur 可以用于显示变量或函数的定义，我们可以通过 popwin 的 customize-group 将定义显示设置为右边而不是默认的底部（ =customize-group > popwin > Popup Window Position= 设置为 right），也可以在这里对其宽度进行调节。
 
@@ -1015,26 +1019,26 @@ Occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (�
 imenu 可以显示当前所有缓冲区的列表，下面的配置可以让其拥有更精确的跳转，
 
 #+BEGIN_SRC emacs-lisp
-(defun js2-imenu-make-index ()
-      (interactive)
-      (save-excursion
-        ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
-        (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                                   ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                                   ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
-                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
-                                   ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
-(add-hook 'js2-mode-hook
-              (lambda ()
-                (setq imenu-create-index-function 'js2-imenu-make-index)))
+  (defun js2-imenu-make-index ()
+        (interactive)
+        (save-excursion
+          ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
+          (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                     ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                     ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
+                                     ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
+                                     ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
+  (add-hook 'js2-mode-hook
+                (lambda ()
+                  (setq imenu-create-index-function 'js2-imenu-make-index)))
 
-(global-set-key (kbd "M-s i") 'counsel-imenu)
+  (global-set-key (kbd "M-s i") 'counsel-imenu)
 #+END_SRC
 
 ** expand-region
@@ -1044,7 +1048,7 @@ imenu 可以显示当前所有缓冲区的列表，下面的配置可以让其�
 再为其绑定一个快捷键，
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-=") 'er/expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region)
 #+END_SRC
 
 使用这个插件可以使我们更方便的选中一个区域。（更多使用方法和文档可以在[[https://github.com/magnars/expand-region.el][这里]]找到）
@@ -1056,14 +1060,14 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 我们将其绑定快捷键以便更快捷的使用这个模式（ =C-;= 为默认快捷键），
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-s e") 'iedit-mode)
+  (global-set-key (kbd "M-s e") 'iedit-mode)
 #+END_SRC
 
-我们可以使用 Customized-group 来更改其高亮的背景色，将 =hightlight= 改为 =region= 。
+我们可以使用 Customized-group 来更改其高亮的背景色，将 =highlight= 改为 =region= 。
 
 ** Org 导出
 
-使用 =C-c C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。你现在看到的这本教程就是由 Org-mode 所导出生产的。
+使用 =C-c C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。你现在看到的这本教程就是由 Org-mode 所导出生成的。
 
 * 第六天：代码片段与语法检查器
 
@@ -1078,11 +1082,11 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 我们可以使用下面的配置来在 Company-mode 中使用 =C-n= 与 =C-p= 来选择补全项，
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'company
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous))
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous))
 #+END_SRC
 
 ** Org-mode 进阶使用
@@ -1090,36 +1094,36 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 在学习代码片段和语法检查器（Linter）之前，我们先来学习一下如何使用 Org-mode 来做学习笔记和安排工作时间。我们用下面的配置代码来设置一个模板（其中设置了待办事项的优先级还有触发键），
 
 #+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/.emacs.d/gtd.org" "工作安排")
-         "* TODO [#B] %?\n  %i\n"
-         :empty-lines 1)))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/.emacs.d/gtd.org" "工作安排")
+           "* TODO [#B] %?\n  %i\n"
+           :empty-lines 1)))
 #+END_SRC
 
 我们也可以为其绑定一个快捷键，
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c r") 'org-capture)
+  (global-set-key (kbd "C-c r") 'org-capture)
 #+END_SRC
 
 这个功能除了可以记录待办事项还有其他许许多多的功能例如获取将当前浏览器中的 URL（下面的例子只在 Mac OS X 平台有效）。
 
 #+BEGIN_SRC emacs-lisp
-(defun YOUR_NAME/retrieve-chrome-current-tab-url()
-  "Get the URL of the active tab of the first window"
-  (interactive)
-      (let ((result (do-applescript
-                     (concat
-                      "set frontmostApplication to path to frontmost application\n"
-                      "tell application \"Google Chrome\"\n"
-                      "	set theUrl to get URL of active tab of first window\n"
-                      "	set theResult to (get theUrl) \n"
-                      "end tell\n"
-                      "activate application (frontmostApplication as text)\n"
-                      "set links to {}\n"
-                      "copy theResult to the end of links\n"
-                      "return links as string\n"))))
-        (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
+  (defun YOUR_NAME/retrieve-chrome-current-tab-url()
+    "Get the URL of the active tab of the first window"
+    (interactive)
+        (let ((result (do-applescript
+                       (concat
+                        "set frontmostApplication to path to frontmost application\n"
+                        "tell application \"Google Chrome\"\n"
+                        " set theUrl to get URL of active tab of first window\n"
+                        " set theResult to (get theUrl) \n"
+                        "end tell\n"
+                        "activate application (frontmostApplication as text)\n"
+                        "set links to {}\n"
+                        "copy theResult to the end of links\n"
+                        "return links as string\n"))))
+          (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
 #+END_SRC
 
 更多有关 Org-capture 的内容可以在[[http://orgmode.org/manual/Capture.html][这里]]找到。
@@ -1129,7 +1133,7 @@ Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作�
 因为每次保存中文的时候都需要选择解码，我们可以使用下面的配置将文本解码设置默认为 UTF-8，
 
 #+BEGIN_SRC emacs-lisp
-(set-language-environment "UTF-8")
+  (set-language-environment "UTF-8")
 #+END_SRC
 
 当 org-mode 不能生效时，我们需要将与 Org 相关的配置放置于 =with-eval-after-load= 中，
@@ -1141,7 +1145,7 @@ Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作�
 #+END_SRC
 ** 批量修改文件名
 
-`C-x C-q` 就可以直接在 Dired Mode 中进行编辑，使用之前学的 iedit-mode 和区域选择就可以直接对多个文件进行重命名编辑了。
+=C-x C-q= 就可以直接在 Dired Mode 中进行编辑，使用之前学的 iedit-mode 和区域选择就可以直接对多个文件进行重命名编辑了。
 
 ** 搜索与替换
 
@@ -1164,7 +1168,7 @@ apt-get install silversearcher-ag
 安装好 ag 后我们就可以安装 helm-ag 插件了。（它的 GitHub 仓库地址在[[https://github.com/syohex/emacs-helm-ag][这里]]）在安装完成后可以为其设置快捷键，
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c p s") 'helm-do-ag-project-root)
+  (global-set-key (kbd "C-c p s") 'helm-do-ag-project-root)
 #+END_SRC
 
 使用这个插件我们同样可以在缓冲区对搜索到的结果进行直接的修改，这样就可以做到快速的搜索与替换。
@@ -1180,7 +1184,7 @@ apt-get install silversearcher-ag
 使用下面的代码可以将 flycheck-mode 在特定模式下激活（下面的例子就是只有在打开 JavaScript 时才会激活语法检查器），
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'js2-mode-hook 'flycheck-mode)
+  (add-hook 'js2-mode-hook 'flycheck-mode)
 #+END_SRC
 
 使用 =flycheck-verify-setup= 可以进行语法检查器的选择。
@@ -1192,8 +1196,8 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 =yasnippet= 是一个代码块补全的插件（[[https://github.com/capitaomorte/yasnippet][GitHub]] 地址）。使用下面的配置文件将其在所有的编程语言的模式中激活。
 
 #+BEGIN_SRC emacs-lisp
-(yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
 #+END_SRC
 
 自定义代码块的方法可以在上面提供的链接中找到。
@@ -1203,8 +1207,8 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 [[https://github.com/abo-abo/auto-yasnippet][auto-yasnippet]] 也是一个非常好用代码块补全插件。安装并未其设置快捷键，
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "H-w") #'aya-create)
-(global-set-key (kbd "H-y") #'aya-expand)
+  (global-set-key (kbd "H-w") #'aya-create)
+  (global-set-key (kbd "H-y") #'aya-expand)
 #+END_SRC
 
 简单的使用方法就是使用 =~= 来定义模板，然后调用 =aya-create= 再使用 =aya-expand= 来使用模板。
