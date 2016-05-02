@@ -7,8 +7,12 @@
      (replace-regexp-in-string "<pre class=\"src src-\\([^\"]*?\\)\">"
                                "<pre>\n<code class=\"\\1\">" src))))
 
-(require 'org)
+(add-to-list 'load-path "./org-8.3.4/lisp")
 (require 'ox-html)
-;; (require 'htmlize)
+(org-reload)
 (add-to-list 'org-export-filter-src-block-functions
              'rasmus/org-html-wrap-blocks-in-code)
+(setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n")
+(org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+(org-element-update-syntax)
+(org-html-export-to-html)
