@@ -1,13 +1,26 @@
 * Spacemacs Rocks Season 2 (Day 7)
+** Tweak C-w to delete backward
+
+
 ** Evil (It's not Baidu!)   Turn Emacs into Vim in one second
 1. install Evil plugin
+
 2. tell the different between Evil and Vim
+   Universal args
 
-3. configure Evil leader key
+3. Evil state = Vim mode
+evil normal state
+evil insert state
+evil visual state
+evil motion state
+evil emacs state
+evil operator state (diw)
 
-4. press `C-z` to toggle between Normal and Emacs state
+4. configure Evil leader key
 
-5.  Made some modes to use emacs-state
+5. press `C-z` to toggle between Normal and Emacs state ??
+
+6. Made some modes to use emacs-state
 #+BEGIN_SRC emacs-lisp
  (dolist (mode '(ag-mode
                   flycheck-error-list-mode
@@ -25,7 +38,7 @@
                 (kbd "N")       'evil-search-previous
                 (kbd "C-d")     'evil-scroll-down
                 (kbd "C-u")     'evil-scroll-up
-                (kbd "C-w C-w") 'other-window)))
+                ))
 #+END_SRC
 Add this to Dired mode, ibuffer mode?
 
@@ -34,10 +47,11 @@ Add this to Dired mode, ibuffer mode?
 ** Design your own key bindings
 1. Use SPC as the leader key
 2. Use comma as the major mode leader key
-3. Use which key to group key bindings
-4. Yeah! You got a minimal Spacemacs!
+3. Use SPC : to list all available commands
+4. Use which key to group key bindings
+5. Yeah! You got a minimal Spacemacs!
 
-** Evalate code in Org file ( literal programming)
+** Bonus Time:  Search  Org notes
 
 ** References
 
