@@ -1,0 +1,70 @@
+* Spacemacs Rocks Season 2 (Day 7)
+** Tweak C-w to delete backward
+
+
+** Evil (It's not Baidu!)   Turn Emacs into Vim in one second
+1. install Evil plugin
+
+2. tell the different between Evil and Vim
+   Universal args
+
+3. Evil state = Vim mode
+evil normal state
+evil insert state
+evil visual state
+evil motion state
+evil emacs state
+evil operator state (diw)
+
+4. configure Evil leader key
+
+5. press `C-z` to toggle between Normal and Emacs state ??
+
+6. Made some modes to use emacs-state
+#+BEGIN_SRC emacs-lisp
+ (dolist (mode '(ag-mode
+                  flycheck-error-list-mode
+                  git-rebase-mode))
+    (add-to-list 'evil-emacs-state-modes mode))
+#+END_SRC
+
+6. binding h/j/k/l key
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'occur-mode-hook
+            (lambda ()
+              (evil-add-hjkl-bindings occur-mode-map 'emacs
+                (kbd "/")       'evil-search-forward
+                (kbd "n")       'evil-search-next
+                (kbd "N")       'evil-search-previous
+                (kbd "C-d")     'evil-scroll-down
+                (kbd "C-u")     'evil-scroll-up
+                ))
+#+END_SRC
+Add this to Dired mode, ibuffer mode?
+
+** Which key
+
+** Design your own key bindings
+1. Use SPC as the leader key
+2. Use comma as the major mode leader key
+3. Use SPC : to list all available commands
+4. Use which key to group key bindings
+5. Yeah! You got a minimal Spacemacs!
+
+** Bonus Time:  Search  Org notes
+
+** References
+
+- https://www.emacswiki.org/emacs/Evil
+
+- http://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/
+
+- http://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
+
+- http://blog.aaronbieber.com/2015/05/24/from-vim-to-emacs-in-fourteen-days.html
+
+- http://blog.jakubarnold.cz/2014/06/23/evil-mode-how-to-switch-from-vim-to-emacs.html
+
+
+** Exercises
+- Install hydra and begin to add your own hydras!
