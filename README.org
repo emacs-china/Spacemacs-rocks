@@ -24,9 +24,7 @@
 
 [[./Artwork.png]]
 
-*作者* [[https://github.com/zilongshanren/][zilongshanren]]
-
-*编者* [[https://github.com/li-xinyang][li-xinyang]]
+*GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]]
 
 在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
@@ -46,7 +44,7 @@
 
 在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial） 在 Emacs 中直接将其打开。
 
-Elisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]后很快地了解它的基础用法。
+Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]后很快地了解它的基础用法。
 
 ** 基础操作
 
@@ -92,7 +90,7 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 ** 学习基础 Elisp
 
-请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Elisp 为一个函数式的语言，所以它全部功能都是由函数来实现的。
+请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Emacs Lisp 为一个函数式的语言，所以它全部功能都是由函数来实现的。
 
 下面为一些简单的例子
 
@@ -143,13 +141,13 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (scroll-bar-mode -1)
 
     ;; 显示行号
-    (global-linum-mode t)
+    (global-linum-mode 1)
 
     ;; 更改光标的样式（不能生效，解决方案见第二集）
     (setq cursor-type 'bar)
 
     ;; 关闭启动帮助画面
-    (setq inhibit-splash-screen t)
+    (setq inhibit-splash-screen 1)
 
     ;; 关闭缩进 (第二天中被去除)
     ;; (electric-indent-mode -1)
@@ -177,7 +175,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 #+BEGIN_SRC emacs-lisp
     ; 开启全局 Company 补全
-    (global-company-mode t)
+    (global-company-mode 1)
 #+END_SRC
 
 *** Org-mode
@@ -208,7 +206,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (setq-default cursor-type 'bar)
 #+END_SRC
 
-今天我们需要将第一天关闭的自动缩进 (=electric-indent-mode=) 从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Eli 中用分号做注释时 =fancy-comment= 会造成很远的缩进，其实解决方法是使用 Elisp 推荐的两个分号而不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
+今天我们需要将第一天关闭的自动缩进 (=electric-indent-mode=) 从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Emacs Lisp 中用分号做注释时 =fancy-comment= 会造成很远的缩进，其实解决方法是使用 Emacs Lisp 推荐的两个分号而不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
 因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
 
@@ -238,7 +236,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字之后输入一个字符会替换掉你选中部分的文字。
 
 #+BEGIN_SRC emacs-lisp
-    (delete-selection-mode t)
+    (delete-selection-mode 1)
 #+END_SRC
 
 下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
@@ -258,7 +256,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]] （Milkypostman's Emacas Lisp Package Archive）。它有非常多的插件（3000 多个插件）。一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages= 来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除， =U= 来更新，并用 =X= 来确认。
 
-你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 =YOUR_NAME_HERE/packages= 中，Emacs 在启动时会自动下载未被安装的插件。
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装的插件。
 
 #+BEGIN_SRC emacs-lisp
     (when (>= emacs-major-version 24)
@@ -270,7 +268,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (require 'cl)
 
     ;; Add Packages
-    (defvar YOUR_NAME_HERE/packages '(
+    (defvar my/packages '(
                    ;; --- Auto-completion ---
                    company
                    ;; --- Better Editor ---
@@ -288,17 +286,17 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
                    ;; solarized-theme
                    ) "Default packages")
 
-    (setq package-selected-packages YOUR_NAME_HERE/packages)
+    (setq package-selected-packages my/packages)
 
-    (defun YOUR_NAME_HERE/packages-installed-p ()
-        (loop for pkg in YOUR_NAME_HERE/packages
+    (defun my/packages-installed-p ()
+        (loop for pkg in my/packages
               when (not (package-installed-p pkg)) do (return nil)
               finally (return t)))
 
-    (unless (YOUR_NAME_HERE/packages-installed-p)
+    (unless (my/packages-installed-p)
         (message "%s" "Refreshing package database...")
         (package-refresh-contents)
-        (dolist (pkg YOUR_NAME_HERE/packages)
+        (dolist (pkg my/packages)
           (when (not (package-installed-p pkg))
             (package-install pkg))))
 
@@ -344,14 +342,14 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 #+BEGIN_SRC emacs-lisp
     ;; 第一种
-    (setq package-selected-packages YOUR_NAME_HERE/packages)
+    (setq package-selected-packages my/packages)
     ;; 第二种
-    (setq package-selected-packages 'YOUR_NAME_HERE/packages)
+    (setq package-selected-packages 'my/packages)
     ;; 第三种
-    (setq package-selected-packages (quote YOUR_NAME_HERE/packages))
+    (setq package-selected-packages (quote my/packages))
 #+END_SRC
 
-第一种设置是在缓冲区中设置一个名为 =package-selected-packages= 的变量，将其的值设定为 =YOUR_NAME_HERE/packages= 变量的值。第二种和第三种其实是完全相同的，将一个名为 =package-selected-packages= 的变量设置为 =YOUR_NAME_HERE/packages= 。
+第一种设置是在缓冲区中设置一个名为 =package-selected-packages= 的变量，将其的值设定为 =my/packages= 变量的值。第二种和第三种其实是完全相同的，将一个名为 =package-selected-packages= 的变量设置为 =my/packages= 。
 
 我们可以用下面代码将 Emacs 设置为开启默认全屏，
 
@@ -368,19 +366,19 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 高亮当前行，当文本内容很多时可以很容易找到光标的位置。
 
 #+BEGIN_SRC emacs-lisp
-    (global-hl-line-mode t)
+    (global-hl-line-mode 1)
 #+END_SRC
 
 *安装主题*
 
 #+BEGIN_SRC emacs-lisp
-    (add-to-list YOUR_NAME_HERE/packages 'monokai-theme)
+    (add-to-list my/packages 'monokai-theme)
 #+END_SRC
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
 
 #+BEGIN_SRC emacs-lisp
-    (load-theme 'monokai t)
+    (load-theme 'monokai 1)
 #+END_SRC
 
 *推荐插件*
@@ -510,7 +508,7 @@ Elisp 中并没有命名空间（Namespace），换句话说就是所有的变�
 
 #+BEGIN_EXAMPLE
 #自定义变量可以使用自己的名字作为命名方式（可以是变量名或者函数名）
-YourName/XXXX
+my/XXXX
 
 #模式命名规则
 ModeName-mode
@@ -570,7 +568,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (require 'cl)
 
 ;; Add Packages
-(defvar xinyang/packages '(
+(defvar my/packages '(
 			   ;; --- Auto-completion ---
 			   company
 			   ;; --- Better Editor ---
@@ -611,7 +609,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (require 'cl)
 
 ;; Add Packages
-(defvar xinyang/packages '(
+(defvar my/packages '(
 			   ;; --- Auto-completion ---
 			   company
 			   ;; --- Better Editor ---
@@ -698,7 +696,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 下面的代码可以是 Emacs 自动加载外部修改过的文件。
 
 #+BEGIN_SRC emacs-lisp
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 #+END_SRC
 
 使用下面的代码可以关闭自己生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的备份文件了，现在是关闭自动保存文件）。
@@ -713,7 +711,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 #+BEGIN_SRC emacs-lisp
 (require 'popwin)
-(popwin-mode t)
+(popwin-mode 1)
 #+END_SRC
 
 也许你并不喜欢听到错误时的“哔哔”的警告提示音，使用下面的代码你可以关闭 Emacs 中的警告音，
@@ -760,7 +758,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 使用下面的代码我们可以开启 =abbrev= 模式并定义一个缩写表，每当我们输入下面的缩写并以空格结束时，Emacs 就会将其自动展开成为我们所需要的字符串。
 
 #+BEGIN_SRC emacs-lisp
-  (abbrev-mode t)
+  (abbrev-mode 1)
   (define-abbrev-table 'global-abbrev-table '(
                                               ;; Shifu
                                               ("8zl" "zilongshanren")
@@ -796,6 +794,7 @@ Company 有时候补全功能并不是非常理想，这时就可以使用 Hippi
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "s-/") 'hippie-expand)
 #+END_SRC
+
 ** Dired Mode
 
 Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。
@@ -840,7 +839,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 (require 'dired-x)
 #+END_SRC
 
-使用 =(setq dired-dwin-target t)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
+使用 =(setq dired-dwin-target 1)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
 最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），它可以将任意文件直接在 Finder 中打开。你想安装这个插件，将其添加至第二天的插件列表中即可，下次启动 Emacs 时，它就会自动帮你完成下载。
 
@@ -859,15 +858,16 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 #+END_SRC
 
 之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为 =org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
+
 * 第五天：打造前端开发神器
 
 视频地址如下
 
-- 百度网盘 http://pan.baidu.com/s/1slOOWSd
-- 优酷： http://v.youku.com/v_show/id_XMTU0NjMyNDg5Ng==.html
-- Youtube: https://www.youtube.com/watch?v=BpjwzSB2d00&feature=youtu.be
+- [[http://pan.baidu.com/s/1slOOWSd][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTU0NjMyNDg5Ng%3D%3D.html][优酷]]
+- [[https://www.youtube.com/watch?v%3DBpjwzSB2d00&feature%3Dyoutu.be][YouTube]]
 
-照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Lisp 中我们有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 =init-default.el= 配置文件中）。
+照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Emacs Lisp 中我们有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Emacs Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 =init-default.el= 配置文件中）。
 
 #+BEGIN_SRC emacs-lisp
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
@@ -1073,9 +1073,9 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 视频地址如下
 
-- 百度网盘： http://pan.baidu.com/s/1miLBw5E
-- 优酷： http://v.youku.com/v_show/id_XMTU0NjYwNzQ3Mg==.html
-- Youtube: https://www.youtube.com/watch?v=WIzWxTc1KUI&featur
+- [[http://pan.baidu.com/s/1miLBw5E][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTU0NjYwNzQ3Mg%3D%3D.html][优酷]]
+- [[https://www.youtube.com/watch?v%3DWIzWxTc1KUI&featur][YouTube]]
 
 在开始前我们需要注意的是之前模块化的配置文件 =init-keybindings.el= 应该放在所有调用模块的最后面，因为也许在设置快捷键时某些函数还未被加载。
 
@@ -1143,6 +1143,7 @@ Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作�
     ;; Org 模式相关设定
     )
 #+END_SRC
+
 ** 批量修改文件名
 
 =C-x C-q= 就可以直接在 Dired Mode 中进行编辑，使用之前学的 iedit-mode 和区域选择就可以直接对多个文件进行重命名编辑了。
