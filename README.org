@@ -1219,8 +1219,7 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 
 - [[http://pan.baidu.com/s/1dEIlXID][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU1NTk4MzUyNA%3D%3D.html][优酷]]
-- 站位
-
+- YouTube
 
 开始之前我们先将 =C-w= 来使其可以向后删除一个单词，这样就可以与 Shell 中的快捷键操作同步。
 
@@ -1272,7 +1271,7 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 
 Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）。因为之后我们会转移至 Spacemacs 所以我们可以将其设置为空格键 =SPC= 。
 
-在通过下面的配置来设置简单的结合 Leader Key 快捷键组合（我们使用不同的键讲不同的功能分组，例如我们使用 =f= 键来做关于文件的操作，使用 =b= 键来做关于缓冲区的操作），
+在通过下面的配置来设置简单的结合 Leader Key 快捷键组合（我们使用不同的键讲不同的功能分组，例如我们使用 =f= 键来做关于文件的操作，使用 =b= 键来做关于缓冲区（Buffer）的操作），
 
 #+BEGIN_SRC emacs-lisp
 (evil-leader/set-key
@@ -1325,7 +1324,7 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 (evilnc-default-hotkeys)
 #+END_SRC
 
-使用下面的代码将其与 Evil 模式进行绑定，这里我们选择使用 =/= 作为快捷键。
+使用下面的代码将其与 Evil 模式进行绑定，这里我们选择使用 =,/= 作为快捷键。
 
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
