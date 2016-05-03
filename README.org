@@ -1224,7 +1224,7 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 开始之前我们先将 =C-w= 来使其可以向后删除一个单词，这样就可以与 Shell 中的快捷键操作同步。
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-w") 'backward-kill-word')
+(global-set-key (kbd "C-w") 'backward-kill-word)
 #+END_SRC
 
 如果你不是 Vim 的用户，你可以选择跳过这一天的内容。但是我们强烈建议你花一些时间来学习基本的 Vim 操作，即使 Emacs 是你的最爱 Vim 的快捷键也在一定程度会增加你的编辑效率。基础的 Vim 操作可以在[[http://www.openvim.com/][这里]]学会。
