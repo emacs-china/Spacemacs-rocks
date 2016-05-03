@@ -1217,8 +1217,8 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 
 视频地址如下，
 
-- 站位
-- 站位
+- [[http://pan.baidu.com/s/1dEIlXID][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTU1NTk4MzUyNA%3D%3D.html][优酷]]
 - 站位
 
 
@@ -1237,7 +1237,7 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 - Visual Mode -> Visual State
 - Motion Mode -> Motion State
 
-还有两个 Emacs 中的特殊状态他们分别是 Emacs State 和 Operator State。
+还有一个 Emacs 中的特殊状态是 Emacs State。
 
 ** Evil 的安装
 
@@ -1249,7 +1249,7 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 
 在激活 Evil 模式后就可以，在 Emacs 中使用 Vim 的快捷键了。有一点需要注意 =C-u= 在 Emacs 中有特殊的功所（Universal args）以能我们可以通过使用 =customize-group= 来对 Evil 模式进行修改，将 =Evil Want C U Scroll= 设置为开启。
 
-下面的代码可以屏蔽一些不需要的快捷键设定，
+下面的代码可以将 =insert state map= 中的快捷键清空，使其可以回退（Fallback）到 Emacs State 中，这样我们之前的 Emacs State 里面定义的 =C-w= 等快捷键就不会被 =evil insert minor mode state= 所覆盖， 
 
 #+BEGIN_SRC emacs-lisp
 (setcdr evil-insert-state-map nil)
