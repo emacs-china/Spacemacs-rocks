@@ -1219,7 +1219,7 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 
 - [[http://pan.baidu.com/s/1dEIlXID][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU1NTk4MzUyNA%3D%3D.html][优酷]]
-- YouTube
+- [[https://www.youtube.com/watch?v%3DI_wU_-al6TY&feature%3Dyoutu.be][YouTube]]
 
 开始之前我们先将 =C-w= 来使其可以向后删除一个单词，这样就可以与 Shell 中的快捷键操作同步。
 
