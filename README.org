@@ -1213,3 +1213,135 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 #+END_SRC
 
 简单的使用方法就是使用 =~= 来定义模板，然后调用 =aya-create= 再使用 =aya-expand= 来使用模板。
+* 第七天：Evil 模式
+
+视频地址如下，
+
+- 站位
+- 站位
+- 站位
+
+
+开始之前我们先将 =C-w= 来使其可以向后删除一个单词，这样就可以与 Shell 中的快捷键操作同步。
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-w") 'backward-kill-word')
+#+END_SRC
+
+如果你不是 Vim 的用户，你可以选择跳过这一天的内容。但是我们强烈建议你花一些时间来学习基本的 Vim 操作，即使 Emacs 是你的最爱 Vim 的快捷键也在一定程度会增加你的编辑效率。基础的 Vim 操作可以在[[http://www.openvim.com/][这里]]学会。
+
+Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面几种（后面对于了相应的 Emacs 中的 State），
+
+- Normal Mode -> Normal State
+- Insert Mode -> Insert State
+- Visual Mode -> Visual State
+- Motion Mode -> Motion State
+
+还有两个 Emacs 中的特殊状态他们分别是 Emacs State 和 Operator State。
+
+** Evil 的安装
+
+照例我们需要将 Evil 插件添加至我们的插件列表中来完成安装。在重启 Emacs 完成安装后可以添加下面的代码将其激活。
+
+#+BEGIN_SRC emacs-lisp
+(evil-mode 1)
+#+END_SRC
+
+在激活 Evil 模式后就可以，在 Emacs 中使用 Vim 的快捷键了。有一点需要注意 =C-u= 在 Emacs 中有特殊的功所（Universal args）以能我们可以通过使用 =customize-group= 来对 Evil 模式进行修改，将 =Evil Want C U Scroll= 设置为开启。
+
+下面的代码可以屏蔽一些不需要的快捷键设定，
+
+#+BEGIN_SRC emacs-lisp
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+#+END_SRC
+
+这样你就可以使用 Evil 来在 Emacs 中完成百分之八十作用的快捷键操作了。
+
+完整的 Evil Mode 的 PDF 版本的操作指南可以在[[https://bytebucket.org/lyro/evil/raw/default/doc/evil.pdf][这里]]找到，建议从 Vim 转 Emacs 的用户多次阅读来完整的掌握这个模式的使用方法。
+
+** Evil 模式插件
+
+*** Leader Key 
+
+在 Emacs 中使用 Leader Key 可以通过 [[https://github.com/cofi/evil-leader][evil-leader]] 来实现。你需要做的就是在安装后将其激活即可。
+
+#+BEGIN_SRC emacs-lisp
+(global-evil-leader-mode)
+#+END_SRC
+
+Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）。因为之后我们会转移至 Spacemacs 所以我们可以将其设置为空格键 =SPC= 。
+
+在通过下面的配置来设置简单的结合 Leader Key 快捷键组合（我们使用不同的键讲不同的功能分组，例如我们使用 =f= 键来做关于文件的操作，使用 =b= 键来做关于缓冲区的操作），
+
+#+BEGIN_SRC emacs-lisp
+(evil-leader/set-key
+  "ff" 'find-file
+  "bb" 'switch-to-buffer
+  "0"  'select-window-0
+  "1"  'select-window-1
+  "2"  'select-window-2
+  "3"  'select-window-3
+  "w/" 'split-window-right
+  "w-" 'split-window-below
+  ":"  'counsel-M-x
+  "wM" 'delete-other-windows
+  )
+#+END_SRC
+
+注意上面窗口跳转相关的设置需要 window-numbering 安装后方可生效。
+
+*** Window-numbering 
+
+这个插件可以让我们快速的使用 Leader Key 与数字键的组合来在多个窗口之间进行跳转。它的 GitHub 地址可以在[[https://github.com/nschum/window-numbering.el][这里]]找到。
+
+下载安装后通过下面的代码可以将其激活，
+
+#+BEGIN_SRC emacs-lisp
+(window-numbering-mode 1)
+#+END_SRC
+
+*** Evil-Surround
+
+[[https://github.com/timcharper/evil-surround][Evil-surround]] 是一个 Vim 上非常常用的插件改写的，使用它可以快速的将选中区域进行匹配的操作，例如选中区域两边同时进行添加或修改括号，引号等操作。
+
+下载安装后使用下面的代码将其激活，
+
+#+BEGIN_SRC emacs-lisp
+(require 'evil-surround)
+(global-evil-surround-mode)
+#+END_SRC
+
+简单的使用方法就是在选中所选区域后，使用  =S(= 来将选中区域包括在括号之中。如果想将括号改变成 ="= 可以在选中后使用 =cs("=
+
+
+*** Evil-nerd-commenter
+
+这是一个快速添加与取消注释的插件，它的 GitHub 地址在[[https://github.com/redguardtoo/evil-nerd-commenter][这里]]。
+
+使用下面代码可以将其激活，
+
+#+BEGIN_SRC emacs-lisp
+(evilnc-default-hotkeys)
+#+END_SRC
+
+使用下面的代码将其与 Evil 模式进行绑定，这里我们选择使用 =/= 作为快捷键。
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+#+END_SRC
+
+*** Which-key
+
+[[https://github.com/justbur/emacs-which-key][which-key]] 可以显示当前组合键下所有可以使用的全部组合键的选项。使用这个插件可以很好的解决快捷键太多的问题，我们无需在记忆任何快捷键，而是根据自己的需求使用不同分组的快捷键后再在其中去需找自己需要的功能。
+
+在下载后可以使用下面的代码进行激活，
+
+#+BEGIN_SRC emacs-lisp
+(which-key-mode 1)
+#+END_SRC
+
+** Org Mode 中的搜索
+
+=C-c a= 中可以根据提示使用 =s= 来进行关键字所搜。使用 =t= 则可以进行代办事项的搜索。
