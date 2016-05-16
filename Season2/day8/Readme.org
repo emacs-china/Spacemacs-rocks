@@ -1,0 +1,27 @@
+* Spacemacs Rocks Season 2 (Day 8)
+** elpa mirros
+
+** Cask and pallet
+*** You can't start different versions of Emacs with the single config
+*** Troubleshootings
+- Emacs 24.5: Dependency flycheck failed to install: Package `let-alist-1.0.4' is unavailable
+- define-advice is not defined for Emacs 24.5
+
+#+BEGIN_SRC emacs-lisp
+(if (>= emacs-major-version 25)
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     (funcall fn))))
+  )
+(defadvice show-paren-function (around fix-show-paren-function activate)
+  (cond ((looking-at-p "\\s(") ad-do-it)
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     ad-do-it)))
+  )
+)
+
+#+END_SRC
