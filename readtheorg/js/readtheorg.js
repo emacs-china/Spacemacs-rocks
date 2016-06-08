@@ -36,15 +36,33 @@ $( document ).ready(function() {
                                         // a Bootstrap nav component.
     $('body').scrollspy({target: '#text-table-of-contents'});
 
-
-    // replace the 'Created' to 'Updated'
-    var $postamble = $('#postamble');
-    var $date = $postamble.find('.date');
-    var date = $date.text();
-    var updateDate = date.replace('Created', 'Updated');
-    $date.text(updateDate);
-    // end replace
 });
+
+
+
+
+/**
+ * custom hack
+ */
+$(document).ready(function () {
+
+  // replace the 'Created' to 'Updated'
+  var $postamble = $('#postamble');
+  var $date = $postamble.find('.date');
+  var date = $date.text();
+  var updateDate = date.replace('Created', 'Updated');
+  $date.text(updateDate);
+  // end replace
+
+
+  var toggleSidebar = $('<div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>');
+  $('#content').prepend(toggleSidebar);
+
+});
+
+
+
+
 
 window.SphinxRtdTheme = (function (jquery) {
     var stickyNav = (function () {
