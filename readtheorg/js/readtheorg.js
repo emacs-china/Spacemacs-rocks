@@ -55,8 +55,14 @@ $(document).ready(function () {
   // end replace
 
 
+  // add toc button
   var toggleSidebar = $('<div id="toggle-sidebar"><a href="#table-of-contents"><h2>Table of Contents</h2></a></div>');
   $('#content').prepend(toggleSidebar);
+
+  // add close button
+  var closeBtn = $('<a class="close-sidebar" href="#">Close</a>');
+  var tocTitle = $('#table-of-contents').find('h2');
+  tocTitle.append(closeBtn);
 
 });
 
