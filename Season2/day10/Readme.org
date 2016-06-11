@@ -1,0 +1,50 @@
+* Spacemacs Rocks Season 2 (Day 10)
+  
+ Topic: Company-mode and auto-completion
+ Cask and macro/use-package
+
+
+** Fix previous issues
+#+BEGIN_SRC emacs-lisp
+(use-package exec-path-from-shell
+  :ensure t
+  :if (and (eq system-type 'darwin) (display-graphic-p))
+  :config
+  (progn
+     (when (string-match-p "/zsh$" (getenv "SHELL"))
+      ;; Use a non-interactive login shell.  A login shell, because my
+      ;; environment variables are mostly set in `.zprofile'.
+       (setq exec-path-from-shell-arguments '("-l")))
+
+     (exec-path-from-shell-initialize)
+    )
+  )
+
+;; (use-package monokai-theme
+;; :ensure t)
+
+#+END_SRC
+ 
+** How company-mode works?
+1. backend for the completion sources and front end to display the candidates
+2. C-h v company-backends
+3. try company-file and company-ispell, M-x
+4. C-h C-f to view the backend implementation
+
+** Why my company sucks?
+1.  Python anaconda-mode not works
+2.  some backend require build with a server-client architecture: company-anaconda, company-jedi, company-ycmd, company-tern etc
+3. At first, you should make sure the server side is working properly and then you want to make sure you use the right backend
+4. how to fix anaconda on Mac   
+
+   
+** Group backend
+
+** Write a Simple company backend
+ http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend
+
+** reference
+1. http://sixty-north.com/blog/series/how-to-write-company-mode-backends
+2. https://www.emacswiki.org/emacs/CompanyMode
+
+

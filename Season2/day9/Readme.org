@@ -1,0 +1,131 @@
+* Spacemacs Rocks Season 2 (Day 9)
+  
+ Topic: Macro and Use-package
+
+* What is macro?
+Code which generate code?
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-var 1)
+  (setq my-var (+ 1 my-var))
+
+  (defmacro inc (var)
+    (list 'setq var (list '1+ var)))
+
+  (inc my-var) ;;add a new language
+
+  (macroexpand '(inc my-var))
+
+  (defun inc-v2 (var)
+    (setq var (1+ var)))
+
+  (inc-v2 my-var)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-var 1)
+  (macroexpand '(inc my-var))
+#+END_SRC
+
+Write macro is almost the same as writing function in elisp.
+
+
+* What's the different betwwen function and macro?
+** Evaluation:  the macro arguments are the actual expressions appearing in the macro call.
+
+**  Expansion: the value returned by the macro body is an alternate Lisp expression, also known as the expansion of the macro
+    
+** examples:
+back quote matters.
+
+#+BEGIN_SRC emacs-lisp
+  (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
+
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-print (number)
+    (message "This is a number: %d" number))
+
+  (my-print 2)
+
+  (my-print (+ 2 3))
+
+  (quote (+ 1 1))
+  ;; return a list
+
+
+  (defmacro my-print-2 (number)
+    `(message "This is a number; %d" ,number))
+
+  (my-print-2 2)
+
+  (my-print-2 (+ 2 3))
+
+  (setq my-var 2)
+  (inc my-var)
+
+  (defmacro inc2 (var1 var2)
+    (list 'progn (list 'inc var1) (list 'inc var2)))
+
+
+  (macroexpand '(inc2 my-var my-var))
+  (macroexpand-all '(inc2 my-var my-var))
+#+END_SRC
+
+* Why Macro?
+**  A more useful example of Elisp macro
+#+BEGIN_SRC emacs-lisp
+  (defun prelude-search (query-url prompt)
+    "Open the search url constructed with the QUERY-URL.
+  PROMPT sets the `read-string prompt."
+    (browse-url
+     (concat query-url
+             (url-hexify-string
+              (if mark-active
+                  (buffer-substring (region-beginning) (region-end))
+                (read-string prompt))))))
+
+  (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+    "Given some information regarding a search engine, install the interactive command to search through them"
+    `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+         ,(format "Search %s with a query or region if any." search-engine-name)
+         (interactive)
+         (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+
+
+  (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+  (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+  (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+  (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+#+END_SRC
+
+
+** Use-package and basic usage
+*** a more safe require
+
+*** group config into one place
+
+*** autoload and bind keys easily
+
+*** make your config load faster
+
+*** and more? Spacemacs use it a lot.
+
+* Bonus Time
+- pretty print the lisp Object
+(pp (macroexpand '(use-package company-mode)))
+
+- fuck your brain?
+#+BEGIN_SRC emacs-lisp
+(defmacro defsynonym (old-name new-name)
+  `(defmacro ,new-name (&rest args)
+     `(, ',old-name ,@args)))
+#+END_SRC
+
+more discussion: https://emacs-china.org/t/lisp/357
+
+* Reference
+Readme more about macro: https://www.gnu.org/software/emacs/manual/html_node/elisp/Macros.html#Macros
