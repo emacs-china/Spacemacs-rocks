@@ -4,17 +4,17 @@
 
 ** Why Spacemacs?
 1. You have your own Emacs configuration and you have used it for a long time.
-My suggest: Try Spacemacs, use it and learn from it.
- Then consider to use Spacemacs daily or stick to your own Emacs config.
+   My suggest: Try Spacemacs, use it and learn from it.
+   Then consider to use Spacemacs daily or stick to your own Emacs config.
 
 2. It's a bundle of meta configs, it's very easy to add/remove features & packages.
-The default package system is poor.
+   The default package system is poor.
 
 3. It's very friendly for Vim users.(I'm not sure whether normal Emacs users like it or not.)
-But I know some people also use =Emacs= and =Hybrid= editing style.
+   But I know some people also use =Emacs= and =Hybrid= editing style.
 
 4. It's has a very nice UI(spaceline) and very active community.
-I know spaceline has some nasty bugs, but I still can't resist to use it... it's beautiful.
+   I know spaceline has some nasty bugs, but I still can't resist to use it... it's beautiful.
 
 ** Start to use Spacemacs today
 *** Installation
@@ -34,7 +34,6 @@ javascript
 
 *** little tweak
 1. fullscreen
-2.
 
 *** Exclude some unwanted packages
     evil-lisp-state
