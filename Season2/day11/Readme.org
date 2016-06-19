@@ -1,0 +1,60 @@
+* Spacemacs Rocks Season 2 (Day 11)
+  
+ Topic: Spacemacs introduction and installation
+
+** Why Spacemacs?
+1. You have your own Emacs configuration and you have used it for a long time.
+My suggest: Try Spacemacs, use it and learn from it.
+ Then consider to use Spacemacs daily or stick to your own Emacs config.
+
+2. It's a bundle of meta configs, it's very easy to add/remove features & packages.
+The default package system is poor.
+
+3. It's very friendly for Vim users.(I'm not sure whether normal Emacs users like it or not.)
+But I know some people also use =Emacs= and =Hybrid= editing style.
+
+4. It's has a very nice UI(spaceline) and very active community.
+I know spaceline has some nasty bugs, but I still can't resist to use it... it's beautiful.
+
+** Start to use Spacemacs today
+*** Installation
+1. choose editing style, I choose Vim
+2. choose completion style, helm or ivy. We choose ivy and helm.
+3. choose distribution, spacemacs or spacemacs-base
+4. make your configs in =.spacemacs.d= folder and use Github to management it
+*** Add some built-in layers
+better defaults
+osx
+github
+git
+color
+markdown
+org
+javascript
+
+*** little tweak
+1. fullscreen
+2.
+
+*** Exclude some unwanted packages
+    evil-lisp-state
+    spray
+    doc-view
+    lorem-ipsum
+
+*** Easy way to Add  packages with default package settings
+
+*** Add your own configs in =user-config=  (Port the previous configs to Spacemacs)
+*** Fix helm tramp mode issue
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+#+END_SRC
+
+*** Make customize-group configs  in its own file
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+(load custom-file 'no-error 'no-message)
+
+#+END_SRC
+
+*** Read the docs and Use Spacemacs every day!
