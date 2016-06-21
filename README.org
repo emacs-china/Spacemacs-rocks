@@ -228,7 +228,7 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (setq recentf-max-menu-item 10)
 
     ;; 这个快捷键绑定可以用之后的插件 counsel 代替
-    ;; (global-set-key (kbd "C-x C-r") 'recent-open-files)
+    ;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+END_SRC
 
 =require= 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统的更多内容，文章在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]。
