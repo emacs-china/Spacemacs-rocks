@@ -1,0 +1,11 @@
+* Spacemacs Rocks Season 2 (Day 13)
+  
+ Topic: More tweaks of your own layers
+
+** Fix ivy 0.8 issues
+
+** post-init and pre-init
+   
+** location: builtin, elpa and github
+
+** layers.el

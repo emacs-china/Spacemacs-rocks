@@ -1,0 +1,11 @@
+* Spacemacs Rocks Season 2 (Day 12)
+  
+ Topic: Create layer for your own configs
+
+
+** More tweaks of the builit layers
+- config variables (chinese layer)
+
+
+** Write your first layer
+   
