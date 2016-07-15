@@ -1,0 +1,83 @@
+* Spacemacs Rocks Season 2 (Day 14)
+  
+ Topic: File and Buffer operations
+
+** File related operations
+1. =SPC p f= (find a file in current project, it looks like the Ctrl-p plugin in Vim)
+
+I also do some hacks to enhance the =SPC p f=
+
+#+BEGIN_SRC emacs-lisp
+(defun zilongshanren/open-file-with-projectile-or-counsel-git ()
+  (interactive)
+  (if (zilongshanren/vcs-project-root)
+      (counsel-git)
+    (if (projectile-project-p)
+        (projectile-find-file)
+      (ido-find-file))))
+#+END_SRC
+
+If it is in a Git repository, I use =counsel-git= to find file. Why not projectile? Becuase I think ivy-mode is much faster.
+If it is in a proctile project, say it has a =.projectile= file in your project's root.
+Otherwise, you =ido-find-file=
+
+2. =SPC f f= to find a file start from the current directory
+
+3. =SPC f L= find the file across the whole Mac system
+
+4. =SPC f l= find file literally(I also enhance this func with ffap)
+
+5. =SPC f h= find file in hex mode(I also enhance this func with ffap)
+
+6. =SPC f o= open with external program
+
+7. =SPC f E= sudo edit
+
+8. =SPC f D= delete current file and buffer
+
+9. =SPC f j= open the current file's dired mode
+
+10. =SPC f r= find the recent file with ivy
+
+11. =SPC f R= rename the current file
+
+12. =SPC f v= add local variables
+
+13. =SPC f y= yank current buffer's full path
+
+14. =SPC f a d= find the current visited directory with fasd.
+
+15. =SPC f C d/u= convert file encoding between unix and dos
+
+16. =SPC f e d= find the .spacemacs file
+
+17. =SPC f e i= find the .emacs init file
+
+18. =SPC f e l= helm locate library file
+
+19. =SPC f c= copy file
+
+20. =SPC f b= show bookmarks
+
+21. =SPC f s/S= save buffers
+
+** buffer related operations
+1. =SPC b .= buffer micro state
+2. =SPC b b= switch buffers, i rebind it to =ivy-switch-buffer=, because I could see recent use file in buffer
+3. =SPC b d= kill a buffer
+4. =SPC b f= find buffer file in finder
+5. =SPC b B/i= I bind it to ibuffer
+6. =SPC b h= go to home
+7. =SPC b k=  kill matching buffers
+8. =SPC b N= new empty buffer
+9. =SPC b m= kill others
+10. =SPC b R= safe revert buffer
+11. =SPC b s= switch to scratch buffer
+12. =SPC b w= toggle buffer read-only
+13. =SPC b Y=  copy the whole buffer to clipboard, the content could be used in other programs
+14. =SPC b P= paste to the whole buffer
+
+** Sometimes I also use the =Dired= mode to do all the files operations
+I think I have talked about it in the previous videos.
+
+** Happy hacking!
