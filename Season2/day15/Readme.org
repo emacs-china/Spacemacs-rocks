@@ -1,0 +1,40 @@
+* Spacemacs Rocks Season 2 (Day 15)
+  
+ Topic: Window, project and layout operations
+
+** Window related operations
+1. =SPC w -= split window blew
+2. =SPC w /= split window right
+3. =SPC w .= window micro state
+4. =SPC w 2/3= use predefined window layout
+5. =SPC w == balance window
+6. =SPC w b= switch to minibuffer
+7. =SPC w d= delete the current window
+8. =SPC w h/j/k/l= move to window
+9. =SPC w m= maximize window
+10. =SPC w H/J/K/L= move window to position with evil direction key
+11. =SPC w u/U= window undo/redo
+12. =SPC w o= switch to other frame
+13. =SPC w F= make a new frame
+14. =SPC w 1/2/3/4= goto window with window number
+15. =SPC w w= go to other window one by one
+16. =SPC w W= ace window
+
+** Layout related operations
+1. What's  layout in spacemacs? How to use layout in spacemacs?
+2. =SPC l L= load layout file
+3. =SPC l l= to switch between layouts
+4. =SPC l s= to save layout to file
+5. =SPC l <tab>= switch between the last layout and the current layout
+6. =SPC l o= custom layout
+7. =SPC l R= rename layout
+8. =SPC l ?= to open the help window, learn more operations about laout
+
+** project related operations
+1. =SPC p f= visit files in project
+2. =SPC p b= visit buffers in project
+3. =SPC p p= switch to project
+4. =SPC p l= switch to project and create a new layout
+5. find-file-in-project is a really handy package
+
+Fore more about the project related operations, dig into it with which-key.

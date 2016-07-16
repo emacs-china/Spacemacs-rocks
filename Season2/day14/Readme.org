@@ -2,6 +2,8 @@
   
  Topic: File and Buffer operations
 
+** Talk the difference between the configs of mine and spacemacs
+
 ** File related operations
 1. =SPC p f= (find a file in current project, it looks like the Ctrl-p plugin in Vim)
 
@@ -76,6 +78,7 @@ Otherwise, you =ido-find-file=
 12. =SPC b w= toggle buffer read-only
 13. =SPC b Y=  copy the whole buffer to clipboard, the content could be used in other programs
 14. =SPC b P= paste to the whole buffer
+15. =SPC b <tab>= switch between the current buffer and the last opened buffer
 
 ** Sometimes I also use the =Dired= mode to do all the files operations
 I think I have talked about it in the previous videos.
