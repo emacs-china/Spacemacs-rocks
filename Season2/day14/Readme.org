@@ -51,9 +51,9 @@ Otherwise, you =ido-find-file=
 
 15. =SPC f C d/u= convert file encoding between unix and dos
 
-16. =SPC f e d= find the .spacemacs file
+16. =SPC f e d= find the .spacemacs/.spacemacs.d/init.el file
 
-17. =SPC f e i= find the .emacs init file
+17. =SPC f e i= find the .emacs/.emacs.d/init.el init file
 
 18. =SPC f e l= helm locate library file
 
@@ -64,7 +64,7 @@ Otherwise, you =ido-find-file=
 21. =SPC f s/S= save buffers
 
 ** buffer related operations
-1. =SPC b .= buffer micro state
+1. =SPC b .= buffer micro state (hydra)
 2. =SPC b b= switch buffers, i rebind it to =ivy-switch-buffer=, because I could see recent use file in buffer
 3. =SPC b d= kill a buffer
 4. =SPC b f= find buffer file in finder
@@ -78,7 +78,7 @@ Otherwise, you =ido-find-file=
 12. =SPC b w= toggle buffer read-only
 13. =SPC b Y=  copy the whole buffer to clipboard, the content could be used in other programs
 14. =SPC b P= paste to the whole buffer
-15. =SPC b <tab>= switch between the current buffer and the last opened buffer
+15. =SPC  <tab>= switch between the current buffer and the last opened buffer
 
 ** Sometimes I also use the =Dired= mode to do all the files operations
 I think I have talked about it in the previous videos.
