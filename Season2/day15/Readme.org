@@ -2,6 +2,16 @@
   
  Topic: Window, project and layout operations
 
+** Layout related operations
+1. What's  layout in spacemacs? How to use layout in spacemacs?
+2. =SPC l L= load layout file
+3. =SPC l l= to switch between layouts
+4. =SPC l s= to save layout to file
+5. =SPC l <tab>= switch between the last layout and the current layout
+6. =SPC l o= custom layout
+7. =SPC l R= rename layout
+8. =SPC l ?= to open the help window, learn more operations about laout
+
 ** Window related operations
 1. =SPC w -= split window blew
 2. =SPC w /= split window right
@@ -19,16 +29,8 @@
 14. =SPC w 1/2/3/4= goto window with window number
 15. =SPC w w= go to other window one by one
 16. =SPC w W= ace window
-
-** Layout related operations
-1. What's  layout in spacemacs? How to use layout in spacemacs?
-2. =SPC l L= load layout file
-3. =SPC l l= to switch between layouts
-4. =SPC l s= to save layout to file
-5. =SPC l <tab>= switch between the last layout and the current layout
-6. =SPC l o= custom layout
-7. =SPC l R= rename layout
-8. =SPC l ?= to open the help window, learn more operations about laout
+17. =SPC t g= toggle golden ratio
+18. =SPC t -= center point
 
 ** project related operations
 1. =SPC p f= visit files in project
