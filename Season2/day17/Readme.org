@@ -1,0 +1,19 @@
+* Spacemacs Rocks Season 2 (Day 17)
+  
+ Topic: How to use Lispy to write lisp code (emacs-lisp/clojure/clojurescript/scheme/common lisp etc)
+
+** Introduction to Lispy
+1. vim like Paredit
+2. It even has some IDE features
+3. how to install
+
+** Basic usage of Lispy
+1. barf and slurp
+2. raise sexp
+3. kill/copy/yank
+4. ace
+5. swap/w/s
+6. navigation hjkl/[]
+7. split
+8. splice
+9. wrap
