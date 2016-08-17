@@ -1,0 +1,70 @@
+* Spacemacs Rocks Season 2 (Day 18)
+  
+ Topic: How to survive in Spacemacs
+
+** I want a feature from other editors, How could I implement it in Emacs?
+https://emacs-china.org/t/spacemacs-sublime-ctrl-d/902
+
+** Emacs don't behavior like the other editors I used before
+https://emacs-china.org/t/emacs/905
+
+1. Some defaults are worth learning, but some are not
+
+Ask in emacs-china.org
+
+2. Stick to the defaults will help in the long run
+
+I think Mac is the best platform. You could easily adapt yourself to Emacs
+(CMD A/C/X)
+
+** I have a full time job, I can't bear the efficiency lose when editing with Emacs/Spacemacs
+I want to setup a IDE to do the job for me.
+
+Suggestions:
+
+1. C/C++/Java/C# IDE is not worth the time
+
+2. Javascript/HTML/CSS don't need a IDE
+
+3. Python/Ruby/Go/PHP/Clojure/Erlang could have some IDE feature in Emacs
+
+In the first beginning, try to use the right tool for the right job.
+
+Now: I'm using XCode for C++/OC programming, Android Studio for Java programming.
+(No plugin, no keybindings change)
+
+I also use iTerm2/tmux for the shell stuff, the shell in Emacs is slow...
+
+** Don't try to make the perfect GTD tool with Org-mode
+It's very hard for beginners, I also spent too much time to configure the workflow I'm using now.
+
+Learn Org-mode feature step by step, don't try to become the master in the first day.
+
+** Some tips for beginners  to avoid common issues
+1. my emacs is frozen, how?
+Because Emacs is a single thread app, sometimes you just trigger some time consuming task.
+
+#+BEGIN_SRC shell
+pkill -SIGUSR2 -i emacs
+toggle-debug-on-quit
+#+END_SRC
+
+2. My Emacs is very slow
+
+Use the following two commands to profile the CPU
+
+#+BEGIN_SRC shell
+profiler-start
+profiler-report
+#+END_SRC
+
+3. My Emacs start-up time is long...
+#+BEGIN_SRC shell
+/Applications/Emacs.app/Contents/MacOS/Emacs --timed-requires --profile
+#+END_SRC
+
+** I have lots unknown of Emacs..
+1. Take it easy and don't panic, Emacs is a lifelong text editor
+2. Learning Emacs one piece a time everyday.
+3. Visit reddit/emacs-china.org regularly for keeping update with the community
+4. Keep using Emacs daily and reshaping your *secret weapon* gradually.
