@@ -1,0 +1,3 @@
+* Spacemacs Rocks Season 2 (Day 20)
+  
+ Topic: Revisit my Spacemacs config

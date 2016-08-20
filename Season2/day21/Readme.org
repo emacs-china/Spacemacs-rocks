@@ -1,0 +1,3 @@
+* Spacemacs Rocks Season 2 (Day 21)
+  
+ Topic: How to master Emacs in one year?

@@ -1,0 +1,62 @@
+* Spacemacs Rocks Season 2 (Day 19)
+  
+ Topic: Elisp Hacking Tricks
+
+** Hook
+
+** Advice
+
+#+BEGIN_SRC emacs-lisp
+;;mimic "nzz" behaviou in vim
+(defadvice evil-ex-search-next (after advice-for-evil-search-next activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(defadvice evil-ex-search-previous (after advice-for-evil-search-previous activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+#+END_SRC
+
+** Debug elisp functions
+http://www.jianshu.com/p/f509c9a9cac0?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+#+BEGIN_SRC emacs-lisp
+(defun aborn/debug-demo ()
+  "debug demo function"
+  (interactive)
+  (let ((a "a")
+        (b "value b")
+        (c 1))
+    (message "middle")
+    (setq c (+ 1 c))
+    (xyz "a")
+    (message "ggg")
+    ))
+#+END_SRC
+
+** Write your own minor mode
+http://nullprogram.com/blog/2013/02/06/
+
+#+BEGIN_SRC emacs-lisp
+(define-minor-mode
+  shadowsocks-proxy-mode
+  :global t
+  :init-value nil
+  :lighter " SS"
+  (if shadowsocks-proxy-mode
+      (setq url-gateway-method 'socks)
+    (setq url-gateway-method 'native)))
+
+
+(define-global-minor-mode
+  global-shadowsocks-proxy-mode shadowsocks-proxy-mode shadowsocks-proxy-mode
+  :group 'shadowsocks-proxy)
+#+END_SRC
+
+
+https://emacs-china.org/t/ranger-golden-ratio/964
+https://emacs-china.org/t/topic/945/2
+https://emacs-china.org/t/spaceline/389
+https://emacs-china.org/t/topic/889/3
+http://nullprogram.com/blog/2013/02/06/
+http://stackoverflow.com/questions/21502367/elisp-defadvice-around-clarification
+http://ergoemacs.org/emacs/emacs_avoid_lambda_in_hook.html
+http://emacs-fu.blogspot.com/2008/12/hooks.html
