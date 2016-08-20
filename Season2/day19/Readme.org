@@ -1,17 +1,18 @@
 * Spacemacs Rocks Season 2 (Day 19)
   
- Topic: Elisp Hacking Tricks
+ Topic: Elisp Hacking Tips
 
-** Hook
+** Generic tips
+1. hooks
+2. write elisp functions
 
 ** Advice
-
 #+BEGIN_SRC emacs-lisp
 ;;mimic "nzz" behaviou in vim
-(defadvice evil-ex-search-next (after advice-for-evil-search-next activate)
+(defadvice evil-search-next (after advice-for-evil-search-next activate)
   (evil-scroll-line-to-center (line-number-at-pos)))
 
-(defadvice evil-ex-search-previous (after advice-for-evil-search-previous activate)
+(defadvice evil-search-previous (after advice-for-evil-search-previous activate)
   (evil-scroll-line-to-center (line-number-at-pos)))
 
 #+END_SRC
