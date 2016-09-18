@@ -1344,3 +1344,7 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 ** Org Mode 中的搜索
 
 =C-c a= 中可以根据提示使用 =s= 来进行关键字所搜。使用 =t= 则可以进行代办事项的搜索。
+
+
+
+* 第八天：ELisp 的项目管理工具 Cast
