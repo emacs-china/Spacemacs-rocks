@@ -1380,4 +1380,61 @@ Cask 的地址: [[https://github.com/cask/cask][Cask]]
 curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 #+END_SRC
 
+安装过程中 Cask 将会进行 Bootstrap, 安装一些包到~/.emacs.d 目录中.
+
 安装完成之后需要将 Cask 的可执行文件目录加入到 PATH 中.
+
+可以看到, Cask 的安装过程在~/.emacs.d 中新建了一个.Cask 目录.
+
+安装 Pallet: Pallet 是一个基于 Cask 的包管理工具, 可以使用 Emacs 的包安装方式安装. [[][地址]]
+
+然后使用以下代码启用 Pallet:
+
+#+BEGIN_SRC emacs-lisp
+(pallet-mode)  
+(pallet-init)    ; 在.emacs.d 中生成一个 Cask 文件, 写入源与现有包
+(pallet-install) ; 将 elpa 中的 package 拷贝到.Cask/<you version>/elpa 目录中
+#+END_SRC
+
+然后在配置文件中加入以下代码(在其他包加载之前) :
+
+#+BEGIN_SRC emacs-lisp
+(require 'cask "<path-to-cask>/cask.el")
+(cask-initialize)    ; 类似于 package-initialize
+(require 'pallet)
+(pallet-mode t)      ; 激活 pallet, 在安装包时将 Cask 文件写入相应信息
+#+END_SRC
+
+具体使用方式见文档: [[https://github.com/rdallasgray/pallet][Pallet]]
+
+** 为何使用 Cask
+
+- 使用 Cask 文件保存包的信息, 可以通过 *Cask install* 自动安装
+- 当有多个版本的 Emacs 时, 将各版本的包单独存放
+
+** 故障排除
+
+*** Emacs24.5 时不能安装 *let-alist*
+   
+解决方案: 将 Gnu 的源加入源列表中, 示例代码如下(加入 Cask 文件)
+
+#+BEGIN_SRC emacs-lisp
+(source "gnu" "http://elpa.zilongshanren.com/gnu/")
+#+END_SRC
+
+*** 在 Emacs24.5 中没有定义 define-advice
+
+define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用如下代码修复:
+
+#+BEGIN_SRC emacs-lisp
+(defadvice show-paren-function (around fix-show-paren-function activate)
+  (cond ((looking-at-p "\\s(") ad-do-it)
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     ad-do-it)))
+  )
+#+END_SRC
+
+而且使用 defadvice 相比 define-advice 还有一个优点: 
+
+使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用 defadvice 可以.
