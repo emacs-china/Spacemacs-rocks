@@ -19,7 +19,8 @@
 #+OPTIONS: toc:3 num:nil
 #+STARTUP: showall
 
-https://travis-ci.org/emacs-china/Spacemacs-rocks.svg?branch=master
+[[https://travis-ci.org/emacs-china/Spacemacs-rocks][{{https://travis-ci.org/emacs-china/Spacemacs-rocks.svg?branch=master}}]]
+
 
 * Spacemacs Rocks 第二季
 
