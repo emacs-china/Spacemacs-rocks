@@ -19,6 +19,7 @@
 #+OPTIONS: toc:3 num:nil
 #+STARTUP: showall
 
+https://travis-ci.org/emacs-china/Spacemacs-rocks.svg?branch=master
 
 * Spacemacs Rocks 第二季
 
@@ -1353,7 +1354,7 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 视频地址如下:
 
 - [[http://pan.baidu.com/s/1o83r1vc][百度网盘]]
-- [[tp://v.youku.com/v_show/id_XMTU3MzEyNDkxNg==.html][优酷]]
+- [[http://v.youku.com/v_show/id_XMTU3MzEyNDkxNg==.html][优酷]]
 - [[https://www.youtube.com/watch?v=BJxEZGmypS0&index=2&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
 
 首先介绍一个中国大陆的 ELPA 镜像地址: 
