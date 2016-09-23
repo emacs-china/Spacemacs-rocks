@@ -1703,6 +1703,6 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 *** 为什么使用 Use-package
 
-1. Use-package 能让相关的配置更为集中
-2. Use-package 有完善的错误处理
-3. Spaceamcs 大量使用了 *Use-package*
+1. Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难
+2. Use-package 有完善的错误处理, 使配置代码更为健壮
+3. Spaceamcs 也大量使用了 Use-package
