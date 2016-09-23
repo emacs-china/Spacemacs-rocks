@@ -1602,3 +1602,107 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 #+RESULTS:
 : prelude-duckduckgo
+
+
+** Use-package
+
+*** 简介
+
+Use-package 是一个宏, 它能让你将一个包的 *require* 和它的相关的初始化等配置组织在一起, 避免对同一个包的配置代码
+散落在不同的文件中.
+
+Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use-package][Use-package]]
+
+*** 一些简单的用法
+
+**** 更安全的 require
+
+在 Emacs 中, 当我们要引入一个包时, 通常会使用以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package-name)
+#+END_SRC
+
+但是当 *package-name* 不在 *load-path* 中时, 以上代码会抛出错误. 使用 *Use-package* 可以避免:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name)
+#+END_SRC
+
+以上代码展开的结果如下:
+
+#+BEGIN_SRC emacs-lisp
+  (if
+      (not
+       (require 'package-name nil 't))
+      (ignore
+       (message
+        (format "Cannot load %s" 'package-name))))
+#+END_SRC
+
+可以看到, *Use-package* 使用 *ignore* 来避免抛出错误, 这样当某个包不存在时, *eamcs* 也能够正常启动.
+
+**** 将配置集中
+
+当我们引入某个包时, 有可能需要定义一些与这个包相关的变量, 使用 *Use-package* 实现这个需求如下:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name
+    :init
+    (progn
+      (setq my-var1 "xxx")
+      )
+    :config
+    (progn
+      (setq my-var2 "xxx")
+      )
+    )
+#+END_SRC
+
+在上例中, *init* 后的代码在包的 require 之前执行, 如果这段代码出错则跳过包的 require.
+
+*config* 后的代码在包的 require 之后执行.
+
+**** autoload 
+
+使用 require 时会引入这个包, 但是当你的包很多时会影响启动速度. 而使用 autoload 则可以在真正需要这个包时
+再 require, 提高启动速度, 避免无谓的 require.
+
+使用 *Use-package* 可以轻松的实现这个功能:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name
+    :commands
+    (global-company-mode)
+    :defer t
+    )
+#+END_SRC
+
+使用 *commands* 可以让 package 延迟加载, 如以上代码会首先判断 package 的符号是否存在, 如果存在则在 *package-name* 的路径下加载.
+*defer* 也可以让 *package-name* 进行延迟加载.
+
+**** 键绑定
+
+在之前的代码中, 如果我们需要绑定一个键, 需要使用 *global-key-bind* 或 *define-key* 实现, 而使用
+*Use-package* 实现更简单:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-moccur
+    :commands (isearch-moccur isearch-all)
+    :bind (("M-s O" . moccur)
+           :map isearch-mode-map
+           ("M-o" . isearch-moccur)
+           ("M-O" . isearch-moccur-all))
+    :init
+    (setq isearch-lazy-highlight t)
+    :config
+    (use-package moccur-edit))
+#+END_SRC
+
+
+
+*** 为什么使用 Use-package
+
+1. Use-package 能让相关的配置更为集中
+2. Use-package 有完善的错误处理
+3. Spaceamcs 大量使用了 *Use-package*
