@@ -1554,8 +1554,11 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 在调试宏的过程中, 可以使用 *macroexpand* 和 *macroexpand-all* 获取宏展开的结果.
 
+关于 backqoute 的更多讨论, 可以见以下地址: [[https://emacs-china.org/t/lisp/357][lisp 中的`与，是怎么用的？]]
 
 *** 为什么使用宏
+
+使用宏可以减少重复的代码, 以下是一个使用宏来定义函数的例子:
 
 #+BEGIN_SRC emacs-lisp
   (defun prelude-search (query-url prompt)
@@ -1568,20 +1571,34 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
                   (buffer-substring (region-beginning) (region-end))
                 (read-string prompt))))))
 
-  (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-    "Given some information regarding a search engine, install the interactive command to search through them"
-    `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-         ,(format "Search %s with a query or region if any." search-engine-name)
+  (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)                   ; #1
+    "Given some information regarding a search engine, install the interactive command to search through them"    
+    `(defun ,(intern (format "prelude-%s" search-engine-name)) ()                                                       ; #2
+         ,(format "Search %s with a query or region if any." search-engine-name)                                        ; #3
          (interactive)
-         (prelude-search ,search-engine-url ,search-engine-prompt)))
+         (prelude-search ,search-engine-url ,search-engine-prompt)))                                                    ; #4
 
-
-
-  (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+  (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")                ; #5
   (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
   (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
   (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
 #+END_SRC
+
+下面对以上代码进行讲解:
+
+第#1 行, 通过 *prelude-install-search-engine* 定义了一个需要 3 个参数的宏, 这个宏的作用是生成一个函数.
+
+第#2 行, 通过 *intern* 生成一个符号作为函数名, 名称为　*prelude-xxx* , 其中 xxx 为第一个参数的值.
+
+第#3 行, 生成了这个函数的描述. 
+
+第#4 行, 调用 *prelude-search* 函数进行搜索处理.
+
+第#5 行, 调用这个宏定义了一个名为　*prelude-google* 的函数.
+
+从以上代码可以知道, 我们利用宏生成了４个名称不同的函数, 避免了手动编写函数的问题(因为这４个函数的代码非常相似, 根据 DRY 原则应该尽量避免做这种重复工作).
+
+关于宏的更多内容, 可以阅读 *Paul Graham* 的著作　[[http://www.paulgraham.com/onlisp.html][《On Lisp》]]
 
 #+RESULTS:
 : prelude-duckduckgo
