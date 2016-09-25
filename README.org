@@ -1425,7 +1425,7 @@ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 *** 在 Emacs24.5 中没有定义 define-advice
 
-define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用如下代码修复:
+define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用 *defadvice* 代替:
 
 #+BEGIN_SRC emacs-lisp
 (defadvice show-paren-function (around fix-show-paren-function activate)
@@ -1538,7 +1538,7 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
   (my-print-2 (+ 2 3))
 #+END_SRC
 
-当输出 message 时 number 不带逗号时, *my-print-2* 的执行将提示错误. 因为宏不对参数进行求值, 所以以上宏展开相当于:
+当输出 message 且 number 不带逗号时, *my-print-2* 的执行将提示错误. 因为宏不对参数进行求值, 所以以上宏展开相当于:
 
 #+BEGIN_SRC emacs-lisp
 (message "This is a number:" number)
@@ -1649,12 +1649,11 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 #+BEGIN_SRC emacs-lisp
   (use-package package-name
     :init
-    (progn
-      (setq my-var1 "xxx")
-      )
+    (setq my-var1 "xxx")
     :config
     (progn
       (setq my-var2 "xxx")
+      (setq my-var3 "xxx")
       )
     )
 #+END_SRC
@@ -1662,6 +1661,8 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 在上例中, *init* 后的代码在包的 require 之前执行, 如果这段代码出错则跳过包的 require.
 
 *config* 后的代码在包的 require 之后执行.
+
+*init* 与 *config* 之后只能接单个表达式语句, 如果需要执行多个语句, 可以用 *progn* .
 
 **** autoload 
 
@@ -1705,4 +1706,4 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 1. Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
-3. Spaceamcs 也大量使用了 Use-package
+3. Spacemacs 也大量使用了 Use-package
