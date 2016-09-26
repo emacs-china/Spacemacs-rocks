@@ -1387,7 +1387,7 @@ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 可以看到, Cask 的安装过程在~/.emacs.d 中新建了一个.Cask 目录.
 
-安装 Pallet: Pallet 是一个基于 Cask 的包管理工具, 可以使用 Emacs 的包安装方式安装. [[][地址]]
+安装 Pallet: Pallet 是一个基于 Cask 的包管理工具, 可以使用 Emacs 的包安装方式安装.
 
 然后使用以下代码启用 Pallet:
 
@@ -1425,7 +1425,7 @@ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 *** 在 Emacs24.5 中没有定义 define-advice
 
-define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用如下代码修复:
+define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用 *defadvice* 代替:
 
 #+BEGIN_SRC emacs-lisp
 (defadvice show-paren-function (around fix-show-paren-function activate)
@@ -1439,3 +1439,271 @@ define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, �
 而且使用 defadvice 相比 define-advice 还有一个优点: 
 
 使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用 defadvice 可以.
+
+* 第九天: Macro 与 Use-package
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1c1Gnkcw][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTU4MDU2NjE3Ng==.html][优酷]]
+- [[https://www.youtube.com/watch?v=BmYtd0QHgSg&index=1&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
+
+这次主要介绍 Emacs Lisp 中的宏(Macro)以及 Use-package 插件.
+
+** Macro
+
+*** 什么是 Macro
+
+宏是一种可以生成代码的代码. 类比与 C 语言中的宏以及 C++中的模板. 先看一个简单的例子:
+
+#+BEGIN_SRC emacs-lisp
+  (defmacro inc (var)
+    (list 'setq var (list '1+ var)))
+
+  (setq my-var 1)
+  (setq my-var (+ 1 my-var))
+
+  (macroexpand '(inc my-var))
+#+END_SRC
+
+以上这个宏的作用是将变量的值+1. 执行以上代码之后, *my-var* 的结果为 2.
+
+可以使用 macroexpand 获得宏展开的结果, 如以上代码结果为:
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-var (1+ my-var))
+#+END_SRC
+
+我们也可以使用函数来实现相同的功能, 但 Macro 与函数有以下两个区别:
+
+1. 宏的参数并不会被马上求值, 解释器会先展开宏, 宏展开之后解释器才会执行宏展开的结果; 而函数的参数会马上求值
+2. 宏的执行结果是一个表达式, 该表达式会立即被解释器执行; 而函数的结果是一个值
+
+*** backqoute
+
+backqoute 是指反引号(`), 即键盘上数字 1 左边的键.
+
+当在 Emacs 输入 backqoute 时会插入两个反引号, 可以使用以下代码关闭这个功能:
+
+#+BEGIN_SRC emacs-lisp
+  (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
+#+END_SRC
+
+先看以下例子来体会 backqoute 的作用:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-print (number)
+    (message "This is a number: %d" number))
+
+  (my-print 2)               ; 1. output= This is a number: 2
+  (my-print (+ 2 3))         ; 2. output= This is a number: 5
+
+  (quote (+ 1 1))
+  ;; return a list= (+ 1 1)
+
+  (defmacro my-print-2 (number)
+    `(message "This is a number: %d" ,number))
+
+  (my-print-2 2)             ; 3. output= This is a number: 2
+  (my-print-2 (+ 2 3))       ; 4. output= This is a number: 5
+
+  (setq my-var 2)
+  (inc my-var)
+
+  (defmacro inc2 (var1 var2)
+    (list 'progn (list 'inc var1) (list 'inc var2)))
+
+  (macroexpand '(inc2 my-var my-var))
+  (macroexpand-all '(inc2 my-var my-var))
+#+END_SRC
+
+quote 的作用是返回后面的表达式, 不对表达式进行求值. 所以以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (quote (+ 1 1))
+  ;; return a list= (+ 1 1)
+#+END_SRC
+
+并没有对表达式 *(+ 1 1)* 进行求值返回 2, 而是返回一个 list.
+
+backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但是当 backqoute 在宏中与逗号(,)一起使用时, 用逗号修饰的变量将进行求值.
+
+例如以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (defmacro my-print-2 (number)
+    `(message "This is a number: %d" ,number))
+
+  (pp (macroexpand '(my-print-2 (+ 2 3))))
+  (my-print-2 (+ 2 3))
+#+END_SRC
+
+当输出 message 且 number 不带逗号时, *my-print-2* 的执行将提示错误. 因为宏不对参数进行求值, 所以以上宏展开相当于:
+
+#+BEGIN_SRC emacs-lisp
+(message "This is a number:" number)
+#+END_SRC
+
+因为我们没有定义 number 变量, 所以执行出错.
+
+而如果加入逗号, 则在宏展开时会对变量 *number* 进行求值, 展开结果为:
+
+#+BEGIN_SRC emacs-lisp
+  (message "This is a number: %d" (+ 2 3))
+#+END_SRC
+
+在调试宏的过程中, 可以使用 *macroexpand* 和 *macroexpand-all* 获取宏展开的结果.
+
+关于 backqoute 的更多讨论, 可以见以下地址: [[https://emacs-china.org/t/lisp/357][lisp 中的`与，是怎么用的？]]
+
+*** 为什么使用宏
+
+使用宏可以减少重复的代码, 以下是一个使用宏来定义函数的例子:
+
+#+BEGIN_SRC emacs-lisp
+  (defun prelude-search (query-url prompt)
+    "Open the search url constructed with the QUERY-URL.
+  PROMPT sets the `read-string prompt."
+    (browse-url
+     (concat query-url
+             (url-hexify-string
+              (if mark-active
+                  (buffer-substring (region-beginning) (region-end))
+                (read-string prompt))))))
+
+  (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)                   ; #1
+    "Given some information regarding a search engine, install the interactive command to search through them"    
+    `(defun ,(intern (format "prelude-%s" search-engine-name)) ()                                                       ; #2
+         ,(format "Search %s with a query or region if any." search-engine-name)                                        ; #3
+         (interactive)
+         (prelude-search ,search-engine-url ,search-engine-prompt)))                                                    ; #4
+
+  (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")                ; #5
+  (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+  (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+  (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+#+END_SRC
+
+下面对以上代码进行讲解:
+
+第#1 行, 通过 *prelude-install-search-engine* 定义了一个需要 3 个参数的宏, 这个宏的作用是生成一个函数.
+
+第#2 行, 通过 *intern* 生成一个符号作为函数名, 名称为　*prelude-xxx* , 其中 xxx 为第一个参数的值.
+
+第#3 行, 生成了这个函数的描述. 
+
+第#4 行, 调用 *prelude-search* 函数进行搜索处理.
+
+第#5 行, 调用这个宏定义了一个名为　*prelude-google* 的函数.
+
+从以上代码可以知道, 我们利用宏生成了４个名称不同的函数, 避免了手动编写函数的问题(因为这４个函数的代码非常相似, 根据 DRY 原则应该尽量避免做这种重复工作).
+
+关于宏的更多内容, 可以阅读 *Paul Graham* 的著作　[[http://www.paulgraham.com/onlisp.html][《On Lisp》]]
+
+#+RESULTS:
+: prelude-duckduckgo
+
+
+** Use-package
+
+*** 简介
+
+Use-package 是一个宏, 它能让你将一个包的 *require* 和它的相关的初始化等配置组织在一起, 避免对同一个包的配置代码
+散落在不同的文件中.
+
+Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use-package][Use-package]]
+
+*** 一些简单的用法
+
+**** 更安全的 require
+
+在 Emacs 中, 当我们要引入一个包时, 通常会使用以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package-name)
+#+END_SRC
+
+但是当 *package-name* 不在 *load-path* 中时, 以上代码会抛出错误. 使用 *Use-package* 可以避免:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name)
+#+END_SRC
+
+以上代码展开的结果如下:
+
+#+BEGIN_SRC emacs-lisp
+  (if
+      (not
+       (require 'package-name nil 't))
+      (ignore
+       (message
+        (format "Cannot load %s" 'package-name))))
+#+END_SRC
+
+可以看到, *Use-package* 使用 *ignore* 来避免抛出错误, 这样当某个包不存在时, *eamcs* 也能够正常启动.
+
+**** 将配置集中
+
+当我们引入某个包时, 有可能需要定义一些与这个包相关的变量, 使用 *Use-package* 实现这个需求如下:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name
+    :init
+    (setq my-var1 "xxx")
+    :config
+    (progn
+      (setq my-var2 "xxx")
+      (setq my-var3 "xxx")
+      )
+    )
+#+END_SRC
+
+在上例中, *init* 后的代码在包的 require 之前执行, 如果这段代码出错则跳过包的 require.
+
+*config* 后的代码在包的 require 之后执行.
+
+*init* 与 *config* 之后只能接单个表达式语句, 如果需要执行多个语句, 可以用 *progn* .
+
+**** autoload 
+
+使用 require 时会引入这个包, 但是当你的包很多时会影响启动速度. 而使用 autoload 则可以在真正需要这个包时
+再 require, 提高启动速度, 避免无谓的 require.
+
+使用 *Use-package* 可以轻松的实现这个功能:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package package-name
+    :commands
+    (global-company-mode)
+    :defer t
+    )
+#+END_SRC
+
+使用 *commands* 可以让 package 延迟加载, 如以上代码会首先判断 package 的符号是否存在, 如果存在则在 *package-name* 的路径下加载.
+*defer* 也可以让 *package-name* 进行延迟加载.
+
+**** 键绑定
+
+在之前的代码中, 如果我们需要绑定一个键, 需要使用 *global-key-bind* 或 *define-key* 实现, 而使用
+*Use-package* 实现更简单:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-moccur
+    :commands (isearch-moccur isearch-all)
+    :bind (("M-s O" . moccur)
+           :map isearch-mode-map
+           ("M-o" . isearch-moccur)
+           ("M-O" . isearch-moccur-all))
+    :init
+    (setq isearch-lazy-highlight t)
+    :config
+    (use-package moccur-edit))
+#+END_SRC
+
+
+
+*** 为什么使用 Use-package
+
+1. Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难
+2. Use-package 有完善的错误处理, 使配置代码更为健壮
+3. Spacemacs 也大量使用了 Use-package
