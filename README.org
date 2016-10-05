@@ -27,7 +27,8 @@
 
 *GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]]
 
-在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以
+运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
 
 * 第一天：准备开始
 
@@ -39,17 +40,25 @@
 
 *说在最前面*
 
-如果你第一次听说 Emacs 你可以在[[http://emacs.sexy/][性感的 Emacs（Emacs is Sexy）]]一文中找到使用它的理由！我相信你一定会被它的强大所吸引。
+如果你第一次听说 Emacs 你可以在[[http://emacs.sexy/][性感的 Emacs（Emacs is Sexy）]]一文中找到使用它的理
+由！我相信你一定会被它的强大所吸引。
 
-如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。本文我们使用的为 Emacs 25.0.x Pretest 版本，一些配置在 Emacs 24 中可能并不适用。
+如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。本文
+我们使用的为 Emacs 25.0.x Pretest 版本，一些配置在 Emacs 24 中可能并不适用。
 
-在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial） 在 Emacs 中直接将其打开。
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可
+以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial）
+在 Emacs 中直接将其打开。
 
-Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]后很快地了解它的基础用法。
+Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]
+后很快地了解它的基础用法。
 
 ** 基础操作
 
-因为 Control 键在 Emacs 中极为常用，所以为了更方便地使用 Emacs 的键位修改，需要对其做出修改。建议将大写锁定键（Caps Lock）替换为 Control 键。这里是一个可以参考的把大写锁定键替换为 Control 键的教程：[[https://www.emacswiki.org/emacs/MovingTheCtrlKey][移动 Control 键 (Moving The Ctrl Key)。]]如果这个的教程不适用于你的操作系统，请自行搜索其它的修改方式。
+因为 Control 键在 Emacs 中极为常用，所以为了更方便地使用 Emacs 的键位修改，需要
+对其做出修改。建议将大写锁定键（Caps Lock）替换为 Control 键。这里是一个可以参考
+的把大写锁定键替换为 Control 键的教程：[[https://www.emacswiki.org/emacs/MovingTheCtrlKey][移动 Control 键 (Moving The Ctrl Key)。]]如
+果这个的教程不适用于你的操作系统，请自行搜索其它的修改方式。
 
 常见符号所代表的意义如下
 
@@ -72,8 +81,10 @@ Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxi
 -  =C-x C-f= 为打开目标文件， =f= 代表 find/file
 -  =C-x C-s= 为保存当前缓冲区（Buffer）， =s= 代表 save
 
-=C-x= 是 Emacs 的快捷键中常用的前缀命令。这些前缀命令常常代表了一系列有关联的指令，十分重要，请特别牢记。其它常见的还有 =C-c=, =C-h= 。
-打断组合键为 =C-g= ，它用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。（之后会介绍到更多有关绑定的内容）
+=C-x= 是 Emacs 的快捷键中常用的前缀命令。这些前缀命令常常代表了一系列有关联的指
+令，十分重要，请特别牢记。其它常见的还有 =C-c=, =C-h= 。打断组合键为 =C-g= ，它
+用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。
+（之后会介绍到更多有关绑定的内容）
 
 ** 内置功能
 
@@ -83,7 +94,8 @@ Emacs 功能强大，但是部分功能默认情况下并未开启。下面就�
 
 *获取帮助*
 
-Emacs 是一个富文档编辑器（Self document, extensible editor）而下面的三种方法在学习 Emacs 的过程中也非常重要。他们分别是，
+Emacs 是一个富文档编辑器（Self document, extensible editor）而下面的三种方法在学
+习 Emacs 的过程中也非常重要。他们分别是，
 
 -  =C-h k= 寻找快捷键的帮助信息
 -  =C-h v= 寻找变量的帮助信息
@@ -91,7 +103,9 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 ** 学习基础 Elisp
 
-请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15 分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Emacs Lisp 为一个函数式的语言，所以它全部功能都是由函数来实现的。
+请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15
+分钟），你也可以在[[https://learnxinyminutes.com/docs/zh-cn/elisp-cn/][这里]]找到它的中文版。Emacs Lisp 为一个函数式的语言，所以它全部
+功能都是由函数来实现的。
 
 下面为一些简单的例子
 
@@ -124,15 +138,25 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
 *** 开始 Hacking！
 
-Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果其不存在可自行创建，配置文件也可保存在 =~/.emacs= 文件中，他们之间的区别我们会在后面做讨论）
+Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果其不存在可自行创建，
+配置文件也可保存在 =~/.emacs= 文件中，他们之间的区别我们会在后面做讨论）
 
-在开始配置之前让我们先来区别 Emacs 中 Major Mode 与 Minor Mode 的区别。Major Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。而 Minor Mode 是除去 Major Mode 所提供的核心功能以外的额外编辑功能（辅助功能）。例如在下面的配置文件中 =tool-bar-mode= 与 =linum-mode= 等均为 Minor Mode*。
+**注意：** 如果希望把配置放在 =~/.emacs.d/init.el= 文件中，那么需要手工删除
+=~/.emacs= 文件。
 
-简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多种 Minor Mode。如果你希望知道当前的模式信息，可以使用 =C-h m= 来显示当前所有开启的全部 Minor Mode 的信息。
+在开始配置之前让我们先来区别 Emacs 中 Major Mode 与 Minor Mode 的区别。Major
+Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。
+而 Minor Mode 是除去 Major Mode 所提供的核心功能以外的额外编辑功能（辅助功能）。
+例如在下面的配置文件中 =tool-bar-mode= 与 =linum-mode= 等均为 Minor Mode*。
+
+简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多
+种 Minor Mode。如果你希望知道当前的模式信息，可以使用 =C-h m= 来显示当前所有开启
+的全部 Minor Mode 的信息。
 
 *简单的编辑器自定义*
 
-下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中（ =~/.emacs.d/init.el= ）即可。
+下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中
+（ =~/.emacs.d/init.el= ）即可。
 
 #+BEGIN_SRC emacs-lisp
     ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
@@ -166,11 +190,18 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (global-set-key (kbd "<f2>") 'open-init-file)
 #+END_SRC
 
-在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加载配置文件。重新加载配置文件你需要在当前配置文件中使用 =M-x load-file= 双击两次回车确认默认文件名，或者使用 =M-x eval-buffer= 去执行当前缓冲区的所有 Lisp 命令。你也可以使用 =C-x C-e= 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。当然你也可以将这些函数绑定为快捷键。
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加
+载配置文件。重新加载配置文件你需要在当前配置文件中使用 =M-x load-file= 双击两次
+回车确认默认文件名，或者使用 =M-x eval-buffer= 去执行当前缓冲区的所有 Lisp 命令。
+你也可以使用 =C-x C-e= 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。
+当然你也可以将这些函数绑定为快捷键。
 
 *** 插件管理
 
-使用默认的插件管理系统（可在菜单栏 =Options > Manage Emacs Packages= 中找到）安装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（ *Comp* lete *Any* thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的几天中继续将其强化。
+使用默认的插件管理系统（可在菜单栏 =Options > Manage Emacs Packages= 中找到）安
+装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（ *Comp*
+lete *Any* thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的
+几天中继续将其强化。
 
 使用的下面的配置将 Company-mode 在全局模式下激活
 
@@ -181,7 +212,8 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *** Org-mode
 
-简单的 Org-mode 使用，它可以列出提纲，并方便地使用 =tab= 键来对其进行展开与关闭。 =C-c C-t= 可以将一个条目转换成一条待办事件。
+简单的 Org-mode 使用，它可以列出提纲，并方便地使用 =tab= 键来对其进行展开与关闭。
+=C-c C-t= 可以将一个条目转换成一条待办事件。
 
 #+BEGIN_SRC org
     * 为一级标题
@@ -199,29 +231,42 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *说在最前面*
 
-如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming in Emacs Lisp]] 。（也可以 =M-x info= 然后选择 Emacs Lisp Intro）
+如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming
+in Emacs Lisp]] 。（也可以 =M-x info= 然后选择 Emacs Lisp Intro）
 
-我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq= 与 =setq-default= ： =setq= 设置当前缓冲区（Buffer）中的变量值， =setq-default= 设置的为全局的变量的值（具体内容可以在 [[http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow 找到]]）。下面是一个例子，用于设置光标样式的方法。
+我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local
+variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq= 与
+=setq-default= ： =setq= 设置当前缓冲区（Buffer）中的变量值， =setq-default= 设
+置的为全局的变量的值（具体内容可以在 [[http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow 找到]]）。下面是一个例子，用于
+设置光标样式的方法。
 
 #+BEGIN_SRC emacs-lisp
     (setq-default cursor-type 'bar)
 #+END_SRC
 
-今天我们需要将第一天关闭的自动缩进 (=electric-indent-mode=) 从配置文件中去除，它是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关闭它是因为，它存在不理想的缩进效果（在 Emacs Lisp 中用分号做注释时 =fancy-comment= 会造成很远的缩进，其实解决方法是使用 Emacs Lisp 推荐的两个分号而不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
+今天我们需要将第一天关闭的自动缩进 (=electric-indent-mode=) 从配置文件中去除，它
+是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关
+闭它是因为，它存在不理想的缩进效果（在 Emacs Lisp 中用分号做注释时
+=fancy-comment= 会造成很远的缩进，其实解决方法是使用 Emacs Lisp 推荐的两个分号而
+不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
-因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
+因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显
+得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后
+缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
 
 #+BEGIN_SRC emacs-lisp
     (setq make-backup-files nil)
 #+END_SRC
 
-关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏操作方法了。关于分屏的更多内容你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html][这里]]找到。
+关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏
+操作方法了。关于分屏的更多内容你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html][这里]]找到。
 
 -  =C-x 1= 仅保留当前窗口
 -  =C-x 2= 将当前窗口分到上边
 -  =C-x 3= 将当前窗口分到右边
 
-使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近编辑过的文件。
+使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近
+编辑过的文件。
 
 #+BEGIN_SRC emacs-lisp
     (require 'recentf)
@@ -232,21 +277,26 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     ;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+END_SRC
 
-=require= 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统的更多内容，文章在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]。
+=require= 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统
+的更多内容，文章在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]。
 
-使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字之后输入一个字符会替换掉你选中部分的文字。
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字
+之后输入一个字符会替换掉你选中部分的文字。
 
 #+BEGIN_SRC emacs-lisp
     (delete-selection-mode 1)
 #+END_SRC
 
-下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
+下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用
+所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
 
 -  =find-function= （ =C-h C-f= ）
 -  =find-variable= （ =C-h C-v= ）
 -  =find-function-on-key= （ =C-h C-k= ）
 
-在我们进入下一个部分之间让我们来看看使用 =~/.emacs.d/init.el= 与 =~/.emacs= 的区别（更多关于他们区别的讨论可在[[http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs][这里]]找到）。简单来说请使用前者，因为它有下面的两个优点，
+在我们进入下一个部分之间让我们来看看使用 =~/.emacs.d/init.el= 与 =~/.emacs= 的区
+别（更多关于他们区别的讨论可在[[http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs][这里]]找到）。简单来说请使用前者，因为它有下面的两个
+优点，
 
 -  它可以更好将所有 Emacs 相关的文件整合在一个目录内（干净的 =HOME= ，网盘备份等优点）
 -  更好的版本控制
@@ -255,9 +305,16 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 *配置插件源*
 
-在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]] （Milkypostman's Emacas Lisp Package Archive）。它有非常多的插件（3000 多个插件）。一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages= 来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除， =U= 来更新，并用 =X= 来确认。
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]]
+（Milkypostman's Emacas Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
+一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]
+你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages=
+来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除，
+=U= 来更新，并用 =X= 来确认。
 
-你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装的插件。
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。
+你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装
+的插件。
 
 #+BEGIN_SRC emacs-lisp
     (when (>= emacs-major-version 24)
@@ -306,7 +363,9 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
       (exec-path-from-shell-initialize))
 #+END_SRC
 
-关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in= ，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collect= 均为 =cl-loop= 中的保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
+关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in=
+，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collect= 均为 =cl-loop= 中的
+保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
 
 #+BEGIN_SRC emacs-lisp
     ;; 遍历每一个缓冲区（Buffer）
@@ -322,7 +381,8 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 
 你可以在[[http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility][这里]]找到更多关于循环的使用说明。
 
-其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
+因为它在 Lisp 中十分常用，所以就提供了简写的方法。
 
 #+BEGIN_SRC emacs-lisp
     ;; 下面两行的效果完全相同的
@@ -350,7 +410,9 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (setq package-selected-packages (quote my/packages))
 #+END_SRC
 
-第一种设置是在缓冲区中设置一个名为 =package-selected-packages= 的变量，将其的值设定为 =my/packages= 变量的值。第二种和第三种其实是完全相同的，将一个名为 =package-selected-packages= 的变量设置为 =my/packages= 。
+第一种设置是在缓冲区中设置一个名为 =package-selected-packages= 的变量，将其的值
+设定为 =my/packages= 变量的值。第二种和第三种其实是完全相同的，将一个名为
+=package-selected-packages= 的变量设置为 =my/packages= 。
 
 我们可以用下面代码将 Emacs 设置为开启默认全屏，
 
@@ -358,7 +420,8 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
     (setq initial-frame-alist (quote ((fullscreen . maximized))))
 #+END_SRC
 
-我们也可以启用自动括号匹配（Highlight Matching Parenthesis），随后会介绍插件来增强这个匹配的功能。你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html][这里]]读到关于钩子的更多信息。
+我们也可以启用自动括号匹配（Highlight Matching Parenthesis），随后会介绍插件来增
+强这个匹配的功能。你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html][这里]]读到关于钩子的更多信息。
 
 #+BEGIN_SRC emacs-lisp
     (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
@@ -390,11 +453,17 @@ Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果�
 -  [[https://github.com/abo-abo/swiper][Swiper & Counsel]]
 -  [[https://github.com/Fuco1/smartparens][smartparens]]
 
-使用 =M-x customize-group= 后选择对应的插件名称，可以进入可视化选项区对指定的插件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的配置文件（ =init.el= ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
+使用 =M-x customize-group= 后选择对应的插件名称，可以进入可视化选项区对指定的插
+件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的
+配置文件（ =init.el= ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找
+到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
+件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
 ** JavaScript IDE
 
-Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然后用下面的代码将其启用。
+Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式
+替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然
+后用下面的代码将其启用。
 
 #+BEGIN_SRC emacs-lisp
     (setq auto-mode-alist
@@ -403,9 +472,12 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
            auto-mode-alist))
 #+END_SRC
 
-你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何种 Major Mode 的方法。
+你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何
+种 Major Mode 的方法。
 
-在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个正则表达式匹配的例子，
+在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它
+使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个
+正则表达式匹配的例子，
 
 #+BEGIN_SRC emacs-lisp
     (("\\`/tmp/fol/" . text-mode)
@@ -436,20 +508,26 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 -  语法高亮
 -  语法检查器（Linter）
 
-执行缓冲区的代码可以使用 =nodejs-repl= 插件，它需要你的机器上已经安装了 NodeJS。然而在 Mac OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要安装另外一个 =exec-path-from-shell= 的插件并将其启用。
+执行缓冲区的代码可以使用 =nodejs-repl= 插件，它需要你的机器上已经安装了 NodeJS。
+然而在 Mac OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要
+安装另外一个 =exec-path-from-shell= 的插件并将其启用。
 
 #+BEGIN_SRC emacs-lisp
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
 #+END_SRC
 
-有了 =nodejs-repl= 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在[[https://github.com/mooz/js2-mode][这里]]找到更多关于它的使用方法）。
+有了 =nodejs-repl= 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在
+[[https://github.com/mooz/js2-mode][这里]]找到更多关于它的使用方法）。
 
 *** Org-mode 进阶
 
-在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代码块内的内容。在代码块中使用 =C-c '= 会直接打开对应模式的缓冲区（不仅限于 Lisp）。这样就使在 Org-mode 中编辑代码变的十分方便快捷。
+在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代
+码块内的内容。在代码块中使用 =C-c '= 会直接打开对应模式的缓冲区（不仅限于 Lisp）。
+这样就使在 Org-mode 中编辑代码变的十分方便快捷。
 
-使用 =<s= 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段（Org-mode Easy Templates）可以在[[http://orgmode.org/manual/Easy-Templates.html][这里]]找到。
+使用 =<s= 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段
+（Org-mode Easy Templates）可以在[[http://orgmode.org/manual/Easy-Templates.html][这里]]找到。
 
 #+BEGIN_EXAMPLE
   ,#+BEGIN_SRC emacs-lisp
@@ -494,7 +572,8 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 
 ** 多文件存储配置文件(上)
 
-将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。下面是我们现在的 =~/.emacs.d/= 目录中的样子，
+将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。
+下面是我们现在的 =~/.emacs.d/= 目录中的样子，
 
 #+BEGIN_EXAMPLE
 ├── auto-save-list # 自动生成的保存数据
@@ -503,9 +582,12 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 └── recentf        # 最近访问的文件列表
 #+END_EXAMPLE
 
-通常我们只保存配置文件和对其进行版本控制，其他的插件均为在第一次使用编辑器时再通过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳定的生产环境。
+通常我们只保存配置文件和对其进行版本控制，其他的插件均为在第一次使用编辑器时再通
+过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳
+定的生产环境。
 
-Elisp 中并没有命名空间（Namespace），换句话说就是所有的变量均为全局变量，所以其命名方法就变的非常重要。下面是一个简单的命名规则，
+Elisp 中并没有命名空间（Namespace），换句话说就是所有的变量均为全局变量，所以其
+命名方法就变的非常重要。下面是一个简单的命名规则，
 
 #+BEGIN_EXAMPLE
 #自定义变量可以使用自己的名字作为命名方式（可以是变量名或者函数名）
@@ -520,7 +602,8 @@ ModeName-VariableName
 
 遵守上面的命名规则可以最大程度的减少命名冲突发生的可能性。
 
-现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配置文件并将其保存在指定的子目录中），它们分别是
+现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配
+置文件并将其保存在指定的子目录中），它们分别是
 
 #+BEGIN_EXAMPLE
 init-packages.el        # 插件管理
@@ -545,11 +628,15 @@ custome.el              # 存放使用编辑器接口产生的配置信息
     └── init-org.el
 #+END_EXAMPLE
 
-使用模块化配置就可以让我们在之后的配置中迅速的定位与更改配置内容，让整个过程变得更有条理也更加高效。
+使用模块化配置就可以让我们在之后的配置中迅速的定位与更改配置内容，让整个过程变得
+更有条理也更加高效。
 
-和之前一样 =init.el= 是配置文件的入口，现在它便成为了所有模块配置文件的入口，所以要使用这些模块时，我们需要在其中引用需要加载的模块。下面以 =init-packages.el= （此配置为添加插件的模块） 为例，详细说明如何模块化以及应用的方法。
+和之前一样 =init.el= 是配置文件的入口，现在它便成为了所有模块配置文件的入口，所
+以要使用这些模块时，我们需要在其中引用需要加载的模块。下面以 =init-packages.el=
+（此配置为添加插件的模块） 为例，详细说明如何模块化以及应用的方法。
 
-下面是在模块化配置之前，我们所使用的配置文件 =~/.emacs.d/init.el= 的样子，我们将所有的配置代码都放置在了同一个文件中（如下所示）
+下面是在模块化配置之前，我们所使用的配置文件 =~/.emacs.d/init.el= 的样子，我们将
+所有的配置代码都放置在了同一个文件中（如下所示）
 
 下面为 =~/.emacs.d/init.el= 文件的内容
 
@@ -590,7 +677,10 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 ;; ...
 #+END_SRC
 
-之前为了更好的区分不同的区域我使用的方法是使用 ASCII Art 然后再以关键字来做搜索跳转，但是这样再编辑工程中依旧十分缓慢和麻烦。于是我们现在要将配置文件全部模块化，把不同部分的配置代码放置在不同的配置文件中，并在入口文件（ =~/.emacs.d/init.el= ）中依次引用不用的模块。
+之前为了更好的区分不同的区域我使用的方法是使用 ASCII Art 然后再以关键字来做搜索
+跳转，但是这样再编辑工程中依旧十分缓慢和麻烦。于是我们现在要将配置文件全部模块化，
+把不同部分的配置代码放置在不同的配置文件中，并在入口文件（ =~/.emacs.d/init.el=
+）中依次引用不用的模块。
 
 下面为 =~/.emacs.d/lisp/init-packages.el= 模块中的代码
 
@@ -642,15 +732,21 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (require 'init-packages)
 #+END_SRC
 
-模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加 =(provide 'modul-name)= (这里我们的模块名为 =init-packages= )使其可以在入口文件中被调用，然后再在入口文件中将其引用既可。
+模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插
+件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加
+=(provide 'modul-name)= (这里我们的模块名为 =init-packages= )使其可以在入口文件
+中被调用，然后再在入口文件中将其引用既可。
 
-这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path "~/.emacs.d/lisp/")= 这可以让 Emacs 找到需要加载的模块所处的位置。
+这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path
+"~/.emacs.d/lisp/")= 这可以让 Emacs 找到需要加载的模块所处的位置。
 
 更多模块化的配置文件可以在[[https://github.com/zilongshanren/Learning-Emacs/tree/day3][这里]]找到。
 
 ** Major 与 Minor Mode 详解
 
-在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个 Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供其余的增强性的功能（例如 =linum-mode= ）。
+在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个
+Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供
+其余的增强性的功能（例如 =linum-mode= ）。
 
 在 Emacs 中，Major Mode 又分为三种，
 
@@ -660,7 +756,9 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 # TODO: Explan what is prog-mode
 
-在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-key-map= ，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
+在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的
+模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-key-map=
+，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
 
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
 
@@ -674,17 +772,24 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 ** 配置文件模块化（下）
 
-在这一部分我们首先需要知道的是什么是 =features= 。在 Emacs 中每一个 =feature= 都是一个 Elisp 符号，用于代表一个 Lisp 插件（Package）。
+在这一部分我们首先需要知道的是什么是 =features= 。在 Emacs 中每一个 =feature= 都
+是一个 Elisp 符号，用于代表一个 Lisp 插件（Package）。
 
-当一个插件调用 =(provide 'symbol_name)= 函数时，Emacs 就会将这个符号加入到 =features= 的列表中去。你可以在[[http://ergoemacs.org/emacs/elisp_feature_name.html][这里]]读到更多关于 feature 的内容。
+当一个插件调用 =(provide 'symbol_name)= 函数时，Emacs 就会将这个符号加入到
+=features= 的列表中去。你可以在[[http://ergoemacs.org/emacs/elisp_feature_name.html][这里]]读到更多关于 feature 的内容。
 
-接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。（他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
+接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。
+（他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
 
-简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加载某个配置文件时（ =.el= 或者 =.elc= 文件）。
+简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加
+载某个配置文件时（ =.el= 或者 =.elc= 文件）。
 
-=load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于你预先不知道文件路径的时候。
+=load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于
+你预先不知道文件路径的时候。
 
-=require= 加载还未被加载的插件。首先它会查看变量 =features= 中是否存在所要加载的符号如果不存在则使用上面提到的 =load= 将其载入。（有点类似于其他编程语言中的 =import= ）
+=require= 加载还未被加载的插件。首先它会查看变量 =features= 中是否存在所要加载的
+符号如果不存在则使用上面提到的 =load= 将其载入。（有点类似于其他编程语言中的
+=import= ）
 
 =autoload= 用于仅在函数调用时加载文件，使用此方法可以大大节省编辑器的启动时间。
 
@@ -692,7 +797,8 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 ** 更好的默认设置
 
-在这一节我们会配置我们的编辑器使其有更好的使用体验。整个过程就如同搭积木一般，将更好的体验建立在已有的功能基础之上。这样的优化使整个过程变得更高效，也更有趣。
+在这一节我们会配置我们的编辑器使其有更好的使用体验。整个过程就如同搭积木一般，将
+更好的体验建立在已有的功能基础之上。这样的优化使整个过程变得更高效，也更有趣。
 
 下面的代码可以是 Emacs 自动加载外部修改过的文件。
 
@@ -700,13 +806,15 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (global-auto-revert-mode 1)
 #+END_SRC
 
-使用下面的代码可以关闭自己生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的备份文件了，现在是关闭自动保存文件）。
+使用下面的代码可以关闭自己生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的
+备份文件了，现在是关闭自动保存文件）。
 
 #+BEGIN_SRC emacs-lisp
 (setq auto-save-default nil)
 #+END_SRC
 
-如果你发现你在使用中发现了那些编辑行为与你预期的不相符时，你可以通过搜索引擎去寻找解决方案然后将其加入你的配置中并打造一个真正属于你的神器！
+如果你发现你在使用中发现了那些编辑行为与你预期的不相符时，你可以通过搜索引擎去寻
+找解决方案然后将其加入你的配置中并打造一个真正属于你的神器！
 
 =popwin= 插件可以自动将光标移动到，新创建的窗口中。使用下面的代码将其启用，
 
@@ -721,7 +829,8 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (setq ring-bell-function 'ignore)
 #+END_SRC
 
-每一次当 Emacs 需要与你确认某个命令时需要输入 =(yes or no)= 比较麻烦，所有我们可以使用下面的代码，设置一个别名将其简化为只输入 =(y or n)= 。
+每一次当 Emacs 需要与你确认某个命令时需要输入 =(yes or no)= 比较麻烦，所有我们可
+以使用下面的代码，设置一个别名将其简化为只输入 =(y or n)= 。
 
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -729,7 +838,9 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 *** 代码缩进
 
-=indent-region= 可以帮我们重新缩进所选区域的代码，但是每一次都选中十分麻烦。使用下面的代码可以一次重新缩进全部缓冲区的代码。（之后也会介绍更好用的，代码格式美化的插件）
+=indent-region= 可以帮我们重新缩进所选区域的代码，但是每一次都选中十分麻烦。使用
+下面的代码可以一次重新缩进全部缓冲区的代码。（之后也会介绍更好用的，代码格式美化
+的插件）
 
 #+BEGIN_SRC emacs-lisp
   (defun indent-buffer()
@@ -756,7 +867,8 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 *** 缩写补全
 
-使用下面的代码我们可以开启 =abbrev= 模式并定义一个缩写表，每当我们输入下面的缩写并以空格结束时，Emacs 就会将其自动展开成为我们所需要的字符串。
+使用下面的代码我们可以开启 =abbrev= 模式并定义一个缩写表，每当我们输入下面的缩写
+并以空格结束时，Emacs 就会将其自动展开成为我们所需要的字符串。
 
 #+BEGIN_SRC emacs-lisp
   (abbrev-mode 1)
@@ -772,7 +884,9 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 *** Hippie 补全
 
-Company 有时候补全功能并不是非常理想，这时就可以使用 Hippie Expand 来完成补全。Company Mode 补全效果不理想的原因是在不同的区域中会使用不同的后端函数来完成补全，但是当后端补全函数不能被激活时，则补全就不会被激活。
+Company 有时候补全功能并不是非常理想，这时就可以使用 Hippie Expand 来完成补全。
+Company Mode 补全效果不理想的原因是在不同的区域中会使用不同的后端函数来完成补全，
+但是当后端补全函数不能被激活时，则补全就不会被激活。
 
 
 我们可以将下面的代码加入到我们的配置文件中，来增强 Hippie Expand 的功能，
@@ -800,7 +914,9 @@ Company 有时候补全功能并不是非常理想，这时就可以使用 Hippi
 
 Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。
 
-使用 =C-x d= 就可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你可以在其中查看文件和目录的详细信息，对他们进行各种操作，甚至复制粘贴缓冲区中的内容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
+使用 =C-x d= 就可以进入 Dired Mode，这个模式类似于图形界面系统中的资源管理器。你
+可以在其中查看文件和目录的详细信息，对他们进行各种操作，甚至复制粘贴缓冲区中的内
+容。下面是一些常用的操作（下面的所有键均需在 Dired Mode 下使用），
 
 - =+= 创建目录
 - =g= 刷新目录
@@ -811,14 +927,18 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 - =u= 取消标记
 - =x= 执行所有的标记
 
-这里有几点可以优化的地方。第一是删除目录的时候 Emacs 会询问是否递归删除或拷贝，这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录（出于安全原因的考虑，也许你需要保持此行为。所有文中的配置请务必按需配置）。
+这里有几点可以优化的地方。第一是删除目录的时候 Emacs 会询问是否递归删除或拷贝，
+这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录（出于安全原因的考虑，
+也许你需要保持此行为。所有文中的配置请务必按需配置）。
 
 #+BEGIN_SRC emacs-lisp
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 #+END_SRC
 
-第二是，每一次你进入一个回车进入一个新的目录中是，一个新的缓冲区就会被建立。这使得我们的缓冲区列表中充满了大量没有实际意义的记录。我们可以使用下面的代码，让 Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。
+第二是，每一次你进入一个回车进入一个新的目录中是，一个新的缓冲区就会被建立。这使
+得我们的缓冲区列表中充满了大量没有实际意义的记录。我们可以使用下面的代码，让
+Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。
 
 #+BEGIN_SRC emacs-lisp
 (put 'dired-find-alternate-file 'disabled nil)
@@ -834,19 +954,24 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 
 使用延迟加载可以使编辑器加载速度有所提升。
 
-启用 =dired-x= 可以让每一次进入 Dired 模式时，使用新的快捷键 =C-x C-j= 就可以进入当前文件夹的所在的路径。
+启用 =dired-x= 可以让每一次进入 Dired 模式时，使用新的快捷键 =C-x C-j= 就可以进
+入当前文件夹的所在的路径。
 
 #+BEGIN_SRC emacs-lisp
 (require 'dired-x)
 #+END_SRC
 
-使用 =(setq dired-dwin-target 1)= 则可以使当一个窗口（frame）中存在两个分屏（window）时，将另一个分屏自动设置成拷贝地址的目标。
+使用 =(setq dired-dwin-target 1)= 则可以使当一个窗口（frame）中存在两个分屏
+（window）时，将另一个分屏自动设置成拷贝地址的目标。
 
-最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），它可以将任意文件直接在 Finder 中打开。你想安装这个插件，将其添加至第二天的插件列表中即可，下次启动 Emacs 时，它就会自动帮你完成下载。
+最后如果你是 Mac OS X 的用户，可以安装 =reveal-in-osx-finder= 这个插件（你可以在
+[[https://melpa.org/#/reveal-in-osx-finder][这里]]找到它），它可以将任意文件直接在 Finder 中打开。你想安装这个插件，将其添加至
+第二天的插件列表中即可，下次启动 Emacs 时，它就会自动帮你完成下载。
 
 ** Org-mode 管理 Emacs 配置
 
-Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理 Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
+Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理
+Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
 
 你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
@@ -858,7 +983,10 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 (org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
 #+END_SRC
 
-之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为 =org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自己和他人更直观的，理解你的配置文件或者代码。
+之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
+结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为
+=org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自
+己和他人更直观的，理解你的配置文件或者代码。
 
 * 第五天：打造前端开发神器
 
@@ -868,7 +996,10 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
 - [[http://v.youku.com/v_show/id_XMTU0NjMyNDg5Ng%3D%3D.html][优酷]]
 - [[https://www.youtube.com/watch?v%3DBpjwzSB2d00&feature%3Dyoutu.be][YouTube]]
 
-照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Emacs Lisp 中我们有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我们可以通过下面的代码来让使 Emacs Lisp 在 Emacs 中的编辑变得更方便（可以将其添加至 =init-default.el= 配置文件中）。
+照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Emacs Lisp 中我们
+有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我
+们可以通过下面的代码来让使 Emacs Lisp 在 Emacs 中的编辑变得更方便（可以将其添加
+至 =init-default.el= 配置文件中）。
 
 #+BEGIN_SRC emacs-lisp
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
@@ -878,9 +1009,11 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
   (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
 #+END_SRC
 
-在添加配置代码后重启 Emacs 使其生效。当然这个方法你也可以运用在其他的各个 Major Mode 中，如果你不想 Emacs 对某些符号进行类似的自动匹配补全。
+在添加配置代码后重启 Emacs 使其生效。当然这个方法你也可以运用在其他的各个 Major
+Mode 中，如果你不想 Emacs 对某些符号进行类似的自动匹配补全。
 
-=show-paren-mode= 可以使鼠标在括号上是高亮其所匹配的另一半括号，然而我们想要光标在括号内时就高亮包含内容的两个括号，使用下面的代码就可以做到这一点。
+=show-paren-mode= 可以使鼠标在括号上是高亮其所匹配的另一半括号，然而我们想要光标
+在括号内时就高亮包含内容的两个括号，使用下面的代码就可以做到这一点。
 
 #+BEGIN_SRC emacs-lisp
 (define-advice show-paren-function (:around (fn) fix-show-paren-function)
@@ -891,9 +1024,12 @@ Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也�
              (funcall fn)))))
 #+END_SRC
 
-Lisp 的宏（Macro）类似于 C++ 中的模板，并可以生产新的代码（你可以在[[http://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special][这里]]找到更多关于宏的讨论）。使用它，我们可以增强某个函数的功能而不去更改这个函数的代码。
+Lisp 的宏（Macro）类似于 C++ 中的模板，并可以生产新的代码（你可以在[[http://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special][这里]]找到更多
+关于宏的讨论）。使用它，我们可以增强某个函数的功能而不去更改这个函数的代码。
 
-还有一个小问题就是解决在不同系统中的换行符，例如在 DOS 系统下的 =\r(^M)= 换行符，这让我们有时候在 Unix 系统中很是头疼，因为它的存在会使版本控制误以为整行的代码都被修改过而造成不必要的麻烦。（你可以在[[http://unix.stackexchange.com/questions/32001/what-is-m-and-how-do-i-get-rid-of-it][这里]]找到更多关于 =\r(^M)= 的信息）
+还有一个小问题就是解决在不同系统中的换行符，例如在 DOS 系统下的 =\r(^M)= 换行符，
+这让我们有时候在 Unix 系统中很是头疼，因为它的存在会使版本控制误以为整行的代码都
+被修改过而造成不必要的麻烦。（你可以在[[http://unix.stackexchange.com/questions/32001/what-is-m-and-how-do-i-get-rid-of-it][这里]]找到更多关于 =\r(^M)= 的信息）
 
 我们用两种方式来处理这个问题，隐藏这个换行符或者将其删除。首先下面是隐藏的方法，
 
@@ -918,7 +1054,8 @@ Lisp 的宏（Macro）类似于 C++ 中的模板，并可以生产新的代码�
 
 ** web-mode
 
-Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode 则是一个非常常用也很强大的用于编辑前端代码的 Major Mode（你可以在[[https://github.com/fxbois/web-mode][这里]]找到更多关于它的信息）。
+Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode 则是一个非常常用也
+很强大的用于编辑前端代码的 Major Mode（你可以在[[https://github.com/fxbois/web-mode][这里]]找到更多关于它的信息）。
 
 首先我们需要安装它，照例我们需要将其添加至我们的插件列表中去。
 
@@ -929,7 +1066,8 @@ Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode �
                              ) "Default packages")
 #+END_SRC
 
-在安装完成后我们就可以开始配置它了，首先我们需要做的是将所有的 =*.html= 文件都使用 web-mode 来打开。
+在安装完成后我们就可以开始配置它了，首先我们需要做的是将所有的 =*.html= 文件都使
+用 web-mode 来打开。
 
 #+BEGIN_SRC emacs-lisp
   (setq auto-mode-alist
@@ -939,11 +1077,14 @@ Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode �
          auto-mode-alist))
 #+END_SRC
 
-这样所有的 HTML 代码在 Emacs 中就会之间启用 web-mode 而非默认的 HTML Mode 了。你可以阅读它的[[http://web-mode.org/][文档]]来学习更多 web-mode 详细的使用方法。
+这样所有的 HTML 代码在 Emacs 中就会之间启用 web-mode 而非默认的 HTML Mode 了。你
+可以阅读它的[[http://web-mode.org/][文档]]来学习更多 web-mode 详细的使用方法。
 
 例如使用 =M-;= 就可以注释当前行代码或选中行的代码。
 
-接下来我们来做更多细节的配置，首先是缩减的大小的设置。因为 web-mode 支持在 HTML 文件中存在多语言，所以我们可以对不同的语言的缩减做出设置。下面的代码用于设置初始的代码缩进，
+接下来我们来做更多细节的配置，首先是缩减的大小的设置。因为 web-mode 支持在 HTML
+文件中存在多语言，所以我们可以对不同的语言的缩减做出设置。下面的代码用于设置初始
+的代码缩进，
 
 #+BEGIN_SRC emacs-lisp
 (defun my-web-mode-indent-setup ()
@@ -978,7 +1119,8 @@ Emacs 自带的 HTML Mode 使用起来并不是那么的方便，而 web-mode �
 #+END_SRC
 ** js2-refactor
 
-js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mode，你可以在 [[https://github.com/magnars/js2-refactor.el][GitHub]] 找到更多关于这个插件的信息。
+js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mode，你可以在
+[[https://github.com/magnars/js2-refactor.el][GitHub]] 找到更多关于这个插件的信息。
 
 我们使用刚刚所提到的方法来安装 js2-refactor 插件。
 
@@ -989,7 +1131,8 @@ js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mod
   (js2r-add-keybindings-with-prefix "C-c C-m")
 #+END_SRC
 
-我们可以使用 =C-c C-m= 然后输入功能前缀，例如 =em= 是 extract-method 的前缀。更多的功能和使用方法也可以在上面给出的链接中找到，所有的前缀也可以在[[https://github.com/magnars/js2-refactor.el#refactorings][这里]]找到。
+我们可以使用 =C-c C-m= 然后输入功能前缀，例如 =em= 是 extract-method 的前缀。更
+多的功能和使用方法也可以在上面给出的链接中找到，所有的前缀也可以在[[https://github.com/magnars/js2-refactor.el#refactorings][这里]]找到。
 
 ** 优化 occur 与 imenu
 
@@ -1013,9 +1156,12 @@ js2-refactor 是一个用于重构 JavaScript 的插件，它是一个 Minor Mod
 
 =dwim= 是按我说的做的缩写（Do what I mean）。
 
-Occur 可以用于显示变量或函数的定义，我们可以通过 popwin 的 customize-group 将定义显示设置为右边而不是默认的底部（ =customize-group > popwin > Popup Window Position= 设置为 right），也可以在这里对其宽度进行调节。
+Occur 可以用于显示变量或函数的定义，我们可以通过 popwin 的 customize-group 将定
+义显示设置为右边而不是默认的底部（ =customize-group > popwin > Popup Window
+Position= 设置为 right），也可以在这里对其宽度进行调节。
 
-Occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (在弹出的窗口中按 =e= 进入编辑模式) 对搜索到的结果进行之间的编辑。
+Occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (在弹出的窗口中按 =e=
+进入编辑模式) 对搜索到的结果进行之间的编辑。
 
 imenu 可以显示当前所有缓冲区的列表，下面的配置可以让其拥有更精确的跳转，
 
@@ -1068,7 +1214,8 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 ** Org 导出
 
-使用 =C-c C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。你现在看到的这本教程就是由 Org-mode 所导出生成的。
+使用 =C-c C-e= 可以将 Org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。
+你现在看到的这本教程就是由 Org-mode 所导出生成的。
 
 * 第六天：代码片段与语法检查器
 
@@ -1078,7 +1225,8 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 - [[http://v.youku.com/v_show/id_XMTU0NjYwNzQ3Mg%3D%3D.html][优酷]]
 - [[https://www.youtube.com/watch?v%3DWIzWxTc1KUI&featur][YouTube]]
 
-在开始前我们需要注意的是之前模块化的配置文件 =init-keybindings.el= 应该放在所有调用模块的最后面，因为也许在设置快捷键时某些函数还未被加载。
+在开始前我们需要注意的是之前模块化的配置文件 =init-keybindings.el= 应该放在所有
+调用模块的最后面，因为也许在设置快捷键时某些函数还未被加载。
 
 我们可以使用下面的配置来在 Company-mode 中使用 =C-n= 与 =C-p= 来选择补全项，
 
@@ -1092,7 +1240,9 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 ** Org-mode 进阶使用
 
-在学习代码片段和语法检查器（Linter）之前，我们先来学习一下如何使用 Org-mode 来做学习笔记和安排工作时间。我们用下面的配置代码来设置一个模板（其中设置了待办事项的优先级还有触发键），
+在学习代码片段和语法检查器（Linter）之前，我们先来学习一下如何使用 Org-mode 来做
+学习笔记和安排工作时间。我们用下面的配置代码来设置一个模板（其中设置了待办事项的
+优先级还有触发键），
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
@@ -1107,7 +1257,8 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
   (global-set-key (kbd "C-c r") 'org-capture)
 #+END_SRC
 
-这个功能除了可以记录待办事项还有其他许许多多的功能例如获取将当前浏览器中的 URL（下面的例子只在 Mac OS X 平台有效）。
+这个功能除了可以记录待办事项还有其他许许多多的功能例如获取将当前浏览器中的
+URL（下面的例子只在 Mac OS X 平台有效）。
 
 #+BEGIN_SRC emacs-lisp
   (defun YOUR_NAME/retrieve-chrome-current-tab-url()
@@ -1129,7 +1280,9 @@ iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 
 
 更多有关 Org-capture 的内容可以在[[http://orgmode.org/manual/Capture.html][这里]]找到。
 
-Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作法的信息可以在[[https://en.wikipedia.org/wiki/Pomodoro_Technique][这里]]找到）。它的 GitHub 地址在[[https://github.com/lolownia/org-pomodoro][这里]]。在 =(require 'org-pomodoro)= 后可以通过 Customize-group 来对其进行设置，包括不同休息种类的时长。
+Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作法的信息可以在[[https://en.wikipedia.org/wiki/Pomodoro_Technique][这里]]找到）。
+它的 GitHub 地址在[[https://github.com/lolownia/org-pomodoro][这里]]。在 =(require 'org-pomodoro)= 后可以通过 Customize-group
+来对其进行设置，包括不同休息种类的时长。
 
 因为每次保存中文的时候都需要选择解码，我们可以使用下面的配置将文本解码设置默认为 UTF-8，
 
@@ -1147,11 +1300,13 @@ Org-pomodoro 是一个番茄时间工作法的插件（更多关于这个工作�
 
 ** 批量修改文件名
 
-=C-x C-q= 就可以直接在 Dired Mode 中进行编辑，使用之前学的 iedit-mode 和区域选择就可以直接对多个文件进行重命名编辑了。
+=C-x C-q= 就可以直接在 Dired Mode 中进行编辑，使用之前学的 iedit-mode 和区域选择
+就可以直接对多个文件进行重命名编辑了。
 
 ** 搜索与替换
 
-全局搜索在我们的编辑工作中是不可缺少的，今天我们介绍的是 ag。它是非常快速的命令行搜索工具，它是 Linux 的所有搜索工具中最快的。
+全局搜索在我们的编辑工作中是不可缺少的，今天我们介绍的是 ag。它是非常快速的命令
+行搜索工具，它是 Linux 的所有搜索工具中最快的。
 
 #+BEGIN_EXAMPLE
 ag > pt > ack > grep
@@ -1167,23 +1322,28 @@ brew install the_silver_searcher
 apt-get install silversearcher-ag
 #+END_EXAMPLE
 
-安装好 ag 后我们就可以安装 helm-ag 插件了。（它的 GitHub 仓库地址在[[https://github.com/syohex/emacs-helm-ag][这里]]）在安装完成后可以为其设置快捷键，
+安装好 ag 后我们就可以安装 helm-ag 插件了。（它的 GitHub 仓库地址在[[https://github.com/syohex/emacs-helm-ag][这里]]）在安装
+完成后可以为其设置快捷键，
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c p s") 'helm-do-ag-project-root)
 #+END_SRC
 
-使用这个插件我们同样可以在缓冲区对搜索到的结果进行直接的修改，这样就可以做到快速的搜索与替换。
+使用这个插件我们同样可以在缓冲区对搜索到的结果进行直接的修改，这样就可以做到快速
+的搜索与替换。
 
 ** 语法检查器（Linter）
 
-语法检查器可以在开发动态语言（Interpreted/Dynamic Programming Language）时极大的提高你的开发效率，它会实时的检查你的代码并将句法错误（Syntax Error）与静态语义（Static Semantic Error）错误进行高亮与提示。
+语法检查器可以在开发动态语言（Interpreted/Dynamic Programming Language）时极大的
+提高你的开发效率，它会实时的检查你的代码并将句法错误（Syntax Error）与静态语义
+（Static Semantic Error）错误进行高亮与提示。
 
 我们在这里使用的例子是 JavaScript 的语法检查器 eslint 它的安装方法可以在[[https://github.com/eslint/eslint][这里]]找到。
 
 在安装好语法检查器后就可以安装 flycheck 的插件了，它的 GitHub 的地址在[[https://github.com/flycheck/flycheck][这里]]。
 
-使用下面的代码可以将 flycheck-mode 在特定模式下激活（下面的例子就是只有在打开 JavaScript 时才会激活语法检查器），
+使用下面的代码可以将 flycheck-mode 在特定模式下激活（下面的例子就是只有在打开
+JavaScript 时才会激活语法检查器），
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'js2-mode-hook 'flycheck-mode)
@@ -1191,11 +1351,13 @@ apt-get install silversearcher-ag
 
 使用 =flycheck-verify-setup= 可以进行语法检查器的选择。
 
-eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行配置，更多配置方法可以在[[http://eslint.org/docs/user-guide/configuring][这里]]找到。
+eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行配置，更多配置方法可
+以在[[http://eslint.org/docs/user-guide/configuring][这里]]找到。
 
 ** 代码块
 
-=yasnippet= 是一个代码块补全的插件（[[https://github.com/capitaomorte/yasnippet][GitHub]] 地址）。使用下面的配置文件将其在所有的编程语言的模式中激活。
+=yasnippet= 是一个代码块补全的插件（[[https://github.com/capitaomorte/yasnippet][GitHub]] 地址）。使用下面的配置文件将其在所有
+的编程语言的模式中激活。
 
 #+BEGIN_SRC emacs-lisp
   (yas-reload-all)
@@ -1228,9 +1390,12 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 (global-set-key (kbd "C-w") 'backward-kill-word)
 #+END_SRC
 
-如果你不是 Vim 的用户，你可以选择跳过这一天的内容。但是我们强烈建议你花一些时间来学习基本的 Vim 操作，即使 Emacs 是你的最爱 Vim 的快捷键也在一定程度会增加你的编辑效率。基础的 Vim 操作可以在[[http://www.openvim.com/][这里]]学会。
+如果你不是 Vim 的用户，你可以选择跳过这一天的内容。但是我们强烈建议你花一些时间
+来学习基本的 Vim 操作，即使 Emacs 是你的最爱 Vim 的快捷键也在一定程度会增加你的
+编辑效率。基础的 Vim 操作可以在[[http://www.openvim.com/][这里]]学会。
 
-Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面几种（后面对于了相应的 Emacs 中的 State），
+Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面几种（后面对于了相应
+的 Emacs 中的 State），
 
 - Normal Mode -> Normal State
 - Insert Mode -> Insert State
@@ -1241,15 +1406,20 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 
 ** Evil 的安装
 
-照例我们需要将 Evil 插件添加至我们的插件列表中来完成安装。在重启 Emacs 完成安装后可以添加下面的代码将其激活。
+照例我们需要将 Evil 插件添加至我们的插件列表中来完成安装。在重启 Emacs 完成安装
+后可以添加下面的代码将其激活。
 
 #+BEGIN_SRC emacs-lisp
 (evil-mode 1)
 #+END_SRC
 
-在激活 Evil 模式后就可以，在 Emacs 中使用 Vim 的快捷键了。有一点需要注意 =C-u= 在 Emacs 中有特殊的功所（Universal args）以能我们可以通过使用 =customize-group= 来对 Evil 模式进行修改，将 =Evil Want C U Scroll= 设置为开启。
+在激活 Evil 模式后就可以，在 Emacs 中使用 Vim 的快捷键了。有一点需要注意 =C-u=
+在 Emacs 中有特殊的功所（Universal args）以能我们可以通过使用 =customize-group=
+来对 Evil 模式进行修改，将 =Evil Want C U Scroll= 设置为开启。
 
-下面的代码可以将 =insert state map= 中的快捷键清空，使其可以回退（Fallback）到 Emacs State 中，这样我们之前的 Emacs State 里面定义的 =C-w= 等快捷键就不会被 =evil insert minor mode state= 所覆盖， 
+下面的代码可以将 =insert state map= 中的快捷键清空，使其可以回退（Fallback）到
+Emacs State 中，这样我们之前的 Emacs State 里面定义的 =C-w= 等快捷键就不会被
+=evil insert minor mode state= 所覆盖，
 
 #+BEGIN_SRC emacs-lisp
 (setcdr evil-insert-state-map nil)
@@ -1258,7 +1428,8 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 
 这样你就可以使用 Evil 来在 Emacs 中完成百分之八十作用的快捷键操作了。
 
-完整的 Evil Mode 的 PDF 版本的操作指南可以在[[https://bytebucket.org/lyro/evil/raw/default/doc/evil.pdf][这里]]找到，建议从 Vim 转 Emacs 的用户多次阅读来完整的掌握这个模式的使用方法。
+完整的 Evil Mode 的 PDF 版本的操作指南可以在[[https://bytebucket.org/lyro/evil/raw/default/doc/evil.pdf][这里]]找到，建议从 Vim 转 Emacs 的用户
+多次阅读来完整的掌握这个模式的使用方法。
 
 ** Evil 模式插件
 
@@ -1270,9 +1441,12 @@ Evil 模式中的 State 就相当与 Vim 中的模式，常用的模式有下面
 (global-evil-leader-mode)
 #+END_SRC
 
-Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）。因为之后我们会转移至 Spacemacs 所以我们可以将其设置为空格键 =SPC= 。
+Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）。因为之后我
+们会转移至 Spacemacs 所以我们可以将其设置为空格键 =SPC= 。
 
-在通过下面的配置来设置简单的结合 Leader Key 快捷键组合（我们使用不同的键讲不同的功能分组，例如我们使用 =f= 键来做关于文件的操作，使用 =b= 键来做关于缓冲区（Buffer）的操作），
+在通过下面的配置来设置简单的结合 Leader Key 快捷键组合（我们使用不同的键讲不同的
+功能分组，例如我们使用 =f= 键来做关于文件的操作，使用 =b= 键来做关于缓冲区
+（Buffer）的操作），
 
 #+BEGIN_SRC emacs-lisp
 (evil-leader/set-key
@@ -1293,7 +1467,8 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 
 *** Window-numbering 
 
-这个插件可以让我们快速的使用 Leader Key 与数字键的组合来在多个窗口之间进行跳转。它的 GitHub 地址可以在[[https://github.com/nschum/window-numbering.el][这里]]找到。
+这个插件可以让我们快速的使用 Leader Key 与数字键的组合来在多个窗口之间进行跳转。
+它的 GitHub 地址可以在[[https://github.com/nschum/window-numbering.el][这里]]找到。
 
 下载安装后通过下面的代码可以将其激活，
 
@@ -1303,7 +1478,8 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 
 *** Evil-Surround
 
-[[https://github.com/timcharper/evil-surround][Evil-surround]] 是一个 Vim 上非常常用的插件改写的，使用它可以快速的将选中区域进行匹配的操作，例如选中区域两边同时进行添加或修改括号，引号等操作。
+[[https://github.com/timcharper/evil-surround][Evil-surround]] 是一个 Vim 上非常常用的插件改写的，使用它可以快速的将选中区域进行
+匹配的操作，例如选中区域两边同时进行添加或修改括号，引号等操作。
 
 下载安装后使用下面的代码将其激活，
 
@@ -1312,7 +1488,8 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 (global-evil-surround-mode)
 #+END_SRC
 
-简单的使用方法就是在选中所选区域后，使用  =S(= 来将选中区域包括在括号之中。如果想将括号改变成 ="= 可以在选中后使用 =cs("=
+简单的使用方法就是在选中所选区域后，使用 =S(= 来将选中区域包括在括号之中。如果想
+将括号改变成 ="= 可以在选中后使用 =cs("=
 
 
 *** Evil-nerd-commenter
@@ -1334,7 +1511,9 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 
 *** Which-key
 
-[[https://github.com/justbur/emacs-which-key][which-key]] 可以显示当前组合键下所有可以使用的全部组合键的选项。使用这个插件可以很好的解决快捷键太多的问题，我们无需在记忆任何快捷键，而是根据自己的需求使用不同分组的快捷键后再在其中去需找自己需要的功能。
+[[https://github.com/justbur/emacs-which-key][which-key]] 可以显示当前组合键下所有可以使用的全部组合键的选项。使用这个插件可以很
+好的解决快捷键太多的问题，我们无需在记忆任何快捷键，而是根据自己的需求使用不同分
+组的快捷键后再在其中去需找自己需要的功能。
 
 在下载后可以使用下面的代码进行激活，
 
@@ -1425,7 +1604,8 @@ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 *** 在 Emacs24.5 中没有定义 define-advice
 
-define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用 *defadvice* 代替:
+define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用
+*defadvice* 代替:
 
 #+BEGIN_SRC emacs-lisp
 (defadvice show-paren-function (around fix-show-paren-function activate)
@@ -1438,7 +1618,8 @@ define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, �
 
 而且使用 defadvice 相比 define-advice 还有一个优点: 
 
-使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用 defadvice 可以.
+使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用
+defadvice 可以.
 
 * 第九天: Macro 与 Use-package
 
@@ -1476,7 +1657,8 @@ define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, �
 
 我们也可以使用函数来实现相同的功能, 但 Macro 与函数有以下两个区别:
 
-1. 宏的参数并不会被马上求值, 解释器会先展开宏, 宏展开之后解释器才会执行宏展开的结果; 而函数的参数会马上求值
+1. 宏的参数并不会被马上求值, 解释器会先展开宏, 宏展开之后解释器才会执行宏展开的
+   结果; 而函数的参数会马上求值
 2. 宏的执行结果是一个表达式, 该表达式会立即被解释器执行; 而函数的结果是一个值
 
 *** backqoute
@@ -1526,7 +1708,8 @@ quote 的作用是返回后面的表达式, 不对表达式进行求值. 所以�
 
 并没有对表达式 *(+ 1 1)* 进行求值返回 2, 而是返回一个 list.
 
-backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但是当 backqoute 在宏中与逗号(,)一起使用时, 用逗号修饰的变量将进行求值.
+backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但是当 backqoute 在宏中
+与逗号(,)一起使用时, 用逗号修饰的变量将进行求值.
 
 例如以下代码:
 
@@ -1538,7 +1721,8 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
   (my-print-2 (+ 2 3))
 #+END_SRC
 
-当输出 message 且 number 不带逗号时, *my-print-2* 的执行将提示错误. 因为宏不对参数进行求值, 所以以上宏展开相当于:
+当输出 message 且 number 不带逗号时, *my-print-2* 的执行将提示错误. 因为宏不对参
+数进行求值, 所以以上宏展开相当于:
 
 #+BEGIN_SRC emacs-lisp
 (message "This is a number:" number)
@@ -1586,9 +1770,11 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 下面对以上代码进行讲解:
 
-第#1 行, 通过 *prelude-install-search-engine* 定义了一个需要 3 个参数的宏, 这个宏的作用是生成一个函数.
+第#1 行, 通过 *prelude-install-search-engine* 定义了一个需要 3 个参数的宏, 这个
+宏的作用是生成一个函数.
 
-第#2 行, 通过 *intern* 生成一个符号作为函数名, 名称为　*prelude-xxx* , 其中 xxx 为第一个参数的值.
+第#2 行, 通过 *intern* 生成一个符号作为函数名, 名称为　*prelude-xxx* , 其中 xxx
+为第一个参数的值.
 
 第#3 行, 生成了这个函数的描述. 
 
@@ -1596,7 +1782,8 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 第#5 行, 调用这个宏定义了一个名为　*prelude-google* 的函数.
 
-从以上代码可以知道, 我们利用宏生成了４个名称不同的函数, 避免了手动编写函数的问题(因为这４个函数的代码非常相似, 根据 DRY 原则应该尽量避免做这种重复工作).
+从以上代码可以知道, 我们利用宏生成了４个名称不同的函数, 避免了手动编写函数的问题
+(因为这４个函数的代码非常相似, 根据 DRY 原则应该尽量避免做这种重复工作).
 
 关于宏的更多内容, 可以阅读 *Paul Graham* 的著作　[[http://www.paulgraham.com/onlisp.html][《On Lisp》]]
 
@@ -1608,8 +1795,8 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 *** 简介
 
-Use-package 是一个宏, 它能让你将一个包的 *require* 和它的相关的初始化等配置组织在一起, 避免对同一个包的配置代码
-散落在不同的文件中.
+Use-package 是一个宏, 它能让你将一个包的 *require* 和它的相关的初始化等配置组织
+在一起, 避免对同一个包的配置代码散落在不同的文件中.
 
 Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use-package][Use-package]]
 
@@ -1623,7 +1810,8 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
   (require 'package-name)
 #+END_SRC
 
-但是当 *package-name* 不在 *load-path* 中时, 以上代码会抛出错误. 使用 *Use-package* 可以避免:
+但是当 *package-name* 不在 *load-path* 中时, 以上代码会抛出错误. 使用
+*Use-package* 可以避免:
 
 #+BEGIN_SRC emacs-lisp
   (use-package package-name)
@@ -1640,11 +1828,13 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
         (format "Cannot load %s" 'package-name))))
 #+END_SRC
 
-可以看到, *Use-package* 使用 *ignore* 来避免抛出错误, 这样当某个包不存在时, *eamcs* 也能够正常启动.
+可以看到, *Use-package* 使用 *ignore* 来避免抛出错误, 这样当某个包不存在时,
+*eamcs* 也能够正常启动.
 
 **** 将配置集中
 
-当我们引入某个包时, 有可能需要定义一些与这个包相关的变量, 使用 *Use-package* 实现这个需求如下:
+当我们引入某个包时, 有可能需要定义一些与这个包相关的变量, 使用 *Use-package* 实
+现这个需求如下:
 
 #+BEGIN_SRC emacs-lisp
   (use-package package-name
@@ -1666,8 +1856,8 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 **** autoload 
 
-使用 require 时会引入这个包, 但是当你的包很多时会影响启动速度. 而使用 autoload 则可以在真正需要这个包时
-再 require, 提高启动速度, 避免无谓的 require.
+使用 require 时会引入这个包, 但是当你的包很多时会影响启动速度. 而使用 autoload
+则可以在真正需要这个包时再 require, 提高启动速度, 避免无谓的 require.
 
 使用 *Use-package* 可以轻松的实现这个功能:
 
@@ -1679,13 +1869,14 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
     )
 #+END_SRC
 
-使用 *commands* 可以让 package 延迟加载, 如以上代码会首先判断 package 的符号是否存在, 如果存在则在 *package-name* 的路径下加载.
-*defer* 也可以让 *package-name* 进行延迟加载.
+使用 *commands* 可以让 package 延迟加载, 如以上代码会首先判断 package 的符号是否
+存在, 如果存在则在 *package-name* 的路径下加载. *defer* 也可以让 *package-name*
+进行延迟加载.
 
 **** 键绑定
 
-在之前的代码中, 如果我们需要绑定一个键, 需要使用 *global-key-bind* 或 *define-key* 实现, 而使用
-*Use-package* 实现更简单:
+在之前的代码中, 如果我们需要绑定一个键, 需要使用 *global-key-bind* 或
+*define-key* 实现, 而使用*Use-package* 实现更简单:
 
 #+BEGIN_SRC emacs-lisp
   (use-package color-moccur
