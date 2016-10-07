@@ -436,7 +436,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 *安装主题*
 
 #+BEGIN_SRC emacs-lisp
-    (add-to-list my/packages 'monokai-theme)
+    (add-to-list 'my/packages 'monokai-theme)
 #+END_SRC
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
