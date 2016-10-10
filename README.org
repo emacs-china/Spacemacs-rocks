@@ -73,7 +73,7 @@ Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxi
 -  =C-b= 为后移一个字符， =b= 代表 backward。
 -  =C-p= 为上移至前一行， =p= 代表 previous。
 -  =C-n= 为上移至下一行， =n= 代表 next。
--  =C-a= 为移至行首， =a= 可以理解为最前端。
+-  =C-a= 为移至行首， =a= 代表 ahead。
 -  =C-e= 为移至行尾， =e= 代表 end。
 
 常用的文件操作快捷键组合也必须熟记。
@@ -306,7 +306,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 *配置插件源*
 
 在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]]
-（Milkypostman's Emacas Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
+（Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
 一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]
 你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages=
 来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除，
@@ -1320,6 +1320,10 @@ brew install the_silver_searcher
 
 # Ubuntu 下安装
 apt-get install silversearcher-ag
+
+# Windows 下通过 msys2 安装（确保在 path 中）
+pacman -S mingw-w64-i686-ag # 32 位电脑
+pacman -S mingw-w64-x86_64-ag # 64 位电脑
 #+END_EXAMPLE
 
 安装好 ag 后我们就可以安装 helm-ag 插件了。（它的 GitHub 仓库地址在[[https://github.com/syohex/emacs-helm-ag][这里]]）在安装
@@ -1661,17 +1665,17 @@ defadvice 可以.
    结果; 而函数的参数会马上求值
 2. 宏的执行结果是一个表达式, 该表达式会立即被解释器执行; 而函数的结果是一个值
 
-*** backqoute
+*** backquote
 
-backqoute 是指反引号(`), 即键盘上数字 1 左边的键.
+backquote 是指反引号(`), 即键盘上数字 1 左边的键.
 
-当在 Emacs 输入 backqoute 时会插入两个反引号, 可以使用以下代码关闭这个功能:
+当在 Emacs 输入 backquote 时会插入两个反引号, 可以使用以下代码关闭这个功能:
 
 #+BEGIN_SRC emacs-lisp
   (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
 #+END_SRC
 
-先看以下例子来体会 backqoute 的作用:
+先看以下例子来体会 backquote 的作用:
 
 #+BEGIN_SRC emacs-lisp
   (defun my-print (number)
@@ -1708,7 +1712,7 @@ quote 的作用是返回后面的表达式, 不对表达式进行求值. 所以�
 
 并没有对表达式 *(+ 1 1)* 进行求值返回 2, 而是返回一个 list.
 
-backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但是当 backqoute 在宏中
+backquote 的作用与 quote 相似, 同样不对后面的表达式求值, 但是当 backquote 在宏中
 与逗号(,)一起使用时, 用逗号修饰的变量将进行求值.
 
 例如以下代码:
@@ -1738,7 +1742,7 @@ backqoute 的作用与 quote 相似, 同样不对后面的表达式求值, 但�
 
 在调试宏的过程中, 可以使用 *macroexpand* 和 *macroexpand-all* 获取宏展开的结果.
 
-关于 backqoute 的更多讨论, 可以见以下地址: [[https://emacs-china.org/t/lisp/357][lisp 中的`与，是怎么用的？]]
+关于 backquote 的更多讨论, 可以见以下地址: [[https://emacs-china.org/t/lisp/357][lisp 中的`与，是怎么用的？]]
 
 *** 为什么使用宏
 
