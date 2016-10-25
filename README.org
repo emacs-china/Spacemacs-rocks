@@ -1568,7 +1568,7 @@ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 安装完成之后需要将 Cask 的可执行文件目录加入到 PATH 中.
 
-可以看到, Cask 的安装过程在~/.emacs.d 中新建了一个.Cask 目录.
+可以看到, Cask 的安装过程在 ~/.emacs.d 中新建了一个 .Cask 目录.
 
 安装 Pallet: Pallet 是一个基于 Cask 的包管理工具, 可以使用 Emacs 的包安装方式安装.
 
@@ -1902,3 +1902,158 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 1. Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
 3. Spacemacs 也大量使用了 Use-package
+
+* 第十天: Company-mode 与 auto-completion
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1hsyfnXq][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTYwMzc0NDg0OA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=c5ggww2WMAs][YouTube]]
+
+内容概要:
+
+1. 给出 Cask 和 Use-package 的简单示例
+2. 详细介绍 Company-mode 的工作原理, 各种 backend 及其用法
+
+扩展阅读:
+
+1. [[http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend][编写一个简单的 comopany backend]]
+2. [[Company mode Emacs wiki][https://www.emacswiki.org/emacs/CompanyMode]]
+
+** 升级 Package 之后有 BUG 怎么办
+
+有些时候我们将一个 Package 升级到最新的版本(例如 github 上最新的 commit), 而该版本可能会存在一些 BUG, 这就会导致我们的配置不能使用.
+
+如果我们使用 stable 版本的 Package(例如使用 github 上最新的 release), 就可以尽量地减少因为升级包之后的 BUG 导致配置不可用的情况.
+
+另一种解决方式是使用 Cask 进行包管理, 举例如下:
+
+首先我们添加一个包, 例如我们编辑 Cask 文件, 添加 monokai-theme :
+
+#+BEGIN_SRC emacs-lisp
+  (depends-on "monokai-theme"
+              :git "https://github.com/oneKelvinSmith/monokai-emacs/releases"
+              :ref "02c5f5d")
+#+END_SRC
+
+然后启动 emacs, 但是出现了 BUG. 
+这时我们可以直接将 ref 的值修改为最新的 commit, Cask 即会更新这个包, 而不用等待 melpa 对包进行更新.
+
+** Use-package 的更多用法
+
+如果我们启用 *exec-path-from-shell* , 在 emacs 启动时可能会提示 *PATH* 变量重复定义, 解决方案如下:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :if (and (eq system-type 'darwin) (display-graphic-p))
+    :config
+    (progn
+      (when (string-match-p "/zsh$" (getenv "SHELL"))
+        ;; Use a non-interactive login shell.  A login shell, because my
+        ;; environment variables are mostly set in `.zprofile'.
+        (setq exec-path-from-shell-arguments '("-l")))
+
+      (exec-path-from-shell-initialize)
+      )
+    )
+
+  ;; (use-package monokai-theme
+  ;; :ensure t)
+#+END_SRC
+
+其中 if 子句可以确定启用 Package 的条件, 在 config 子句中向 *exec-path-from-shell-arguments* 即可消除这个警告.
+
+ensure 子句来确保 Package 被安装. 如果要使用 stable 版, 则添加以下子句:
+
+#+BEGIN_SRC emacs-lisp
+  :pin melpa-stable
+#+END_SRC
+
+** Company-mode 的工作原理
+
+Company-mode 需要配合后端使用, 所有的 backend 都保存在 *company-backends* 这个变量中, 例如在我的环境中该变量值如下:
+
+#+BEGIN_SRC emacs-lisp
+  (company-capf
+   (company-dabbrev-code company-gtags company-etags company-keywords)
+   company-files
+   company-dabbrev
+   )
+#+END_SRC
+
+*company-backends*变量的值是一个列表, 其中的每一项都是一个后端或 Group Backend.
+
+Company-mode 会依次调用该变量中的 backend, 并判断该 backend 是否合适当前 Buffer, 直到找到一个合适的补全后端.
+
+在进行补全项选择的时候, 我们也可以在 mode-line 中看到是使用的哪一个后端.
+
+1. company-dabbrev: 将当前打开的所有 buffer 中的关键字作为补全显示(默认不使用 scratch buffer).
+2. company-files: 补全路径.
+
+如果在补全过程中取消了补全, 也可以使用命令再次开启补全. 例如 *company-files* 补全方式就可以使用 company-files 函数开启.
+
+在输入英文时可以使用 company-ispell 进行输入提示.
+
+** 为什么有时 Python 的补全 不工作
+
+有时在编写 Python 代码的时候补全不能工作, 这时我们可以先查看 *company-backends* 的值, 查看是否需要安装 *company-anaconda* 用于补全.
+
+在 Mac 系统中, 如果 anaconda-mode 的安装过程出现错误, 可以参照以下解决方案: [[Mac 上面编辑 python 的时候安装 anaconda-mode 出错][https://emacs-china.org/t/mac-python-anaconda-mode/207]]
+
+然后确保在 *company-backends* 中有 *company-anaconda* 这个后端即可. 可以使用如下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends) '(company-anaconda))))
+#+END_SRC
+
+以上代码在 python-mode 被激活时设置 *company-backends* 的变量值为 (company-anaconda), 则在编辑 python 代码时就可以使用 anaconda-mode 进行补全.
+
+在 emacs 中有两种补全方式:
+1. 如 company-files 等, 根据关键字等进行补全, 只需要 emacs 自己进行一些处理即可得到补全数据;
+2. 如 company-anaconda 等, 需要使用客户端-服务端模式, 补全后端需要服务端的配合才能得到补全数据.
+
+在进行编程时, 一般使用第二种补全后端, 例如 编写 python 代码使用 company-anaconda, 编写 C/C++代码使用 company-ycmd, 编写 javascript 代码使用 company-tern.
+
+上述示例代码开启 company-anaconda 时有一个缺点, 比如当我们在 python 的注释时没法使用补全, 因为补全后端只有 company-anaconda, 在注释时不工作. 我们可以将 dabbrev 加入后端列表:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends) '(company-anaconda company-dabbrev))))
+#+END_SRC
+
+当 company-anaconda 不合适时使用 company-dabbrev 进行补全, 即可满足上述需求.
+
+** Group Backend
+
+company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注释都进行补全, dabbrev-code 只补全代码.
+
+假设我们的配置代码如下:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends) '((company-anaconda company-dabbrev-code)
+                                                             company-dabbrev)))
+            )
+#+END_SRC
+
+如果我们在注释中出现了 xxx 这个字符串, 在编写 python 代码时 xxx 不会出现在补全选项中. 因为在此时会先匹配到 company-anaconda, 并不会进入 company-dabbrev. 
+而因为 company-anaconda 是一个 Group Backend, 所以 company-dabbrev-code 的补全数据会出现在补全列表中.
+
+** 怎样写一个简单的补全后端
+
+因为视频时间关系, 大家可以去阅读以下文章:
+
+[[Writing the Simplest Emacs company-mode Backend][http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend]]
+
+实现方式简单介绍如下:
+
+1. 定义一个补全数据列表
+2. 定义一个补全函数, 返回对应输入的补全数据
+
+更多的内容可以查看该文档, 同时在网页右侧的链接中有更多的详细内容.
