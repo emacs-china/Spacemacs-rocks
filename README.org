@@ -1625,7 +1625,7 @@ define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, �
 使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用
 defadvice 可以.
 
-* 第九天: Macro 与 Use-package
+* 第九天：Macro 与 Use-package
 
 视频地址如下:
 
@@ -1919,7 +1919,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 扩展阅读:
 
 1. [[http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend][编写一个简单的 comopany backend]]
-2. [[Company mode Emacs wiki][https://www.emacswiki.org/emacs/CompanyMode]]
+2. [[https://www.emacswiki.org/emacs/CompanyMode][Company Mode Emacs wiki]]
 
 ** 升级 Package 之后有 BUG 怎么办
 
@@ -2000,7 +2000,7 @@ Company-mode 会依次调用该变量中的 backend, 并判断该 backend 是否
 
 有时在编写 Python 代码的时候补全不能工作, 这时我们可以先查看 *company-backends* 的值, 查看是否需要安装 *company-anaconda* 用于补全.
 
-在 Mac 系统中, 如果 anaconda-mode 的安装过程出现错误, 可以参照以下解决方案: [[Mac 上面编辑 python 的时候安装 anaconda-mode 出错][https://emacs-china.org/t/mac-python-anaconda-mode/207]]
+在 Mac 系统中, 如果 anaconda-mode 的安装过程出现错误, 可以参照以下解决方案: [[https://emacs-china.org/t/mac-python-anaconda-mode/207][Mac 上面编辑 python 的时候安装 anaconda-mode 出错]]
 
 然后确保在 *company-backends* 中有 *company-anaconda* 这个后端即可. 可以使用如下代码:
 
@@ -2049,7 +2049,7 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 
 因为视频时间关系, 大家可以去阅读以下文章:
 
-[[Writing the Simplest Emacs company-mode Backend][http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend]]
+[[http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend][Writing the Simplest Emacs company-mode Backend]]
 
 实现方式简单介绍如下:
 
