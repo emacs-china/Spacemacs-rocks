@@ -7,7 +7,7 @@
      (replace-regexp-in-string "<pre class=\"src src-\\([^\"]*?\\)\">"
                                "<pre>\n<code class=\"\\1\">" src))))
 
-(add-to-list 'load-path "./org-8.3.4/lisp")
+(add-to-list 'load-path "./org-8.3.6/lisp")
 (require 'ox-html)
 (org-reload)
 (add-to-list 'org-export-filter-src-block-functions
