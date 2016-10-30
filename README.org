@@ -2044,7 +2044,6 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 
 如果我们在注释中出现了 xxx 这个字符串, 在编写 python 代码时 xxx 不会出现在补全选项中. 因为在此时会先匹配到 company-anaconda, 并不会进入 company-dabbrev. 
 而因为 company-anaconda 是一个 Group Backend, 所以 company-dabbrev-code 的补全数据会出现在补全列表中.
-
 ** 怎样写一个简单的补全后端
 
 因为视频时间关系, 大家可以去阅读以下文章:
@@ -2057,3 +2056,48 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 2. 定义一个补全函数, 返回对应输入的补全数据
 
 更多的内容可以查看该文档, 同时在网页右侧的链接中有更多的详细内容.
+* Spacemacs 简介及安装
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1eRTHBLC][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷]]
+
+从今天的内容开始介绍 Spacemacs. 地址: [[https://github.com/syl20bnr/spacemacs][Spacemacs]]
+
+今天的内容包括:
+
+1. 如何安装 Spacemacs
+2. 一些简单的配置, 以及 package 管理
+3. 管理自己的配置
+
+** 安装 Spacemacs
+
+安装 Spacemacs 非常简单, 只需要将 github 上的仓库克隆即可, 即执行以下命令(如有必要可以先备份以前的配置):
+
+#+BEGIN_SRC shell
+  cd ~
+  mv .emacs.d .emacs.d.bak
+  mv .emacs .emacs.bak
+  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+END_SRC
+
+在克隆完成后直接运行 Emacs. 
+在第一次使用 Spacemacs 时需要下载一些 Package, 然后在 Bootstrap 完成之后你需要进行如下一些配置:
+
+1. 使用哪种编辑方式, 包括 vim 方式(默认) 以及 emacs 方式.
+2. 使用哪种 Spacemacs distribution. 包括标准版(默认)以及基础版. 区别在于标准版包含非常多的功能, 而基础版只包含核心功能.
+
+在完成以上两个配置之后, 就会在 HOME 目录生成一个 ~/.spacemacs 配置文件. 
+然后 Spacemacs 会进行进一步的初始化, 下载更多的需要的 Package. 
+如果你需要使用 [[http://elpa.emacs-china.org/][emacs-china]] 的配置源, 此时可以终止 emacs, 然后在~/.spacemacs 中的 dotspacemacs/user-init 函数中加入以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+#+END_SRC
+
+重新启动 emacs, 等待 Spacemacs 完成安装即可.
+
