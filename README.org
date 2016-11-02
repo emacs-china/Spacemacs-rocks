@@ -2044,7 +2044,6 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 
 如果我们在注释中出现了 xxx 这个字符串, 在编写 python 代码时 xxx 不会出现在补全选项中. 因为在此时会先匹配到 company-anaconda, 并不会进入 company-dabbrev. 
 而因为 company-anaconda 是一个 Group Backend, 所以 company-dabbrev-code 的补全数据会出现在补全列表中.
-
 ** 怎样写一个简单的补全后端
 
 因为视频时间关系, 大家可以去阅读以下文章:
@@ -2057,3 +2056,144 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 2. 定义一个补全函数, 返回对应输入的补全数据
 
 更多的内容可以查看该文档, 同时在网页右侧的链接中有更多的详细内容.
+* Spacemacs 简介及安装
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1eRTHBLC][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷]]
+
+从今天的内容开始介绍 Spacemacs. 地址: [[https://github.com/syl20bnr/spacemacs][Spacemacs]]
+
+今天的内容包括:
+
+1. 如何安装 Spacemacs
+2. 一些简单的配置, 以及 package 管理
+3. 管理自己的配置
+
+** 安装 Spacemacs
+
+安装 Spacemacs 非常简单, 只需要将 github 上的仓库克隆即可, 即执行以下命令(如有必要可以先备份以前的配置):
+
+#+BEGIN_SRC shell
+  cd ~
+  mv .emacs.d .emacs.d.bak
+  mv .emacs .emacs.bak
+  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+END_SRC
+
+在克隆完成后直接运行 Emacs. 
+在第一次使用 Spacemacs 时需要下载一些 Package, 然后在 Bootstrap 完成之后你需要进行如下一些配置:
+
+1. 使用哪种编辑方式, 包括 vim 方式(默认) 以及 emacs 方式.
+2. 使用哪种 Spacemacs distribution. 包括标准版(默认)以及基础版. 区别在于标准版包含非常多的功能, 而基础版只包含核心功能.
+
+在完成以上两个配置之后, 就会在 HOME 目录生成一个 ~/.spacemacs 配置文件. 
+然后 Spacemacs 会进行进一步的初始化, 下载更多的需要的 Package. 
+如果你需要使用 [[http://elpa.emacs-china.org/][emacs-china]] 的配置源, 此时可以终止 emacs, 然后在~/.spacemacs 中的 dotspacemacs/user-init 函数中加入以下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+#+END_SRC
+
+重新启动 emacs, 等待 Spacemacs 完成安装即可.
+
+如果你需要更方便的管理你自己的配置, 可以创建 ~/.spacemacs.d 目录, 然后将 ~/.spacemacs 文件移动到该目录中并重命名为 init.el.
+
+在 Spacemacs 中的操作方式如下:
+
+1. 按下 *SPC f j* 打开 dired 目录
+2. 按下按键 + , 创建 ~/.spacemacs.d 目录
+3. 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件移动到 .spacemacs.d 目录中
+4. 进入 .spacemacs.d 目录, 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件重命名为 init.el
+5. 按下 qq 退出 dired
+
+然后启动 emacs 即可.
+
+使用这种方式管理配置, 你可以将自己的配置集中到 ~/.spacemacs.d 目录中, 更容易进行统一管理. 你也可以将自己的配置 push 到 github 上.
+
+** 添加内置的 layer
+
+在安装完成 Spacemacs 之后, 按下 *SPC f e d* 打开 ~/.spacemacs 文件, 修改 *dotspacemacs-configuration-layers* 变量的值, 
+将 auto-completion, better-defaults, emacs-lisp, git, markdown, org, spell-checking, syntax-checking 等 layer 加入列表.
+
+然后退出 emacs 再重启, 或者按下 *SPC f e R* 安装需要的 package.
+
+** 一些简单的配置
+
+*** 启动时全屏显示
+
+在 dotspacemacs/init 函数中, 将 dotspacemacs-fullscreen-at-startup 变量设置为 t 即可. 代码如下:
+
+#+BEGIN_SRC emacs-lisp
+  ;; If non nil the frame is maximized when Emacs starts up.
+  ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
+  ;; (default nil) (Emacs 24.4+ only)
+  dotspacemacs-maximized-at-startup t
+#+END_SRC
+
+*** ivy layer
+
+将 ivy 加入 *dotspacemacs-configuration-layers* 列表中. 按下 *CTRL s* 使用 swiper 可以进行搜索.
+
+*** 查看 layer 下的 文档信息
+
+按下 *SPC h SPC* 即会弹出一个信息窗口, 可以从窗口中选择具体的 layer 或者其他信息进行查看.
+
+*** 删除安装的 package
+
+只需要将需要删除的 package 名称加入到 *dotspacemacs-excluded-packages* 变量中, 在下一次启动 emacs 时即会删除该 package.
+示例代码如下:
+
+#+BEGIN_SRC emacs-lisp
+  ;; A list of packages and/or extensions that will not be install and loaded.
+  dotspacemacs-excluded-packages '(vi-tilde-fringe)
+#+END_SRC
+
+*** 安装 package
+
+在 Spacemacs 中安装 package 时最好不要使用 *package-install*, 因为这样安装的 package 会在下一次启动时被删除.
+
+Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *dotspacemacs-additional-package* 变量中即可, 
+示例代码如下:
+
+#+BEGIN_SRC emacs-lisp
+  ;; List of additional packages that will be installed without being
+  ;; wrapped in a layer. If you need some configuration for these
+  ;; packages, then consider creating a layer. You can also put the
+  ;; configuration in `dotspacemacs/user-config'.
+  dotspacemacs-additional-packages '(youdao-dictionary)
+#+END_SRC
+*** 配置 customize-group
+
+如果使用 customize-group 对配置进行了修改, 你可以以下代码将生成的 *custom.el* 配置文件纳入 ~/.spacemacs.d 目录中进行统一管理:
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+  (load custom-file 'no-error 'no-message)
+#+END_SRC
+
+*** 修改主题
+
+只需修改 *dotspacemacs-themes* 变量的值, 将主题加入列表即可. 在列表中靠前的主题会优先使用.
+示例代码如下:
+
+#+BEGIN_SRC emacs-lisp
+  ;; List of themes, the first of the list is loaded when spacemacs starts.
+  ;; Press <SPC> T n to cycle to the next theme in the list (works great
+  ;; with 2 themes variants, one dark and one light)
+  dotspacemacs-themes '(
+                        monokai
+                        ;; spacemacs-dark
+                        ;; spacemacs-light
+                        ;; solarized-light
+                        solarized-dark
+                        ;; leuven
+                        ;; monokai
+                        ;; zenburn
+                        )
+#+END_SRC
+
