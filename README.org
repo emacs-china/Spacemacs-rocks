@@ -25,7 +25,7 @@
 
 [[./Artwork.png]]
 
-*GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]]
+*GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]], [[https://github.com/lsytj0413][lsytj0413]]
 
 在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以
 运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
@@ -2056,12 +2056,13 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 2. 定义一个补全函数, 返回对应输入的补全数据
 
 更多的内容可以查看该文档, 同时在网页右侧的链接中有更多的详细内容.
-* Spacemacs 简介及安装
+* 第十一天: Spacemacs 简介及安装
 
 视频地址如下:
 
 - [[http://pan.baidu.com/s/1eRTHBLC][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=JP_RQQfm-vY&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=11][Youtube]]
 
 从今天的内容开始介绍 Spacemacs. 地址: [[https://github.com/syl20bnr/spacemacs][Spacemacs]]
 
