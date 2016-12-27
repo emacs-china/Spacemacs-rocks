@@ -118,11 +118,11 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
     ;; 定义变量
     (setq name "username")
-    (messasge name) ; -> "username"
+    (message name) ; -> "username"
 
     ;; 定义函数
-    (defun func()
-      (message "Hello, %s" username))
+    (defun func ()
+      (message "Hello, %s" name))
 
     ;; 执行函数
     (func) ; -> Hello, username
@@ -131,9 +131,9 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
     (global-set-key (kbd "<f1>") 'func)
 
     ;; 使函数可直接被调用可添加 (interactive)
-    (defun func()
+    (defun func ()
       (interactive)
-      (message "Hello, %s" username))
+      (message "Hello, %s" name))
 #+END_SRC
 
 *** 开始 Hacking！
