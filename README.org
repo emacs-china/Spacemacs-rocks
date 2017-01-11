@@ -118,11 +118,11 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 
     ;; 定义变量
     (setq name "username")
-    (messasge name) ; -> "username"
+    (message name) ; -> "username"
 
     ;; 定义函数
-    (defun func()
-      (message "Hello, %s" username))
+    (defun func ()
+      (message "Hello, %s" name))
 
     ;; 执行函数
     (func) ; -> Hello, username
@@ -131,9 +131,9 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
     (global-set-key (kbd "<f1>") 'func)
 
     ;; 使函数可直接被调用可添加 (interactive)
-    (defun func()
+    (defun func ()
       (interactive)
-      (message "Hello, %s" username))
+      (message "Hello, %s" name))
 #+END_SRC
 
 *** 开始 Hacking！
@@ -1447,9 +1447,12 @@ Emacs State 中，这样我们之前的 Emacs State 里面定义的 =C-w= 等快
 
 在 Emacs 中使用 Leader Key 可以通过 [[https://github.com/cofi/evil-leader][evil-leader]] 来实现。你需要做的就是在安装后将其激活即可。
 
+ *提示*: 根据[[https://github.com/cofi/evil-leader][cofi/evil-leader]] 的说明，你应该在激活 evil-mode 之前就激活 global-evil-leader-mode，否则 evil-leader 在几个初始缓冲区(scratch, Message,...)上将不生效。
+
 #+BEGIN_SRC emacs-lisp
 (global-evil-leader-mode)
 #+END_SRC
+
 
 Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）。因为之后我
 们会转移至 Spacemacs 所以我们可以将其设置为空格键 =SPC= 。
