@@ -316,11 +316,15 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装
 的插件。
 
+
 #+BEGIN_SRC emacs-lisp
     (when (>= emacs-major-version 24)
         (require 'package)
         (package-initialize)
-        (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t))
+        (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+
+   ;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
 
     ;; cl - Common Lisp Extension
     (require 'cl)
@@ -650,7 +654,8 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (when (>= emacs-major-version 24)
     (require 'package)
     (package-initialize)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 1))
+    (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
 
 ;; cl - Common Lisp Extension
 (require 'cl)
@@ -694,7 +699,8 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 (when (>= emacs-major-version 24)
     (require 'package)
     (package-initialize)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") 1))
+    (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
 
 ;; cl - Common Lisp Extension
 (require 'cl)
@@ -1539,16 +1545,6 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 - [[http://pan.baidu.com/s/1o83r1vc][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU3MzEyNDkxNg==.html][优酷]]
 - [[https://www.youtube.com/watch?v=BJxEZGmypS0&index=2&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
-
-首先介绍一个中国大陆的 ELPA 镜像地址: 
-
-[[http://elpa.emacs-china.org/][Emacs China Elpa]]
-
-使用方式:
-
-#+BEGIN_SRC emacs-lisp
-(setq package-archives '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/"))
-#+END_SRC
 
 什么是 Cask:
 
