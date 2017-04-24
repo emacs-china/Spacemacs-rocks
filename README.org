@@ -2197,3 +2197,160 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
                         )
 #+END_SRC
 
+* 第十二天: 创建你的第一个 Spacemacs Layer
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1mi1vZTI][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTYyODgxNjU0OA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=pSIM1P8i2LU&index=10&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
+
+主要内容:
+
+1. 如何更新 Spacemacs, 同步官方 develop 分支及注意事项
+2. Layer 的 variables 变量及使用方法
+3. 如何创建自己的 Layer
+4. 如何定制 modeline
+5. evlified state
+
+** 如何更新 Sapcemacs
+
+可以通过 git 的方式来更新代码, 假设我们使用的是 develop 分支:
+
+#+BEGIN_SRC shell
+  git checkout develop
+  git fetch upstream
+  git merge upstream/develop
+#+END_SRC
+
+一般来说, 如果你不熟悉 emacs 并且你的 Sapcemacs 配置能够正常工作, 则不需要频繁的更新代码, 以避免更新之后配置不能使用.
+
+** variables 变量
+
+每一个 layer 都可以配置一些变量, 可以通过 *SPC h SPC* 然后输入 layer 名称, 点击对应的选项即可打开该 layer 的 README.org 文件.
+然后按下 SPC f j 进入 dired 模式, 选择 config.el 文件打开, 该文件中即定义了该 layer 的变量.
+
+例如 better-default layer 的变量如下:
+
+#+BEGIN_SRC emacs-lisp
+  (defvar better-defaults-move-to-beginning-of-code-first t
+    "when t, first stroke of C-a will move the cursor to the beginning of code.
+  When nil, first stroke will go to the beginning of line.
+  Subsequent strokes will toggle between beginning of line and beginning of code.")
+
+  (defvar better-defaults-move-to-end-of-code-first nil
+    "when t, first stroke of C-e will move the cursor to the end of code (before comments).
+  When nil, first stroke will go to the end of line (after comments).
+  Subsequent strokes will toggle between end of line and end of code.")
+#+END_SRC
+
+要配置使用这些变量, 可以在启用 layer 时使用如下的代码:
+
+#+BEGIN_SRC emacs-lisp
+  (better-defaults :variables
+                   better-defaults-move-to-end-of-code-first t)
+#+END_SRC
+
+** 定制 modeline
+
+在 emacs25.1 中, 该版本的 modeline 和以前版本不同, 可以通过如下方式将 modeline 修改为以前的显示形状:
+
+在 dotspacemacs/user-config 中加入如下代码:
+
+#+BEGIN_SRC emacs-lisp
+  (setq ns-use-srgb-colorspace nil)
+#+END_SRC
+
+** 创建自己的 layer
+
+假设我们需要创建一个 layer, 名叫 zilongshanren, 并且在 layer 下包含一个名叫 youdao-dictionary 的 package.
+
+首先利用 spacemacs 提供的函数创建 layer. 按下 M-x 并且输入 configuration-layer/create-layer, 然后选择路径 ~/.spacemacs.d,
+确定创建 README, 然后我们就可以看到 layer 创建成功.
+
+每一个 layer 的结构如下:
+
+#+BEGIN_EXAMPLE
+    [layer_name]
+      |__ [local]
+      | |__ [package 1]
+      | |     ...
+      | |__ [package n]
+      |-- layers.el
+      |__ packages.el
+      |__ funcs.el
+      |__ config.el
+      |__ keybindings.el
+
+    [] = directory
+#+END_EXAMPLE
+
+即每一个 layer 目录下都可以包含 layers.el, packages.el 等文件, 以及一个名叫 local 的目录.
+
+每一个文件的内容描述如下:
+
+| 文件名          | 用处                                                                                        |
+|----------------+--------------------------------------------------------------------------------------------------|
+| layers.el      | 申明一些额外的 layer 依赖 |
+| packages.el    | 一些 layer 使用到的 package 以及相关配置函数 |
+| funcs.el       | 定义一些 layer 层次的函数, 即全局函数 |
+| config.el      | layer 的配置, 此处定义的配置可以在 .spacemacs 中申明 layer 时进行配置, 也可以定义 emacs 的默认配置 |
+| keybindings.el | 快捷键配置 |
+
+现在我们可以把 youdao-dictionary 加入到 layer 中, 编辑 packages.el:
+
+#+BEGIN_SRC emacs-lisp
+
+  ;; 添加 package
+  (defconst zilongshanren-packages
+    '(youdao-dictionary)
+    )
+
+  ;; 初始化 package
+  ;; 可以使用 , d m 快捷键, 然后按下 e 展开宏
+  (defun zilongshanren/init-youdao-dictionary ()
+    (use-package youdao-dictionary
+      :deter t
+      :init
+      (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+      )
+    )
+#+END_SRC
+
+编辑 config.el 文件:
+
+#+BEGIN_SRC emacs-lisp
+  ;; 开启行号显示
+  (global-linum-mode t)
+
+  ;; 定义快捷键
+  (global-set-key (kbd "M-s o") 'occur-dwim)
+
+  ;; 将 occur 的 buffer 中的光标移动方式修改为 HJKL
+  (evilified-state-evilify-map occur-mode-map
+    :mode occur-mode)
+#+END_SRC
+
+编辑 keybindings.el 文件:
+
+#+BEGIN_SRC emacs-lisp
+  ;; dwin = do what i mean.
+  (defun occur-dwim ()
+    "Call `occur' with a sane default."
+    (interactive)
+    (push (if (region-active-p)
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            (let ((sym (thing-at-point 'symbol)))
+              (when (stringp sym)
+                (regexp-quote sym))))
+          regexp-history)
+    (call-interactively 'occur))
+#+END_SRC
+
+然后将 zilongshanren 加到 *dotspacemacs-configuration-layers* 变量中, 即可让 layer 配置生效.
+
+** 文档
+
+spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTATION.org 等文档文件, 建议大家多多阅读.
