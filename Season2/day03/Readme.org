@@ -27,7 +27,7 @@ niubi-xxx
    all of the names should have a prefix, such that the naming conflicts could be minimal.  
 6. define your abbrevs
 #+BEGIN_SRC emacs-lisp
-    (abbrev-mode t)
+  (setq-default abbrev-mode t)
 
   (define-abbrev-table 'global-abbrev-table '(
                                               ;; signature

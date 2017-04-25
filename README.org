@@ -877,7 +877,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 并以空格结束时，Emacs 就会将其自动展开成为我们所需要的字符串。
 
 #+BEGIN_SRC emacs-lisp
-  (abbrev-mode 1)
+  (setq-default abbrev-mode t)
   (define-abbrev-table 'global-abbrev-table '(
                                               ;; Shifu
                                               ("8zl" "zilongshanren")
