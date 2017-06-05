@@ -2361,11 +2361,12 @@ spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTA
 
 - [[http://pan.baidu.com/s/1kVroHCj][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYyOTcyNjk0NA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=pH6BgXcxmjU&index=9&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][Youtube]]
 
 主要内容:
 
 1. 修复上一期视频中 occur-mode 启动的问题
-2. 修复 ivy0.8 导致的问题, 同时今后简单探讨了一下如何避免和处理类似的问题
+2. 修复 ivy0.8 导致的问题, 同时简单探讨了一下今后如何避免和处理类似的问题
 3. 介绍 post-init 和 pre-init 的用法, 介绍了如何定制 spacemacs 的 company-mode
 4. 介绍 layers.el 文件, 演示该文件的作用
 5. 介绍 layer 的 package 的 location 变量, 演示了如何从 github 获取并安装 package 的方法
