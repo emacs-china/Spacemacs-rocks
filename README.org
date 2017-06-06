@@ -2354,3 +2354,135 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
 ** 文档
 
 spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTATION.org 等文档文件, 建议大家多多阅读.
+
+* 第十三天: 定制你的 Layer
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1kVroHCj][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTYyOTcyNjk0NA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=pH6BgXcxmjU&index=9&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][Youtube]]
+
+主要内容:
+
+1. 修复上一期视频中 occur-mode 启动的问题
+2. 修复 ivy0.8 导致的问题, 同时简单探讨了一下今后如何避免和处理类似的问题
+3. 介绍 post-init 和 pre-init 的用法, 介绍了如何定制 spacemacs 的 company-mode
+4. 介绍 layers.el 文件, 演示该文件的作用
+5. 介绍 layer 的 package 的 location 变量, 演示了如何从 github 获取并安装 package 的方法
+
+** 修复上一期视频中的配置问题
+
+在之前的配置代码中, 如果我们启动 emacs 会出现以下错误:
+
+#+BEGIN_EXAMPLE
+Symbol's function definition is void: evilified-state-evilify-map
+#+END_EXAMPLE
+
+这是因为这个符号在 config.el 中使用的时候还是空的, 我们可以通过以下方式修复, 编辑 config.el 文件, 将以下代码移动到 dotspacemacs/user-init 函数中:
+
+#+BEGIN_SRC emacs-lisp
+  (evilified-state-evilify-map occur-mode-map
+    :mode occur-mmode)
+#+END_SRC
+
+** 修复 ivy0.8 的问题
+
+在 ivy 升级到0.8版本时, 对其中一个API的返回值进行了修改:
+
+#+BEGIN_SRC emacs-lisp
+  (let (res)
+    (ivy-with
+     '(ivy-read "test: "
+                '(("one" . 1) ("three" . 3))
+                :action (lambda (x) (setq res x)))
+     "t C-m")
+    res)
+  ;; =>
+  ;; ("three" . 3)
+#+END_SRC
+
+在之前的版本中, 这个函数的返回值是 3, 在0.8版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[fix break API changes for ivy 0.8][https://github.com/syl20bnr/spacemacs/pull/6478]].
+
+** post-init 和 pre-init
+
+有一些 mode 已经安装, 例如 company-mode 已经被 auto-completion layer 安装, 如果这时我们还想对该 mode 进行一些定制, 那么我们可以这样处理:
+
+1. 在我们的 layer 中添加这个包
+
+#+BEGIN_SRC emacs-lisp
+    ;; 添加 package
+    (defconst zilongshanren-packages
+      '(youdao-dictionary
+        company  ; 添加 company package
+        )
+      )
+#+END_SRC
+
+2. 然后定义一个 post-init 函数
+
+#+BEGIN_SRC emacs-lisp
+  ;; 定制 company-mode
+  (defun zilongshanren/post-init-company ()
+    (setq company-minimum-prefix-length 1)
+    )
+#+END_SRC
+
+然后重启 emacs 即可以看到定制的效果.
+
+对于 package 的三个函数: pre-init, init, post-init, spacemacs是按照这个顺序来依次调用的.
+
+** location
+
+在安装 package 时, 我们如果只输入 package 的名字, 那么默认是从 melpa 下载安装的. 如果我们想自定义 package 的安装地址, 那么我们就可以使用 location 变量.
+
+*** 自带 package
+
+例如我们使用一个自带的 occur package:
+
+#+BEGIN_SRC emacs-lisp
+  ;; 自定义 package 安装地址
+  (defconst zilongshanren-packages
+    '(youdao-dictionary
+      (occur-mode :location built-in)
+      )
+    )
+
+  ;; 初始化 occur mode
+  (defun zilongshanren/init-occur-mode ()
+    (evilified-state-evilify-map occur-mode-map
+      :mode occur-mmode)
+    )
+#+END_SRC
+
+*** 从 github 安装
+
+例如我们从 github 安装 gulpjs package:
+
+#+BEGIN_SRC emacs-lisp
+  ;; 自定义 package 安装地址
+  (defconst zilongshanren-packages
+    '(youdao-dictionary
+      (occur-mode :location built-in)
+      (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
+      )
+    )
+
+  (defun zilongshanren/init-gulpjs ()
+    (use-package gulpjs
+      :init)
+    )
+#+END_SRC
+
+在 emacs 启动时就会从 github 上下载 guiljs package 并安装到本地.
+
+** layers.el
+
+如果我们需要对某些 layer 中的 package 配置进行大量的重写, 那么我们可以移除这个 layer 的某个 package. 我们可以通过 layers.el 来实现这一点, 例如移除 chinese layer 的 youdao-dictionary package:
+
+#+BEGIN_SRC emacs-lisp
+  (configuration-layer/remove-layer 'youdao-dictionary)
+#+END_SRC
+
+然后我们可以在自己的 layer 中添加这个 package, 然后对它进行定制.
+在这种情况下, spacemacs 不会在 chinese layer 中加载 youdao-dictionary 这个 package, 而是在我们的 layer 中加载这个 package, 以实现对 spacemacs 内置的package 的定制.
