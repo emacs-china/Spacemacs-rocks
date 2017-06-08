@@ -2486,3 +2486,204 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 然后我们可以在自己的 layer 中添加这个 package, 然后对它进行定制.
 在这种情况下, spacemacs 不会在 chinese layer 中加载 youdao-dictionary 这个 package, 而是在我们的 layer 中加载这个 package, 以实现对 spacemacs 内置的package 的定制.
+
+* 第十四天: 文件和 Buffer 操作
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1slMRuot][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTY0NjUwMTM5Mg==.html][优酷]]
+- [[https://www.youtube.com/watch?v=WYhXkeiq4zU&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=7][Youtube]]
+
+主要内容:
+
+1. 我的配置和 spacemacs配置的一些不同点
+2. 文件相关操作
+3. Buffer 相关操作
+4. Dired
+
+** 不同点
+
+从今天的视频开始, 将使用 [[https://github.com/zilongshanren/spacemacs-private][子龙山人的配置]] 来讲解视频. 这份配置对 spacemacs 的定制有两个不同点:
+
+- 没有使用官方的 modeline, 而是采用自己定制的
+- 排除掉了大量的作者认为对他没有作用的 package, 因为这些 package 确实不经常使用, 反而可能导致一些 BUG 或者导致 spacemacs 启动或使用过程中变慢
+
+** 文件相关操作
+
+1. SPC p f
+
+在当前的项目中查找文件, 类似于 vim 中的 Ctrl-p. 在作者的配置中, 该快捷键被绑定到了以下函数:
+
+#+BEGIN_SRC emacs-lisp
+  (defun zilongshanren/open-file-with-projectile-or-counsel-git ()
+    (interactive)
+    (if (zilongshanren/vcs-project-root)
+        (counsel-git)
+      (if (projectile-project-p)
+          (projectile-find-file)
+        (ido-find-file))))
+#+END_SRC
+
+该函数会针对不同的项目类型使用不同的查找方式:
+
+- 如果是 git 项目, 那么使用 counsel-git 来查找文件, 不使用 projectile 的原因是 counsel-git 更快
+- 如果是 projectile 项目, 即在项目的根目录中存在 .projectile 文件, 那么使用 projectile-find-file 来查找文件
+- 否则使用 ido-fine-file 来查找文件
+
+2. SPC f f
+
+从当前目录开始查找文件. 在作者的配置中同时启用了 ivy-layer 和 helm-layer, 默认使用的是 helm 来查找文件.
+
+3. SPC f L
+
+使用 helm-locate 来在当前系统中查找文件.
+
+4. SPC f l
+
+查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM头.
+
+5. SPC f h
+
+查找文件并使用二进制的方式来打开文件, 可以使用 C-c C-c 回到之前的模式.
+
+6. SPC f o
+
+使用外部程序打开文件.
+
+7. SPC f E
+
+使用 sudo 来编辑文件, 当某些文件是只读的时候可以采用这种方式来编辑文件.
+
+8. SPC f D
+
+删除当前的文件和 buffer.
+
+9. SPC f j
+
+以当前文件的目录打开 dired buffer.
+
+10. SPC f r
+
+使用 ivy 打开最近文件列表.
+
+11. SPC f R
+
+重命名当前文件.
+
+12. SPC f v
+
+添加 local variables, 可以通过这个功能给项目做一些特殊的设置.
+例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
+
+#+BEGIN_SRC emacs-lisp
+;;; Directory Local Variables
+;;; For more information see (info "(emacs) Directory Variables")
+
+((org-mode
+  (org-highlight-links)))
+#+END_SRC
+
+这个文件中的代码会在当前目录下的所有文件 buffer 中生效.
+
+13. SPC f y
+
+拷贝当前文件的全路径.
+
+14. SPC f a d
+
+列出最近访问的目录, 使用命令行工具 fasd 实现.
+
+15. SPC f C d/u
+
+将当前文件的编码转换为 DOS/UNIX 编码.
+
+16. SPC f e d
+
+打开 .spacemacs 或 .spacemacs.d/init.el 文件.
+
+17. SPC f e i
+
+打开 .emacs 或 .emacs.d/init.el 文件.
+
+18. SPC f e l
+
+打开系统中已经安装的 el 文件.
+
+19. SPC f c
+
+复制文件.
+
+20. SPC f b
+
+打开标签.
+
+21. SPC f s/S
+
+保存当前 buffer 或 所有 buffer.
+
+** buffer 相关操作
+
+1. SPC b .
+
+打开 Buffer Selection Transient State, 在该模式下可以进行更多的操作, 由 hydra 提供.
+
+2. SPC b b
+
+切换到已经打开的 buffer.
+
+3. SPC b d
+
+关闭一个 buffer.
+
+4. SPC b f
+
+在 finder 中打开当前文件, 只在 Mac系统下生效.
+
+5. SPC b B/i
+
+以类似 Dired Mode 的形式打开 buffer 列表, 在这个列表中可以执行和 Dired Mode 类似的操作.
+
+6. SPC b h
+
+进入 \*spacemacs\* buffer.
+
+7. SPC b k
+
+使用正则表达式来删除 buffer.
+
+8. SPC b N
+
+新建一个 buffer.
+
+9. SPC b m
+
+删除除当前 buffer 外的所有 buffer.
+
+10. SPC b R
+
+使用 emacs 自动备份的文件恢复文件.
+
+11. SPC b s
+
+跳转到 scrach buffer.
+
+12. SPC b w
+
+关闭/打开 buffer 的 read-only.
+
+13. SPC b Y
+
+复制整个 buffer 的内容.
+
+14. SPC b P
+
+将剪切板的内容粘贴到整个 buffer.
+
+15. SPC <tab>
+
+在当前 buffer 和上一个打开的 buffer 中进行切换.
+
+** Dired
+
+在第四天的内容中已经讲解过 Dired Mode 的操作, 具体可以查看 [[https://book.emacs-china.org/#orgheadline22][Dired Mode]].
