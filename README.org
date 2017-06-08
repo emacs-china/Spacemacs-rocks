@@ -2666,7 +2666,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 11. SPC b s
 
-跳转到 scrach buffer.
+跳转到 scratch buffer.
 
 12. SPC b w
 
