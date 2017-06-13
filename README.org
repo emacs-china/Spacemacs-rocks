@@ -623,7 +623,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 #+BEGIN_EXAMPLE
 ├── init.el
 └── lisp
-    ├── comstom.el
+    ├── custom.el
     ├── init-better-defaults.el
     ├── init-helper.el
     ├── init-keybindings.el
