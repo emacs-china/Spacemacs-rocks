@@ -2402,7 +2402,7 @@ Symbol's function definition is void: evilified-state-evilify-map
   ;; ("three" . 3)
 #+END_SRC
 
-在之前的版本中, 这个函数的返回值是 3, 在0.8版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[fix break API changes for ivy 0.8][https://github.com/syl20bnr/spacemacs/pull/6478]].
+在之前的版本中, 这个函数的返回值是 3, 在0.8版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[https://github.com/syl20bnr/spacemacs/pull/6478][fix break API changes for ivy 0.8]].
 
 ** post-init 和 pre-init
 
