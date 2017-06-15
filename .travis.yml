@@ -7,5 +7,5 @@ before_install:
   - tar xzf org-8.3.6.tar.gz
 env:
   global:
-  - GH_REF: github.com/emacs-china/Spacemacs-rocks.git
+  - GH_REF: https://github.com/emacs-china/Spacemacs-rocks.git
   - secure: mQH0p5+2gdxMZS+VEGp3z3/GmshKU94Uj2GkcKhZ2wrjCLgz868thqPt4EscSjErqxgNNHpJPhbAeGgCQyqBsksRPOZLHsVzB/veesHjib1+hiQxjkByq3X5Nz6MfjjExKzd5iEdX7LmsfKP8qh/WUyaeJSYwTl875kF3uh0X8wNE70PcnWPyJ1yPcCRoollR55y67FHJlp+0gEMtKlalvL7ZutbNi7NLECGZnj2wz97223jJS/Bdg3oh5I7FnexGhzWh7G5Wt15Qt5+ecfZZJLeUqvTkwGg8mCSYGnQyzkoJxAL13J/iT/i1a44nMo4pDGcaeZx+BimJKT1UfiCdR2vK6nLe7VobbHcN/0sNQh0eU/MfTxu75kNmHlJcwzOV4qf/YMxSX7XNWSgd++HYHUJ16+UhKkEEd3+ZOj+jaGm8hAq/UNIHEPdVTYTx7Z8uos0qF+kzh/5YEssSbLdj+cgsjFhWBNi44y50ud9E8rodLbCfHddJO+1kSxffgKp2aj/b2LgmGlVG03uVOs5rpOdJEWJ24lk/dZm5OJbXg8Cqif5Qpy/xOPxVOQkoHc5NqgvYKHAq1NC8tuWG/ywhVovZeDvoV04hXrAVTv8z2lAyFFaZOcCSrIr1RnJ0Y3XZyG78cdnEkz3swu7rJHPTMP0kAt9XZViKJDCtajOcAo=
