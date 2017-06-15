@@ -1,11 +1,11 @@
 script: bash ./deploy.sh
 before_install:
-  - sudo apt-add-repository -y ppa:ubuntu-elisp/ppa
-  - sudo apt-get update
-  - sudo apt-get install emacs-snapshot
-  - wget http://orgmode.org/org-8.3.6.tar.gz
-  - tar xzf org-8.3.6.tar.gz
+- sudo apt-add-repository -y ppa:ubuntu-elisp/ppa
+- sudo apt-get update
+- sudo apt-get install emacs-snapshot
+- wget http://orgmode.org/org-8.3.6.tar.gz
+- tar xzf org-8.3.6.tar.gz
 env:
   global:
   - GH_REF: github.com/emacs-china/Spacemacs-rocks.git
-  - secure: mQH0p5+2gdxMZS+VEGp3z3/GmshKU94Uj2GkcKhZ2wrjCLgz868thqPt4EscSjErqxgNNHpJPhbAeGgCQyqBsksRPOZLHsVzB/veesHjib1+hiQxjkByq3X5Nz6MfjjExKzd5iEdX7LmsfKP8qh/WUyaeJSYwTl875kF3uh0X8wNE70PcnWPyJ1yPcCRoollR55y67FHJlp+0gEMtKlalvL7ZutbNi7NLECGZnj2wz97223jJS/Bdg3oh5I7FnexGhzWh7G5Wt15Qt5+ecfZZJLeUqvTkwGg8mCSYGnQyzkoJxAL13J/iT/i1a44nMo4pDGcaeZx+BimJKT1UfiCdR2vK6nLe7VobbHcN/0sNQh0eU/MfTxu75kNmHlJcwzOV4qf/YMxSX7XNWSgd++HYHUJ16+UhKkEEd3+ZOj+jaGm8hAq/UNIHEPdVTYTx7Z8uos0qF+kzh/5YEssSbLdj+cgsjFhWBNi44y50ud9E8rodLbCfHddJO+1kSxffgKp2aj/b2LgmGlVG03uVOs5rpOdJEWJ24lk/dZm5OJbXg8Cqif5Qpy/xOPxVOQkoHc5NqgvYKHAq1NC8tuWG/ywhVovZeDvoV04hXrAVTv8z2lAyFFaZOcCSrIr1RnJ0Y3XZyG78cdnEkz3swu7rJHPTMP0kAt9XZViKJDCtajOcAo=
+  - secure: m4hmj8aKww130loU3isv85UnhoFts1miUszwznqScwXu9wUpUB+9RoPZSe+TOe98ddTwydFJ7AjiZ+HhBw0MN8YlX//rw0kPcvYYnpZjy/uGjRgR3bdWnmD2wC8BlZyZm+fY9epwy6OIGBE8PNMa1BlQIQSM3+FjxVuVNPd8VBLPQTMcc79UOo35pM41i7XkrgYRJrBxPMv2Oj48tGvLOmeyJler50mnzF6tk/TajF6RGhVZxubsUoyJxB+YyqfU6GlZpuzQrMsigHXTm/LaXze+IJvhwpnoRKpBbM+nN5baQmE+c2d4AAqpYc35oTUwSsJxQAJxnOX2y2JlVsTz8ZgNOkz9VjmH0M5V/JASZeLQqAI9fCpHDNU7RsiYdbcIPE0yAnSL4BMp3G7OthA9kpYxOav5zBHC6clqtxD/thveeS7BhM4TEYqmpP2is+3VxeS78g6TD9uSbED56nEQLPBzTrMIzcUeI+J2SVJbNcuSuchgxEF+vpDTrZys5z8bq2smNASEv82Ct4eQu5rbJwSYpoB7HZY4f1JinSnx6VH8DZ/vldhjs3ukD3f65hhs7rgbbfSUqNzrYAERyRblaQZr9MI0F05xghxT+5wJo9i9xXqxx86QzrVPTGjODyHzmd0h6llEj03eUwmi7dSfAdipxe/+znnjqvZbhaKdP0Q=
