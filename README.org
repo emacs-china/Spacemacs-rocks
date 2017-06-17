@@ -2687,3 +2687,118 @@ Symbol's function definition is void: evilified-state-evilify-map
 ** Dired
 
 在第四天的内容中已经讲解过 Dired Mode 的操作, 具体可以查看 [[https://book.emacs-china.org/#orgheadline22][Dired Mode]].
+
+* 第十五天: 文件和 Buffer 操作
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1miMvDji][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTY0NzUxOTI2NA==.html][优酷]]
+- [[https://www.youtube.com/watch?v=vt7FQO9HpBU&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=8][Youtube]]
+
+主要内容:
+
+1. Layout 相关操作
+2. Window 相关操作
+3. project 相关操作
+
+** Layout 相关操作
+
+1. SPC l L
+加载 layout 文件
+
+2. SPC l l
+在 layout 之间切换
+
+3. SPC l s
+将 layout 保存到文件
+
+4. SPC l <tab>
+在当前 layout 和上一个 layout 之间切换
+
+5. SPC l o
+配置 layout
+
+6. SPC l R
+重命名 layout
+
+7. SPC l ?
+显示更多的与 layout 相关的命令
+
+** Window 相关操作
+
+1. SPC w -
+上下拆分窗口
+
+2. SPC w /
+左右拆分窗口
+
+3. SPC w .
+显示更多的与 window micro state 的相关的命令
+
+4. SPC w 2/3
+左右显示 2/3 个窗口
+
+5. SPC w =
+将窗口均等分
+
+6. SPC w b
+切换到 minibuffer
+
+7. SPC w d
+删除当前窗口
+
+8. SPC w h/j/k/l
+向 左/下/上/右 移动窗口
+
+9. SPC w m
+最大化显示当前窗口
+
+10. SPC W H/J/K/L
+将当前窗口向 左/下/上/右 移动
+
+11. SPC w u/U
+取消/重置上次操作
+
+12. SPC w o
+切换到其他 frame
+
+13. SPC w F
+创建一个新的 frame
+
+14. SPC w 1/2/3/4
+切换到对应的编号的窗口
+
+15. SPC w w
+依次切换到其他窗口
+
+16. SPC w W
+使用字母标识需要跳转的窗口, 并按下字母进行跳转
+
+17. SPC t g
+将当前显示的窗口与其他窗口进行黄金分割显示
+
+18. SPC t -
+开启/关闭 将光标始终显示在中心行
+
+** project 相关操作
+
+1. SPC p f
+在当前 project 中查找并打开文件
+
+2. SPC p b
+在当前 project 中查找打开的 buffer
+
+3. SPC p p
+切换到其他的 project
+
+4. SPC p l
+切换到其他的 project 并创建一个新的 layout
+
+5. find-file-in-project
+这是一个插件, 支持全平台. 目前绑定在 SUPER f 快捷键上.
+
+** 更多内容
+
+对 Spacemacs 中的快捷键操作就介绍到这里, 更多的快捷键介绍可以到 [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC]] 去查看.
+
