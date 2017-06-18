@@ -2513,176 +2513,176 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 1. SPC p f
 
-在当前的项目中查找文件, 类似于 vim 中的 Ctrl-p. 在作者的配置中, 该快捷键被绑定到了以下函数:
+  在当前的项目中查找文件, 类似于 vim 中的 Ctrl-p. 在作者的配置中, 该快捷键被绑定到了以下函数:
 
-#+BEGIN_SRC emacs-lisp
-  (defun zilongshanren/open-file-with-projectile-or-counsel-git ()
-    (interactive)
-    (if (zilongshanren/vcs-project-root)
-        (counsel-git)
-      (if (projectile-project-p)
-          (projectile-find-file)
-        (ido-find-file))))
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp
+    (defun zilongshanren/open-file-with-projectile-or-counsel-git ()
+      (interactive)
+      (if (zilongshanren/vcs-project-root)
+          (counsel-git)
+        (if (projectile-project-p)
+            (projectile-find-file)
+          (ido-find-file))))
+  #+END_SRC
 
-该函数会针对不同的项目类型使用不同的查找方式:
+  该函数会针对不同的项目类型使用不同的查找方式:
 
-- 如果是 git 项目, 那么使用 counsel-git 来查找文件, 不使用 projectile 的原因是 counsel-git 更快
-- 如果是 projectile 项目, 即在项目的根目录中存在 .projectile 文件, 那么使用 projectile-find-file 来查找文件
-- 否则使用 ido-fine-file 来查找文件
+  - 如果是 git 项目, 那么使用 counsel-git 来查找文件, 不使用 projectile 的原因是 counsel-git 更快
+  - 如果是 projectile 项目, 即在项目的根目录中存在 .projectile 文件, 那么使用 projectile-find-file 来查找文件
+  - 否则使用 ido-fine-file 来查找文件
 
 2. SPC f f
 
-从当前目录开始查找文件. 在作者的配置中同时启用了 ivy-layer 和 helm-layer, 默认使用的是 helm 来查找文件.
+  从当前目录开始查找文件. 在作者的配置中同时启用了 ivy-layer 和 helm-layer, 默认使用的是 helm 来查找文件.
 
 3. SPC f L
 
-使用 helm-locate 来在当前系统中查找文件.
+  使用 helm-locate 来在当前系统中查找文件.
 
 4. SPC f l
 
-查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM头.
+  查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM头.
 
 5. SPC f h
 
-查找文件并使用二进制的方式来打开文件, 可以使用 C-c C-c 回到之前的模式.
+  查找文件并使用二进制的方式来打开文件, 可以使用 C-c C-c 回到之前的模式.
 
 6. SPC f o
 
-使用外部程序打开文件.
+  使用外部程序打开文件.
 
 7. SPC f E
 
-使用 sudo 来编辑文件, 当某些文件是只读的时候可以采用这种方式来编辑文件.
+  使用 sudo 来编辑文件, 当某些文件是只读的时候可以采用这种方式来编辑文件.
 
 8. SPC f D
 
-删除当前的文件和 buffer.
+  删除当前的文件和 buffer.
 
 9. SPC f j
 
-以当前文件的目录打开 dired buffer.
+  以当前文件的目录打开 dired buffer.
 
 10. SPC f r
 
-使用 ivy 打开最近文件列表.
+  使用 ivy 打开最近文件列表.
 
 11. SPC f R
 
-重命名当前文件.
+  重命名当前文件.
 
 12. SPC f v
 
-添加 local variables, 可以通过这个功能给项目做一些特殊的设置.
-例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
+  添加 local variables, 可以通过这个功能给项目做一些特殊的设置.
+  例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
 
-#+BEGIN_SRC emacs-lisp
-;;; Directory Local Variables
-;;; For more information see (info "(emacs) Directory Variables")
+  #+BEGIN_SRC emacs-lisp
+  ;;; Directory Local Variables
+  ;;; For more information see (info "(emacs) Directory Variables")
 
-((org-mode
-  (org-highlight-links)))
-#+END_SRC
+  ((org-mode
+    (org-highlight-links)))
+  #+END_SRC
 
-这个文件中的代码会在当前目录下的所有文件 buffer 中生效.
+  这个文件中的代码会在当前目录下的所有文件 buffer 中生效.
 
 13. SPC f y
 
-拷贝当前文件的全路径.
+  拷贝当前文件的全路径.
 
 14. SPC f a d
 
-列出最近访问的目录, 使用命令行工具 fasd 实现.
+  列出最近访问的目录, 使用命令行工具 fasd 实现.
 
 15. SPC f C d/u
 
-将当前文件的编码转换为 DOS/UNIX 编码.
+  将当前文件的编码转换为 DOS/UNIX 编码.
 
 16. SPC f e d
 
-打开 .spacemacs 或 .spacemacs.d/init.el 文件.
+  打开 .spacemacs 或 .spacemacs.d/init.el 文件.
 
 17. SPC f e i
 
-打开 .emacs 或 .emacs.d/init.el 文件.
+  打开 .emacs 或 .emacs.d/init.el 文件.
 
 18. SPC f e l
 
-打开系统中已经安装的 el 文件.
+  打开系统中已经安装的 el 文件.
 
 19. SPC f c
 
-复制文件.
+  复制文件.
 
 20. SPC f b
 
-打开标签.
+  打开标签.
 
 21. SPC f s/S
 
-保存当前 buffer 或 所有 buffer.
+  保存当前 buffer 或 所有 buffer.
 
 ** buffer 相关操作
 
 1. SPC b .
 
-打开 Buffer Selection Transient State, 在该模式下可以进行更多的操作, 由 hydra 提供.
+  打开 Buffer Selection Transient State, 在该模式下可以进行更多的操作, 由 hydra 提供.
 
 2. SPC b b
 
-切换到已经打开的 buffer.
+  切换到已经打开的 buffer.
 
 3. SPC b d
 
-关闭一个 buffer.
+  关闭一个 buffer.
 
 4. SPC b f
 
-在 finder 中打开当前文件, 只在 Mac系统下生效.
+  在 finder 中打开当前文件, 只在 Mac系统下生效.
 
 5. SPC b B/i
 
-以类似 Dired Mode 的形式打开 buffer 列表, 在这个列表中可以执行和 Dired Mode 类似的操作.
+  以类似 Dired Mode 的形式打开 buffer 列表, 在这个列表中可以执行和 Dired Mode 类似的操作.
 
 6. SPC b h
 
-进入 \*spacemacs\* buffer.
+  进入 \*spacemacs\* buffer.
 
 7. SPC b k
 
-使用正则表达式来删除 buffer.
+  使用正则表达式来删除 buffer.
 
 8. SPC b N
 
-新建一个 buffer.
+  新建一个 buffer.
 
 9. SPC b m
 
-删除除当前 buffer 外的所有 buffer.
+  删除除当前 buffer 外的所有 buffer.
 
 10. SPC b R
 
-使用 emacs 自动备份的文件恢复文件.
+  使用 emacs 自动备份的文件恢复文件.
 
 11. SPC b s
 
-跳转到 scratch buffer.
+  跳转到 scratch buffer.
 
 12. SPC b w
 
-关闭/打开 buffer 的 read-only.
+  关闭/打开 buffer 的 read-only.
 
 13. SPC b Y
 
-复制整个 buffer 的内容.
+  复制整个 buffer 的内容.
 
 14. SPC b P
 
-将剪切板的内容粘贴到整个 buffer.
+  将剪切板的内容粘贴到整个 buffer.
 
 15. SPC <tab>
 
-在当前 buffer 和上一个打开的 buffer 中进行切换.
+  在当前 buffer 和上一个打开的 buffer 中进行切换.
 
 ** Dired
 
@@ -2705,98 +2705,128 @@ Symbol's function definition is void: evilified-state-evilify-map
 ** Layout 相关操作
 
 1. SPC l L
-加载 layout 文件
+
+  加载 layout 文件
 
 2. SPC l l
-在 layout 之间切换
+   
+  在 layout 之间切换
 
 3. SPC l s
-将 layout 保存到文件
+
+  将 layout 保存到文件
 
 4. SPC l <tab>
-在当前 layout 和上一个 layout 之间切换
+
+  在当前 layout 和上一个 layout 之间切换
 
 5. SPC l o
-配置 layout
+
+  配置 layout
 
 6. SPC l R
-重命名 layout
+
+  重命名 layout
 
 7. SPC l ?
-显示更多的与 layout 相关的命令
+
+  显示更多的与 layout 相关的命令
 
 ** Window 相关操作
 
 1. SPC w -
-上下拆分窗口
+
+  上下拆分窗口
 
 2. SPC w /
-左右拆分窗口
+
+  左右拆分窗口
 
 3. SPC w .
-显示更多的与 window micro state 的相关的命令
+   
+  显示更多的与 window micro state 的相关的命令
 
 4. SPC w 2/3
-左右显示 2/3 个窗口
+
+  左右显示 2/3 个窗口
 
 5. SPC w =
-将窗口均等分
+
+  将窗口均等分
 
 6. SPC w b
-切换到 minibuffer
+
+  切换到 minibuffer
 
 7. SPC w d
-删除当前窗口
+
+  删除当前窗口
 
 8. SPC w h/j/k/l
-向 左/下/上/右 移动窗口
+
+  向 左/下/上/右 移动窗口
 
 9. SPC w m
-最大化显示当前窗口
+   
+  最大化显示当前窗口
 
 10. SPC W H/J/K/L
-将当前窗口向 左/下/上/右 移动
+
+  将当前窗口向 左/下/上/右 移动
 
 11. SPC w u/U
-取消/重置上次操作
+
+  取消/重置上次操作
 
 12. SPC w o
-切换到其他 frame
+
+  切换到其他 frame
 
 13. SPC w F
-创建一个新的 frame
+
+  创建一个新的 frame
 
 14. SPC w 1/2/3/4
-切换到对应的编号的窗口
+
+  切换到对应的编号的窗口
 
 15. SPC w w
-依次切换到其他窗口
+
+  依次切换到其他窗口
 
 16. SPC w W
-使用字母标识需要跳转的窗口, 并按下字母进行跳转
+
+  使用字母标识需要跳转的窗口, 并按下字母进行跳转
 
 17. SPC t g
-将当前显示的窗口与其他窗口进行黄金分割显示
+
+  将当前显示的窗口与其他窗口进行黄金分割显示
 
 18. SPC t -
-开启/关闭 将光标始终显示在中心行
+
+  开启/关闭 将光标始终显示在中心行
 
 ** project 相关操作
 
 1. SPC p f
-在当前 project 中查找并打开文件
+
+  在当前 project 中查找并打开文件
 
 2. SPC p b
-在当前 project 中查找打开的 buffer
+
+  在当前 project 中查找打开的 buffer
 
 3. SPC p p
-切换到其他的 project
+
+  切换到其他的 project
 
 4. SPC p l
-切换到其他的 project 并创建一个新的 layout
+   
+  切换到其他的 project 并创建一个新的 layout
 
 5. find-file-in-project
-这是一个插件, 支持全平台. 目前绑定在 SUPER f 快捷键上.
+
+  这是一个插件, 支持全平台. 目前绑定在 SUPER f 快捷键上.
 
 ** 更多内容
 
