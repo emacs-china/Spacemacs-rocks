@@ -36,7 +36,7 @@
 
 -  [[http://v.youku.com/v_show/id_XMTUwNjU0MjE0OA==.html][优酷视频]]
 -  [[http://pan.baidu.com/s/1gep9DQV][百度网盘]]
--  [[https://www.youtube.com/watch?v=2Q0MhOR59u8][YouTube]]
+-  [[https://youtu.be/QKhS9EX9qd8][YouTube]]
 
 *说在最前面*
 
@@ -227,7 +227,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 -  [[http://v.youku.com/v_show/id_XMTUxMzQyODI4MA==.html][优酷视频]]
 -  [[http://pan.baidu.com/s/1c2Cw9ck][百度网盘]]
--  [[https://youtu.be/aQRZxaU3pAI][YouTube]]
+-  [[https://youtu.be/l6TzOIlS8Ec][YouTube]]
 
 *说在最前面*
 
@@ -572,7 +572,7 @@ Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们
 
 - [[http://v.youku.com/v_show/id_XMTUyNzA0MTMxNg%3D%3D.html?f%3D26962151&o%3D1][优酷视频]]
 - [[http://pan.baidu.com/s/1nuJWyLF][百度网盘]]
-- [[https://www.youtube.com/watch?v%3DZ83xnsiLtI0&feature%3Dyoutu.be][YouTube]]
+- [[https://youtu.be/hL9B2AtcB1w][YouTube]]
 
 ** 多文件存储配置文件(上)
 
@@ -774,7 +774,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 
 - [[http://v.youku.com/v_show/id_XMTUzMDAwMDYwMA%3D%3D.html][优酷视频]]
 - [[http://pan.baidu.com/s/1o8QWrHK][百度网盘]]
-- [[https://www.youtube.com/watch?v%3DBGecmDgPAiw][YouTube]]
+- [[https://youtu.be/IhCOO0R83G8][YouTube]]
 
 ** 配置文件模块化（下）
 
@@ -1000,7 +1000,7 @@ Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配�
 
 - [[http://pan.baidu.com/s/1slOOWSd][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU0NjMyNDg5Ng%3D%3D.html][优酷]]
-- [[https://www.youtube.com/watch?v%3DBpjwzSB2d00&feature%3Dyoutu.be][YouTube]]
+- [[https://youtu.be/Tjh5cKAw1Ks][YouTube]]
 
 照例我们先修复一些现在存在的小问题。首先是自动配对的小问题，在 Emacs Lisp 中我们
 有时候只需要一个 ='= 但是 Emacs 很好心的帮我们做了补全，但这并不是我们需要的。我
@@ -1392,7 +1392,7 @@ eslint 检查器的配置也可以使用项目目录下的 =.eslintrc= 来进行
 
 - [[http://pan.baidu.com/s/1dEIlXID][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU1NTk4MzUyNA%3D%3D.html][优酷]]
-- [[https://www.youtube.com/watch?v%3DI_wU_-al6TY&feature%3Dyoutu.be][YouTube]]
+- [[https://youtu.be/evnnz2jvteQ][YouTube]]
 
 开始之前我们先将 =C-w= 来使其可以向后删除一个单词，这样就可以与 Shell 中的快捷键操作同步。
 
@@ -1547,7 +1547,7 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 
 - [[http://pan.baidu.com/s/1o83r1vc][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU3MzEyNDkxNg==.html][优酷]]
-- [[https://www.youtube.com/watch?v=BJxEZGmypS0&index=2&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
+- [[https://youtu.be/B7jx8kJIbnY][YouTube]]
 
 什么是 Cask:
 
@@ -1630,7 +1630,7 @@ defadvice 可以.
 
 - [[http://pan.baidu.com/s/1c1Gnkcw][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTU4MDU2NjE3Ng==.html][优酷]]
-- [[https://www.youtube.com/watch?v=BmYtd0QHgSg&index=1&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
+- [[https://youtu.be/AnHP4rNiKSE][YouTube]]
 
 这次主要介绍 Emacs Lisp 中的宏(Macro)以及 Use-package 插件.
 
@@ -1908,7 +1908,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 - [[http://pan.baidu.com/s/1hsyfnXq][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYwMzc0NDg0OA==.html][优酷]]
-- [[https://www.youtube.com/watch?v=c5ggww2WMAs][YouTube]]
+- [[https://youtu.be/wgam0sXuMdU][YouTube]]
 
 内容概要:
 
@@ -2061,7 +2061,7 @@ company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注�
 
 - [[http://pan.baidu.com/s/1eRTHBLC][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷]]
-- [[https://www.youtube.com/watch?v=JP_RQQfm-vY&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=11][Youtube]]
+- [[https://youtu.be/etLqMM5nmqI][Youtube]]
 
 从今天的内容开始介绍 Spacemacs. 地址: [[https://github.com/syl20bnr/spacemacs][Spacemacs]]
 
@@ -2203,7 +2203,7 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
 
 - [[http://pan.baidu.com/s/1mi1vZTI][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYyODgxNjU0OA==.html][优酷]]
-- [[https://www.youtube.com/watch?v=pSIM1P8i2LU&index=10&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][YouTube]]
+- [[https://youtu.be/qQqpWWjub6A][YouTube]]
 
 主要内容:
 
@@ -2361,7 +2361,7 @@ spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTA
 
 - [[http://pan.baidu.com/s/1kVroHCj][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTYyOTcyNjk0NA==.html][优酷]]
-- [[https://www.youtube.com/watch?v=pH6BgXcxmjU&index=9&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG][Youtube]]
+- [[https://youtu.be/RMofkN3IcKE][Youtube]]
 
 主要内容:
 
@@ -2493,7 +2493,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 - [[http://pan.baidu.com/s/1slMRuot][百度网盘]]
 - [[http://v.youku.com/v_show/id_XMTY0NjUwMTM5Mg==.html][优酷]]
-- [[https://www.youtube.com/watch?v=WYhXkeiq4zU&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=7][Youtube]]
+- [[https://youtu.be/85g3defJP6M][Youtube]]
 
 主要内容:
 
