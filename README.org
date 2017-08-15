@@ -2832,3 +2832,159 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 对 Spacemacs 中的快捷键操作就介绍到这里, 更多的快捷键介绍可以到 [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC]] 去查看.
 
+* 第十六天: 使用 ctags 和 company-etags
+
+视频地址如下:
+
+- [[http://pan.baidu.com/s/1hr4CYBq][百度网盘]]
+- [[http://v.youku.com/v_show/id_XMTY1Njc1MjUxNg==.html][优酷]]
+- [[https://www.youtube.com/watch?v=afWk8DBOY68][Youtube]]
+
+主要内容:
+
+这期视频主要介绍 ctags 和 company-mode 的使用.
+
+** 为什么使用 ctags
+
+ctags 是一个开源的, 可以方便的对大型代码库进行索引的软件, 在使用 ctags 生成 tag 之后就可以非常方便的在这些 tag 中进行跳转.
+因为有些编程语言, 例如 javascript 或者 lua, 它们不能进行精确的语义补全, 在有 ctags 进行索引补全的情况下也可以方便编写代码.
+
+在之前也介绍过 term-mode, 也可以做到一些语义补全. 但是它也有一些缺点:
+
+1. 配置方式复杂, 对于比较大的项目的配置比较有难度
+2. 有些时候不能得到想要的补全结果
+
+之前作者使用 YCMD 来对 C/C++ 代码进行补全, 但是它不太稳定, 现在已经切换为 ctags 来进行补全, 对于调试和 profile 会使用 IDE 进行操作.
+
+** 如何配置 ctags
+
+首先新建一个 testJs-ctags 目录, 然后在该目录下新建 a.js 以及 b.js 两个文件:
+
+#+BEGIN_SRC shell
+  mkdir testJs-ctags
+  cd testJs-ctags
+  touch a.js
+  touch b.js
+#+END_SRC
+
+然后编辑 a.js 的内容如下:
+
+#+BEGIN_SRC javascript
+  var func1 = function () {
+      console.log("func1");
+  };
+
+  var func2 = function () {
+  };
+#+END_SRC
+
+然后在 b.js 中的补全中可以显示处 func1 和 func2 的补全提示的. 为了更方便的讲解之后的内容, 我们可以查看使用的补全的后端: 输入 M-x, diminish-undo, 选择 company-mode, 这样在 modeline 就可以看到 company-mode 的具体信息.
+
+再次输入 fun 等待弹出补全提示, 在补全选项中上下移动, 可以看到使用的补全后端包括 dabbrev-code 和 etags 等, 如果我们关闭 a.js 的 buffer, 就不会出现 func1 和 func2 的补全选项.
+
+在之前的操作中, 我们并没有生成 ctags, 为什么也能使用 ctags 补全呢? 我们可以使用 SPC h d v, 然后输出 tags-table-list 来查看该变量的值, 当前的值是指向作者 cocos目录下的 TAGS 文件.
+使用以下代码清空该值:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tags-table-list nil)
+#+END_SRC
+
+然后再次尝试补全, 这时就不会使用 ctags 补全了.
+
+那么如何生成 ctags 补全的文件呢? 使用以下命令即可:
+
+#+BEGIN_SRC shell
+  cd testJs-ctags
+  ctags -e a.js
+  # 针对目录
+  # ctags -eR foldername
+#+END_SRC
+
+company-etags 在进行补全的时候, 会从变量 tags-table-list 值的文件列表中去查找 tags, 而且 tags 是不区分语言的.
+
+如果需要手动加载 TAGS 文件, 那么可以调用 visit-tags-table 命令. 而在打开一个文件时, ctags 会从文件所在的目录进行查找, 一直到根目录, 加载所找到的 TAGS 文件.
+
+** 如何高效的使用 ctags
+
+*** 自动重新生成 TAGS 文件
+
+在使用 ctags 的过程中, 如果文件的内容被改变, 那么需要重新生成 TAGS 文件, 以便 ctags 的补全结果更精确. 作者实现了一个函数来自动加载必须的 TAGS 文件:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-setup-develop-environment ()
+    (interactive)
+    (when (my-project-name-contains-substring "guanghui")
+      (cond
+       ((my-project-name-contains-substring "cocos2d-x")
+        ;; C++ project don't need html tags
+        (setq tags-table-list (list (my-create-tags-if-needed "~/cocos2d-x/cocos"))))
+       ((my-project-name-contains-substring "Github/fireball")
+        (message "load tags for fireball engine repo...")
+        ;; html project donot need C++ tags
+        (setq tags-table-list (list (my-create-tags-if-needed "~/Github/fireball/engine/cocos2d")))))))
+#+END_SRC
+
+有另外一个工具函数, 当保存文件时会自动的重新生成 TAGS:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-auto-update-tags-when-save (prefix)
+    (interactive "P")
+    (cond
+     ((not my-tags-updated-time)
+      (setq my-tags-updated-time (current-time)))
+
+     ((and (not prefix)
+           (< (- (float-time (current-time)) (float-time my-tags-updated-time)) 300))
+      ;; < 300 seconds
+      (message "no need to update the tags")
+      )
+     (t
+      (setq my-tags-updated-time (current-time))
+      (my-update-tags)
+      (message "updated tags after %d seconds." (- (float-time (current-time)) (float-time my-tags-updated-time))))))
+#+END_SRC
+
+可以将 my-auto-udpate-tags-when-save 函数加入 after-save-hook 中, 或者绑定到快捷键上.
+
+*** 配置规则来生成更多的 TAGS
+
+ctags 自身也有一个配置文件, 可以在该文件中定义规则来更好的生成 TAGS, 一个配置文件的示例如下:
+
+#+BEGIN_EXAMPLE
+  --exclude=*.svn*
+  --exclude=*.git*
+  --exclude=*tmp*
+  --exclude=.#*
+  --tag-relative=yes
+  --recurse=yes
+
+  --langdef=js
+
+  --regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'\[\{]|null)/\1/n,constant/
+
+  --langdef=css
+  --langmap=css:.css
+  --regex-css=/^[ \t]*\.([A-Za-z0-9_-]+)/.\1/c,class,classes/
+#+END_EXAMPLE
+
+在配置文件中可以使用 --exclude 来忽略文件或路径, 使用 --langdef 来定义哪些文件属于 js 文件, 使用 --regex-js 来定义 TAGS 生成时的匹配规则.
+这些匹配规则中可以使用正则表达式来提取内容生成 TAGS.
+
+*** 使用 etags-select 来浏览项目
+
+在有 TAGS 之后, 可以使用 ctags 来方便的浏览文件内容.
+例如在某个函数名上点击 [, g], 然后选择 etags-select-find-tag-at-point, 这时会把所有相关的内容列出到 buffer 中, 然后可以选择想要跳转的位置跳转过去.
+
+** 最后的思考
+
+company-etags 不能对所有的 mode 进行补全, 例如在 org-mode 中默认是不使用 company-etags 的.
+因为在 company-etags.el 文件中有如下的代码:
+
+#+BEGIN_SRC emacs-lisp
+  (defvar company-etags-modes '(prog-mode c-mode objc-mode c++-mode java-mode
+                                          jde-mode pascal-mode perl-mode python-mode))
+#+END_SRC
+
+在该变量中定义了可以使用 company-etags 的 mode, 将 org-mode 加入该变量的值中即可在 org-mode 使用 company-etags 进行补全.
+
+ctags 支持上百种语言, 学会使用 ctags 能够提交效率.
