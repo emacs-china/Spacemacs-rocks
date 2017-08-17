@@ -2688,7 +2688,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 在第四天的内容中已经讲解过 Dired Mode 的操作, 具体可以查看 [[https://book.emacs-china.org/#orgheadline22][Dired Mode]].
 
-* 第十五天: 文件和 Buffer 操作
+* 第十五天: layout, windows 和 project 相关
 
 视频地址如下:
 
