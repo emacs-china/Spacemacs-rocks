@@ -2379,11 +2379,11 @@ spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTA
 Symbol's function definition is void: evilified-state-evilify-map
 #+END_EXAMPLE
 
-这是因为这个符号在 config.el 中使用的时候还是空的, 我们可以通过以下方式修复, 编辑 config.el 文件, 将以下代码移动到 dotspacemacs/user-init 函数中:
+这是因为这个符号在 config.el 中使用的时候还是空的, 我们可以通过以下方式修复, 编辑 config.el 文件, 将以下代码移动到 dotspacemacs/user-config 函数中:
 
 #+BEGIN_SRC emacs-lisp
   (evilified-state-evilify-map occur-mode-map
-    :mode occur-mmode)
+    :mode occur-mode)
 #+END_SRC
 
 ** 修复 ivy0.8 的问题
