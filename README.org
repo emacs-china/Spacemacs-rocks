@@ -2213,7 +2213,7 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
 4. 如何定制 modeline
 5. evlified state
 
-** 如何更新 Sapcemacs
+** 如何更新 Spacemacs
 
 可以通过 git 的方式来更新代码, 假设我们使用的是 develop 分支:
 
@@ -2223,7 +2223,7 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
   git merge upstream/develop
 #+END_SRC
 
-一般来说, 如果你不熟悉 emacs 并且你的 Sapcemacs 配置能够正常工作, 则不需要频繁的更新代码, 以避免更新之后配置不能使用.
+一般来说, 如果你不熟悉 emacs 并且你的 Spacemacs 配置能够正常工作, 则不需要频繁的更新代码, 以避免更新之后配置不能使用.
 
 ** variables 变量
 
