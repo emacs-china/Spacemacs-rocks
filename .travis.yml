@@ -1,3 +1,4 @@
+dist: precise
 script: bash ./deploy.sh
 before_install:
 - sudo apt-add-repository -y ppa:ubuntu-elisp/ppa
