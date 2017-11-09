@@ -2310,7 +2310,7 @@ Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *
   ;; 可以使用 , d m 快捷键, 然后按下 e 展开宏
   (defun zilongshanren/init-youdao-dictionary ()
     (use-package youdao-dictionary
-      :deter t
+      :defer t
       :init
       (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
       )
