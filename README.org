@@ -309,8 +309,8 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 （Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
 一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]
 你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages=
-来查看所有 MELPA 上的插件了。在表单中可以使用 =I= 来标记安装 =D= 来标记删除，
-=U= 来更新，并用 =X= 来确认。
+来查看所有 MELPA 上的插件了。在表单中可以使用 =i= 来标记安装 =i= 来标记删除，
+=u= 来更新，并用 =x= 来确认。
 
 你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。
 你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装
