@@ -1,4 +1,4 @@
-* Spacemacs Rocks Season 2 (Day 4)                                      :TOC:
+* Spacemacs Rocks Season 2 (Day 3)                                      :TOC:
    - [[#split-your-configs-into-multiple-files][Split your configs into multiple files]]
    - [[#major-mode-and-minor-mode-in-details][Major mode and minor mode in details]]
    - [[#better-defaults][Better Defaults]]
