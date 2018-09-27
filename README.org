@@ -2987,4 +2987,4 @@ company-etags 不能对所有的 mode 进行补全, 例如在 org-mode 中默认
 
 在该变量中定义了可以使用 company-etags 的 mode, 将 org-mode 加入该变量的值中即可在 org-mode 使用 company-etags 进行补全.
 
-ctags 支持上百种语言, 学会使用 ctags 能够提交效率.
+ctags 支持上百种语言, 学会使用 ctags 能够提高效率.
