@@ -763,7 +763,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 # TODO: Explan what is prog-mode
 
 在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的
-模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-key-map=
+模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-map=
 ，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
 
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
