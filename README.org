@@ -865,7 +865,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
           (message "Indent buffer.")))))
 #+END_SRC
 
-然后再将其用下面的代码将其绑定为快捷键，第一个 =\= 用于将紧跟的 =\= 进行逃脱（escape）。
+然后再用下面的代码将其绑定为快捷键，第一个 =\= 用于将紧跟的 =\= 进行逃脱（escape）。
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
