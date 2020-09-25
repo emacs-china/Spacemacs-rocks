@@ -787,7 +787,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。
 （他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
 
-简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加
+简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来决定加
 载某个配置文件时（ =.el= 或者 =.elc= 文件）。
 
 =load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于
