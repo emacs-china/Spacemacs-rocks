@@ -751,7 +751,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 ** Major 与 Minor Mode 详解
 
 在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个
-Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供
+Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，而 Minor Mode 则提供
 其余的增强性的功能（例如 =linum-mode= ）。
 
 在 Emacs 中，Major Mode 又分为三种，
