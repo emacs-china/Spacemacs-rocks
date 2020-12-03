@@ -740,7 +740,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插
 件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加
-=(provide 'modul-name)= (这里我们的模块名为 =init-packages= )使其可以在入口文件
+=(provide 'module-name)= (这里我们的模块名为 =init-packages= )使其可以在入口文件
 中被调用，然后再在入口文件中将其引用既可。
 
 这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path
@@ -751,7 +751,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 ** Major 与 Minor Mode 详解
 
 在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个
-Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，然后而 Minor Mode 则提供
+Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，而 Minor Mode 则提供
 其余的增强性的功能（例如 =linum-mode= ）。
 
 在 Emacs 中，Major Mode 又分为三种，
@@ -763,7 +763,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 # TODO: Explan what is prog-mode
 
 在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的
-模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-key-map=
+模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-map=
 ，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
 
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
@@ -787,7 +787,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 接着我们需要弄明白的是 =load-file= , =load= , =require= , =autoload= 之间的区别。
 （他们之间区别的链接已经再前面贴过了，你也可以在[[http://ergoemacs.org/emacs/elisp_library_system.html][这里]]找到之前同样的链接）
 
-简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来去决定加
+简单来说， =load-file= 用于打开某一个指定的文件，用于当你不想让 Emacs 来决定加
 载某个配置文件时（ =.el= 或者 =.elc= 文件）。
 
 =load= 搜索 =load-path= 中的路径并打开第一个所找到的匹配文件名的文件。此方法用于
@@ -806,13 +806,13 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 在这一节我们会配置我们的编辑器使其有更好的使用体验。整个过程就如同搭积木一般，将
 更好的体验建立在已有的功能基础之上。这样的优化使整个过程变得更高效，也更有趣。
 
-下面的代码可以是 Emacs 自动加载外部修改过的文件。
+下面的代码可以使 Emacs 自动加载外部修改过的文件。
 
 #+BEGIN_SRC emacs-lisp
 (global-auto-revert-mode 1)
 #+END_SRC
 
-使用下面的代码可以关闭自己生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的
+使用下面的代码可以关闭自动生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的
 备份文件了，现在是关闭自动保存文件）。
 
 #+BEGIN_SRC emacs-lisp
@@ -865,7 +865,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
           (message "Indent buffer.")))))
 #+END_SRC
 
-然后再将其用下面的代码将其绑定为快捷键，第一个 =\= 用于将紧跟的 =\= 进行逃脱（escape）。
+然后再用下面的代码将其绑定为快捷键，第一个 =\= 用于将紧跟的 =\= 进行转义（escape）。
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
@@ -942,7 +942,7 @@ Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的
 (setq dired-recursive-copies 'always)
 #+END_SRC
 
-第二是，每一次你进入一个回车进入一个新的目录中是，一个新的缓冲区就会被建立。这使
+第二是，每一次你输入一个回车进入一个新的目录中时，一个新的缓冲区就会被建立。这使
 得我们的缓冲区列表中充满了大量没有实际意义的记录。我们可以使用下面的代码，让
 Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。
 
