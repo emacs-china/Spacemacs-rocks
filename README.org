@@ -104,8 +104,8 @@ Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修
 - C(trl)：统一改成 Caps Lock（大小写切换键，这样可以拯救你的小拇指健康）
 
 
-
-光标的移动是编辑器中最常用的操作所以必须熟知。
+光标的移动是编辑器中最常用的操作所以必须熟知。（只需要掌握这些基础的光标移动操作，后续我会介绍 Vim 的光标移动操作，
+我个人认为 Vim 的光标移动更高效，大家先熟知这几个常用的移动命令即可。）
 
 -  =C-f= 为前移一个字符， =f= 代表 forward。
 -  =C-b= 为后移一个字符， =b= 代表 backward。
@@ -114,17 +114,20 @@ Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修
 -  =C-a= 为移至行首， =a= 代表 ahead。
 -  =C-e= 为移至行尾， =e= 代表 end。
 
-为什么不使用鼠标而去学习这些奇怪的按键组合呢？
+为什么不使用鼠标而去学习这些奇怪的按键组合呢？因为这些按键在某些时候是非常高效的，比如在 Emacs 里面，Shell 终端里面，
+甚至整个 Mac 系统都内置了这种按键。我本人在使用 Vim 或者其他 IDE 的时候也会使用 Emacs 的这套按键。
 
-常用的文件操作快捷键组合也必须熟记。
+*学习可以迁移的技能*，这一点非常重要！一旦学会了将可以终身受用。
 
--  =C-x C-f= 为打开目标文件， =f= 代表 find/file
--  =C-x C-s= 为保存当前缓冲区（Buffer）， =s= 代表 save
+现在我们可以把 Mac 下面的复制、粘贴、剪切、全选等命令移植到 Emacs 中来了，并且这一套按键是跨平台的。
 
-=C-x= 是 Emacs 的快捷键中常用的前缀命令。这些前缀命令常常代表了一系列有关联的指
-令，十分重要，请特别牢记。其它常见的还有 =C-c=, =C-h= 。打断组合键为 =C-g= ，它
-用于终端取消之前的指令。快捷键就是用预先绑定好的方式告诉 Emacs 去执行指定的命令。
-（之后会介绍到更多有关绑定的内容）
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-a") 'mark-whole-buffer) ;;对应Windows上面的Ctrl-a 全选
+(global-set-key (kbd "s-c") 'kill-ring-save) ;;对应Windows上面的Ctrl-c 复制
+(global-set-key (kbd "s-s") 'save-buffer) ;; 对应Windows上面的Ctrl-s 保存
+(global-set-key (kbd "s-v") 'yank) ;对应Windows上面的Ctrl-v 粘贴
+(global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
+#+end_src
 
 ** 内置功能
 
