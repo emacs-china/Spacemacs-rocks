@@ -144,6 +144,21 @@ Emacs 是一个富文档编辑器（Self document, extensible editor）而下面
 -  =C-h v= 寻找变量的帮助信息
 -  =C-h f= 寻找函数的帮助信息
 
+*** 给 Windows 右键菜单添加 OpenWithEmacs 功能
+#+begin_src
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell]
+[HKEY_CLASSES_ROOT\*\shell\openwemacs]
+@="&Edit with Emacs"
+[HKEY_CLASSES_ROOT\*\shell\openwemacs\command]
+@="C:\\emax64\\bin\\emacsclientw.exe -n \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs]
+@="Edit &with Emacs"
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs\command]
+@="C:\\emax64\\bin\\emacsclientw.exe -n \"%1\""
+#+end_src
+
 ** 学习基础 Elisp
 
 请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15
