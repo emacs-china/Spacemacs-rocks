@@ -159,6 +159,11 @@ Windows Registry Editor Version 5.00
 @="C:\\emax64\\bin\\emacsclientw.exe -n \"%1\""
 #+end_src
 
+使用这个 OpenWithEmacs 的功能，Emacs 需要开启 Server Mode，代码如下：
+#+begin_src emacs-lisp
+(server-mode 1)
+#+end_src
+
 ** 学习基础 Elisp
 
 请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15
