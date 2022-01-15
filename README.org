@@ -20,7 +20,7 @@
 #+STARTUP: showall
 
 
-* Spacemacs Rocks 第二季
+* 21 天学会 Emacs（2022 Edition）
 
 [[./Artwork.png]]
 
@@ -32,7 +32,7 @@
 Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年，距今已经有 5 年多的历史了，
 在此期间 Emacs 社区又进化了非常多。出现了更活跃的 Doom Emacs 社区配置，拥有 GCC Emacs，所以
 现在回头来看当时的视频教程，显得多少有些过时了。以前 21 天的视频教程显得有些冗长，我打算在 2022 年
-更新所有这些视频教程，并且控制视频的时长（20 分钟左右），希望让这个教程能跟得上时代的发展。
+更新所有这些视频教程，并且控制视频的时长（20 分钟左右），希望这个系列教程能够帮助到大家。
 
 原来 21 天的视频地址：
 
@@ -43,38 +43,63 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 
 视频地址如下
 
--  [[http://v.youku.com/v_show/id_XMTUwNjU0MjE0OA==.html][优酷视频]]
--  [[http://pan.baidu.com/s/1gep9DQV][百度网盘]]
--  [[https://youtu.be/QKhS9EX9qd8][YouTube]]
 
 *说在最前面*
 
 如果你第一次听说 Emacs 你可以在[[http://emacs.sexy/][性感的 Emacs（Emacs is Sexy）]]一文中找到使用它的理
 由！我相信你一定会被它的强大所吸引。
 
-如果你还没有安装 Emacs 可以在 [[http://emacsformacosx.com/builds][Mac OS X 安装链接]]以及 [[http://emacsbinw64.sourceforge.net/][Window 安装链接]]找到它。本文
-我们使用的为 Emacs 25.0.x Pretest 版本，一些配置在 Emacs 24 中可能并不适用。
+如果你还没有安装 Emacs 可以在 Doom Emacs 的安装文档中查找[[https://github.com/hlissner/doom-emacs/blob/master/docs/getting_started.org#install][安装方法]]，根据你所使用的操作系统去下载对应
+版本的 Emacs 就行了。（新手不推荐从源码进行编译安装，因为这会比较困难）
+
+因为考虑到比较多的用户之前可能没有接触过 Mac 或者 Linux，所以新的系列视频我会直接使用 Windows 系统来
+进行演示。Windows 下配置 Emacs 环境可以参考我之前在论坛写的[[https://emacs-china.org/t/windows-emacs/7907][文章]]。
+
+由于 Windows 系统的一些限制，某一些 Emacs 的功能（Magit，lsp 等）表现并不是很好（主要指的是性能），读者可以
+尝试安装 WLS 来使用 Emacs，具体方法可以参考[[https://hkvim.com/post/windows-setup/][这篇文章]]。
 
 在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可
 以通过使用 =C-h t= （同时按住 Ctrl 与 h 键，接着按 t 键 =t= 在这里代表 tutorial）
-在 Emacs 中直接将其打开。
+在 Emacs 中直接将其打开。（当然你也可以在观看视频之后再去阅读 Emacs Tutorial）
 
 Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]
 后很快地了解它的基础用法。
 
 ** 基础操作
+在讲解基本操作之前，先跟大家讲一下改键。改键的作用除了可以让你的小拇指更健康以外，还可以统一我们的交流语言，
+让大家后面学习过程可以更轻松。
 
-因为 Control 键在 Emacs 中极为常用，所以为了更方便地使用 Emacs 的键位修改，需要
-对其做出修改。建议将大写锁定键（Caps Lock）替换为 Control 键。这里是一个可以参考
-的把大写锁定键替换为 Control 键的教程：[[https://www.emacswiki.org/emacs/MovingTheCtrlKey][移动 Control 键 (Moving The Ctrl Key)。]]如
-果这个的教程不适用于你的操作系统，请自行搜索其它的修改方式。
+Windows 键盘布局：
+
+[[./Images/1600px-KB_United_States-NoAltGr.svg.png]]
+
+Windows 改键方法：
+
+使用 SharpKeys 来把 Left Window 键改成 Left Alt 键，Left Alt 键改成 App 键，大小写键改成 Ctrl 键。
+
+#+begin_src emacs-lisp
+ (setq w32-apps-modifier 'super)       ; 通过SharpKeys改成了 Application
+#+end_src
+
+Mac 键盘布局：
+
+[[./Images/mac-keyboard-layout.jpeg]]
+
+Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修改这个按键，其他的按键可以通过 Elisp 来修改：
+
+#+begin_src emacs-lisp
+(setq mac-option-modifier 'meta
+      mac-command-modifier 'super)
+#+end_src
 
 常见符号所代表的意义如下
 
--  M(eta)，在 Mac 下为 Option 键
--  s(uper)，在 Mac 环境下为左 Command 键
--  S(Shift)
--  C(trl)
+- M(eta)：统一改到 option 键（Mac），left windows 键（Windows）
+- s(uper)：统一改到 command 键（Mac），left Alt 键（windows）
+- S(Shift)：不用修改
+- C(trl)：统一改成 Caps Lock（大小写切换键，这样可以拯救你的小拇指健康）
+
+
 
 光标的移动是编辑器中最常用的操作所以必须熟知。
 
@@ -84,6 +109,8 @@ Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxi
 -  =C-n= 为上移至下一行， =n= 代表 next。
 -  =C-a= 为移至行首， =a= 代表 ahead。
 -  =C-e= 为移至行尾， =e= 代表 end。
+
+为什么不使用鼠标而去学习这些奇怪的按键组合呢？
 
 常用的文件操作快捷键组合也必须熟记。
 

@@ -16,6 +16,7 @@ cp -r readtheorg ./public/readtheorg/
 
 cp CNAME ./public/CNAME
 cp Artwork.png ./public/Artwork.png
+cp -r Images ./public/
 
 # deploy
 cd public
