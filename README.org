@@ -19,7 +19,6 @@
 #+OPTIONS: toc:3 num:nil
 #+STARTUP: showall
 
-[[https://travis-ci.org/emacs-china/Spacemacs-rocks][https://travis-ci.org/emacs-china/Spacemacs-rocks.svg?branch=master]]
 
 * Spacemacs Rocks 第二季
 
@@ -29,6 +28,16 @@
 
 在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以
 运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+
+*Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年，距今已经有 5 年多的历史了，
+在此期间 Emacs 社区又进化了非常多。出现了更活跃的 Doom Emacs 社区配置，拥有 GCC Emacs，所以
+现在回头来看当时的视频教程，显得多少有些过时了。以前 21 天的视频教程显得有些冗长，我打算在 2022 年
+更新所有这些视频教程，并且控制视频的时长（20 分钟左右），希望让这个教程能跟得上时代的发展。*
+
+原来 21 天的视频地址：
+
+- [[https://www.youtube.com/watch?v=0hpVuoyO8_o&list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_][Youtube]]
+- [[https://www.bilibili.com/video/BV1sp4y1Y73S?from=search&seid=10747273033486124295&spm_id_from=333.337.0.0][Bilibili]]
 
 * 第一天：准备开始
 
@@ -2388,7 +2397,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 ** 修复 ivy0.8 的问题
 
-在 ivy 升级到0.8版本时, 对其中一个API的返回值进行了修改:
+在 ivy 升级到 0.8 版本时, 对其中一个 API 的返回值进行了修改:
 
 #+BEGIN_SRC emacs-lisp
   (let (res)
@@ -2402,7 +2411,7 @@ Symbol's function definition is void: evilified-state-evilify-map
   ;; ("three" . 3)
 #+END_SRC
 
-在之前的版本中, 这个函数的返回值是 3, 在0.8版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[https://github.com/syl20bnr/spacemacs/pull/6478][fix break API changes for ivy 0.8]].
+在之前的版本中, 这个函数的返回值是 3, 在 0.8 版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[https://github.com/syl20bnr/spacemacs/pull/6478][fix break API changes for ivy 0.8]].
 
 ** post-init 和 pre-init
 
@@ -2430,7 +2439,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 然后重启 emacs 即可以看到定制的效果.
 
-对于 package 的三个函数: pre-init, init, post-init, spacemacs是按照这个顺序来依次调用的.
+对于 package 的三个函数: pre-init, init, post-init, spacemacs 是按照这个顺序来依次调用的.
 
 ** location
 
@@ -2485,7 +2494,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 #+END_SRC
 
 然后我们可以在自己的 layer 中添加这个 package, 然后对它进行定制.
-在这种情况下, spacemacs 不会在 chinese layer 中加载 youdao-dictionary 这个 package, 而是在我们的 layer 中加载这个 package, 以实现对 spacemacs 内置的package 的定制.
+在这种情况下, spacemacs 不会在 chinese layer 中加载 youdao-dictionary 这个 package, 而是在我们的 layer 中加载这个 package, 以实现对 spacemacs 内置的 package 的定制.
 
 * 第十四天: 文件和 Buffer 操作
 
@@ -2497,7 +2506,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 主要内容:
 
-1. 我的配置和 spacemacs配置的一些不同点
+1. 我的配置和 spacemacs 配置的一些不同点
 2. 文件相关操作
 3. Buffer 相关操作
 4. Dired
@@ -2541,7 +2550,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 4. SPC f l
 
-  查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM头.
+  查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM 头.
 
 5. SPC f h
 
@@ -2574,7 +2583,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 12. SPC f v
 
   添加 local variables, 可以通过这个功能给项目做一些特殊的设置.
-  例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
+  例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择 org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
 
   #+BEGIN_SRC emacs-lisp
   ;;; Directory Local Variables
@@ -2638,7 +2647,7 @@ Symbol's function definition is void: evilified-state-evilify-map
 
 4. SPC b f
 
-  在 finder 中打开当前文件, 只在 Mac系统下生效.
+  在 finder 中打开当前文件, 只在 Mac 系统下生效.
 
 5. SPC b B/i
 
@@ -2882,7 +2891,7 @@ ctags 是一个开源的, 可以方便的对大型代码库进行索引的软件
 
 再次输入 fun 等待弹出补全提示, 在补全选项中上下移动, 可以看到使用的补全后端包括 dabbrev-code 和 etags 等, 如果我们关闭 a.js 的 buffer, 就不会出现 func1 和 func2 的补全选项.
 
-在之前的操作中, 我们并没有生成 ctags, 为什么也能使用 ctags 补全呢? 我们可以使用 SPC h d v, 然后输出 tags-table-list 来查看该变量的值, 当前的值是指向作者 cocos目录下的 TAGS 文件.
+在之前的操作中, 我们并没有生成 ctags, 为什么也能使用 ctags 补全呢? 我们可以使用 SPC h d v, 然后输出 tags-table-list 来查看该变量的值, 当前的值是指向作者 cocos 目录下的 TAGS 文件.
 使用以下代码清空该值:
 
 #+BEGIN_SRC emacs-lisp
