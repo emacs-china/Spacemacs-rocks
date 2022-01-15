@@ -15,7 +15,7 @@
 #+AUTHOR: zilongshanren
 #+CREATOR: li-xinyang
 #+TITLE: Master Emacs in 21 Days
-#+EMAIL: guanghui.qu@cocos2d-x.org
+#+EMAIL: guanghui8827@gmail.com
 #+OPTIONS: toc:3 num:nil
 #+STARTUP: showall
 
@@ -26,13 +26,13 @@
 
 *GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]], [[https://github.com/lsytj0413][lsytj0413]]
 
-在这一季中我们计划用 21 天学习 Emacs 以及 Spacemacs 的使用。从基础安装开始到可以
-运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。
+在这一季中我们计划用 21 天学习 Emacs 的使用。从基础安装开始到可以
+运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。(新的系列全部使用 Vallina Emacs)
 
 Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年，距今已经有 5 年多的历史了，
 在此期间 Emacs 社区又进化了非常多。出现了更活跃的 Doom Emacs 社区配置，拥有 GCC Emacs，所以
 现在回头来看当时的视频教程，显得多少有些过时了。以前 21 天的视频教程显得有些冗长，我打算在 2022 年
-更新所有这些视频教程，并且控制视频的时长（20 分钟左右），希望这个系列教程能够帮助到大家。
+更新所有这些视频教程，并且控制每一个视频的时长（20 分钟左右），希望这个系列教程能够帮助到大家。
 
 原来 21 天的视频地址：
 
@@ -67,7 +67,7 @@ Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读[[https://learnxi
 
 ** 基础操作
 在讲解基本操作之前，先跟大家讲一下改键。改键的作用除了可以让你的小拇指更健康以外，还可以统一我们的交流语言，
-让大家后面学习过程可以更轻松。
+让大家后面学习过程可以更轻松。（这部分如果没有相关基础，强烈建议先看视频是怎么操作的）
 
 Windows 键盘布局：
 
@@ -77,6 +77,9 @@ Windows 改键方法：
 
 使用 SharpKeys 来把 Left Window 键改成 Left Alt 键，Left Alt 键改成 App 键，大小写键改成 Ctrl 键。
 
+[[./Images/sharpKeys.png]]
+
+Emacs 默认 Alt 键就是 Meta，而 App 键我们改成 super 键，可以通过下面的 Elisp 代码来完成。
 #+begin_src emacs-lisp
  (setq w32-apps-modifier 'super)       ; 通过SharpKeys改成了 Application
 #+end_src
@@ -87,6 +90,7 @@ Mac 键盘布局：
 
 Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修改这个按键，其他的按键可以通过 Elisp 来修改：
 
+[[./Images/mac-change-ctrl.png]]
 #+begin_src emacs-lisp
 (setq mac-option-modifier 'meta
       mac-command-modifier 'super)
