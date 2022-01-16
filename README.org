@@ -39,10 +39,12 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 - [[https://www.youtube.com/watch?v=0hpVuoyO8_o&list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_][Youtube]]
 - [[https://www.bilibili.com/video/BV1sp4y1Y73S?from=search&seid=10747273033486124295&spm_id_from=333.337.0.0][Bilibili]]
 
-* 第一天：准备开始
+* 第一天：准备开始(安装与改键)
 
 视频地址如下
 
+-[[https://www.youtube.com/watch?v=0HZa7ttGLiU][Youtube]]
+-[[https://www.bilibili.com/video/BV12P4y1j7EL/][Bilibili]]
 
 *说在最前面*
 
@@ -129,6 +131,10 @@ Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修
 (global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
 #+end_src
 
+* 第二天： 打造属于你的记事本
+-[[https://www.youtube.com/watch?v=fxE1L-scvbk][Youtube]]
+-[[https://www.bilibili.com/video/BV1jY411h7Ts/][Bilibili]]
+
 ** 内置功能
 
 Emacs 功能强大，但是部分功能默认情况下并未开启。下面就有几个例子，
@@ -163,7 +169,7 @@ Windows Registry Editor Version 5.00
 #+begin_src emacs-lisp
 (server-mode 1)
 #+end_src
-
+* 第三天：Elisp 基础、Org 基础和包管理器
 ** 学习基础 Elisp
 
 请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15
@@ -284,7 +290,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
     *** 为三级标题并以此类推
 #+END_SRC
 
-* 第二天：高级自定义
+* 第四天：高级自定义
 
 视频地址如下
 
