@@ -22,9 +22,7 @@
 
 * 21 天学会 Emacs（2022 Edition）
 
-[[./Artwork.png]]
-
-*GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Spacemacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]], [[https://github.com/lsytj0413][lsytj0413]]
+*GitHub* [[https://github.com/emacs-china/Spacemacs-rocks][Emacs Rocks]] *作者* [[https://github.com/zilongshanren/][zilongshanren]] *编者* [[https://github.com/li-xinyang][li-xinyang]], [[https://github.com/lsytj0413][lsytj0413]]
 
 在这一季中我们计划用 21 天学习 Emacs 的使用。从基础安装开始到可以
 运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。(新的系列全部使用 Vallina Emacs)
