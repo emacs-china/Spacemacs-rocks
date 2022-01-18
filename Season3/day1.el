@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2022 zilongshanren
 ;;
-;; Author: zilongshanren <https://github.com/lionqu>
+;; Author: zilongshanren <https://github.com/zilongshanren>
 ;; Maintainer: zilongshanren <guanghui8827@gmail.com>
 ;; Created: January 15, 2022
 ;; Modified: January 15, 2022
@@ -26,6 +26,8 @@
 (global-set-key (kbd "s-s") 'save-buffer) ;; 对应Windows上面的Ctrl-s 保存
 (global-set-key (kbd "s-v") 'yank) ;对应Windows上面的Ctrl-v 粘贴
 (global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
+(global-set-key (kbd "s-x") 'kill-region) ;对应Windows上面的Ctrol-x 剪切
+
 
 (global-linum-mode 1)
 
