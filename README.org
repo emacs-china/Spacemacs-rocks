@@ -238,6 +238,8 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
     ;; 更改光标的样式（不能生效，解决方案见第二集）
     (setq cursor-type 'bar)
 
+    (icomplete-mode 1)
+
     ;; 更改显示字体大小 16pt
     ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
     (set-face-attribute 'default nil :height 160)
