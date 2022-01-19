@@ -238,12 +238,6 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
     ;; 更改光标的样式（不能生效，解决方案见第二集）
     (setq cursor-type 'bar)
 
-    ;; 关闭启动帮助画面
-    (setq inhibit-splash-screen 1)
-
-    ;; 关闭缩进 (第二天中被去除)
-    ;; (electric-indent-mode -1)
-
     ;; 更改显示字体大小 16pt
     ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
     (set-face-attribute 'default nil :height 160)
@@ -255,6 +249,7 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
 
     ;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
     (global-set-key (kbd "<f2>") 'open-init-file)
+
 #+END_SRC
 
 在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加
@@ -309,13 +304,28 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 
 #+BEGIN_SRC emacs-lisp
     (setq-default cursor-type 'bar)
+
+;; 为了防止Emacs在显示中
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
+;; Explicitly set the prefered coding systems to avoid annoying prompt
+;; from emacs (especially on Microsoft Windows)
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
 #+END_SRC
 
-今天我们需要将第一天关闭的自动缩进 (=electric-indent-mode=) 从配置文件中去除，它
-是 Emacs 24.4 中加入的新特性，你可以在这篇[[http://emacsredux.com/blog/2014/01/19/a-peek-at-emacs-24-dot-4-auto-indentation-by-default/][文章]]中找到更多关于它的内容。我们之前关
-闭它是因为，它存在不理想的缩进效果（在 Emacs Lisp 中用分号做注释时
-=fancy-comment= 会造成很远的缩进，其实解决方法是使用 Emacs Lisp 推荐的两个分号而
-不是一个 =;;= ，这样就可以避免这个问题。于是我们也就将其从配置文件中删除）
 
 因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显
 得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后
