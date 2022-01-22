@@ -297,11 +297,32 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 * 第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化
 视频地址如下：
 ** 配置 gnu 和 melpa 镜像
+#+begin_src emacs-lisp
+;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
+;; -*- lexical-binding: t -*-
+(let ((x 1))    ; x is lexically bound.
+  (+ x 3))
+     ⇒ 4
+
+(defun getx ()
+  x)            ; x is used free in this function.
+
+(let ((x 1))    ; x is lexically bound.
+  (getx))
+;;error→ Symbol's value as variable is void: x
+#+end_src
+
+关于[[
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][lexical binding]] 更多的细节，可以自行阅读 Emacs 的官方文档。
 
 #+begin_src emacs-lisp
 ;; 更改显示字体大小 16pt
 ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
 (set-face-attribute 'default nil :height 160);;
+
+;;让鼠标滚动更好用
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
 
 (require 'package)
 (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
