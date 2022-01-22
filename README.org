@@ -312,8 +312,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 ;;error→ Symbol's value as variable is void: x
 #+end_src
 
-关于[[
-https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][lexical binding]] 更多的细节，可以自行阅读 Emacs 的官方文档。
+关于[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][lexical binding]] 更多的细节，可以自行阅读 Emacs 的官方文档。
 
 #+begin_src emacs-lisp
 ;; 更改显示字体大小 16pt
