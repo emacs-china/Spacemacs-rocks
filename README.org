@@ -39,7 +39,7 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 
 * 第一天：准备开始(安装与改键)
 
-视频地址如下
+视频地址如下：
 
 - [[https://www.youtube.com/watch?v=0HZa7ttGLiU][Youtube]]
 - [[https://www.bilibili.com/video/BV12P4y1j7EL/][Bilibili]]
@@ -130,6 +130,8 @@ Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修
 #+end_src
 
 * 第二天： 打造属于你的记事本
+视频地址如下：
+
 - [[https://www.youtube.com/watch?v=fxE1L-scvbk][Youtube]]
 - [[https://www.bilibili.com/video/BV1jY411h7Ts/][Bilibili]]
 
@@ -168,6 +170,12 @@ Windows Registry Editor Version 5.00
 (server-mode 1)
 #+end_src
 * 第三天：Elisp 基础、Org 基础和包管理器
+
+视频地址如下：
+- [[https://www.bilibili.com/video/BV1yP4y177xj?spm_id_from=333.999.0.0][Bilibili]]
+- [[https://www.youtube.com/watch?v=-tX66neahhM&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=4&t=3s][Youtube]]
+
+
 ** 学习基础 Elisp
 
 请务必完成[[https://learnxinyminutes.com/docs/elisp/][这篇教程（Learn X in Y Minutes）]]来了解 Elisp 的使用（阅读时间大约 15
@@ -203,7 +211,7 @@ Windows Registry Editor Version 5.00
       (message "Hello, %s" name))
 #+END_SRC
 
-*** 开始 Hacking！
+** 开始 Hacking！
 
 Emacs 的配置文件默认保存在 =~/.emacs.d/init.el= 文件中。（如果其不存在可自行创建，
 配置文件也可保存在 =~/.emacs= 文件中，他们之间的区别我们会在后面做讨论）
@@ -240,9 +248,6 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
 
     (icomplete-mode 1)
 
-    ;; 更改显示字体大小 16pt
-    ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
-    (set-face-attribute 'default nil :height 160)
 
     ;; 快速打开配置文件
     (defun open-init-file()
@@ -260,7 +265,7 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
 你也可以使用 =C-x C-e= 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。
 当然你也可以将这些函数绑定为快捷键。
 
-*** 插件管理
+** 插件管理
 
 使用默认的插件管理系统（可在菜单栏 =Options > Manage Emacs Packages= 中找到）安
 装 [[http://company-mode.github.io/][Company]] 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（ *Comp*
@@ -278,7 +283,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 #+END_SRC
 
-*** Org-mode
+** Org-mode
 
 简单的 Org-mode 使用，它可以列出提纲，并方便地使用 =tab= 键来对其进行展开与关闭。
 =C-c C-t= 可以将一个条目转换成一条待办事件。
@@ -289,13 +294,71 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
     *** 为三级标题并以此类推
 #+END_SRC
 
-* 第四天：高级自定义
+* 第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化
+视频地址如下：
+** 配置 elpa 和 melpa 镜像
 
-视频地址如下
+#+begin_src emacs-lisp
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 160);;
 
--  [[http://v.youku.com/v_show/id_XMTUxMzQyODI4MA==.html][优酷视频]]
--  [[http://pan.baidu.com/s/1c2Cw9ck][百度网盘]]
--  [[https://youtu.be/l6TzOIlS8Ec][YouTube]]
+(require 'package)
+(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+
+                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+;;modeline上显示我的所有的按键和执行的命令
+(package-install 'keycast)
+(keycast-mode t)
+
+
+#+end_src
+
+** 增强 minibuffer 补全：vertico
+
+#+begin_src emacs-lisp
+(package-install 'vertico)
+(vertico-mode t)
+
+(package-install 'orderless)
+(setq completion-styles '(orderless))
+#+end_src
+
+** 配置 Marginalia 增强 minubuffer 的 annotation
+
+#+begin_src emacs-lisp
+(package-install 'marginalia)
+(marginalia-mode t)
+
+#+end_src
+
+** minibuffer action 和自适应的 context menu
+#+begin_src emacs-lisp
+
+(package-install 'embark)
+(global-set-key (kbd "C-;") 'embark-act)
+(setq prefix-help-command 'embark-prefix-help-command)
+
+#+end_src
+
+** 增强文件内搜索和跳转函数定义
+#+begin_src emacs-lisp
+(package-install 'consult)
+;;replace swiper
+(global-set-key (kbd "C-s") 'consult-line)
+;;consult-imenu
+#+end_src
+
+
+* 第五天：高级自定义
+
+视频地址如下：
+
 
 *说在最前面*
 
