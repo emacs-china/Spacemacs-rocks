@@ -340,7 +340,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 #+end_src
 
-** 增强 minibuffer 补全：vertico
+** 增强 minibuffer 补全：[[https://github.com/minad/vertico][vertico]] 和 [[https://github.com/oantolin/orderless][Orderless]]
 
 #+begin_src emacs-lisp
 (package-install 'vertico)
@@ -350,7 +350,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 (setq completion-styles '(orderless))
 #+end_src
 
-** 配置 Marginalia 增强 minubuffer 的 annotation
+** 配置 [[https://github.com/minad/marginalia][Marginalia]] 增强 minubuffer 的 annotation
 
 #+begin_src emacs-lisp
 (package-install 'marginalia)
@@ -358,7 +358,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 #+end_src
 
-** minibuffer action 和自适应的 context menu
+** minibuffer action 和自适应的 context menu：[[https://github.com/oantolin/embark][Embark]]
 #+begin_src emacs-lisp
 
 (package-install 'embark)
@@ -367,7 +367,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 #+end_src
 
-** 增强文件内搜索和跳转函数定义
+** 增强文件内搜索和跳转函数定义：[[https://github.com/minad/consult][Consult]]
 #+begin_src emacs-lisp
 (package-install 'consult)
 ;;replace swiper
