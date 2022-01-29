@@ -295,8 +295,13 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 #+END_SRC
 
 * 第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化
+
 视频地址如下：
-** 配置 gnu 和 melpa 镜像
+- [[https://www.youtube.com/watch?v=HzlLxWTD6QY][Youtube]]
+
+- [[https://www.bilibili.com/video/BV1uL4y1t7Lm/][Bilibili]]
+
+** 关于 lexical binding
 #+begin_src emacs-lisp
 ;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
 ;; -*- lexical-binding: t -*-
@@ -323,6 +328,20 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
+#+end_src
+
+** 配置 gnu 和 melpa 镜像
+
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]]
+（Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
+添加源后，我们就可以使用 =M-x package-list-packages=
+来查看所有 MELPA 上的插件了。在表单中可以使用 =i= 来标记安装 =d= 来标记删除，
+=U= 来更新，并用 =x= 来确认。你也可以使用 =u= 来撤销标记操作。
+
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。
+
+
+#+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
@@ -336,9 +355,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 ;;modeline上显示我的所有的按键和执行的命令
 (package-install 'keycast)
 (keycast-mode t)
-
-
-#+end_src
+#+END_SRC
 
 ** 增强 minibuffer 补全：[[https://github.com/minad/vertico][vertico]] 和 [[https://github.com/oantolin/orderless][Orderless]]
 
@@ -392,30 +409,29 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 置的为全局的变量的值（具体内容可以在 [[http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp][StackOverflow 找到]]）。下面是一个例子，用于
 设置光标样式的方法。
 
+
 #+BEGIN_SRC emacs-lisp
     (setq-default cursor-type 'bar)
 
-;; 为了防止Emacs在显示中
-;; UTF-8 as the default coding system
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-
-;; Explicitly set the prefered coding systems to avoid annoying prompt
-;; from emacs (especially on Microsoft Windows)
-(prefer-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
-
-(set-language-environment 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-(set-file-name-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(modify-coding-system-alist 'process "*" 'utf-8)
 #+END_SRC
 
+其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
+因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+
+#+BEGIN_SRC emacs-lisp
+    ;; 下面两行的效果完全相同的
+    (quote foo)
+    'foo
+#+END_SRC
+
+=quote= 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
+
+#+BEGIN_SRC emacs-lisp
+    (print '(+ 1 1)) ;; -> (+ 1 1)
+    (print (+ 1 1))  ;; -> 2
+#+END_SRC
+
+更多关于 =quote= 的内容可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html][这里]]找到，或者在[[http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp][这里]]找到 StackOverflow 上对于它的讨论。
 
 因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显
 得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 =init.el~= 。（ =~= 为后
@@ -470,134 +486,6 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 
 ** Emacs 也很美
 
-*配置插件源*
-
-在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 [[https://melpa.org/][MELPA]]
-（Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
-一个插件下载的次数多并不能说明它非常有用，也许这个插件是其他的插件的依赖。在[[https://melpa.org/#/getting-started][这里]]
-你可以找到其安装使用方法。添加源后，我们就可以使用 =M-x package-list-packages=
-来查看所有 MELPA 上的插件了。在表单中可以使用 =i= 来标记安装 =d= 来标记删除，
-=U= 来更新，并用 =x= 来确认。你也可以使用 =u= 来撤销标记操作。
-
-你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。
-你可以将你需要的插件名字写在 =my/packages= 中，Emacs 在启动时会自动下载未被安装
-的插件。
-
-
-#+BEGIN_SRC emacs-lisp
-    (when (>= emacs-major-version 24)
-        (require 'package)
-        (package-initialize)
-        (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
-
-   ;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
-
-    ;; cl - Common Lisp Extension
-    (require 'cl)
-
-    ;; Add Packages
-    (defvar my/packages '(
-                   ;; --- Auto-completion ---
-                   company
-                   ;; --- Better Editor ---
-                   hungry-delete
-                   swiper
-                   counsel
-                   smartparens
-                   ;; --- Major Mode ---
-                   js2-mode
-                   ;; --- Minor Mode ---
-                   nodejs-repl
-                   exec-path-from-shell
-                   ;; --- Themes ---
-                   monokai-theme
-                   ;; solarized-theme
-                   ) "Default packages")
-
-    (setq package-selected-packages my/packages)
-
-    (defun my/packages-installed-p ()
-        (loop for pkg in my/packages
-              when (not (package-installed-p pkg)) do (return nil)
-              finally (return t)))
-
-    (unless (my/packages-installed-p)
-        (message "%s" "Refreshing package database...")
-        (package-refresh-contents)
-        (dolist (pkg my/packages)
-          (when (not (package-installed-p pkg))
-            (package-install pkg))))
-
-    ;; Find Executable Path on OS X
-    (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
-#+END_SRC
-
-关于上面这段配置代码有几个知识点，首先就是这段配置文件中用到了 =loop for ... in=
-，它来自 =cl= 即 Common Lisp 扩展。 =for= , =in=, =collect= 均为 =cl-loop= 中的
-保留关键字。下面是一些简单的 =cl-loop= 的使用示例：
-
-#+BEGIN_SRC emacs-lisp
-    ;; 遍历每一个缓冲区（Buffer）
-    (cl-loop for buf in (buffer-list)
-             collect (buffer-file-name buf))
-
-    ;; 寻找 729 的平方根（设置最大为 100 为了防止无限循环）
-    (cl-loop for x from 1 to 100
-             for y = (* x x)
-             until (>= y 729)
-             finally return (list x (= y 729)))
-#+END_SRC
-
-你可以在[[http://www.gnu.org/software/emacs/manual/html_mono/cl.html#Loop-Facility][这里]]找到更多关于循环的使用说明。
-
-其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
-因为它在 Lisp 中十分常用，所以就提供了简写的方法。
-
-#+BEGIN_SRC emacs-lisp
-    ;; 下面两行的效果完全相同的
-    (quote foo)
-    'foo
-#+END_SRC
-
-=quote= 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
-
-#+BEGIN_SRC emacs-lisp
-    (print '(+ 1 1)) ;; -> (+ 1 1)
-    (print (+ 1 1))  ;; -> 2
-#+END_SRC
-
-更多关于 =quote= 的内容可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html][这里]]找到，或者在[[http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp][这里]]找到 StackOverflow 上对于它的讨论。
-
-这样我们就可以区分下面三行代码的区别，
-
-#+BEGIN_SRC emacs-lisp
-    ;; 第一种
-    (setq package-selected-packages my/packages)
-    ;; 第二种
-    (setq package-selected-packages 'my/packages)
-    ;; 第三种
-    (setq package-selected-packages (quote my/packages))
-#+END_SRC
-
-第一种设置是在缓冲区中设置一个名为 =package-selected-packages= 的变量，将其的值
-设定为 =my/packages= 变量的值。第二种和第三种其实是完全相同的，将一个名为
-=package-selected-packages= 的变量设置为 =my/packages= 。
-
-我们可以用下面代码将 Emacs 设置为开启默认全屏，
-
-#+BEGIN_SRC emacs-lisp
-    (setq initial-frame-alist (quote ((fullscreen . maximized))))
-#+END_SRC
-
-我们也可以启用自动括号匹配（Highlight Matching Parenthesis），随后会介绍插件来增
-强这个匹配的功能。你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html][这里]]读到关于钩子的更多信息。
-
-#+BEGIN_SRC emacs-lisp
-    (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
-#+END_SRC
-
 高亮当前行，当文本内容很多时可以很容易找到光标的位置。
 
 #+BEGIN_SRC emacs-lisp
@@ -607,7 +495,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 *安装主题*
 
 #+BEGIN_SRC emacs-lisp
-    (add-to-list 'my/packages 'monokai-theme)
+(package-install 'monokai)
 #+END_SRC
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
