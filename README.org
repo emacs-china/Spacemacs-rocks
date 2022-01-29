@@ -413,6 +413,40 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 #+BEGIN_SRC emacs-lisp
     (setq-default cursor-type 'bar)
     (show-paren-mode t)
+
+    ;;另外一件安装插件的方法
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/awesome-tab/"))
+
+    (require 'awesome-tab)
+
+    (awesome-tab-mode t)
+
+    (defun awesome-tab-buffer-groups ()
+    "`awesome-tab-buffer-groups' control buffers' group rules.
+    Group awesome-tab with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+    All buffer name start with * will group to \"Emacs\".
+    Other buffer group by `awesome-tab-get-group-name' with project name."
+    (list
+    (cond
+        ((or (string-equal "*" (substring (buffer-name) 0 1))
+            (memq major-mode '(magit-process-mode
+                                magit-status-mode
+                                magit-diff-mode
+                                magit-log-mode
+                                magit-file-mode
+                                magit-blob-mode
+                                magit-blame-mode)))
+        "Emacs")
+        ((derived-mode-p 'eshell-mode)
+        "EShell")
+        ((derived-mode-p 'dired-mode)
+        "Dired")
+        ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+        "OrgMode")
+        ((derived-mode-p 'eaf-mode)
+        "EAF")
+        (t
+        (awesome-tab-get-group-name (current-buffer))))))
 #+END_SRC
 
 其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
@@ -440,13 +474,6 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 #+BEGIN_SRC emacs-lisp
     (setq make-backup-files nil)
 #+END_SRC
-
-关于分屏的使用，如果你已经读过 Emacs 自带的教程，现在你应该已经掌握了基本的分屏
-操作方法了。关于分屏的更多内容你可以在[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Split-Window.html][这里]]找到。
-
--  =C-x 1= 仅保留当前窗口
--  =C-x 2= 将当前窗口分到上边
--  =C-x 3= 将当前窗口分到右边
 
 使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近
 编辑过的文件。
@@ -477,12 +504,92 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 -  =find-variable= （ =C-h C-v= ）
 -  =find-function-on-key= （ =C-h C-k= ）
 
-在我们进入下一个部分之间让我们来看看使用 =~/.emacs.d/init.el= 与 =~/.emacs= 的区
-别（更多关于他们区别的讨论可在[[http://emacs.stackexchange.com/questions/1/are-there-any-advantages-to-using-emacs-d-init-el-instead-of-emacs][这里]]找到）。简单来说请使用前者，因为它有下面的两个
-优点，
+** 使用外网命令行工具
+下载安装 [[https://github.com/m-parashar/emax64/releases/download/20200930/emax.7z][emax]]，配置 emacs 加载路径
 
--  它可以更好将所有 Emacs 相关的文件整合在一个目录内（干净的 =HOME= ，网盘备份等优点）
--  更好的版本控制
+#+begin_src emacs-lisp
+(progn
+        (defvar emax-root (concat (expand-file-name "~") "/emax"))
+        (defvar emax-bin (concat emax-root "/bin"))
+        (defvar emax-bin64 (concat emax-root "/bin64"))
+
+        (setq exec-path (cons emax-bin exec-path))
+        (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+
+        (setq exec-path (cons emax-bin64 exec-path))
+        (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+
+        (setq emacsd-bin (concat user-emacs-directory "bin"))
+        (setq exec-path (cons  emacsd-bin exec-path))
+        (setenv "PATH" (concat emacsd-bin  ";" (getenv "PATH")))
+
+        ;;可选安装msys64
+        ;;下载地址: http://repo.msys2.org/mingw/sources/
+        (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+
+        ;; (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/lisp/" "~/emax/elpa/"))
+        ;;   (add-to-list 'load-path dir))
+        )
+#+end_src
+使用 M-x shell 来学习命令行操作，可以参考 https://missing.csail.mit.edu/2020/ 来学习，living in Emacs。
+
+** 增强 embark 和 consult
+
+#+BEGIN_SRC emacs-lisp
+(package-install 'embark-consult)
+(package-install 'wgrep)
+(setq wgrep-auto-save-buffer t)
+
+(eval-after-load
+    'consult
+  '(eval-after-load
+       'embark
+     '(progn
+        (require 'embark-consult)
+        (add-hook
+         'embark-collect-mode-hook
+         #'consult-preview-at-point-mode))))
+
+(define-key minibuffer-local-map (kbd "C-c C-e") 'embark-export-write)
+
+;;使用ripgrep来进行搜索
+;;consult-ripgrep
+
+;;everyting
+;;consult-locate
+;; 配置搜索中文
+(progn
+  (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))
+  (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
+  (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
+  )
+
+#+END_SRC
+
+** 使用拼音进行搜索
+#+begin_src emacs-lisp
+(package-install 'pyim)
+
+(defun eh-orderless-regexp (orig_func component)
+    (let ((result (funcall orig_func component)))
+      (pyim-cregexp-build result)))
+
+
+  (defun toggle-chinese-search ()
+    (interactive)
+    (if (not (advice-member-p #'eh-orderless-regexp 'orderless-regexp))
+        (advice-add 'orderless-regexp :around #'eh-orderless-regexp)
+      (advice-remove 'orderless-regexp #'eh-orderless-regexp)))
+
+  (defun disable-py-search (&optional args)
+    (if (advice-member-p #'eh-orderless-regexp 'orderless-regexp)
+        (advice-remove 'orderless-regexp #'eh-orderless-regexp)))
+
+  ;; (advice-add 'exit-minibuffer :after #'disable-py-search)
+  (add-hook 'minibuffer-exit-hook 'disable-py-search)
+
+  (global-set-key (kbd "s-p") 'toggle-chinese-search)
+#+end_src
 
 ** Emacs 也很美
 
