@@ -398,7 +398,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 视频地址如下：
 
 
-*说在最前面*
+** 手工安装插件和更多 Emacs 内置功能定制
 
 如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][An Introduction to Programming
 in Emacs Lisp]] 。（也可以 =M-x info= 然后选择 Emacs Lisp Intro）
