@@ -412,7 +412,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 
 #+BEGIN_SRC emacs-lisp
     (setq-default cursor-type 'bar)
-
+    (show-paren-mode t)
 #+END_SRC
 
 其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
@@ -504,122 +504,12 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
     (load-theme 'monokai 1)
 #+END_SRC
 
-*推荐插件*
-
--  [[http://company-mode.github.io/][company]]
--  [[https://github.com/nflath/hungry-delete][hungry-delete]]
--  [[https://github.com/nonsequitur/smex][Smex]] (如果你使用 Counsel 来增强你的 =M-x= ，那么就不需要再安装 Smex 了)
--  [[https://github.com/abo-abo/swiper][Swiper & Counsel]]
--  [[https://github.com/Fuco1/smartparens][smartparens]]
 
 使用 =M-x customize-group= 后选择对应的插件名称，可以进入可视化选项区对指定的插
 件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的
 配置文件（ =init.el= ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找
 到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
 件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
-
-** JavaScript IDE
-
-Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式
-替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然
-后用下面的代码将其启用。
-
-#+BEGIN_SRC emacs-lisp
-    (setq auto-mode-alist
-          (append
-           '(("\\.js\\'" . js2-mode))
-           auto-mode-alist))
-#+END_SRC
-
-你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何
-种 Major Mode 的方法。
-
-在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它
-使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个
-正则表达式匹配的例子，
-
-#+BEGIN_SRC emacs-lisp
-    (("\\`/tmp/fol/" . text-mode)
-     ("\\.texinfo\\'" . texinfo-mode)
-     ("\\.texi\\'" . texinfo-mode)
-     ("\\.el\\'" . emacs-lisp-mode)
-     ("\\.c\\'" . c-mode)
-     ("\\.h\\'" . c-mode)
-     …)
-#+END_SRC
-
-下面是如何添加新的模式与对应文件类型的例子（与我们配置 =js2-mode= 时相似的例子），
-
-#+BEGIN_SRC emacs-lisp
-    (setq auto-mode-alist
-      (append
-       ;; File name (within directory) starts with a dot.
-       '(("/\\.[^/]*\\'" . fundamental-mode)
-         ;; File name has no dot.
-         ("/[^\\./]*\\'" . fundamental-mode)
-         ;; File name ends in ‘.C’.
-         ("\\.C\\'" . c++-mode))
-       auto-mode-alist))
-#+END_SRC
-
-在 =js2-mode= 模式中会提供
-
--  语法高亮
--  语法检查器（Linter）
-
-执行缓冲区的代码可以使用 =nodejs-repl= 插件，它需要你的机器上已经安装了 NodeJS。
-然而在 Mac OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要
-安装另外一个 =exec-path-from-shell= 的插件并将其启用。
-
-#+BEGIN_SRC emacs-lisp
-    (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
-#+END_SRC
-
-有了 =nodejs-repl= 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在
-[[https://github.com/mooz/js2-mode][这里]]找到更多关于它的使用方法）。
-
-*** Org-mode 进阶
-
-在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代
-码块内的内容。在代码块中使用 =C-c '= 会直接打开对应模式的缓冲区（不仅限于 Lisp）。
-这样就使在 Org-mode 中编辑代码变的十分方便快捷。
-
-使用 =<s= 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段
-（Org-mode Easy Templates）可以在[[http://orgmode.org/manual/Easy-Templates.html][这里]]找到。
-
-#+BEGIN_EXAMPLE
-  ,#+BEGIN_SRC emacs-lisp
-    ;; Your code goes here
-    ;; 你的代码写在这里
-  ,#+END_SRC
-#+END_EXAMPLE
-
-*添加 Org-mode 文本内语法高亮*
-
-#+BEGIN_SRC emacs-lisp
-    (require 'org)
-    (setq org-src-fontify-natively t)
-#+END_SRC
-
-在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
-
-*Agenda 的使用*
-
-#+BEGIN_SRC emacs-lisp
-    ;; 设置默认 Org Agenda 文件目录
-    (setq org-agenda-files '("~/org"))
-
-    ;; 设置 org-agenda 打开快捷键
-    (global-set-key (kbd "C-c a") 'org-agenda)
-#+END_SRC
-
-你只需将你的 =*.org= 文件放入上面所指定的文件夹中就可以开始使用 Agenda
-模式了。
-
--  =C-c C-s= 选择想要开始的时间
--  =C-c C-d= 选择想要结束的时间
--  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
 
 * 第三天：配置文件模块化（上）
 
@@ -803,6 +693,110 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 
 更多模块化的配置文件可以在[[https://github.com/zilongshanren/Learning-Emacs/tree/day3][这里]]找到。
 
+
+** JavaScript IDE
+
+Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式
+替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然
+后用下面的代码将其启用。
+
+#+BEGIN_SRC emacs-lisp
+    (setq auto-mode-alist
+          (append
+           '(("\\.js\\'" . js2-mode))
+           auto-mode-alist))
+#+END_SRC
+
+你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何
+种 Major Mode 的方法。
+
+在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它
+使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个
+正则表达式匹配的例子，
+
+#+BEGIN_SRC emacs-lisp
+    (("\\`/tmp/fol/" . text-mode)
+     ("\\.texinfo\\'" . texinfo-mode)
+     ("\\.texi\\'" . texinfo-mode)
+     ("\\.el\\'" . emacs-lisp-mode)
+     ("\\.c\\'" . c-mode)
+     ("\\.h\\'" . c-mode)
+     …)
+#+END_SRC
+
+下面是如何添加新的模式与对应文件类型的例子（与我们配置 =js2-mode= 时相似的例子），
+
+#+BEGIN_SRC emacs-lisp
+    (setq auto-mode-alist
+      (append
+       ;; File name (within directory) starts with a dot.
+       '(("/\\.[^/]*\\'" . fundamental-mode)
+         ;; File name has no dot.
+         ("/[^\\./]*\\'" . fundamental-mode)
+         ;; File name ends in ‘.C’.
+         ("\\.C\\'" . c++-mode))
+       auto-mode-alist))
+#+END_SRC
+
+在 =js2-mode= 模式中会提供
+
+-  语法高亮
+-  语法检查器（Linter）
+
+执行缓冲区的代码可以使用 =nodejs-repl= 插件，它需要你的机器上已经安装了 NodeJS。
+然而在 Mac OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要
+安装另外一个 =exec-path-from-shell= 的插件并将其启用。
+
+#+BEGIN_SRC emacs-lisp
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
+#+END_SRC
+
+有了 =nodejs-repl= 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在
+[[https://github.com/mooz/js2-mode][这里]]找到更多关于它的使用方法）。
+
+*** Org-mode 进阶
+
+在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代
+码块内的内容。在代码块中使用 =C-c '= 会直接打开对应模式的缓冲区（不仅限于 Lisp）。
+这样就使在 Org-mode 中编辑代码变的十分方便快捷。
+
+使用 =<s= 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段
+（Org-mode Easy Templates）可以在[[http://orgmode.org/manual/Easy-Templates.html][这里]]找到。
+
+#+BEGIN_EXAMPLE
+  ,#+BEGIN_SRC emacs-lisp
+    ;; Your code goes here
+    ;; 你的代码写在这里
+  ,#+END_SRC
+#+END_EXAMPLE
+
+*添加 Org-mode 文本内语法高亮*
+
+#+BEGIN_SRC emacs-lisp
+    (require 'org)
+    (setq org-src-fontify-natively t)
+#+END_SRC
+
+在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
+
+*Agenda 的使用*
+
+#+BEGIN_SRC emacs-lisp
+    ;; 设置默认 Org Agenda 文件目录
+    (setq org-agenda-files '("~/org"))
+
+    ;; 设置 org-agenda 打开快捷键
+    (global-set-key (kbd "C-c a") 'org-agenda)
+#+END_SRC
+
+你只需将你的 =*.org= 文件放入上面所指定的文件夹中就可以开始使用 Agenda
+模式了。
+
+-  =C-c C-s= 选择想要开始的时间
+-  =C-c C-d= 选择想要结束的时间
+-  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
+
 ** Major 与 Minor Mode 详解
 
 在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个
@@ -822,6 +816,7 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 ，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
 
 注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
+
 
 * 第四天：配置文件模块化（下）以及使用优化
 
@@ -1596,89 +1591,6 @@ Leader Key 可以通过 customize-group 来进行设置（Evil Leader/Leader）�
 
 
 
-* 第八天：Cask 介绍与实践
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1o83r1vc][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTU3MzEyNDkxNg==.html][优酷]]
-- [[https://youtu.be/B7jx8kJIbnY][YouTube]]
-
-什么是 Cask:
-
-Cask 是一个 Emacs Lisp 的项目管理工具.
-
-** Cask 的安装
-
-Cask 的地址: [[https://github.com/cask/cask][Cask]]
-
-可以使用如下命令安装 Cask:
-
-#+BEGIN_SRC shell
-curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-#+END_SRC
-
-安装过程中 Cask 将会进行 Bootstrap, 安装一些包到~/.emacs.d 目录中.
-
-安装完成之后需要将 Cask 的可执行文件目录加入到 PATH 中.
-
-可以看到, Cask 的安装过程在 ~/.emacs.d 中新建了一个 .Cask 目录.
-
-安装 Pallet: Pallet 是一个基于 Cask 的包管理工具, 可以使用 Emacs 的包安装方式安装.
-
-然后使用以下代码启用 Pallet:
-
-#+BEGIN_SRC emacs-lisp
-(pallet-mode)  
-(pallet-init)    ; 在.emacs.d 中生成一个 Cask 文件, 写入源与现有包
-(pallet-install) ; 将 elpa 中的 package 拷贝到.Cask/<you version>/elpa 目录中
-#+END_SRC
-
-然后在配置文件中加入以下代码(在其他包加载之前) :
-
-#+BEGIN_SRC emacs-lisp
-(require 'cask "<path-to-cask>/cask.el")
-(cask-initialize)    ; 类似于 package-initialize
-(require 'pallet)
-(pallet-mode t)      ; 激活 pallet, 在安装包时将 Cask 文件写入相应信息
-#+END_SRC
-
-具体使用方式见文档: [[https://github.com/rdallasgray/pallet][Pallet]]
-
-** 为何使用 Cask
-
-- 使用 Cask 文件保存包的信息, 可以通过 *Cask install* 自动安装
-- 当有多个版本的 Emacs 时, 将各版本的包单独存放
-
-** 故障排除
-
-*** Emacs24.5 时不能安装 *let-alist*
-   
-解决方案: 将 Gnu 的源加入源列表中, 示例代码如下(加入 Cask 文件)
-
-#+BEGIN_SRC emacs-lisp
-(source "gnu" "http://elpa.zilongshanren.com/gnu/")
-#+END_SRC
-
-*** 在 Emacs24.5 中没有定义 define-advice
-
-define-advice 是一个 Emacs25 中加入的宏, 在 Emacs24 中不能使用, 可以使用
-*defadvice* 代替:
-
-#+BEGIN_SRC emacs-lisp
-(defadvice show-paren-function (around fix-show-paren-function activate)
-  (cond ((looking-at-p "\\s(") ad-do-it)
-	(t (save-excursion
-	     (ignore-errors (backward-up-list))
-	     ad-do-it)))
-  )
-#+END_SRC
-
-而且使用 defadvice 相比 define-advice 还有一个优点: 
-
-使用 define-advice 定义的代码, 当在 Normal 模式时光标两边的括号不会高亮, 而使用
-defadvice 可以.
-
 * 第九天：Macro 与 Use-package
 
 视频地址如下:
@@ -1957,1089 +1869,3 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
 3. Spacemacs 也大量使用了 Use-package
 
-* 第十天: Company-mode 与 auto-completion
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1hsyfnXq][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTYwMzc0NDg0OA==.html][优酷]]
-- [[https://youtu.be/wgam0sXuMdU][YouTube]]
-
-内容概要:
-
-1. 给出 Cask 和 Use-package 的简单示例
-2. 详细介绍 Company-mode 的工作原理, 各种 backend 及其用法
-
-扩展阅读:
-
-1. [[http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend][编写一个简单的 comopany backend]]
-2. [[https://www.emacswiki.org/emacs/CompanyMode][Company Mode Emacs wiki]]
-
-** 升级 Package 之后有 BUG 怎么办
-
-有些时候我们将一个 Package 升级到最新的版本(例如 github 上最新的 commit), 而该版本可能会存在一些 BUG, 这就会导致我们的配置不能使用.
-
-如果我们使用 stable 版本的 Package(例如使用 github 上最新的 release), 就可以尽量地减少因为升级包之后的 BUG 导致配置不可用的情况.
-
-另一种解决方式是使用 Cask 进行包管理, 举例如下:
-
-首先我们添加一个包, 例如我们编辑 Cask 文件, 添加 monokai-theme :
-
-#+BEGIN_SRC emacs-lisp
-  (depends-on "monokai-theme"
-              :git "https://github.com/oneKelvinSmith/monokai-emacs/releases"
-              :ref "02c5f5d")
-#+END_SRC
-
-然后启动 emacs, 但是出现了 BUG. 
-这时我们可以直接将 ref 的值修改为最新的 commit, Cask 即会更新这个包, 而不用等待 melpa 对包进行更新.
-
-** Use-package 的更多用法
-
-如果我们启用 *exec-path-from-shell* , 在 emacs 启动时可能会提示 *PATH* 变量重复定义, 解决方案如下:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :ensure t
-    :if (and (eq system-type 'darwin) (display-graphic-p))
-    :config
-    (progn
-      (when (string-match-p "/zsh$" (getenv "SHELL"))
-        ;; Use a non-interactive login shell.  A login shell, because my
-        ;; environment variables are mostly set in `.zprofile'.
-        (setq exec-path-from-shell-arguments '("-l")))
-
-      (exec-path-from-shell-initialize)
-      )
-    )
-
-  ;; (use-package monokai-theme
-  ;; :ensure t)
-#+END_SRC
-
-其中 if 子句可以确定启用 Package 的条件, 在 config 子句中向 *exec-path-from-shell-arguments* 即可消除这个警告.
-
-ensure 子句来确保 Package 被安装. 如果要使用 stable 版, 则添加以下子句:
-
-#+BEGIN_SRC emacs-lisp
-  :pin melpa-stable
-#+END_SRC
-
-** Company-mode 的工作原理
-
-Company-mode 需要配合后端使用, 所有的 backend 都保存在 *company-backends* 这个变量中, 例如在我的环境中该变量值如下:
-
-#+BEGIN_SRC emacs-lisp
-  (company-capf
-   (company-dabbrev-code company-gtags company-etags company-keywords)
-   company-files
-   company-dabbrev
-   )
-#+END_SRC
-
-*company-backends*变量的值是一个列表, 其中的每一项都是一个后端或 Group Backend.
-
-Company-mode 会依次调用该变量中的 backend, 并判断该 backend 是否合适当前 Buffer, 直到找到一个合适的补全后端.
-
-在进行补全项选择的时候, 我们也可以在 mode-line 中看到是使用的哪一个后端.
-
-1. company-dabbrev: 将当前打开的所有 buffer 中的关键字作为补全显示(默认不使用 scratch buffer).
-2. company-files: 补全路径.
-
-如果在补全过程中取消了补全, 也可以使用命令再次开启补全. 例如 *company-files* 补全方式就可以使用 company-files 函数开启.
-
-在输入英文时可以使用 company-ispell 进行输入提示.
-
-** 为什么有时 Python 的补全 不工作
-
-有时在编写 Python 代码的时候补全不能工作, 这时我们可以先查看 *company-backends* 的值, 查看是否需要安装 *company-anaconda* 用于补全.
-
-在 Mac 系统中, 如果 anaconda-mode 的安装过程出现错误, 可以参照以下解决方案: [[https://emacs-china.org/t/mac-python-anaconda-mode/207][Mac 上面编辑 python 的时候安装 anaconda-mode 出错]]
-
-然后确保在 *company-backends* 中有 *company-anaconda* 这个后端即可. 可以使用如下代码:
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends) '(company-anaconda))))
-#+END_SRC
-
-以上代码在 python-mode 被激活时设置 *company-backends* 的变量值为 (company-anaconda), 则在编辑 python 代码时就可以使用 anaconda-mode 进行补全.
-
-在 emacs 中有两种补全方式:
-1. 如 company-files 等, 根据关键字等进行补全, 只需要 emacs 自己进行一些处理即可得到补全数据;
-2. 如 company-anaconda 等, 需要使用客户端-服务端模式, 补全后端需要服务端的配合才能得到补全数据.
-
-在进行编程时, 一般使用第二种补全后端, 例如 编写 python 代码使用 company-anaconda, 编写 C/C++代码使用 company-ycmd, 编写 javascript 代码使用 company-tern.
-
-上述示例代码开启 company-anaconda 时有一个缺点, 比如当我们在 python 的注释时没法使用补全, 因为补全后端只有 company-anaconda, 在注释时不工作. 我们可以将 dabbrev 加入后端列表:
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends) '(company-anaconda company-dabbrev))))
-#+END_SRC
-
-当 company-anaconda 不合适时使用 company-dabbrev 进行补全, 即可满足上述需求.
-
-** Group Backend
-
-company-dabbrev-code: 类似于 company-dabbrev, 但是 dabbrev 对代码和注释都进行补全, dabbrev-code 只补全代码.
-
-假设我们的配置代码如下:
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends) '((company-anaconda company-dabbrev-code)
-                                                             company-dabbrev)))
-            )
-#+END_SRC
-
-如果我们在注释中出现了 xxx 这个字符串, 在编写 python 代码时 xxx 不会出现在补全选项中. 因为在此时会先匹配到 company-anaconda, 并不会进入 company-dabbrev. 
-而因为 company-anaconda 是一个 Group Backend, 所以 company-dabbrev-code 的补全数据会出现在补全列表中.
-** 怎样写一个简单的补全后端
-
-因为视频时间关系, 大家可以去阅读以下文章:
-
-[[http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend][Writing the Simplest Emacs company-mode Backend]]
-
-实现方式简单介绍如下:
-
-1. 定义一个补全数据列表
-2. 定义一个补全函数, 返回对应输入的补全数据
-
-更多的内容可以查看该文档, 同时在网页右侧的链接中有更多的详细内容.
-* 第十一天: Spacemacs 简介及安装
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1eRTHBLC][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTYxMzYyNjc4MA==.html][优酷]]
-- [[https://youtu.be/etLqMM5nmqI][Youtube]]
-
-从今天的内容开始介绍 Spacemacs. 地址: [[https://github.com/syl20bnr/spacemacs][Spacemacs]]
-
-今天的内容包括:
-
-1. 如何安装 Spacemacs
-2. 一些简单的配置, 以及 package 管理
-3. 管理自己的配置
-
-** 安装 Spacemacs
-
-安装 Spacemacs 非常简单, 只需要将 github 上的仓库克隆即可, 即执行以下命令(如有必要可以先备份以前的配置):
-
-#+BEGIN_SRC shell
-  cd ~
-  mv .emacs.d .emacs.d.bak
-  mv .emacs .emacs.bak
-  git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-#+END_SRC
-
-在克隆完成后直接运行 Emacs. 
-在第一次使用 Spacemacs 时需要下载一些 Package, 然后在 Bootstrap 完成之后你需要进行如下一些配置:
-
-1. 使用哪种编辑方式, 包括 vim 方式(默认) 以及 emacs 方式.
-2. 使用哪种 Spacemacs distribution. 包括标准版(默认)以及基础版. 区别在于标准版包含非常多的功能, 而基础版只包含核心功能.
-
-在完成以上两个配置之后, 就会在 HOME 目录生成一个 ~/.spacemacs 配置文件. 
-然后 Spacemacs 会进行进一步的初始化, 下载更多的需要的 Package. 
-如果你需要使用 [[http://elpa.emacs-china.org/][emacs-china]] 的配置源, 此时可以终止 emacs, 然后在~/.spacemacs 中的 dotspacemacs/user-init 函数中加入以下代码:
-
-#+BEGIN_SRC emacs-lisp
-  (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
-          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
-#+END_SRC
-
-重新启动 emacs, 等待 Spacemacs 完成安装即可.
-
-如果你需要更方便的管理你自己的配置, 可以创建 ~/.spacemacs.d 目录, 然后将 ~/.spacemacs 文件移动到该目录中并重命名为 init.el.
-
-在 Spacemacs 中的操作方式如下:
-
-1. 按下 *SPC f j* 打开 dired 目录
-2. 按下按键 + , 创建 ~/.spacemacs.d 目录
-3. 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件移动到 .spacemacs.d 目录中
-4. 进入 .spacemacs.d 目录, 将光标移动到 .spacemacs 文件上, 按下 R, 将该文件重命名为 init.el
-5. 按下 qq 退出 dired
-
-然后启动 emacs 即可.
-
-使用这种方式管理配置, 你可以将自己的配置集中到 ~/.spacemacs.d 目录中, 更容易进行统一管理. 你也可以将自己的配置 push 到 github 上.
-
-** 添加内置的 layer
-
-在安装完成 Spacemacs 之后, 按下 *SPC f e d* 打开 ~/.spacemacs 文件, 修改 *dotspacemacs-configuration-layers* 变量的值, 
-将 auto-completion, better-defaults, emacs-lisp, git, markdown, org, spell-checking, syntax-checking 等 layer 加入列表.
-
-然后退出 emacs 再重启, 或者按下 *SPC f e R* 安装需要的 package.
-
-** 一些简单的配置
-
-*** 启动时全屏显示
-
-在 dotspacemacs/init 函数中, 将 dotspacemacs-fullscreen-at-startup 变量设置为 t 即可. 代码如下:
-
-#+BEGIN_SRC emacs-lisp
-  ;; If non nil the frame is maximized when Emacs starts up.
-  ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
-  ;; (default nil) (Emacs 24.4+ only)
-  dotspacemacs-maximized-at-startup t
-#+END_SRC
-
-*** ivy layer
-
-将 ivy 加入 *dotspacemacs-configuration-layers* 列表中. 按下 *CTRL s* 使用 swiper 可以进行搜索.
-
-*** 查看 layer 下的 文档信息
-
-按下 *SPC h SPC* 即会弹出一个信息窗口, 可以从窗口中选择具体的 layer 或者其他信息进行查看.
-
-*** 删除安装的 package
-
-只需要将需要删除的 package 名称加入到 *dotspacemacs-excluded-packages* 变量中, 在下一次启动 emacs 时即会删除该 package.
-示例代码如下:
-
-#+BEGIN_SRC emacs-lisp
-  ;; A list of packages and/or extensions that will not be install and loaded.
-  dotspacemacs-excluded-packages '(vi-tilde-fringe)
-#+END_SRC
-
-*** 安装 package
-
-在 Spacemacs 中安装 package 时最好不要使用 *package-install*, 因为这样安装的 package 会在下一次启动时被删除.
-
-Spacemacs 提供了一个方式, 你只需将需要安装的 package 加入到 *dotspacemacs-additional-package* 变量中即可, 
-示例代码如下:
-
-#+BEGIN_SRC emacs-lisp
-  ;; List of additional packages that will be installed without being
-  ;; wrapped in a layer. If you need some configuration for these
-  ;; packages, then consider creating a layer. You can also put the
-  ;; configuration in `dotspacemacs/user-config'.
-  dotspacemacs-additional-packages '(youdao-dictionary)
-#+END_SRC
-*** 配置 customize-group
-
-如果使用 customize-group 对配置进行了修改, 你可以以下代码将生成的 *custom.el* 配置文件纳入 ~/.spacemacs.d 目录中进行统一管理:
-
-#+BEGIN_SRC emacs-lisp
-  (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
-  (load custom-file 'no-error 'no-message)
-#+END_SRC
-
-*** 修改主题
-
-只需修改 *dotspacemacs-themes* 变量的值, 将主题加入列表即可. 在列表中靠前的主题会优先使用.
-示例代码如下:
-
-#+BEGIN_SRC emacs-lisp
-  ;; List of themes, the first of the list is loaded when spacemacs starts.
-  ;; Press <SPC> T n to cycle to the next theme in the list (works great
-  ;; with 2 themes variants, one dark and one light)
-  dotspacemacs-themes '(
-                        monokai
-                        ;; spacemacs-dark
-                        ;; spacemacs-light
-                        ;; solarized-light
-                        solarized-dark
-                        ;; leuven
-                        ;; monokai
-                        ;; zenburn
-                        )
-#+END_SRC
-
-* 第十二天: 创建你的第一个 Spacemacs Layer
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1mi1vZTI][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTYyODgxNjU0OA==.html][优酷]]
-- [[https://youtu.be/qQqpWWjub6A][YouTube]]
-
-主要内容:
-
-1. 如何更新 Spacemacs, 同步官方 develop 分支及注意事项
-2. Layer 的 variables 变量及使用方法
-3. 如何创建自己的 Layer
-4. 如何定制 modeline
-5. evlified state
-
-** 如何更新 Spacemacs
-
-可以通过 git 的方式来更新代码, 假设我们使用的是 develop 分支:
-
-#+BEGIN_SRC shell
-  git checkout develop
-  git fetch upstream
-  git merge upstream/develop
-#+END_SRC
-
-一般来说, 如果你不熟悉 emacs 并且你的 Spacemacs 配置能够正常工作, 则不需要频繁的更新代码, 以避免更新之后配置不能使用.
-
-** variables 变量
-
-每一个 layer 都可以配置一些变量, 可以通过 *SPC h SPC* 然后输入 layer 名称, 点击对应的选项即可打开该 layer 的 README.org 文件.
-然后按下 SPC f j 进入 dired 模式, 选择 config.el 文件打开, 该文件中即定义了该 layer 的变量.
-
-例如 better-default layer 的变量如下:
-
-#+BEGIN_SRC emacs-lisp
-  (defvar better-defaults-move-to-beginning-of-code-first t
-    "when t, first stroke of C-a will move the cursor to the beginning of code.
-  When nil, first stroke will go to the beginning of line.
-  Subsequent strokes will toggle between beginning of line and beginning of code.")
-
-  (defvar better-defaults-move-to-end-of-code-first nil
-    "when t, first stroke of C-e will move the cursor to the end of code (before comments).
-  When nil, first stroke will go to the end of line (after comments).
-  Subsequent strokes will toggle between end of line and end of code.")
-#+END_SRC
-
-要配置使用这些变量, 可以在启用 layer 时使用如下的代码:
-
-#+BEGIN_SRC emacs-lisp
-  (better-defaults :variables
-                   better-defaults-move-to-end-of-code-first t)
-#+END_SRC
-
-** 定制 modeline
-
-在 emacs25.1 中, 该版本的 modeline 和以前版本不同, 可以通过如下方式将 modeline 修改为以前的显示形状:
-
-在 dotspacemacs/user-config 中加入如下代码:
-
-#+BEGIN_SRC emacs-lisp
-  (setq ns-use-srgb-colorspace nil)
-#+END_SRC
-
-** 创建自己的 layer
-
-假设我们需要创建一个 layer, 名叫 zilongshanren, 并且在 layer 下包含一个名叫 youdao-dictionary 的 package.
-
-首先利用 spacemacs 提供的函数创建 layer. 按下 M-x 并且输入 configuration-layer/create-layer, 然后选择路径 ~/.spacemacs.d,
-确定创建 README, 然后我们就可以看到 layer 创建成功.
-
-每一个 layer 的结构如下:
-
-#+BEGIN_EXAMPLE
-    [layer_name]
-      |__ [local]
-      | |__ [package 1]
-      | |     ...
-      | |__ [package n]
-      |-- layers.el
-      |__ packages.el
-      |__ funcs.el
-      |__ config.el
-      |__ keybindings.el
-
-    [] = directory
-#+END_EXAMPLE
-
-即每一个 layer 目录下都可以包含 layers.el, packages.el 等文件, 以及一个名叫 local 的目录.
-
-每一个文件的内容描述如下:
-
-| 文件名          | 用处                                                                                        |
-|----------------+--------------------------------------------------------------------------------------------------|
-| layers.el      | 申明一些额外的 layer 依赖 |
-| packages.el    | 一些 layer 使用到的 package 以及相关配置函数 |
-| funcs.el       | 定义一些 layer 层次的函数, 即全局函数 |
-| config.el      | layer 的配置, 此处定义的配置可以在 .spacemacs 中申明 layer 时进行配置, 也可以定义 emacs 的默认配置 |
-| keybindings.el | 快捷键配置 |
-
-现在我们可以把 youdao-dictionary 加入到 layer 中, 编辑 packages.el:
-
-#+BEGIN_SRC emacs-lisp
-
-  ;; 添加 package
-  (defconst zilongshanren-packages
-    '(youdao-dictionary)
-    )
-
-  ;; 初始化 package
-  ;; 可以使用 , d m 快捷键, 然后按下 e 展开宏
-  (defun zilongshanren/init-youdao-dictionary ()
-    (use-package youdao-dictionary
-      :defer t
-      :init
-      (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
-      )
-    )
-#+END_SRC
-
-编辑 config.el 文件:
-
-#+BEGIN_SRC emacs-lisp
-  ;; 开启行号显示
-  (global-linum-mode t)
-
-  ;; 定义快捷键
-  (global-set-key (kbd "M-s o") 'occur-dwim)
-
-  ;; 将 occur 的 buffer 中的光标移动方式修改为 HJKL
-  (evilified-state-evilify-map occur-mode-map
-    :mode occur-mode)
-#+END_SRC
-
-编辑 keybindings.el 文件:
-
-#+BEGIN_SRC emacs-lisp
-  ;; dwin = do what i mean.
-  (defun occur-dwim ()
-    "Call `occur' with a sane default."
-    (interactive)
-    (push (if (region-active-p)
-              (buffer-substring-no-properties
-               (region-beginning)
-               (region-end))
-            (let ((sym (thing-at-point 'symbol)))
-              (when (stringp sym)
-                (regexp-quote sym))))
-          regexp-history)
-    (call-interactively 'occur))
-#+END_SRC
-
-然后将 zilongshanren 加到 *dotspacemacs-configuration-layers* 变量中, 即可让 layer 配置生效.
-
-** 文档
-
-spacemacs 的文档保存在 doc 目录下, 包含有 CONVENTIONS.org, DOCUMENTATION.org 等文档文件, 建议大家多多阅读.
-
-* 第十三天: 定制你的 Layer
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1kVroHCj][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTYyOTcyNjk0NA==.html][优酷]]
-- [[https://youtu.be/RMofkN3IcKE][Youtube]]
-
-主要内容:
-
-1. 修复上一期视频中 occur-mode 启动的问题
-2. 修复 ivy0.8 导致的问题, 同时简单探讨了一下今后如何避免和处理类似的问题
-3. 介绍 post-init 和 pre-init 的用法, 介绍了如何定制 spacemacs 的 company-mode
-4. 介绍 layers.el 文件, 演示该文件的作用
-5. 介绍 layer 的 package 的 location 变量, 演示了如何从 github 获取并安装 package 的方法
-
-** 修复上一期视频中的配置问题
-
-在之前的配置代码中, 如果我们启动 emacs 会出现以下错误:
-
-#+BEGIN_EXAMPLE
-Symbol's function definition is void: evilified-state-evilify-map
-#+END_EXAMPLE
-
-这是因为这个符号在 config.el 中使用的时候还是空的, 我们可以通过以下方式修复, 编辑 config.el 文件, 将以下代码移动到 dotspacemacs/user-config 函数中:
-
-#+BEGIN_SRC emacs-lisp
-  (evilified-state-evilify-map occur-mode-map
-    :mode occur-mode)
-#+END_SRC
-
-** 修复 ivy0.8 的问题
-
-在 ivy 升级到 0.8 版本时, 对其中一个 API 的返回值进行了修改:
-
-#+BEGIN_SRC emacs-lisp
-  (let (res)
-    (ivy-with
-     '(ivy-read "test: "
-                '(("one" . 1) ("three" . 3))
-                :action (lambda (x) (setq res x)))
-     "t C-m")
-    res)
-  ;; =>
-  ;; ("three" . 3)
-#+END_SRC
-
-在之前的版本中, 这个函数的返回值是 3, 在 0.8 版本中被修改为了一个列表. 如果要修复这个问题, 我们需要在使用返回值的时候加上 cdr, 具体的修改可以查看[[https://github.com/syl20bnr/spacemacs/pull/6478][fix break API changes for ivy 0.8]].
-
-** post-init 和 pre-init
-
-有一些 mode 已经安装, 例如 company-mode 已经被 auto-completion layer 安装, 如果这时我们还想对该 mode 进行一些定制, 那么我们可以这样处理:
-
-1. 在我们的 layer 中添加这个包
-
-#+BEGIN_SRC emacs-lisp
-    ;; 添加 package
-    (defconst zilongshanren-packages
-      '(youdao-dictionary
-        company  ; 添加 company package
-        )
-      )
-#+END_SRC
-
-2. 然后定义一个 post-init 函数
-
-#+BEGIN_SRC emacs-lisp
-  ;; 定制 company-mode
-  (defun zilongshanren/post-init-company ()
-    (setq company-minimum-prefix-length 1)
-    )
-#+END_SRC
-
-然后重启 emacs 即可以看到定制的效果.
-
-对于 package 的三个函数: pre-init, init, post-init, spacemacs 是按照这个顺序来依次调用的.
-
-** location
-
-在安装 package 时, 我们如果只输入 package 的名字, 那么默认是从 melpa 下载安装的. 如果我们想自定义 package 的安装地址, 那么我们就可以使用 location 变量.
-
-*** 自带 package
-
-例如我们使用一个自带的 occur package:
-
-#+BEGIN_SRC emacs-lisp
-  ;; 自定义 package 安装地址
-  (defconst zilongshanren-packages
-    '(youdao-dictionary
-      (occur-mode :location built-in)
-      )
-    )
-
-  ;; 初始化 occur mode
-  (defun zilongshanren/init-occur-mode ()
-    (evilified-state-evilify-map occur-mode-map
-      :mode occur-mmode)
-    )
-#+END_SRC
-
-*** 从 github 安装
-
-例如我们从 github 安装 gulpjs package:
-
-#+BEGIN_SRC emacs-lisp
-  ;; 自定义 package 安装地址
-  (defconst zilongshanren-packages
-    '(youdao-dictionary
-      (occur-mode :location built-in)
-      (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
-      )
-    )
-
-  (defun zilongshanren/init-gulpjs ()
-    (use-package gulpjs
-      :init)
-    )
-#+END_SRC
-
-在 emacs 启动时就会从 github 上下载 guiljs package 并安装到本地.
-
-** layers.el
-
-如果我们需要对某些 layer 中的 package 配置进行大量的重写, 那么我们可以移除这个 layer 的某个 package. 我们可以通过 layers.el 来实现这一点, 例如移除 chinese layer 的 youdao-dictionary package:
-
-#+BEGIN_SRC emacs-lisp
-  (configuration-layer/remove-layer 'youdao-dictionary)
-#+END_SRC
-
-然后我们可以在自己的 layer 中添加这个 package, 然后对它进行定制.
-在这种情况下, spacemacs 不会在 chinese layer 中加载 youdao-dictionary 这个 package, 而是在我们的 layer 中加载这个 package, 以实现对 spacemacs 内置的 package 的定制.
-
-* 第十四天: 文件和 Buffer 操作
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1slMRuot][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTY0NjUwMTM5Mg==.html][优酷]]
-- [[https://youtu.be/85g3defJP6M][Youtube]]
-
-主要内容:
-
-1. 我的配置和 spacemacs 配置的一些不同点
-2. 文件相关操作
-3. Buffer 相关操作
-4. Dired
-
-** 不同点
-
-从今天的视频开始, 将使用 [[https://github.com/zilongshanren/spacemacs-private][子龙山人的配置]] 来讲解视频. 这份配置对 spacemacs 的定制有两个不同点:
-
-- 没有使用官方的 modeline, 而是采用自己定制的
-- 排除掉了大量的作者认为对他没有作用的 package, 因为这些 package 确实不经常使用, 反而可能导致一些 BUG 或者导致 spacemacs 启动或使用过程中变慢
-
-** 文件相关操作
-
-1. SPC p f
-
-  在当前的项目中查找文件, 类似于 vim 中的 Ctrl-p. 在作者的配置中, 该快捷键被绑定到了以下函数:
-
-  #+BEGIN_SRC emacs-lisp
-    (defun zilongshanren/open-file-with-projectile-or-counsel-git ()
-      (interactive)
-      (if (zilongshanren/vcs-project-root)
-          (counsel-git)
-        (if (projectile-project-p)
-            (projectile-find-file)
-          (ido-find-file))))
-  #+END_SRC
-
-  该函数会针对不同的项目类型使用不同的查找方式:
-
-  - 如果是 git 项目, 那么使用 counsel-git 来查找文件, 不使用 projectile 的原因是 counsel-git 更快
-  - 如果是 projectile 项目, 即在项目的根目录中存在 .projectile 文件, 那么使用 projectile-find-file 来查找文件
-  - 否则使用 ido-fine-file 来查找文件
-
-2. SPC f f
-
-  从当前目录开始查找文件. 在作者的配置中同时启用了 ivy-layer 和 helm-layer, 默认使用的是 helm 来查找文件.
-
-3. SPC f L
-
-  使用 helm-locate 来在当前系统中查找文件.
-
-4. SPC f l
-
-  查找文件并使用 literal 的方式来打开文件, 使用 literal 方式打开的文件不会附加编码信息, 例如 utf-8 编码中可能存在的 BOM 头信息, 使用 literal 模式即可以看到 BOM 头.
-
-5. SPC f h
-
-  查找文件并使用二进制的方式来打开文件, 可以使用 C-c C-c 回到之前的模式.
-
-6. SPC f o
-
-  使用外部程序打开文件.
-
-7. SPC f E
-
-  使用 sudo 来编辑文件, 当某些文件是只读的时候可以采用这种方式来编辑文件.
-
-8. SPC f D
-
-  删除当前的文件和 buffer.
-
-9. SPC f j
-
-  以当前文件的目录打开 dired buffer.
-
-10. SPC f r
-
-  使用 ivy 打开最近文件列表.
-
-11. SPC f R
-
-  重命名当前文件.
-
-12. SPC f v
-
-  添加 local variables, 可以通过这个功能给项目做一些特殊的设置.
-  例如按下 SPC f v, 然后选择 add-dir-local-variable, 选择 org-mode, 再选择 org-highlight-links 变量, 此时 emacs 会在当前文件的目录下生成一个 .dir-locals.el 文件, 内容如下:
-
-  #+BEGIN_SRC emacs-lisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((org-mode
-    (org-highlight-links)))
-  #+END_SRC
-
-  这个文件中的代码会在当前目录下的所有文件 buffer 中生效.
-
-13. SPC f y
-
-  拷贝当前文件的全路径.
-
-14. SPC f a d
-
-  列出最近访问的目录, 使用命令行工具 fasd 实现.
-
-15. SPC f C d/u
-
-  将当前文件的编码转换为 DOS/UNIX 编码.
-
-16. SPC f e d
-
-  打开 .spacemacs 或 .spacemacs.d/init.el 文件.
-
-17. SPC f e i
-
-  打开 .emacs 或 .emacs.d/init.el 文件.
-
-18. SPC f e l
-
-  打开系统中已经安装的 el 文件.
-
-19. SPC f c
-
-  复制文件.
-
-20. SPC f b
-
-  打开标签.
-
-21. SPC f s/S
-
-  保存当前 buffer 或 所有 buffer.
-
-** buffer 相关操作
-
-1. SPC b .
-
-  打开 Buffer Selection Transient State, 在该模式下可以进行更多的操作, 由 hydra 提供.
-
-2. SPC b b
-
-  切换到已经打开的 buffer.
-
-3. SPC b d
-
-  关闭一个 buffer.
-
-4. SPC b f
-
-  在 finder 中打开当前文件, 只在 Mac 系统下生效.
-
-5. SPC b B/i
-
-  以类似 Dired Mode 的形式打开 buffer 列表, 在这个列表中可以执行和 Dired Mode 类似的操作.
-
-6. SPC b h
-
-  进入 \*spacemacs\* buffer.
-
-7. SPC b k
-
-  使用正则表达式来删除 buffer.
-
-8. SPC b N
-
-  新建一个 buffer.
-
-9. SPC b m
-
-  删除除当前 buffer 外的所有 buffer.
-
-10. SPC b R
-
-  使用 emacs 自动备份的文件恢复文件.
-
-11. SPC b s
-
-  跳转到 scratch buffer.
-
-12. SPC b w
-
-  关闭/打开 buffer 的 read-only.
-
-13. SPC b Y
-
-  复制整个 buffer 的内容.
-
-14. SPC b P
-
-  将剪切板的内容粘贴到整个 buffer.
-
-15. SPC <tab>
-
-  在当前 buffer 和上一个打开的 buffer 中进行切换.
-
-** Dired
-
-在第四天的内容中已经讲解过 Dired Mode 的操作, 具体可以查看 [[https://book.emacs-china.org/#orgheadline22][Dired Mode]].
-
-* 第十五天: layout, windows 和 project 相关
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1miMvDji][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTY0NzUxOTI2NA==.html][优酷]]
-- [[https://www.youtube.com/watch?v=vt7FQO9HpBU&list=PL-61yFRAEMlXDnsm3VHfrAm4oT6vVylRG&index=8][Youtube]]
-
-主要内容:
-
-1. Layout 相关操作
-2. Window 相关操作
-3. project 相关操作
-
-** Layout 相关操作
-
-1. SPC l L
-
-  加载 layout 文件
-
-2. SPC l l
-   
-  在 layout 之间切换
-
-3. SPC l s
-
-  将 layout 保存到文件
-
-4. SPC l <tab>
-
-  在当前 layout 和上一个 layout 之间切换
-
-5. SPC l o
-
-  配置 layout
-
-6. SPC l R
-
-  重命名 layout
-
-7. SPC l ?
-
-  显示更多的与 layout 相关的命令
-
-** Window 相关操作
-
-1. SPC w -
-
-  上下拆分窗口
-
-2. SPC w /
-
-  左右拆分窗口
-
-3. SPC w .
-   
-  显示更多的与 window micro state 的相关的命令
-
-4. SPC w 2/3
-
-  左右显示 2/3 个窗口
-
-5. SPC w =
-
-  将窗口均等分
-
-6. SPC w b
-
-  切换到 minibuffer
-
-7. SPC w d
-
-  删除当前窗口
-
-8. SPC w h/j/k/l
-
-  向 左/下/上/右 移动窗口
-
-9. SPC w m
-   
-  最大化显示当前窗口
-
-10. SPC W H/J/K/L
-
-  将当前窗口向 左/下/上/右 移动
-
-11. SPC w u/U
-
-  取消/重置上次操作
-
-12. SPC w o
-
-  切换到其他 frame
-
-13. SPC w F
-
-  创建一个新的 frame
-
-14. SPC w 1/2/3/4
-
-  切换到对应的编号的窗口
-
-15. SPC w w
-
-  依次切换到其他窗口
-
-16. SPC w W
-
-  使用字母标识需要跳转的窗口, 并按下字母进行跳转
-
-17. SPC t g
-
-  将当前显示的窗口与其他窗口进行黄金分割显示
-
-18. SPC t -
-
-  开启/关闭 将光标始终显示在中心行
-
-** project 相关操作
-
-1. SPC p f
-
-  在当前 project 中查找并打开文件
-
-2. SPC p b
-
-  在当前 project 中查找打开的 buffer
-
-3. SPC p p
-
-  切换到其他的 project
-
-4. SPC p l
-   
-  切换到其他的 project 并创建一个新的 layout
-
-5. find-file-in-project
-
-  这是一个插件, 支持全平台. 目前绑定在 SUPER f 快捷键上.
-
-** 更多内容
-
-对 Spacemacs 中的快捷键操作就介绍到这里, 更多的快捷键介绍可以到 [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC]] 去查看.
-
-* 第十六天: 使用 ctags 和 company-etags
-
-视频地址如下:
-
-- [[http://pan.baidu.com/s/1hr4CYBq][百度网盘]]
-- [[http://v.youku.com/v_show/id_XMTY1Njc1MjUxNg==.html][优酷]]
-- [[https://www.youtube.com/watch?v=afWk8DBOY68][Youtube]]
-
-主要内容:
-
-这期视频主要介绍 ctags 和 company-mode 的使用.
-
-** 为什么使用 ctags
-
-ctags 是一个开源的, 可以方便的对大型代码库进行索引的软件, 在使用 ctags 生成 tag 之后就可以非常方便的在这些 tag 中进行跳转.
-因为有些编程语言, 例如 javascript 或者 lua, 它们不能进行精确的语义补全, 在有 ctags 进行索引补全的情况下也可以方便编写代码.
-
-在之前也介绍过 term-mode, 也可以做到一些语义补全. 但是它也有一些缺点:
-
-1. 配置方式复杂, 对于比较大的项目的配置比较有难度
-2. 有些时候不能得到想要的补全结果
-
-之前作者使用 YCMD 来对 C/C++ 代码进行补全, 但是它不太稳定, 现在已经切换为 ctags 来进行补全, 对于调试和 profile 会使用 IDE 进行操作.
-
-** 如何配置 ctags
-
-首先新建一个 testJs-ctags 目录, 然后在该目录下新建 a.js 以及 b.js 两个文件:
-
-#+BEGIN_SRC shell
-  mkdir testJs-ctags
-  cd testJs-ctags
-  touch a.js
-  touch b.js
-#+END_SRC
-
-然后编辑 a.js 的内容如下:
-
-#+BEGIN_SRC javascript
-  var func1 = function () {
-      console.log("func1");
-  };
-
-  var func2 = function () {
-  };
-#+END_SRC
-
-然后在 b.js 中的补全中可以显示处 func1 和 func2 的补全提示的. 为了更方便的讲解之后的内容, 我们可以查看使用的补全的后端: 输入 M-x, diminish-undo, 选择 company-mode, 这样在 modeline 就可以看到 company-mode 的具体信息.
-
-再次输入 fun 等待弹出补全提示, 在补全选项中上下移动, 可以看到使用的补全后端包括 dabbrev-code 和 etags 等, 如果我们关闭 a.js 的 buffer, 就不会出现 func1 和 func2 的补全选项.
-
-在之前的操作中, 我们并没有生成 ctags, 为什么也能使用 ctags 补全呢? 我们可以使用 SPC h d v, 然后输出 tags-table-list 来查看该变量的值, 当前的值是指向作者 cocos 目录下的 TAGS 文件.
-使用以下代码清空该值:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default tags-table-list nil)
-#+END_SRC
-
-然后再次尝试补全, 这时就不会使用 ctags 补全了.
-
-那么如何生成 ctags 补全的文件呢? 使用以下命令即可:
-
-#+BEGIN_SRC shell
-  cd testJs-ctags
-  ctags -e a.js
-  # 针对目录
-  # ctags -eR foldername
-#+END_SRC
-
-company-etags 在进行补全的时候, 会从变量 tags-table-list 值的文件列表中去查找 tags, 而且 tags 是不区分语言的.
-
-如果需要手动加载 TAGS 文件, 那么可以调用 visit-tags-table 命令. 而在打开一个文件时, ctags 会从文件所在的目录进行查找, 一直到根目录, 加载所找到的 TAGS 文件.
-
-** 如何高效的使用 ctags
-
-*** 自动重新生成 TAGS 文件
-
-在使用 ctags 的过程中, 如果文件的内容被改变, 那么需要重新生成 TAGS 文件, 以便 ctags 的补全结果更精确. 作者实现了一个函数来自动加载必须的 TAGS 文件:
-
-#+BEGIN_SRC emacs-lisp
-  (defun my-setup-develop-environment ()
-    (interactive)
-    (when (my-project-name-contains-substring "guanghui")
-      (cond
-       ((my-project-name-contains-substring "cocos2d-x")
-        ;; C++ project don't need html tags
-        (setq tags-table-list (list (my-create-tags-if-needed "~/cocos2d-x/cocos"))))
-       ((my-project-name-contains-substring "Github/fireball")
-        (message "load tags for fireball engine repo...")
-        ;; html project donot need C++ tags
-        (setq tags-table-list (list (my-create-tags-if-needed "~/Github/fireball/engine/cocos2d")))))))
-#+END_SRC
-
-有另外一个工具函数, 当保存文件时会自动的重新生成 TAGS:
-
-#+BEGIN_SRC emacs-lisp
-  (defun my-auto-update-tags-when-save (prefix)
-    (interactive "P")
-    (cond
-     ((not my-tags-updated-time)
-      (setq my-tags-updated-time (current-time)))
-
-     ((and (not prefix)
-           (< (- (float-time (current-time)) (float-time my-tags-updated-time)) 300))
-      ;; < 300 seconds
-      (message "no need to update the tags")
-      )
-     (t
-      (setq my-tags-updated-time (current-time))
-      (my-update-tags)
-      (message "updated tags after %d seconds." (- (float-time (current-time)) (float-time my-tags-updated-time))))))
-#+END_SRC
-
-可以将 my-auto-udpate-tags-when-save 函数加入 after-save-hook 中, 或者绑定到快捷键上.
-
-*** 配置规则来生成更多的 TAGS
-
-ctags 自身也有一个配置文件, 可以在该文件中定义规则来更好的生成 TAGS, 一个配置文件的示例如下:
-
-#+BEGIN_EXAMPLE
-  --exclude=*.svn*
-  --exclude=*.git*
-  --exclude=*tmp*
-  --exclude=.#*
-  --tag-relative=yes
-  --recurse=yes
-
-  --langdef=js
-
-  --regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'\[\{]|null)/\1/n,constant/
-
-  --langdef=css
-  --langmap=css:.css
-  --regex-css=/^[ \t]*\.([A-Za-z0-9_-]+)/.\1/c,class,classes/
-#+END_EXAMPLE
-
-在配置文件中可以使用 --exclude 来忽略文件或路径, 使用 --langdef 来定义哪些文件属于 js 文件, 使用 --regex-js 来定义 TAGS 生成时的匹配规则.
-这些匹配规则中可以使用正则表达式来提取内容生成 TAGS.
-
-*** 使用 etags-select 来浏览项目
-
-在有 TAGS 之后, 可以使用 ctags 来方便的浏览文件内容.
-例如在某个函数名上点击 [, g], 然后选择 etags-select-find-tag-at-point, 这时会把所有相关的内容列出到 buffer 中, 然后可以选择想要跳转的位置跳转过去.
-
-** 最后的思考
-
-company-etags 不能对所有的 mode 进行补全, 例如在 org-mode 中默认是不使用 company-etags 的.
-因为在 company-etags.el 文件中有如下的代码:
-
-#+BEGIN_SRC emacs-lisp
-  (defvar company-etags-modes '(prog-mode c-mode objc-mode c++-mode java-mode
-                                          jde-mode pascal-mode perl-mode python-mode))
-#+END_SRC
-
-在该变量中定义了可以使用 company-etags 的 mode, 将 org-mode 加入该变量的值中即可在 org-mode 使用 company-etags 进行补全.
-
-ctags 支持上百种语言, 学会使用 ctags 能够提高效率.
