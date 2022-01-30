@@ -563,7 +563,16 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
   (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
   (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
   )
-
+(eval-after-load 'consult
+  (progn
+      (setq
+        consult-narrow-key "<"
+        consult-line-numbers-widen t
+        consult-async-min-input 2
+        consult-async-refresh-delay  0.15
+        consult-async-input-throttle 0.2
+        consult-async-input-debounce 0.1)
+    ))
 #+END_SRC
 
 ** 使用拼音进行搜索
