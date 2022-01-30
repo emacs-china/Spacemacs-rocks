@@ -561,7 +561,6 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 (progn
   (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))
   (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
-  (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
   )
 (eval-after-load 'consult
   (progn
