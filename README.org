@@ -393,7 +393,7 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 #+end_src
 
 
-* 第五天：高级自定义
+* 第五天：拖动安装插件和使用外部程序
 
 视频地址如下：
 
@@ -532,7 +532,40 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
         )
 #+end_src
 使用 M-x shell 来学习命令行操作，可以参考 https://missing.csail.mit.edu/2020/ 来学习，living in Emacs。
+* 第六天：Emacs 作为超级前端
+** 使用 Emacs 来打开文件管理器
+#+begin_src emacs-lisp
+(shell-command-to-string "explorer.exe C:\\")
 
+(shell-command-to-string "explorer.exe ~/.emacs.d")
+
+(shell-command-to-string
+ (encode-coding-string
+  (replace-regexp-in-string "/" "\\\\"
+			    (format "explorer.exe %s" (expand-file-name "~/.emacs.d")))
+  'gbk))
+
+(defun consult-directory-externally (file)
+  "Open FILE externally using the default application of the system."
+  (interactive "fOpen externally: ")
+  (if (and (eq system-type 'windows-nt)
+           (fboundp 'w32-shell-execute))
+      (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\" (format "explorer.exe %s" (file-name-directory (expand-file-name file)))) 'gbk))
+    (call-process (pcase system-type
+                    ('darwin "open")
+                    ('cygwin "cygstart")
+                    (_ "xdg-open"))
+                  nil 0 nil
+                  (file-name-directory (expand-file-name file)))))
+
+ (define-key embark-file-map (kbd "E") #'consult-directory-externally)
+
+(defun my-open-current-directory ()
+  (interactive)
+  (consult-directory-externally default-directory))
+
+
+#+end_src
 ** 增强 embark 和 consult
 
 #+BEGIN_SRC emacs-lisp
