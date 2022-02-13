@@ -397,6 +397,8 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 视频地址如下：
 
+- [[https://www.youtube.com/watch?v=EPZe8Ix_dnU][Youtube]]
+- [[https://www.bilibili.com/video/BV1Kr4y1Y73S/][Bilibili]]
 
 ** 手工安装插件和更多 Emacs 内置功能定制
 
@@ -533,6 +535,10 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 #+end_src
 使用 M-x shell 来学习命令行操作，可以参考 https://missing.csail.mit.edu/2020/ 来学习，living in Emacs。
 * 第六天：Emacs 作为超级前端
+视频地址：
+- [[https://www.youtube.com/watch?v=sr1mFqjE0YM][Youtube]]
+- [[https://www.bilibili.com/video/BV1tm4y1o7pd/][Bilibili]]
+  
 ** 使用 Emacs 来打开文件管理器
 #+begin_src emacs-lisp
 (shell-command-to-string "explorer.exe C:\\")
@@ -560,14 +566,14 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
                   (file-name-directory (expand-file-name file)))))
 
  (define-key embark-file-map (kbd "E") #'consult-directory-externally)
-
+;;打开当前文件的目录
 (defun my-open-current-directory ()
   (interactive)
   (consult-directory-externally default-directory))
 
 
 #+end_src
-** 增强 embark 和 consult
+** 增强 embark 和 consult，批量搜索替换大杀器
 
 #+BEGIN_SRC emacs-lisp
 (package-install 'embark-consult)
@@ -660,7 +666,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
 件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
-* 第三天：配置文件模块化（上）
+* 第七天：配置文件模块化（上）
 
 视频地址如下
 
