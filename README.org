@@ -785,6 +785,17 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 
 #+BEGIN_SRC emacs-lisp
 (require 'org-tempo)  ;开启easy template
+
+;; 禁用左尖括号
+(setq electric-pair-inhibit-predicate
+      `(lambda (c)
+         (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local electric-pair-inhibit-predicate
+                        `(lambda (c)
+                           (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -798,10 +809,6 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 (require 'org)
 (setq org-src-fontify-natively t)
 #+END_SRC
-
-在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
-
-
 
 
 你需要将下面的代码放入配置入口文件（ =init.el= ）中，
