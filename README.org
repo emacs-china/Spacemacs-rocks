@@ -666,15 +666,21 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
 件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
-* 第七天：配置文件模块化（上）
+* 第七天：Magit 和配置文件管理
 
 视频地址如下
 
-- [[http://v.youku.com/v_show/id_XMTUyNzA0MTMxNg%3D%3D.html?f%3D26962151&o%3D1][优酷视频]]
-- [[http://pan.baidu.com/s/1nuJWyLF][百度网盘]]
-- [[https://youtu.be/hL9B2AtcB1w][YouTube]]
+** Magit -- 强大的 Git 前端
+#+begin_src emacs-lisp
+(package-install 'magit)
+#+end_src
 
-** 多文件存储配置文件(上)
+- 初始化仓库 magit-init
+- 添加 Gitignore
+- 添加 commit 消息
+- 创建一个分支：multiple-files
+
+** 使用多文件存储配置文件
 
 将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。
 下面是我们现在的 =~/.emacs.d/= 目录中的样子，
@@ -689,22 +695,6 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 通常我们只保存配置文件和对其进行版本控制，其他的插件均为在第一次使用编辑器时再通
 过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳
 定的生产环境。
-
-Elisp 中并没有命名空间（Namespace），换句话说就是所有的变量均为全局变量，所以其
-命名方法就变的非常重要。下面是一个简单的命名规则，
-
-#+BEGIN_EXAMPLE
-#自定义变量可以使用自己的名字作为命名方式（可以是变量名或者函数名）
-my/XXXX
-
-#模式命名规则
-ModeName-mode
-
-#模式内的变量则可以使用
-ModeName-VariableName
-#+END_EXAMPLE
-
-遵守上面的命名规则可以最大程度的减少命名冲突发生的可能性。
 
 现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配
 置文件并将其保存在指定的子目录中），它们分别是
@@ -725,7 +715,6 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 └── lisp
     ├── custom.el
     ├── init-better-defaults.el
-    ├── init-helper.el
     ├── init-keybindings.el
     ├── init-packages.el
     ├── init-ui.el
@@ -745,41 +734,7 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 下面为 =~/.emacs.d/init.el= 文件的内容
 
 #+BEGIN_SRC emacs-lisp
-;;  __        __             __   ___
-;; |__)  /\  /  ` |__/  /\  / _` |__
-;; |    /~~\ \__, |  \ /~~\ \__> |___
-;;                      __   ___        ___      ___
-;; |\/|  /\  |\ |  /\  / _` |__   |\/| |__  |\ |  |
-;; |  | /~~\ | \| /~~\ \__> |___  |  | |___ | \|  |
-(when (>= emacs-major-version 24)
-    (require 'package)
-    (package-initialize)
-    (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
 
-;; cl - Common Lisp Extension
-(require 'cl)
-
-;; Add Packages
-(defvar my/packages '(
-			   ;; --- Auto-completion ---
-			   company
-			   ;; --- Better Editor ---
-			   smooth-scrolling
-			   hungry-delete
-			   swiper
-			   counsel
-			   smartparens
-			   ;; --- Major Mode ---
-			   js2-mode
-			   markdown-mode
-			   ;; --- Minor Mode ---
-			   ;; Quick Note Taking
-			   deft
-			   ;; JavaScript REPL
-			   nodejs-repl
-			   ;; Find OS X Executable Helper Package
-;; ...
 #+END_SRC
 
 之前为了更好的区分不同的区域我使用的方法是使用 ASCII Art 然后再以关键字来做搜索
@@ -790,35 +745,6 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 下面为 =~/.emacs.d/lisp/init-packages.el= 模块中的代码
 
 #+BEGIN_SRC emacs-lisp
-;;  __        __             __   ___
-;; |__)  /\  /  ` |__/  /\  / _` |__
-;; |    /~~\ \__, |  \ /~~\ \__> |___
-;;                      __   ___        ___      ___
-;; |\/|  /\  |\ |  /\  / _` |__   |\/| |__  |\ |  |
-;; |  | /~~\ | \| /~~\ \__> |___  |  | |___ | \|  |
-(when (>= emacs-major-version 24)
-    (require 'package)
-    (package-initialize)
-    (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
-
-;; cl - Common Lisp Extension
-(require 'cl)
-
-;; Add Packages
-(defvar my/packages '(
-			   ;; --- Auto-completion ---
-			   company
-			   ;; --- Better Editor ---
-			   smooth-scrolling
-			   hungry-delete
-			   swiper
-			   counsel
-			   smartparens
-			   popwin
-			   ;; --- Major Mode ---
-			   js2-mode
-			   markdown-mode
 
 ;; ...
 
@@ -846,140 +772,53 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path
 "~/.emacs.d/lisp/")= 这可以让 Emacs 找到需要加载的模块所处的位置。
 
-更多模块化的配置文件可以在[[https://github.com/zilongshanren/Learning-Emacs/tree/day3][这里]]找到。
+** 使用 Org 来管理配置文件
+使用 magit 切换分支到 master，然后新建一个 org-config 分支：
+
+Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理
+Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置文件）。
 
 
-** JavaScript IDE
+在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代 码块内的内容。在代码块中使用 C-c ' 会直接打开对应模式的缓冲区（不仅限于 Lisp）。 这样就使在 Org-mode 中编辑代码变的十分方便快捷。
 
-Emacs 提供的默认 JavaScript Major Mode 并不是非常好用。所以我们可以将默认的模式
-替换成 [[https://github.com/mooz/js2-mode][js2-mode]] 一个比默认模式好用的 Major Mode。我们可以通过 MELPA 来下载它，然
-后用下面的代码将其启用。
+使用 <s 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段 （Org-mode Easy Templates）可以在这里找到。
 
 #+BEGIN_SRC emacs-lisp
-    (setq auto-mode-alist
-          (append
-           '(("\\.js\\'" . js2-mode))
-           auto-mode-alist))
+  ;; Your code goes here
+  ;; 你的代码写在这里
 #+END_SRC
 
-你可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto-Major-Mode.html][这里]]（How Emacs Chooses a Major Mode）找到 Emacs 是如何选择何时该选用何
-种 Major Mode 的方法。
-
-在这里我们需要知道 =auto-mode-alist= 的作用，这个变量是一个 [[https://www.emacswiki.org/emacs/AssociationList][AssociationList]]，它
-使用正则表达式（REGEXP）的规则来匹配不同类型文件应使用的 Major Mode。 下面是几个
-正则表达式匹配的例子，
+添加 Org-mode 文本内语法高亮
 
 #+BEGIN_SRC emacs-lisp
-    (("\\`/tmp/fol/" . text-mode)
-     ("\\.texinfo\\'" . texinfo-mode)
-     ("\\.texi\\'" . texinfo-mode)
-     ("\\.el\\'" . emacs-lisp-mode)
-     ("\\.c\\'" . c-mode)
-     ("\\.h\\'" . c-mode)
-     …)
-#+END_SRC
-
-下面是如何添加新的模式与对应文件类型的例子（与我们配置 =js2-mode= 时相似的例子），
-
-#+BEGIN_SRC emacs-lisp
-    (setq auto-mode-alist
-      (append
-       ;; File name (within directory) starts with a dot.
-       '(("/\\.[^/]*\\'" . fundamental-mode)
-         ;; File name has no dot.
-         ("/[^\\./]*\\'" . fundamental-mode)
-         ;; File name ends in ‘.C’.
-         ("\\.C\\'" . c++-mode))
-       auto-mode-alist))
-#+END_SRC
-
-在 =js2-mode= 模式中会提供
-
--  语法高亮
--  语法检查器（Linter）
-
-执行缓冲区的代码可以使用 =nodejs-repl= 插件，它需要你的机器上已经安装了 NodeJS。
-然而在 Mac OS X 上可能会出现找不到 NodeJS 可执行文件的问题，要解决这个问题你需要
-安装另外一个 =exec-path-from-shell= 的插件并将其启用。
-
-#+BEGIN_SRC emacs-lisp
-    (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
-#+END_SRC
-
-有了 =nodejs-repl= 我们就可以方便的测试和开发我们的 JavaScript 代码了（你可以在
-[[https://github.com/mooz/js2-mode][这里]]找到更多关于它的使用方法）。
-
-*** Org-mode 进阶
-
-在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代
-码块内的内容。在代码块中使用 =C-c '= 会直接打开对应模式的缓冲区（不仅限于 Lisp）。
-这样就使在 Org-mode 中编辑代码变的十分方便快捷。
-
-使用 =<s= 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段
-（Org-mode Easy Templates）可以在[[http://orgmode.org/manual/Easy-Templates.html][这里]]找到。
-
-#+BEGIN_EXAMPLE
-  ,#+BEGIN_SRC emacs-lisp
-    ;; Your code goes here
-    ;; 你的代码写在这里
-  ,#+END_SRC
-#+END_EXAMPLE
-
-*添加 Org-mode 文本内语法高亮*
-
-#+BEGIN_SRC emacs-lisp
-    (require 'org)
-    (setq org-src-fontify-natively t)
+(require 'org)
+(setq org-src-fontify-natively t)
 #+END_SRC
 
 在 Org-mode 中重置有序列表序号可以直接使用 M-<RET> 。
 
-*Agenda 的使用*
+
+
+
+你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
 #+BEGIN_SRC emacs-lisp
-    ;; 设置默认 Org Agenda 文件目录
-    (setq org-agenda-files '("~/org"))
+(package-initialize)
 
-    ;; 设置 org-agenda 打开快捷键
-    (global-set-key (kbd "C-c a") 'org-agenda)
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
 #+END_SRC
 
-你只需将你的 =*.org= 文件放入上面所指定的文件夹中就可以开始使用 Agenda
-模式了。
-
--  =C-c C-s= 选择想要开始的时间
--  =C-c C-d= 选择想要结束的时间
--  =C-c a= 可以打开 Agenda 模式菜单并选择不同的可视方式（ =r= ）
-
-** Major 与 Minor Mode 详解
-
-在这一节我们将详细介绍 Major Mode 与 Minor Mode 去区别。每一个文件类型都对应一个
-Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，而 Minor Mode 则提供
-其余的增强性的功能（例如 =linum-mode= ）。
-
-在 Emacs 中，Major Mode 又分为三种，
-
-- =text-mode= ，用于编辑文本文件
-- =special-mode= ，特殊模式（很少见）
-- =prog-mode= ，所有的编程语言的父模式
-
-# TODO: Explan what is prog-mode
-
-在每一个模式（mode）中它的名称与各个变量还有函数都是有特定的命名规则，比如所有的
-模式都被命名为 =ModeName-mode= ，里面所设置的快捷键则为 =ModeName-mode-map=
-，而所有的钩子则会被命名为 =ModeName-mode-hook= 。
-
-注明：为了保持阅读的完整性，部分第三天的关于默认编辑器优化的内容被移至第四天。
-
+之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
+结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为
+=org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自
+己和他人更直观的，理解你的配置文件或者代码。
 
 * 第四天：配置文件模块化（下）以及使用优化
 
 视频地址如下
 
-- [[http://v.youku.com/v_show/id_XMTUzMDAwMDYwMA%3D%3D.html][优酷视频]]
-- [[http://pan.baidu.com/s/1o8QWrHK][百度网盘]]
-- [[https://youtu.be/IhCOO0R83G8][YouTube]]
 
 ** 配置文件模块化（下）
 
@@ -1004,7 +843,6 @@ Major Mode，它提供语法高亮以及缩进等基本的编辑支持功能，�
 
 =autoload= 用于仅在函数调用时加载文件，使用此方法可以大大节省编辑器的启动时间。
 
-# TODO: 补充魔法注释的内容
 
 ** 更好的默认设置
 
@@ -1181,23 +1019,6 @@ Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。
 
 ** Org-mode 管理 Emacs 配置
 
-Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理
-Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。
-
-你需要将下面的代码放入配置入口文件（ =init.el= ）中，
-
-#+BEGIN_SRC emacs-lisp
-(package-initialize)
-
-(require 'org-install)
-(require 'ob-tangle)
-(org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
-#+END_SRC
-
-之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
-结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为
-=org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自
-己和他人更直观的，理解你的配置文件或者代码。
 
 * 第五天：打造前端开发神器
 
