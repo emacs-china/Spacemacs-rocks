@@ -784,6 +784,10 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 使用 <s 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段 （Org-mode Easy Templates）可以在这里找到。
 
 #+BEGIN_SRC emacs-lisp
+(require 'org-tempo)  ;开启easy template
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
   ;; Your code goes here
   ;; 你的代码写在这里
 #+END_SRC
