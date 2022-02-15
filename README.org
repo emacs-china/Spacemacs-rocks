@@ -696,6 +696,13 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳
 定的生产环境。
 
+custome.el
+
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+(load custom-file 'no-error 'no-message)
+#+end_src
+
 现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配
 置文件并将其保存在指定的子目录中），它们分别是
 
@@ -728,25 +735,18 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 以要使用这些模块时，我们需要在其中引用需要加载的模块。下面以 =init-packages.el=
 （此配置为添加插件的模块） 为例，详细说明如何模块化以及应用的方法。
 
-下面是在模块化配置之前，我们所使用的配置文件 =~/.emacs.d/init.el= 的样子，我们将
-所有的配置代码都放置在了同一个文件中（如下所示）
-
-下面为 =~/.emacs.d/init.el= 文件的内容
-
-#+BEGIN_SRC emacs-lisp
-
-#+END_SRC
-
-之前为了更好的区分不同的区域我使用的方法是使用 ASCII Art 然后再以关键字来做搜索
-跳转，但是这样再编辑工程中依旧十分缓慢和麻烦。于是我们现在要将配置文件全部模块化，
-把不同部分的配置代码放置在不同的配置文件中，并在入口文件（ =~/.emacs.d/init.el=
-）中依次引用不用的模块。
-
 下面为 =~/.emacs.d/lisp/init-packages.el= 模块中的代码
 
 #+BEGIN_SRC emacs-lisp
+(require 'package)
+(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
-;; ...
+			 ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(package-initialize)
+
+;;防止反复调用 package-refresh-contents 会影响加载速度
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 ;; 文件末尾
 (provide 'init-packages)
@@ -755,8 +755,6 @@ custome.el              # 存放使用编辑器接口产生的配置信息
 下面为 =~/.emacs.d/init.el= 入口文件中的代码
 
 #+BEGIN_SRC emacs-lisp
-(package-initialize)
-
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Package Management
@@ -814,11 +812,9 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
 #+BEGIN_SRC emacs-lisp
-(package-initialize)
-
 (require 'org-install)
 (require 'ob-tangle)
-(org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
+(org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
 #+END_SRC
 
 之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
