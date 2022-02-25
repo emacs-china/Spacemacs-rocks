@@ -858,9 +858,16 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 #+END_SRC
 
 ** Macro
+Backquote：
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
+
 使用这个gist里面的示例来了解macro的用法：
-   M-x ielm 
+
+M-x ielm 
+
 https://gist.github.com/caiorss/db85095ca8c3bfd46865
+
 
 ** Use-package
 
