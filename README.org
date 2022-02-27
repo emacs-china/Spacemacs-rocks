@@ -854,7 +854,6 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
-  (setq use-dialog-box nil) 
 #+END_SRC
 
 ** Macro
