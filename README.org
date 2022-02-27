@@ -870,6 +870,30 @@ https://gist.github.com/caiorss/db85095ca8c3bfd46865
 
 
 ** Use-package
+   
+*** 安装 Use-package
+#+begin_src emacs-lisp
+    (defvar bootstrap-version)
+    (let ((bootstrap-file
+            (expand-file-name "bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+            (url-retrieve-synchronously
+            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+            'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+
+    (straight-use-package 'use-package)
+
+    (use-package highlight-global
+    :commands (highlight-frame-toggle)
+    :bind ("M-h" . highlight-frame-toggle)
+    :straight (:host github :repo "glen-dai/highlight-global"))
+#+end_src
 
 *** 简介
 
