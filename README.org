@@ -36,6 +36,10 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 
 - [[https://www.youtube.com/watch?v=0hpVuoyO8_o&list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_][Youtube]]
 - [[https://www.bilibili.com/video/BV1sp4y1Y73S?from=search&seid=10747273033486124295&spm_id_from=333.337.0.0][Bilibili]]
+  
+原来21天的教程地址：
+
+[[http://book1.emacs-china.org/][《21天学会Emacs》]]
 
 * 第一天：准备开始(安装与改键)
 
@@ -650,7 +654,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 *安装主题*
 
 #+BEGIN_SRC emacs-lisp
-(package-install 'monokai)
+(package-install 'monokai-theme)
 #+END_SRC
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
@@ -666,22 +670,9 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
 件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
 
-* 第七天：Magit 和配置文件管理
+* 第七天：模块化配置文件管理
 
 视频地址如下
-
-- [[https://www.bilibili.com/video/BV1Yi4y117PQ/][Bilibili]]
-- [[https://www.youtube.com/watch?v=4MqK2_N1y4I][Youtube]]
-
-** Magit -- 强大的 Git 前端
-#+begin_src emacs-lisp
-(package-install 'magit)
-#+end_src
-
-- 初始化仓库 magit-init
-- 添加 Gitignore
-- 添加 commit 消息
-- 创建一个分支：multiple-files
 
 ** 使用多文件存储配置文件
 
