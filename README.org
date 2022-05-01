@@ -690,7 +690,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳
 定的生产环境。
 
-custome.el
+custom.el
 
 #+begin_src emacs-lisp
 (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
@@ -706,7 +706,7 @@ init-ui.el              # 视觉层配置
 init-better-defaults.el # 增强内置功能
 init-keybindings.el     # 快捷键绑定
 init-org.el             # Org 模式相关的全部设定
-custome.el              # 存放使用编辑器接口产生的配置信息
+custom.el              # 存放使用编辑器接口产生的配置信息
 #+END_EXAMPLE
 
 下面为将配置文件进行模块化后的目录结构，
