@@ -32,6 +32,8 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 现在回头来看当时的视频教程，显得多少有些过时了。以前 21 天的视频教程显得有些冗长，我打算在 2022 年
 更新所有这些视频教程，并且控制每一个视频的时长（20 分钟左右），希望这个系列教程能够帮助到大家。
 
+*本视频的代码仓库：* https://gitee.com/emacs-china/emacs.d
+
 原来 21 天的视频地址：
 
 - [[https://www.youtube.com/watch?v=0hpVuoyO8_o&list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_][Youtube]]
