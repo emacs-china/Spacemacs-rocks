@@ -858,41 +858,48 @@ https://github.com/trev-dev/emacs
 #+END_SRC
 
 ** Macro
+
+** 什么是宏
+#+begin_src emacs-lisp
+  (setq my-var 1)
+  (setq my-var (1+ my-var))
+
+  (defmacro inc (var)
+    (list 'setq var (list '1+ var)))
+
+  (macroexpand '(inc my-var))
+
+  (inc my-var)
+
+  ;;; pass by value
+  (defun inc-2 (var)
+    (setq var (1+ var)))
+
+
+  (inc-2 my-var)
+
+  ;; Backquote allows you to:
+
+  ;; quote a list, and
+  ;; selectively evaluate elements of the list (with comma ,), or:
+  ;; splice (eval & spread) the element with ,@
+
+  `(a list of ,(+ 2 3) elements)
+
+  (setq some-list '(2 3))
+
+  `(1 ,@some-list 4 ,@some-list)
+#+end_src
+
 Backquote：
 
 https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
-
-使用这个gist里面的示例来了解macro的用法：
-
-M-x ielm 
-
-https://gist.github.com/caiorss/db85095ca8c3bfd46865
-
 
 ** Use-package
    
 *** 安装 Use-package
 #+begin_src emacs-lisp
-    (defvar bootstrap-version)
-    (let ((bootstrap-file
-            (expand-file-name "bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-        (with-current-buffer
-            (url-retrieve-synchronously
-            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-            'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-
-    (straight-use-package 'use-package)
-
-    (use-package highlight-global
-    :commands (highlight-frame-toggle)
-    :bind ("M-h" . highlight-frame-toggle)
-    :straight (:host github :repo "glen-dai/highlight-global"))
+ (package-install 'use-package) 
 #+end_src
 
 *** 简介
@@ -981,16 +988,15 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 *define-key* 实现, 而使用*Use-package* 实现更简单:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package color-moccur
-    :commands (isearch-moccur isearch-all)
-    :bind (("M-s O" . moccur)
-           :map isearch-mode-map
-           ("M-o" . isearch-moccur)
-           ("M-O" . isearch-moccur-all))
+  (use-package company
+    :bind (:map company-active-map
+                ("C-n" 'company-select-next)
+                ("C-p" 'company-select-previous))
     :init
-    (setq isearch-lazy-highlight t)
+    (global-company-mode t)
     :config
-    (use-package moccur-edit))
+    (setq company-minimum-prefix-length 1)
+    (setq company-idle-delay 0))
 #+END_SRC
 
 
@@ -999,6 +1005,6 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 1. Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
-3. Spacemacs 也大量使用了 Use-package
+3. Spacemacs，DoomEmacs  也大量使用了 Use-package
 
    
