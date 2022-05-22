@@ -990,8 +990,8 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :bind (:map company-active-map
-                ("C-n" 'company-select-next)
-                ("C-p" 'company-select-previous))
+                ("C-n" . 'company-select-next)
+                ("C-p" . 'company-select-previous))
     :init
     (global-company-mode t)
     :config
