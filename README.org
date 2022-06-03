@@ -1025,6 +1025,11 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
     #+begin_src emacs-lisp
       (require 'use-package-ensure)
       (setq use-package-always-ensure t)
+
+      ;; Setup `use-package'
+      (unless (package-installed-p 'use-package)
+        (package-refresh-contents)
+        (package-install 'use-package))
     #+end_src
 这个选项会自动安装包，但是不会自动更新包到最新版本。
 - [ ] 清理所有的package-install
@@ -1111,10 +1116,11 @@ C-h v org-version
 #+end_src
 *** org agenda
 #+begin_src emacs-lisp
+  ;C-c C-s schedule
+; C-c C-d deadline
   (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-agenda-files '("~/gtd.org"))
-  (setq org-agenda-span
-	'day)
+  (setq org-agenda-span 'day)
 #+end_src
 *** org capture
 #+begin_src emacs-lisp
