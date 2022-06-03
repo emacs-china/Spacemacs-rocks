@@ -1009,7 +1009,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 * 第九天 Org mode
 
-** Use-package 更多介绍 
+** Use-package 和更多默认设置
 
 *** 安装 restart-emacs 
 #+begin_src emacs-lisp
@@ -1072,7 +1072,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
     #+end_src
 
 
-** 安装最新的org mode 
+** org mode 简介
 *** 查看 orgmode 版本号
 
 C-h v org-version
@@ -1141,4 +1141,7 @@ in agenda view ,
 ;; ...other commands here
 ))
 #+end_src
+
+** 参考资料
+https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
 
