@@ -1084,6 +1084,7 @@ C-h v org-version
 
 *** 安装最新版本
 #+begin_src emacs-lisp
+  ;; 安装org 之前，一定要配置 use-package 不使用内置的org 版本，可以使用本段代码最后面的代码，具体位置可以参考视频
   (use-package org
     :pin melpa
     :ensure t)
@@ -1092,8 +1093,10 @@ C-h v org-version
     :pin nongnu
     )
 
+  ;; 添加新的 nongnu 的源
   ("nongnu" . "http://elpa.zilongshanren.com/nongnu/")
 
+  ;;; 这个配置一定要配置在 use-package 的初始化之前，否则无法正常安装
   (assq-delete-all 'org package--builtins)
   (assq-delete-all 'org package--builtin-versions)
 #+end_src
