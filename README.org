@@ -1069,6 +1069,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
       (add-to-list 'global-mode-string '("" keycast-mode-line))
       (keycast-mode t)
 
+      ;; 这里的执行顺序非常重要，doom-modeline-mode 的激活时机一定要在设置global-mode-string 之后‘
       (use-package doom-modeline
         :ensure t
 
@@ -1137,10 +1138,10 @@ C-h v org-version
 #+end_src
 
 *** org effect
-int agenda view, e, filter
+在 agenda view 中, 按 e 键可以设置effort, 按 _ 可以过滤指定effort 的heading
 
 *** org tags 
-int agenda view, :, filter
+在 agenda view 中, 按 : 可以按照tag 名称来过滤todo 的heading （tips: 这里快捷键都可以通过 M-x 来查看）
 
 *** org priority
 in agenda view ,
