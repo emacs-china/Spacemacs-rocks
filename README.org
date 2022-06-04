@@ -1007,7 +1007,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
 3. Spacemacs，DoomEmacs  也大量使用了 Use-package
 
-* 第九天 Org mode 基础和Use-package 更多设置
+* 第九天 Use-package 更多设置
 
 ** Use-package 和更多默认设置
 
@@ -1077,6 +1077,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
     #+end_src
 
 
+* 第十天： orgmode 基础
 ** org mode 简介
 *** 查看 orgmode 版本号
 
