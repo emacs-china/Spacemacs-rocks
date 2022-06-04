@@ -1007,7 +1007,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 2. Use-package 有完善的错误处理, 使配置代码更为健壮
 3. Spacemacs，DoomEmacs  也大量使用了 Use-package
 
-* 第九天 Org mode
+* 第九天 Org mode 基础和Use-package 更多设置
 
 ** Use-package 和更多默认设置
 
@@ -1036,33 +1036,33 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 *** 保存光标历史，记住上个命令
     #+begin_src emacs-lisp
-	    (use-package savehist
-	      :ensure nil
-	      :hook (after-init . savehist-mode)
-	      :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-			  history-length 1000
-			  savehist-additional-variables '(mark-ring
-							  global-mark-ring
-							  search-ring
-							  regexp-search-ring
-							  extended-command-history)
-			  savehist-autosave-interval 300)
-		  )
+      (use-package savehist
+        :ensure nil
+        :hook (after-init . savehist-mode)
+        :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+                    history-length 1000
+                    savehist-additional-variables '(mark-ring
+                                                    global-mark-ring
+                                                    search-ring
+                                                    regexp-search-ring
+                                                    extended-command-history)
+                    savehist-autosave-interval 300)
+        )
 
-(use-package saveplace
-:ensure nil
-:hook (after-init . save-place-mode))
+      (use-package saveplace
+        :ensure nil
+        :hook (after-init . save-place-mode))
     #+end_src
 
 *** 显示文件行、列、大小 ，美化状态栏
     #+begin_src emacs-lisp
       (use-package simple
-	:ensure nil
-	:hook (after-init . size-indication-mode)
-	:init
-	(progn
-	  (setq column-number-mode t)
-	  ))
+        :ensure nil
+        :hook (after-init . size-indication-mode)
+        :init
+        (progn
+          (setq column-number-mode t)
+          ))
 
       ;;modeline上显示我的所有的按键和执行的命令
       (package-install 'keycast)
@@ -1070,10 +1070,10 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
       (keycast-mode t)
 
       (use-package doom-modeline
-	:ensure t
+        :ensure t
 
-	:init
-	(doom-modeline-mode t))
+        :init
+        (doom-modeline-mode t))
     #+end_src
 
 
@@ -1084,50 +1084,50 @@ C-h v org-version
 
 *** 安装最新版本
 #+begin_src emacs-lisp
-	(use-package org
-	:pin melpa
-	:ensure t)
+  (use-package org
+    :pin melpa
+    :ensure t)
 
-	(use-package org-contrib
-	:pin nongnu
-	)
+  (use-package org-contrib
+    :pin nongnu
+    )
 
-	 ("nongnu" . "http://elpa.zilongshanren.com/nongnu/")
+  ("nongnu" . "http://elpa.zilongshanren.com/nongnu/")
 
-	(assq-delete-all 'org package--builtins)
-	(assq-delete-all 'org package--builtin-versions)
+  (assq-delete-all 'org package--builtins)
+  (assq-delete-all 'org package--builtin-versions)
 #+end_src
 *** org todo 
 #+begin_src emacs-lisp
-	  (setq org-todo-keywords
-	      (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-		      (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
 
   ;;fix doom modeline
   :custom-face
   (mode-line ((t (:height 0.9))))
   (mode-line-inactive ((t (:height 0.9))))
 
-	  (require 'org-checklist)
+  (require 'org-checklist)
   ;; need repeat task and properties
-	  (setq org-log-done t)
-	  (setq org-log-into-drawer t)
+  (setq org-log-done t)
+  (setq org-log-into-drawer t)
 
 #+end_src
 *** org agenda
 #+begin_src emacs-lisp
-  ;C-c C-s schedule
-; C-c C-d deadline
+  ;; C-c C-s schedule
+  ;; C-c C-d deadline
   (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-agenda-files '("~/gtd.org"))
   (setq org-agenda-span 'day)
 #+end_src
 *** org capture
 #+begin_src emacs-lisp
-(setq org-capture-templates
-	'(("t" "Todo" entry (file+headline "~/gtd.org" "Workspace")
-	       "* TODO [#B] %?\n  %i\n %U"
-	       :empty-lines 1)))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/gtd.org" "Workspace")
+           "* TODO [#B] %?\n  %i\n %U"
+           :empty-lines 1)))
 
   (global-set-key (kbd "C-c r") 'org-capture)
 #+end_src
@@ -1141,11 +1141,11 @@ int agenda view, :, filter
 *** org priority
 in agenda view ,
 #+begin_src emacs-lisp
-(setq org-agenda-custom-commands
-'(("c" "重要且紧急的事"
-((tags-todo "+PRIORITY=\"A\"")))
-;; ...other commands here
-))
+  (setq org-agenda-custom-commands
+        '(("c" "重要且紧急的事"
+           ((tags-todo "+PRIORITY=\"A\"")))
+          ;; ...other commands here
+          ))
 #+end_src
 
 ** 参考资料
