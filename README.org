@@ -1177,6 +1177,86 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 #+DOWNLOADED: screenshot @ 2022-10-16 20:36:02
 [[file:img/2022-10-16_20-36-02_screenshot.jpg]]
 
+*** 安装 hugo
+#+begin_src sh 
+choco insall hugo --confirm
+#+end_src
 
-** 
+** 新建博客站点
+#+begin_src sh
+hugo new site blog
+#+end_src
+
+使用 git 来管理你的博客系统：
+
+#+begin_src sh
+  cd blog 
+  git init 
+  git add .
+  git commit -m "first commit"
+#+end_src
+
+** 安装 hugo 主题 even
+我们使用 git submodule 来安装：
+#+begin_src sh
+git submodule add https://github.com/olOwOlo/hugo-theme-even themes/even
+#+end_src
+
+** 测试站点
+
+拷贝 even 主题中的 examplesite 里面的内容到 testblog:
+
+在命令行中输入 hugo server, 此命令会自动生成博客内容到 public 目录，同时会在本地启动一个 http 服务器供我们来预览博客。
+关于 even 主题更多地使用请参考官方主页：
+
+https://github.com/olOwOlo/hugo-theme-even
+
+** 使用 org mode 来写博客
+
+首先我们需要安装 https://github.com/kaushalmodi/ox-hugo
+
+#+begin_src emacs-lisp
+(use-package ox-hugo
+  :ensure t   ;Auto-install the package from Melpa
+  :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+  :after ox)
+#+end_src
+
+ox-hugo 有两种方式来写博客。
+- 每篇博客一个 org 文件
+- 每一个 org subtree 是一篇博客（这种是推荐的方式）
+
+使用 org capture 来新建博客：(注意 elisp 中 blog 文件的路径要替换成你自己的)
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org-capture
+      (defun org-hugo-new-subtree-post-capture-template ()
+        "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+        (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+               (fname (org-hugo-slug title)))
+          (mapconcat #'identity
+                     `(
+                       ,(concat "* TODO " title)
+                       ":PROPERTIES:"
+                       ,(concat ":EXPORT_FILE_NAME: " fname)
+                       ":END:"
+                       "\n\n")          ;Place the cursor here finally
+                     "\n")))
+
+      (add-to-list 'org-capture-templates
+                   '("h"                ;`org-capture' binding + h
+                     "Hugo post"
+                     entry
+                     ;; It is assumed that below file is present in `org-directory'
+                     ;; and that it has a "Blog Ideas" heading. It can even be a
+                     ;; symlink pointing to the actual location of all-posts.org!
+                     (file+headline "c:/Users/lionqu/blog/all-blog.org" "Blog Ideas")
+                     (function org-hugo-new-subtree-post-capture-template))))
+#+end_src
+
+配置 all-blog.org, 让它在保存内容的时候自动生成博客内容。
+
+https://ox-hugo.scripter.co/doc/auto-export-on-saving/
+
 
