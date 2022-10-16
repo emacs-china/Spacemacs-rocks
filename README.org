@@ -39,7 +39,7 @@ Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年
 - [[https://www.youtube.com/watch?v=0hpVuoyO8_o&list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_][Youtube]]
 - [[https://www.bilibili.com/video/BV1sp4y1Y73S?from=search&seid=10747273033486124295&spm_id_from=333.337.0.0][Bilibili]]
   
-原来21天的教程地址：
+原来 21 天的教程地址：
 
 [[http://book1.emacs-china.org/][《21天学会Emacs》]]
 
@@ -766,7 +766,7 @@ custom.el              # 存放使用编辑器接口产生的配置信息
 这里需要注意的是，我们需要在入口文件中添加 =(add-to-list 'load-path
 "~/.emacs.d/lisp/")= 这可以让 Emacs 找到需要加载的模块所处的位置。
 
-这里推荐大家两个还不错的Emacs配置：
+这里推荐大家两个还不错的 Emacs 配置：
 
 https://github.com/condy0919/.emacs.d
 
@@ -814,11 +814,11 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 =org-file-name.org= ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自
 己和他人更直观的，理解你的配置文件或者代码。
 
-这里也给大家推荐一些使用org-mode进行配置管理的优秀范例：
+这里也给大家推荐一些使用 org-mode 进行配置管理的优秀范例：
 
 https://github.com/trev-dev/emacs
 
-* 第八天：macro和use-package
+* 第八天：macro 和 use-package
 
 视频地址如下
 
@@ -1019,7 +1019,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
   ;;emacs --debug-init
 #+end_src
 
-删除company这个包, 看看会出现什么
+删除 company 这个包, 看看会出现什么
 
 *** 自动安装 
     #+begin_src emacs-lisp
@@ -1032,7 +1032,7 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
         (package-install 'use-package))
     #+end_src
 这个选项会自动安装包，但是不会自动更新包到最新版本。
-- [ ] 清理所有的package-install
+- [ ] 清理所有的 package-install
 
 *** 保存光标历史，记住上个命令
     #+begin_src emacs-lisp
@@ -1138,10 +1138,10 @@ C-h v org-version
 #+end_src
 
 *** org effect
-在 agenda view 中, 按 e 键可以设置effort, 按 _ 可以过滤指定effort 的heading
+在 agenda view 中, 按 e 键可以设置 effort, 按 _ 可以过滤指定 effort 的 heading
 
 *** org tags 
-在 agenda view 中, 按 : 可以按照tag 名称来过滤todo 的heading （tips: 这里快捷键都可以通过 M-x 来查看）
+在 agenda view 中, 按 : 可以按照 tag 名称来过滤 todo 的 heading （tips: 这里快捷键都可以通过 M-x 来查看）
 
 *** org priority
 in agenda view ,
@@ -1155,4 +1155,28 @@ in agenda view ,
 
 ** 参考资料
 https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
+
+* 第十一天：使用 ox-hugo 来写博客
+使用 org mode 写博客，然后托管在 Github 上面，我们可以打造一个非常好用便捷且免费的写作系统。
+** 安装 hugo
+在 windows 上面安装 hugo 有多种方法，本文使用 chocolatey 包管理器。
+
+其他操作系统以及 windows 平台更多的安装方法参考以下链接：
+https://gohugo.io/getting-started/installing/
+
+*** 安卓 choco 包管理器
+使用 powershell 来安装（如果你的系统没有 powershell, 需要首先安装 powershell).
+
+使用管理员权限打开 powershell
+#+begin_src sh
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+#+end_src
+
+安装完后，在 powershell 中输入 choco, 你会得到如下截图则说明安装成功：
+
+#+DOWNLOADED: screenshot @ 2022-10-16 20:36:02
+[[file:img/2022-10-16_20-36-02_screenshot.jpg]]
+
+
+** 
 
