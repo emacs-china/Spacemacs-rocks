@@ -1259,4 +1259,8 @@ See `org-capture-templates' for more information."
 
 https://ox-hugo.scripter.co/doc/auto-export-on-saving/
 
+** 配置 github 和 github workflow 来自动发布博客
+1. 新建一个 github 仓库
+2. 添加 remote 并 push 到远程
+3. 添加 github workflow
 
