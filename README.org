@@ -1209,7 +1209,7 @@ git submodule add https://github.com/olOwOlo/hugo-theme-even themes/even
 在命令行中输入 hugo server, 此命令会自动生成博客内容到 public 目录，同时会在本地启动一个 http 服务器供我们来预览博客。
 关于 even 主题更多地使用请参考官方主页：
 
-**注意：** 如果要显示草稿内容，需要使用 `hugo server -Dgit remote add origin git@github.com:zilongshanren/testblog.git`
+**注意：** 如果要显示草稿内容，需要使用 `hugo server -D`
 
 https://github.com/olOwOlo/hugo-theme-even
 
