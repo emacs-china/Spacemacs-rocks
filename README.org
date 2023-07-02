@@ -18,6 +18,7 @@
 #+EMAIL: guanghui8827@gmail.com
 #+OPTIONS: toc:3 num:nil
 #+STARTUP: showall
+#+OPTIONS: ^:nil
 
 
 * 21 天学会 Emacs（2022 Edition）
@@ -1266,3 +1267,68 @@ https://ox-hugo.scripter.co/doc/auto-export-on-saving/
 2. 添加 remote 并 push 到远程
 3. 添加 github workflow
 
+* 第十二天： 使用 eglot 来编写、运行和调试 C/C++ 代码
+** 安装 Emacs 29
+https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
+修复一个运行报错：
+#+begin_src emacs-lisp
+  ;  (global-linum-mode 1)
+  (global-display-line-numbers-mode t)    ;修改成这个来显示行号，性能更好
+#+end_src
+** 安装 mysys2
+1. 下载 https://www.msys2.org/
+2. 安装 C/C++ 必要的软件工具
+    #+begin_src  sh
+    pacman -Syu
+    pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb make mingw-w64-x86_64-clang mingw-w64-x86_64-clang-tools-extra
+    #+end_src
+3. 设置环境变量
+    #+begin_src sh
+    C:\msys64\mingw64\bin
+    C:\msys64\usr\bin
+    #+end_src 
+
+** 安装 eglot(Emacs 29 自带 eglot)
+    #+begin_src emacs-lisp
+      (require 'eglot)
+      (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+      (add-hook 'c-mode-hook #'eglot-ensure)
+      (add-hook 'c++-mode-hook #'eglot-ensure)
+    #+end_src
+
+** 一键运行代码
+1. 安装 quickrun:
+    #+begin_src emacs-lisp
+    (use-package quickrun
+        :ensure t
+        :commands (quickrun)
+        :init
+        (quickrun-add-command "c++/c1z"
+        '((:command . "g++")
+            (:exec . ("%c -std=c++1z %o -o %e %s"
+                    "%e %a"))
+            (:remove . ("%e")))
+        :default "c++"))
+    #+end_src
+2. 自定义快捷键
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<f5>") 'quickrun)
+#+end_src
+
+** 使用 gdb 调试
+1. 运行 M-x compile, 输入 g++ -g -o test.o test.cpp
+2. 使用 M-x gud-gdb  输入 gdb ./test.o
+3. 常用调试命令
+| name            | function                                           |
+|-----------------+----------------------------------------------------|
+| list            | 显示源代码                                           |
+| break           | 新增断点， break main, break 12（行号）               |
+| info            | 查看断点或者局部变量信息 info breakpoints, info locals |
+| run             | 开始调试                                             |
+| next            | 类似 step over                                       |
+| step            | 跳转到函数内部                                        |
+| continue        | 继续运行到下一个断点                                   |
+| quit            | 退出调试                                             |
+| watch           | 内存断点                                             |
+| display         | 类似 IDE 里面的 watch 功能                              |
+| break 11 if xxx | 条件断点                                               |
