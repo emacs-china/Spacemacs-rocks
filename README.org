@@ -1332,3 +1332,129 @@ https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
 | watch           | 内存断点                                             |
 | display         | 类似 IDE 里面的 watch 功能                              |
 | break 11 if xxx | 条件断点                                               |
+
+* 第十三天：使用 Evil, 地球上最厉害的 vim 按键模拟
+** 安装 Evil
+*** Install from melpa
+#+begin_src emacs-lisp
+
+  (use-package evil
+    :ensure t
+    :init
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
+    (evil-mode)
+
+    ;; https://emacs.stackexchange.com/questions/46371/how-can-i-get-ret-to-follow-org-mode-links-when-using-evil-mode
+    (with-eval-after-load 'evil-maps
+      (define-key evil-motion-state-map (kbd "RET") nil))
+    )
+#+end_src
+*** Install undo tree
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :diminish
+    :init
+    (global-undo-tree-mode 1)
+    (setq undo-tree-auto-save-history nil)
+    (evil-set-undo-system 'undo-tree))
+#+end_src
+** Modes and States
+*** Normal State  (N)
+This is the default “resting state” of Evil, in which the main body of vi bindings are defined.
+*** Insert State (I)
+This is the state for insertion of text, where non-modified keys will insert the corresponding character in the buffer.
+*** Emacs State  (E)
+A state that as closely as possible mimics default Emacs behaviour, by eliminating all vi bindings, except for C-z, to re-enter normal state.
+*** Visual State (V)
+A state for selecting text regions. Motions are available for modifying the selected region, and operators are available for acting on it.
+*** Motion State (M)
+A special state useful for buffers that are read-only, where motions are available but editing operations are not.
+*** Replace State (R)
+A special state mostly similar to insert state, except it replaces text instead of inserting.
+*** Operator-Pending State (O)
+A special state entered after launching an operator, but before specifying the corresponding motion or text object.
+** Evil 基础用法
+*** 增删改查 （text-obj, commands, replace 插件）
+** 自定义快捷键
+*** 定义不同 state 下面的快捷键
+*** spacemacs like 快捷键如何定义
+** 相关插件列表（推荐我自己经常用的）
+*** evil-anzu
+#+begin_src emacs-lisp
+  (use-package evil-anzu
+    :ensure t
+    :after evil
+    :diminish
+    :demand t
+    :init
+    (global-anzu-mode t))
+#+end_src
+*** evil-collections
+#+begin_src emacs-lisp
+(use-package evil-collection
+  :ensure t
+  :demand t
+  :config
+  (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list))
+  (evil-collection-init)
+
+   (cl-loop for (mode . state) in
+            '((org-agenda-mode . normal)
+              (Custom-mode . emacs)
+              (eshell-mode . emacs)
+              (makey-key-mode . motion))
+            do (evil-set-initial-state mode state))
+
+
+  (evil-define-key 'normal dired-mode-map
+    (kbd "<RET>") 'dired-find-alternate-file
+    (kbd "C-k") 'dired-up-directory
+    "`" 'dired-open-term
+    "o" 'dired-find-file-other-window
+    "s" 'hydra-dired-quick-sort/body
+    "z" 'dired-get-size
+    "!" 'zilongshanren/do-shell-and-copy-to-kill-ring
+    ")" 'dired-omit-mode)
+#+end_src
+*** evil-surround
+#+begin_src emacs-lisp
+(use-package evil-surround
+  :ensure t
+  :init
+  (global-evil-surround-mode 1))
+#+end_src
+*** evil-nerd-commenter
+#+begin_src emacs-lisp
+(use-package evil-nerd-commenter
+  :init
+  (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+  (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+  )
+#+end_src
+*** evil-snipe
+#+begin_src emacs-lisp
+(use-package evil-snipe
+  :ensure t
+  :diminish
+  :init
+  (evil-snipe-mode +1)
+  (evil-snipe-override-mode +1))
+#+end_src
+*** evil-matchit
+#+begin_src emacs-lisp
+(use-package evil-matchit
+  :ensure
+  :init
+  (global-evil-matchit-mode 1))
+#+end_src
+** 高阶用法（自定义 text-obj 或者 自定义 commands)
+1. https://github.com/noctuid/evil-guide#modes
+2. https://evil.readthedocs.io/en/latest/overview.html
+
+
+
+
+
+
+
