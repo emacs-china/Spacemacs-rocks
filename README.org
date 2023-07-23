@@ -1375,10 +1375,63 @@ A special state mostly similar to insert state, except it replaces text instead 
 *** Operator-Pending State (O)
 A special state entered after launching an operator, but before specifying the corresponding motion or text object.
 ** Evil 基础用法
-*** 增删改查 （text-obj, commands, replace 插件）
+*** 增删改查 （text-obj, commands, replace ）
 ** 自定义快捷键
 *** 定义不同 state 下面的快捷键
+#+begin_src emacs-lisp
+  (setcdr evil-insert-state-map nil)
+  (define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+  (define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
+  (define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
+
+  (define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
+  (define-key evil-normal-state-map (kbd "] b") 'next-buffer)
+  (define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
+  (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
+
+  (evil-define-key 'normal dired-mode-map
+    (kbd "<RET>") 'dired-find-alternate-file
+    (kbd "C-k") 'dired-up-directory
+    "`" 'dired-open-term
+    "o" 'dired-find-file-other-window
+    "s" 'hydra-dired-quick-sort/body
+    "z" 'dired-get-size
+    "!" 'zilongshanren/do-shell-and-copy-to-kill-ring
+    ")" 'dired-omit-mode)
+#+end_src
 *** spacemacs like 快捷键如何定义
+#+begin_src emacs-lisp
+  (use-package general
+    :init
+    (global-definer
+      "!" 'shell-command
+      "SPC" 'execute-extended-command
+      "'" 'vertico-repeat
+      "+" 'text-scale-increase
+      "-" 'text-scale-decrease
+      "u" 'universal-argument
+      "hdf" 'describe-function
+      "hdv" 'describe-variable
+      "hdk" 'describe-key
+      )
+
+    (+general-global-menu! "buffer" "b"
+      "d" 'kill-current-buffer
+      "b" '(consult-buffer :which-key "consult buffer")
+      "B" 'switch-to-buffer
+      "p" 'previous-buffer
+      "R" 'rename-buffer
+      "M" '((lambda () (interactive) (switch-to-buffer "*Messages*"))
+            :which-key "messages-buffer")
+      "n" 'next-buffer
+      "i" 'ibuffer
+      "f" 'my-open-current-directory
+      "k" 'kill-buffer
+      "y" 'copy-buffer-name
+      "K" 'kill-other-buffers)
+#+end_src
+参考我的配置： https://github.com/zilongshanren/emacs.d/blob/eglot/lisp/init-keybindings.el
 ** 相关插件列表（推荐我自己经常用的）
 *** evil-anzu
 #+begin_src emacs-lisp
