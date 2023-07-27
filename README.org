@@ -1376,6 +1376,7 @@ A special state mostly similar to insert state, except it replaces text instead 
 A special state entered after launching an operator, but before specifying the corresponding motion or text object.
 ** Evil 基础用法
 *** 增删改查 （text-obj, commands, replace ）
+*** 如果对 evil 不太熟悉，还可以使用这个插件来练习 evil 的使用： https://github.com/clsty/evil-tutor-sc
 ** 自定义快捷键
 *** 定义不同 state 下面的快捷键
 #+begin_src emacs-lisp
@@ -1539,5 +1540,32 @@ A special state entered after launching an operator, but before specifying the c
 
 
 
+* 第十四天：精选 packages, 大大提升你的 Emacs 编辑效率
+** Some minor fix:
+#+begin_src emacs-lisp
+  ;; make consult-ripgrep work
+  (add-to-list 'process-coding-system-alist 
+               '("[rR][gG]" . (utf-8-dos . windows-1251-dos)))
 
+;; make c-j/c-k work in vertico selection
+  (define-key vertico-map (kbd "C-j") 'vertico-next)
+  (define-key vertico-map (kbd "C-k") 'vertico-previous)
 
+#+end_src
+** iedit & evil-multiedit
+** expand-region
+** interactive replace 
+#+begin_src emacs-lisp
+  (defun zilongshanren/evil-quick-replace (beg end )
+    (interactive "r")
+    (when (evil-visual-state-p)
+      (evil-exit-visual-state)
+      (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
+        (setq command-string (format "%%s /%s//g" selection))
+        (minibuffer-with-setup-hook
+            (lambda () (backward-char 2))
+          (evil-ex command-string)))))
+
+(define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
+#+end_src
+** symbol-overlay & highlight-global
