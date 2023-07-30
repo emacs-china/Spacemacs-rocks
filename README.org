@@ -1543,17 +1543,83 @@ A special state entered after launching an operator, but before specifying the c
 * 第十四天：精选 packages, 大大提升你的 Emacs 编辑效率
 ** Some minor fix:
 #+begin_src emacs-lisp
-  ;; make consult-ripgrep work
-  (add-to-list 'process-coding-system-alist 
-               '("[rR][gG]" . (utf-8-dos . windows-1251-dos)))
 
 ;; make c-j/c-k work in vertico selection
   (define-key vertico-map (kbd "C-j") 'vertico-next)
   (define-key vertico-map (kbd "C-k") 'vertico-previous)
 
+  ;; make consult-ripgrep work
+  (add-to-list 'process-coding-system-alist 
+               '("[rR][gG]" . (utf-8-dos . windows-1251-dos)))
 #+end_src
-** iedit & evil-multiedit
+** 多光标操作 iedit & evil-multiedit
+#+begin_src emacs-lisp
+(use-package iedit
+  :ensure t
+  :init
+  (setq iedit-toggle-key-default nil)
+  :config
+  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
+
+(use-package evil-multiedit
+  :ensure t
+  :commands (evil-multiedit-default-keybinds)
+  :init
+  (evil-multiedit-default-keybinds))
+#+end_src
 ** expand-region
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :config
+    (defadvice er/prepare-for-more-expansions-internal
+        (around helm-ag/prepare-for-more-expansions-internal activate)
+      ad-do-it
+      (let ((new-msg (concat (car ad-return-value)
+                             ", H to highlight in buffers"
+                             ", / to search in project, "
+                             "e iedit mode in functions"
+                             "f to search in files, "
+                             "b to search in opened buffers"))
+            (new-bindings (cdr ad-return-value)))
+        (cl-pushnew
+         '("H" (lambda ()
+                 (interactive)
+                 (call-interactively
+                  'zilongshanren/highlight-dwim)))
+         new-bindings)
+        (cl-pushnew
+         '("/" (lambda ()
+                 (interactive)
+                 (call-interactively
+                  'my/search-project-for-symbol-at-point)))
+         new-bindings)
+        (cl-pushnew
+         '("e" (lambda ()
+                 (interactive)
+                 (call-interactively
+                  'evil-multiedit-match-all)))
+         new-bindings)
+        (cl-pushnew
+         '("f" (lambda ()
+                 (interactive)
+                 (call-interactively
+                  'find-file)))
+         new-bindings)
+        (cl-pushnew
+         '("b" (lambda ()
+                 (interactive)
+                 (call-interactively
+                  'consult-line)))
+         new-bindings)
+        (setq ad-return-value (cons new-msg new-bindings)))))
+#+end_src
+添加一个快捷键，让标记和搜索功能更方便：
+#+begin_src emacs-lisp
+  (global-definer
+    "v" 'er/expand-region
+    )
+#+end_src
 ** interactive replace 
 #+begin_src emacs-lisp
   (defun zilongshanren/evil-quick-replace (beg end )
@@ -1569,3 +1635,20 @@ A special state entered after launching an operator, but before specifying the c
 (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
 #+end_src
 ** symbol-overlay & highlight-global
+#+begin_src emacs-lisp
+(use-package symbol-overlay
+  :config
+  (define-key symbol-overlay-map (kbd "h") 'nil))
+
+(use-package highlight-global
+  :ensure nil
+  :commands (highlight-frame-toggle)
+  :quelpa (highlight-global :fetcher github :repo "glen-dai/highlight-global")
+  :config
+  (progn
+    (setq-default highlight-faces
+                  '(('hi-red-b . 0)
+                    ('hi-aquamarine . 0)
+                    ('hi-pink . 0)
+                    ('hi-blue-b . 0)))))
+#+end_src
