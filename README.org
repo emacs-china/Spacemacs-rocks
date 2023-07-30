@@ -1616,7 +1616,18 @@ A special state entered after launching an operator, but before specifying the c
 #+end_src
 添加一个快捷键，让标记和搜索功能更方便：
 #+begin_src emacs-lisp
+
+  ;;;###autoload
+  (defun my/search-project-for-symbol-at-point ()
+    (interactive)
+    (if (use-region-p)
+        (progn
+          (consult-ripgrep (project-root (project-current))
+                           (buffer-substring (region-beginning) (region-end))))))
+
   (global-definer
+    "hc" 'zilongshanren/clearn-highlight
+    "hH" 'zilongshanren/highlight-dwim
     "v" 'er/expand-region
     )
 #+end_src
@@ -1634,21 +1645,49 @@ A special state entered after launching an operator, but before specifying the c
 
 (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
 #+end_src
+** 安装 quelpa 插件
+#+begin_src emacs-lisp
+(use-package quelpa)
+
+(unless (package-installed-p 'quelpa-use-package)
+  (quelpa
+   '(quelpa-use-package
+     :fetcher git
+     :url "https://github.com/quelpa/quelpa-use-package.git")))
+
+(use-package quelpa-use-package
+  :init
+  (setq quelpa-use-package-inhibit-loading-quelpa t)
+  :demand t)
+#+end_src
 ** symbol-overlay & highlight-global
 #+begin_src emacs-lisp
-(use-package symbol-overlay
-  :config
-  (define-key symbol-overlay-map (kbd "h") 'nil))
+  (defun zilongshanren/highlight-dwim ()
+    (interactive)
+    (if (use-region-p)
+        (progn
+          (highlight-frame-toggle)
+          (deactivate-mark))
+      (symbol-overlay-put)))
 
-(use-package highlight-global
-  :ensure nil
-  :commands (highlight-frame-toggle)
-  :quelpa (highlight-global :fetcher github :repo "glen-dai/highlight-global")
-  :config
-  (progn
-    (setq-default highlight-faces
-                  '(('hi-red-b . 0)
-                    ('hi-aquamarine . 0)
-                    ('hi-pink . 0)
-                    ('hi-blue-b . 0)))))
+  (defun zilongshanren/clearn-highlight ()
+    (interactive)
+    (clear-highlight-frame)
+    (symbol-overlay-remove-all))
+
+  (use-package symbol-overlay
+    :config
+    (define-key symbol-overlay-map (kbd "h") 'nil))
+
+  (use-package highlight-global
+    :ensure nil
+    :commands (highlight-frame-toggle)
+    :quelpa (highlight-global :fetcher github :repo "glen-dai/highlight-global")
+    :config
+    (progn
+      (setq-default highlight-faces
+                    '(('hi-red-b . 0)
+                      ('hi-aquamarine . 0)
+                      ('hi-pink . 0)
+                      ('hi-blue-b . 0)))))
 #+end_src
