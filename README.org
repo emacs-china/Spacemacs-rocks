@@ -1692,7 +1692,7 @@ A special state entered after launching an operator, but before specifying the c
                       ('hi-blue-b . 0)))))
 #+end_src
 
-* 使用 Treesit 来打造现代编程 IDE
+* 第十五天：使用 Treesit + eglot 来打造现代编程 IDE
 ** 安装 treesit-auto 插件
 https://github.com/renzmann/treesit-auto
 #+begin_src emacs-lisp
