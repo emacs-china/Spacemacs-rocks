@@ -1691,3 +1691,62 @@ A special state entered after launching an operator, but before specifying the c
                       ('hi-pink . 0)
                       ('hi-blue-b . 0)))))
 #+end_src
+
+* 使用 Treesit 来打造现代编程 IDE
+** 安装 treesit-auto 插件
+https://github.com/renzmann/treesit-auto
+#+begin_src emacs-lisp
+(use-package treesit-auto
+  :demand t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))
+#+end_src
+** 配置 fontlock level
+#+begin_src emacs-lisp
+    (setq treesit-font-lock-level 4)
+#+end_src
+** 跳转函数列表 consult-imenu
+#+begin_src emacs-lisp
+  (+general-global-menu! "search" "s"
+    "j" 'consult-imenu
+    "p" 'consult-ripgrep
+    "k" 'consult-keep-lines
+    "f" 'consult-focus-lines)
+
+#+end_src
+** 查找定义和引用
+使用 ctrl-o 返回
+#+begin_src emacs-lisp
+  xref-find-references
+  xref-find-definitions
+#+end_src
+** 添加 snippets 支持
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :hook ((prog-mode . yas-minor-mode)
+         (org-mode . yas-minor-mode))
+  :init
+  :config
+  (progn
+    (setq hippie-expand-try-functions-list
+          '(yas/hippie-try-expand
+            try-complete-file-name-partially
+            try-expand-all-abbrevs
+            try-expand-dabbrev
+            try-expand-dabbrev-all-buffers
+            try-expand-dabbrev-from-kill
+            try-complete-lisp-symbol-partially
+            try-complete-lisp-symbol))))
+
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
+#+end_src
+** 在头文件和源文件之间进行跳转
+#+begin_src emacs-lisp
+ff-find-related-file
+#+end_src
+
+
