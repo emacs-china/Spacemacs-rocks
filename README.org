@@ -1268,7 +1268,7 @@ https://ox-hugo.scripter.co/doc/auto-export-on-saving/
 3. 添加 github workflow
 
 * 第十二天： 使用 eglot 来编写、运行和调试 C/C++ 代码
-** 安装 Emacs 29
+** 安装 Emacs 29 （pretest 版本下载地址）
 https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
 修复一个运行报错：
 #+begin_src emacs-lisp
@@ -1693,6 +1693,8 @@ A special state entered after launching an operator, but before specifying the c
 #+end_src
 
 * 第十五天：使用 Treesit + eglot 来打造现代编程 IDE
+** 正式版本 Emacs 29
+http://ftp.gnu.org/gnu/windows/emacs/emacs-29/
 ** 安装 treesit-auto 插件
 https://github.com/renzmann/treesit-auto
 #+begin_src emacs-lisp
@@ -1748,5 +1750,10 @@ https://github.com/renzmann/treesit-auto
 #+begin_src emacs-lisp
 ff-find-related-file
 #+end_src
+** 参考链接
+- https://github.com/emacs-mirror/emacs/blob/master/admin/notes/tree-sitter/starter-guide
+- https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+- https://mp.weixin.qq.com/s/kChdHIuh2ch9w5RiCHxo3w （Emacs 29 更新内容）
+- [[https://mp.weixin.qq.com/s?__biz=MzA4NDU1NTg2Ng==&mid=2452309008&idx=1&sn=c5f822e36cc38e6d91683495e029adac&chksm=883a8525bf4d0c336f6c1e3c9e2c934b751bd364f3e5565f9bb944b57a022b0d4aa6a5068146&cur_album_id=1930972115608928260&scene=189#wechat_redirect][Emacs Treesitter]]
 
 
