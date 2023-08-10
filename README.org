@@ -5,7 +5,7 @@
 
 #+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 #+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
- # #+HTML_HEAD: <script type="text/javascript" src="readtheorg/js/jquery.stickytableheaders.js"></script> // www.pirilamp.org/styles/lib/js/jquery.stickytableheaders.js 404 Now
+# #+HTML_HEAD: <script type="text/javascript" src="readtheorg/js/jquery.stickytableheaders.js"></script> // www.pirilamp.org/styles/lib/js/jquery.stickytableheaders.js 404 Now
 #+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-table-headers/0.1.19/js/jquery.stickytableheaders.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="readtheorg/js/readtheorg.js"></script>
 #+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
@@ -88,7 +88,7 @@ Windows 改键方法：
 
 Emacs 默认 Alt 键就是 Meta，而 App 键我们改成 super 键，可以通过下面的 Elisp 代码来完成。
 #+begin_src emacs-lisp
- (setq w32-apps-modifier 'super)       ; 通过SharpKeys改成了 Application
+  (setq w32-apps-modifier 'super)       ; 通过SharpKeys改成了 Application
 #+end_src
 
 Mac 键盘布局：
@@ -98,8 +98,8 @@ Mac 键盘布局：
 Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修改这个按键，其他的按键可以通过 Elisp 来修改：
 
 #+begin_src emacs-lisp
-(setq mac-option-modifier 'meta
-      mac-command-modifier 'super)
+  (setq mac-option-modifier 'meta
+        mac-command-modifier 'super)
 #+end_src
 
 常见符号所代表的意义如下
@@ -128,12 +128,12 @@ Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修
 现在我们可以把 Mac 下面的复制、粘贴、剪切、全选等命令移植到 Emacs 中来了，并且这一套按键是跨平台的。
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "s-a") 'mark-whole-buffer) ;;对应Windows上面的Ctrl-a 全选
-(global-set-key (kbd "s-c") 'kill-ring-save) ;;对应Windows上面的Ctrl-c 复制
-(global-set-key (kbd "s-s") 'save-buffer) ;; 对应Windows上面的Ctrl-s 保存
-(global-set-key (kbd "s-v") 'yank) ;对应Windows上面的Ctrl-v 粘贴
-(global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
-(global-set-key (kbd "s-x") 'kill-region) ;对应Windows上面的Ctrol-x 剪切
+  (global-set-key (kbd "s-a") 'mark-whole-buffer) ;;对应Windows上面的Ctrl-a 全选
+  (global-set-key (kbd "s-c") 'kill-ring-save) ;;对应Windows上面的Ctrl-c 复制
+  (global-set-key (kbd "s-s") 'save-buffer) ;; 对应Windows上面的Ctrl-s 保存
+  (global-set-key (kbd "s-v") 'yank) ;对应Windows上面的Ctrl-v 粘贴
+  (global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
+  (global-set-key (kbd "s-x") 'kill-region) ;对应Windows上面的Ctrol-x 剪切
 #+end_src
 
 * 第二天： 打造属于你的记事本
@@ -174,7 +174,7 @@ Windows Registry Editor Version 5.00
 
 使用这个 OpenWithEmacs 的功能，Emacs 需要开启 Server Mode，代码如下：
 #+begin_src emacs-lisp
-(server-mode 1)
+  (server-mode 1)
 #+end_src
 * 第三天：Elisp 基础、Org 基础和包管理器
 
@@ -192,30 +192,30 @@ Windows Registry Editor Version 5.00
 下面为一些简单的例子
 
 #+BEGIN_SRC emacs-lisp
-    ;; 2 + 2
-    (+ 2 2)
+  ;; 2 + 2
+  (+ 2 2)
 
-    ;; 2 + 3 * 4
-    (+ 2 (* 3 4))
+  ;; 2 + 3 * 4
+  (+ 2 (* 3 4))
 
-    ;; 定义变量
-    (setq name "username")
-    (message name) ; -> "username"
+  ;; 定义变量
+  (setq name "username")
+  (message name) ; -> "username"
 
-    ;; 定义函数
-    (defun func ()
-      (message "Hello, %s" name))
+  ;; 定义函数
+  (defun func ()
+    (message "Hello, %s" name))
 
-    ;; 执行函数
-    (func) ; -> Hello, username
+  ;; 执行函数
+  (func) ; -> Hello, username
 
-    ;; 设置快捷键
-    (global-set-key (kbd "<f1>") 'func)
+  ;; 设置快捷键
+  (global-set-key (kbd "<f1>") 'func)
 
-    ;; 使函数可直接被调用可添加 (interactive)
-    (defun func ()
-      (interactive)
-      (message "Hello, %s" name))
+  ;; 使函数可直接被调用可添加 (interactive)
+  (defun func ()
+    (interactive)
+    (message "Hello, %s" name))
 #+END_SRC
 
 ** 开始 Hacking！
@@ -241,28 +241,28 @@ Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法
 （ =~/.emacs.d/init.el= ）即可。
 
 #+BEGIN_SRC emacs-lisp
-    ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
-    (tool-bar-mode -1)
+  ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+  (tool-bar-mode -1)
 
-    ;; 关闭文件滑动控件
-    (scroll-bar-mode -1)
+  ;; 关闭文件滑动控件
+  (scroll-bar-mode -1)
 
-    ;; 显示行号
-    (global-linum-mode 1)
+  ;; 显示行号
+  (global-linum-mode 1)
 
-    ;; 更改光标的样式（不能生效，解决方案见第二集）
-    (setq cursor-type 'bar)
+  ;; 更改光标的样式（不能生效，解决方案见第二集）
+  (setq cursor-type 'bar)
 
-    (icomplete-mode 1)
+  (icomplete-mode 1)
 
 
-    ;; 快速打开配置文件
-    (defun open-init-file()
-      (interactive)
-      (find-file "~/.emacs.d/init.el"))
+  ;; 快速打开配置文件
+  (defun open-init-file()
+    (interactive)
+    (find-file "~/.emacs.d/init.el"))
 
-    ;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
-    (global-set-key (kbd "<f2>") 'open-init-file)
+  ;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+  (global-set-key (kbd "<f2>") 'open-init-file)
 
 #+END_SRC
 
@@ -282,12 +282,12 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 使用的下面的配置将 Company-mode 在全局模式下激活
 
 #+BEGIN_SRC emacs-lisp
-    ; 开启全局 Company 补全
-    (global-company-mode 1)
+                                          ; 开启全局 Company 补全
+  (global-company-mode 1)
 
-    ;; company mode 默认选择上一条和下一条候选项命令 M-n M-p
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+  ;; company mode 默认选择上一条和下一条候选项命令 M-n M-p
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
 #+END_SRC
 
 ** Org-mode
@@ -296,9 +296,9 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 =C-c C-t= 可以将一个条目转换成一条待办事件。
 
 #+BEGIN_SRC org
-    * 为一级标题
-    ** 为二级标题
-    *** 为三级标题并以此类推
+  ,* 为一级标题
+  ,** 为二级标题
+  ,*** 为三级标题并以此类推
 #+END_SRC
 
 * 第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化
@@ -310,30 +310,30 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 ** 关于 lexical binding
 #+begin_src emacs-lisp
-;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
-;; -*- lexical-binding: t -*-
-(let ((x 1))    ; x is lexically bound.
-  (+ x 3))
-     ⇒ 4
+  ;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
+  ;; -*- lexical-binding: t -*-
+  (let ((x 1))    ; x is lexically bound.
+    (+ x 3))
+  ⇒ 4
 
-(defun getx ()
-  x)            ; x is used free in this function.
+  (defun getx ()
+    x)            ; x is used free in this function.
 
-(let ((x 1))    ; x is lexically bound.
-  (getx))
-;;error→ Symbol's value as variable is void: x
+  (let ((x 1))    ; x is lexically bound.
+    (getx))
+  ;;error→ Symbol's value as variable is void: x
 #+end_src
 
 关于[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][lexical binding]] 更多的细节，可以自行阅读 Emacs 的官方文档。
 
 #+begin_src emacs-lisp
-;; 更改显示字体大小 16pt
-;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
-(set-face-attribute 'default nil :height 160);;
+  ;; 更改显示字体大小 16pt
+  ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+  (set-face-attribute 'default nil :height 160);;
 
-;;让鼠标滚动更好用
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
-(setq mouse-wheel-progressive-speed nil)
+  ;;让鼠标滚动更好用
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+  (setq mouse-wheel-progressive-speed nil)
 
 #+end_src
 
@@ -349,54 +349,54 @@ lete *Any* thing）。因为默认的插件管理系统提供的插件十分有�
 
 
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+  (require 'package)
+  (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
-                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
-(package-initialize)
+                           ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+  (package-initialize)
 
-;;防止反复调用 package-refresh-contents 会影响加载速度
-(when (not package-archive-contents)
-  (package-refresh-contents))
+  ;;防止反复调用 package-refresh-contents 会影响加载速度
+  (when (not package-archive-contents)
+    (package-refresh-contents))
 
-;;modeline上显示我的所有的按键和执行的命令
-(package-install 'keycast)
-(keycast-mode t)
+  ;;modeline上显示我的所有的按键和执行的命令
+  (package-install 'keycast)
+  (keycast-mode t)
 #+END_SRC
 
 ** 增强 minibuffer 补全：[[https://github.com/minad/vertico][vertico]] 和 [[https://github.com/oantolin/orderless][Orderless]]
 
 #+begin_src emacs-lisp
-(package-install 'vertico)
-(vertico-mode t)
+  (package-install 'vertico)
+  (vertico-mode t)
 
-(package-install 'orderless)
-(setq completion-styles '(orderless))
+  (package-install 'orderless)
+  (setq completion-styles '(orderless))
 #+end_src
 
 ** 配置 [[https://github.com/minad/marginalia][Marginalia]] 增强 minubuffer 的 annotation
 
 #+begin_src emacs-lisp
-(package-install 'marginalia)
-(marginalia-mode t)
+  (package-install 'marginalia)
+  (marginalia-mode t)
 
 #+end_src
 
 ** minibuffer action 和自适应的 context menu：[[https://github.com/oantolin/embark][Embark]]
 #+begin_src emacs-lisp
 
-(package-install 'embark)
-(global-set-key (kbd "C-;") 'embark-act)
-(setq prefix-help-command 'embark-prefix-help-command)
+  (package-install 'embark)
+  (global-set-key (kbd "C-;") 'embark-act)
+  (setq prefix-help-command 'embark-prefix-help-command)
 
 #+end_src
 
 ** 增强文件内搜索和跳转函数定义：[[https://github.com/minad/consult][Consult]]
 #+begin_src emacs-lisp
-(package-install 'consult)
-;;replace swiper
-(global-set-key (kbd "C-s") 'consult-line)
-;;consult-imenu
+  (package-install 'consult)
+  ;;replace swiper
+  (global-set-key (kbd "C-s") 'consult-line)
+  ;;consult-imenu
 #+end_src
 
 
@@ -420,58 +420,58 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 
 
 #+BEGIN_SRC emacs-lisp
-    (setq-default cursor-type 'bar)
-    (show-paren-mode t)
+  (setq-default cursor-type 'bar)
+  (show-paren-mode t)
 
-    ;;另外一件安装插件的方法
-    (add-to-list 'load-path (expand-file-name "~/.emacs.d/awesome-tab/"))
+  ;;另外一件安装插件的方法
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/awesome-tab/"))
 
-    (require 'awesome-tab)
+  (require 'awesome-tab)
 
-    (awesome-tab-mode t)
+  (awesome-tab-mode t)
 
-    (defun awesome-tab-buffer-groups ()
+  (defun awesome-tab-buffer-groups ()
     "`awesome-tab-buffer-groups' control buffers' group rules.
-    Group awesome-tab with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
-    All buffer name start with * will group to \"Emacs\".
-    Other buffer group by `awesome-tab-get-group-name' with project name."
+  Group awesome-tab with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+  All buffer name start with * will group to \"Emacs\".
+  Other buffer group by `awesome-tab-get-group-name' with project name."
     (list
-    (cond
-        ((or (string-equal "*" (substring (buffer-name) 0 1))
-            (memq major-mode '(magit-process-mode
-                                magit-status-mode
-                                magit-diff-mode
-                                magit-log-mode
-                                magit-file-mode
-                                magit-blob-mode
-                                magit-blame-mode)))
-        "Emacs")
-        ((derived-mode-p 'eshell-mode)
-        "EShell")
-        ((derived-mode-p 'dired-mode)
-        "Dired")
-        ((memq major-mode '(org-mode org-agenda-mode diary-mode))
-        "OrgMode")
-        ((derived-mode-p 'eaf-mode)
-        "EAF")
-        (t
-        (awesome-tab-get-group-name (current-buffer))))))
+     (cond
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+           (memq major-mode '(magit-process-mode
+                              magit-status-mode
+                              magit-diff-mode
+                              magit-log-mode
+                              magit-file-mode
+                              magit-blob-mode
+                              magit-blame-mode)))
+       "Emacs")
+      ((derived-mode-p 'eshell-mode)
+       "EShell")
+      ((derived-mode-p 'dired-mode)
+       "Dired")
+      ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+       "OrgMode")
+      ((derived-mode-p 'eaf-mode)
+       "EAF")
+      (t
+       (awesome-tab-get-group-name (current-buffer))))))
 #+END_SRC
 
 其次就是它使用到了 =quote=, 它其实就是我们之前常常见到的 ='= （单引号）的完全体。
 因为它在 Lisp 中十分常用，所以就提供了简写的方法。
 
 #+BEGIN_SRC emacs-lisp
-    ;; 下面两行的效果完全相同的
-    (quote foo)
-    'foo
+  ;; 下面两行的效果完全相同的
+  (quote foo)
+  'foo
 #+END_SRC
 
 =quote= 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
 
 #+BEGIN_SRC emacs-lisp
-    (print '(+ 1 1)) ;; -> (+ 1 1)
-    (print (+ 1 1))  ;; -> 2
+  (print '(+ 1 1)) ;; -> (+ 1 1)
+  (print (+ 1 1))  ;; -> 2
 #+END_SRC
 
 更多关于 =quote= 的内容可以在[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html][这里]]找到，或者在[[http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp][这里]]找到 StackOverflow 上对于它的讨论。
@@ -481,19 +481,19 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
 
 #+BEGIN_SRC emacs-lisp
-    (setq make-backup-files nil)
+  (setq make-backup-files nil)
 #+END_SRC
 
 使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近
 编辑过的文件。
 
 #+BEGIN_SRC emacs-lisp
-    (require 'recentf)
-    (recentf-mode 1)
-    (setq recentf-max-menu-item 10)
+  (require 'recentf)
+  (recentf-mode 1)
+  (setq recentf-max-menu-item 10)
 
-    ;; 这个快捷键绑定可以用之后的插件 counsel 代替
-    ;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+  ;; 这个快捷键绑定可以用之后的插件 counsel 代替
+  ;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+END_SRC
 
 =require= 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统
@@ -503,7 +503,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 之后输入一个字符会替换掉你选中部分的文字。
 
 #+BEGIN_SRC emacs-lisp
-    (delete-selection-mode 1)
+  (delete-selection-mode 1)
 #+END_SRC
 
 下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用
@@ -517,28 +517,28 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 下载安装 [[https://github.com/m-parashar/emax64/releases/download/20200930/emax.7z][emax]]，配置 emacs 加载路径
 
 #+begin_src emacs-lisp
-(progn
-        (defvar emax-root (concat (expand-file-name "~") "/emax"))
-        (defvar emax-bin (concat emax-root "/bin"))
-        (defvar emax-bin64 (concat emax-root "/bin64"))
+  (progn
+    (defvar emax-root (concat (expand-file-name "~") "/emax"))
+    (defvar emax-bin (concat emax-root "/bin"))
+    (defvar emax-bin64 (concat emax-root "/bin64"))
 
-        (setq exec-path (cons emax-bin exec-path))
-        (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+    (setq exec-path (cons emax-bin exec-path))
+    (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
 
-        (setq exec-path (cons emax-bin64 exec-path))
-        (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+    (setq exec-path (cons emax-bin64 exec-path))
+    (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
 
-        (setq emacsd-bin (concat user-emacs-directory "bin"))
-        (setq exec-path (cons  emacsd-bin exec-path))
-        (setenv "PATH" (concat emacsd-bin  ";" (getenv "PATH")))
+    (setq emacsd-bin (concat user-emacs-directory "bin"))
+    (setq exec-path (cons  emacsd-bin exec-path))
+    (setenv "PATH" (concat emacsd-bin  ";" (getenv "PATH")))
 
-        ;;可选安装msys64
-        ;;下载地址: http://repo.msys2.org/mingw/sources/
-        (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+    ;;可选安装msys64
+    ;;下载地址: http://repo.msys2.org/mingw/sources/
+    (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
 
-        ;; (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/lisp/" "~/emax/elpa/"))
-        ;;   (add-to-list 'load-path dir))
-        )
+    ;; (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/lisp/" "~/emax/elpa/"))
+    ;;   (add-to-list 'load-path dir))
+    )
 #+end_src
 使用 M-x shell 来学习命令行操作，可以参考 https://missing.csail.mit.edu/2020/ 来学习，living in Emacs。
 * 第六天：Emacs 作为超级前端
@@ -555,7 +555,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
   (shell-command-to-string
    (encode-coding-string
     (replace-regexp-in-string "/" "\\\\"
-                  (format "explorer.exe %s" (expand-file-name "~/.emacs.d")))
+                              (format "explorer.exe %s" (expand-file-name "~/.emacs.d")))
     'gbk))
 
   (defun consult-directory-externally (file)
@@ -564,7 +564,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
     (if (and (eq system-type 'windows-nt)
              (fboundp 'w32-shell-execute))
         (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\"
-              (format "explorer.exe %s" (file-name-directory (expand-file-name file)))) 'gbk))
+                                                                                 (format "explorer.exe %s" (file-name-directory (expand-file-name file)))) 'gbk))
       (call-process (pcase system-type
                       ('darwin "open")
                       ('cygwin "cygstart")
@@ -572,7 +572,7 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
                     nil 0 nil
                     (file-name-directory (expand-file-name file)))))
 
-   (define-key embark-file-map (kbd "E") #'consult-directory-externally)
+  (define-key embark-file-map (kbd "E") #'consult-directory-externally)
   ;;打开当前文件的目录
   (defun my-open-current-directory ()
     (interactive)
@@ -583,49 +583,49 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 ** 增强 embark 和 consult，批量搜索替换大杀器
 
 #+BEGIN_SRC emacs-lisp
-(package-install 'embark-consult)
-(package-install 'wgrep)
-(setq wgrep-auto-save-buffer t)
+  (package-install 'embark-consult)
+  (package-install 'wgrep)
+  (setq wgrep-auto-save-buffer t)
 
-(eval-after-load
-    'consult
-  '(eval-after-load
-       'embark
-     '(progn
-        (require 'embark-consult)
-        (add-hook
-         'embark-collect-mode-hook
-         #'consult-preview-at-point-mode))))
+  (eval-after-load
+      'consult
+    '(eval-after-load
+         'embark
+       '(progn
+          (require 'embark-consult)
+          (add-hook
+           'embark-collect-mode-hook
+           #'consult-preview-at-point-mode))))
 
-(define-key minibuffer-local-map (kbd "C-c C-e") 'embark-export-write)
+  (define-key minibuffer-local-map (kbd "C-c C-e") 'embark-export-write)
 
-;;使用ripgrep来进行搜索
-;;consult-ripgrep
+  ;;使用ripgrep来进行搜索
+  ;;consult-ripgrep
 
-;;everyting
-;;consult-locate
-;; 配置搜索中文
-(progn
-  (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))
-  (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
-  )
-(eval-after-load 'consult
+  ;;everyting
+  ;;consult-locate
+  ;; 配置搜索中文
   (progn
+    (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))
+    (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
+    )
+  (eval-after-load 'consult
+    (progn
       (setq
-        consult-narrow-key "<"
-        consult-line-numbers-widen t
-        consult-async-min-input 2
-        consult-async-refresh-delay  0.15
-        consult-async-input-throttle 0.2
-        consult-async-input-debounce 0.1)
-    ))
+       consult-narrow-key "<"
+       consult-line-numbers-widen t
+       consult-async-min-input 2
+       consult-async-refresh-delay  0.15
+       consult-async-input-throttle 0.2
+       consult-async-input-debounce 0.1)
+      ))
 #+END_SRC
 
 ** 使用拼音进行搜索
 #+begin_src emacs-lisp
-(package-install 'pyim)
+  (package-install 'pyim)
 
-(defun eh-orderless-regexp (orig_func component)
+  (defun eh-orderless-regexp (orig_func component)
     (let ((result (funcall orig_func component)))
       (pyim-cregexp-build result)))
 
@@ -651,19 +651,19 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 高亮当前行，当文本内容很多时可以很容易找到光标的位置。
 
 #+BEGIN_SRC emacs-lisp
-    (global-hl-line-mode 1)
+  (global-hl-line-mode 1)
 #+END_SRC
 
 *安装主题*
 
 #+BEGIN_SRC emacs-lisp
-(package-install 'monokai-theme)
+  (package-install 'monokai-theme)
 #+END_SRC
 
 然后使用下面的配置使其每次打开编辑器时加载主题，
 
 #+BEGIN_SRC emacs-lisp
-    (load-theme 'monokai 1)
+  (load-theme 'monokai 1)
 #+END_SRC
 
 
@@ -696,8 +696,8 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 custom.el
 
 #+begin_src emacs-lisp
-(setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
-(load custom-file 'no-error 'no-message)
+  (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+  (load custom-file 'no-error 'no-message)
 #+end_src
 
 现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配
@@ -735,28 +735,28 @@ custom.el              # 存放使用编辑器接口产生的配置信息
 下面为 =~/.emacs.d/lisp/init-packages.el= 模块中的代码
 
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+  (require 'package)
+  (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
-			 ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
-(package-initialize)
+                           ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+  (package-initialize)
 
-;;防止反复调用 package-refresh-contents 会影响加载速度
-(when (not package-archive-contents)
-  (package-refresh-contents))
+  ;;防止反复调用 package-refresh-contents 会影响加载速度
+  (when (not package-archive-contents)
+    (package-refresh-contents))
 
-;; 文件末尾
-(provide 'init-packages)
+  ;; 文件末尾
+  (provide 'init-packages)
 #+END_SRC
 
 下面为 =~/.emacs.d/init.el= 入口文件中的代码
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; Package Management
-;; -----------------------------------------------------------------
-(require 'init-packages)
+  ;; Package Management
+  ;; -----------------------------------------------------------------
+  (require 'init-packages)
 #+END_SRC
 
 模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插
@@ -783,18 +783,18 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 使用 <s 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段 （Org-mode Easy Templates）可以在这里找到。
 
 #+BEGIN_SRC emacs-lisp
-(require 'org-tempo)  ;开启easy template
+  (require 'org-tempo)  ;开启easy template
 
-;; 禁用左尖括号
-(setq electric-pair-inhibit-predicate
-      `(lambda (c)
-         (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
+  ;; 禁用左尖括号
+  (setq electric-pair-inhibit-predicate
+        `(lambda (c)
+           (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (setq-local electric-pair-inhibit-predicate
-                        `(lambda (c)
-                           (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq-local electric-pair-inhibit-predicate
+                          `(lambda (c)
+                             (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -805,9 +805,9 @@ Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置�
 你需要将下面的代码放入配置入口文件（ =init.el= ）中，
 
 #+BEGIN_SRC emacs-lisp
-(require 'org-install)
-(require 'ob-tangle)
-(org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
+  (require 'org-install)
+  (require 'ob-tangle)
+  (org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
 #+END_SRC
 
 之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
@@ -831,14 +831,14 @@ https://github.com/trev-dev/emacs
 下面的代码可以使 Emacs 自动加载外部修改过的文件。
 
 #+BEGIN_SRC emacs-lisp
-(global-auto-revert-mode 1)
+  (global-auto-revert-mode 1)
 #+END_SRC
 
 使用下面的代码可以关闭自动生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的
 备份文件了，现在是关闭自动保存文件）。
 
 #+BEGIN_SRC emacs-lisp
-(setq auto-save-default nil)
+  (setq auto-save-default nil)
 #+END_SRC
 
 如果你发现你在使用中发现了那些编辑行为与你预期的不相符时，你可以通过搜索引擎去寻
@@ -848,7 +848,7 @@ https://github.com/trev-dev/emacs
 也许你并不喜欢听到错误时的“哔哔”的警告提示音，使用下面的代码你可以关闭 Emacs 中的警告音，
 
 #+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 'ignore)
+  (setq ring-bell-function 'ignore)
 #+END_SRC
 
 每一次当 Emacs 需要与你确认某个命令时需要输入 =(yes or no)= 比较麻烦，所有我们可
@@ -900,7 +900,7 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
    
 *** 安装 Use-package
 #+begin_src emacs-lisp
- (package-install 'use-package) 
+  (package-install 'use-package) 
 #+end_src
 
 *** 简介
@@ -1023,60 +1023,60 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 删除 company 这个包, 看看会出现什么
 
 *** 自动安装 
-    #+begin_src emacs-lisp
-      (require 'use-package-ensure)
-      (setq use-package-always-ensure t)
+#+begin_src emacs-lisp
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
 
-      ;; Setup `use-package'
-      (unless (package-installed-p 'use-package)
-        (package-refresh-contents)
-        (package-install 'use-package))
-    #+end_src
+  ;; Setup `use-package'
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+#+end_src
 这个选项会自动安装包，但是不会自动更新包到最新版本。
 - [ ] 清理所有的 package-install
 
 *** 保存光标历史，记住上个命令
-    #+begin_src emacs-lisp
-      (use-package savehist
-        :ensure nil
-        :hook (after-init . savehist-mode)
-        :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-                    history-length 1000
-                    savehist-additional-variables '(mark-ring
-                                                    global-mark-ring
-                                                    search-ring
-                                                    regexp-search-ring
-                                                    extended-command-history)
-                    savehist-autosave-interval 300)
-        )
+#+begin_src emacs-lisp
+  (use-package savehist
+    :ensure nil
+    :hook (after-init . savehist-mode)
+    :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+                history-length 1000
+                savehist-additional-variables '(mark-ring
+                                                global-mark-ring
+                                                search-ring
+                                                regexp-search-ring
+                                                extended-command-history)
+                savehist-autosave-interval 300)
+    )
 
-      (use-package saveplace
-        :ensure nil
-        :hook (after-init . save-place-mode))
-    #+end_src
+  (use-package saveplace
+    :ensure nil
+    :hook (after-init . save-place-mode))
+#+end_src
 
 *** 显示文件行、列、大小 ，美化状态栏
-    #+begin_src emacs-lisp
-      (use-package simple
-        :ensure nil
-        :hook (after-init . size-indication-mode)
-        :init
-        (progn
-          (setq column-number-mode t)
-          ))
+#+begin_src emacs-lisp
+  (use-package simple
+    :ensure nil
+    :hook (after-init . size-indication-mode)
+    :init
+    (progn
+      (setq column-number-mode t)
+      ))
 
-      ;;modeline上显示我的所有的按键和执行的命令
-      (package-install 'keycast)
-      (add-to-list 'global-mode-string '("" keycast-mode-line))
-      (keycast-mode t)
+  ;;modeline上显示我的所有的按键和执行的命令
+  (package-install 'keycast)
+  (add-to-list 'global-mode-string '("" keycast-mode-line))
+  (keycast-mode t)
 
-      ;; 这里的执行顺序非常重要，doom-modeline-mode 的激活时机一定要在设置global-mode-string 之后‘
-      (use-package doom-modeline
-        :ensure t
+  ;; 这里的执行顺序非常重要，doom-modeline-mode 的激活时机一定要在设置global-mode-string 之后‘
+  (use-package doom-modeline
+    :ensure t
 
-        :init
-        (doom-modeline-mode t))
-    #+end_src
+    :init
+    (doom-modeline-mode t))
+#+end_src
 
 
 * 第十天： orgmode 基础
@@ -1170,7 +1170,7 @@ https://gohugo.io/getting-started/installing/
 
 使用管理员权限打开 powershell
 #+begin_src sh
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 #+end_src
 
 安装完后，在 powershell 中输入 choco, 你会得到如下截图则说明安装成功：
@@ -1180,12 +1180,12 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 *** 安装 hugo
 #+begin_src sh 
-choco install hugo --confirm
+  choco install hugo --confirm
 #+end_src
 
 ** 新建博客站点
 #+begin_src sh
-hugo new site blog
+  hugo new site blog
 #+end_src
 
 使用 git 来管理你的博客系统：
@@ -1200,7 +1200,7 @@ hugo new site blog
 ** 安装 hugo 主题 even
 我们使用 git submodule 来安装：
 #+begin_src sh
-git submodule add https://github.com/olOwOlo/hugo-theme-even themes/even
+  git submodule add https://github.com/olOwOlo/hugo-theme-even themes/even
 #+end_src
 
 ** 测试站点
@@ -1219,10 +1219,10 @@ https://github.com/olOwOlo/hugo-theme-even
 首先我们需要安装 https://github.com/kaushalmodi/ox-hugo
 
 #+begin_src emacs-lisp
-(use-package ox-hugo
-  :ensure t   ;Auto-install the package from Melpa
-  :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
-  :after ox)
+  (use-package ox-hugo
+    :ensure t   ;Auto-install the package from Melpa
+    :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+    :after ox)
 #+end_src
 
 ox-hugo 有两种方式来写博客。
@@ -1232,30 +1232,30 @@ ox-hugo 有两种方式来写博客。
 使用 org capture 来新建博客：(注意 elisp 中 blog 文件的路径要替换成你自己的)
 
 #+begin_src emacs-lisp
-(with-eval-after-load 'org-capture
-      (defun org-hugo-new-subtree-post-capture-template ()
-        "Returns `org-capture' template string for new Hugo post.
-See `org-capture-templates' for more information."
-        (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
-               (fname (org-hugo-slug title)))
-          (mapconcat #'identity
-                     `(
-                       ,(concat "* TODO " title)
-                       ":PROPERTIES:"
-                       ,(concat ":EXPORT_FILE_NAME: " fname)
-                       ":END:"
-                       "\n\n")          ;Place the cursor here finally
-                     "\n")))
+  (with-eval-after-load 'org-capture
+    (defun org-hugo-new-subtree-post-capture-template ()
+      "Returns `org-capture' template string for new Hugo post.
+  See `org-capture-templates' for more information."
+      (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+             (fname (org-hugo-slug title)))
+        (mapconcat #'identity
+                   `(
+                     ,(concat "* TODO " title)
+                     ":PROPERTIES:"
+                     ,(concat ":EXPORT_FILE_NAME: " fname)
+                     ":END:"
+                     "\n\n")          ;Place the cursor here finally
+                   "\n")))
 
-      (add-to-list 'org-capture-templates
-                   '("h"                ;`org-capture' binding + h
-                     "Hugo post"
-                     entry
-                     ;; It is assumed that below file is present in `org-directory'
-                     ;; and that it has a "Blog Ideas" heading. It can even be a
-                     ;; symlink pointing to the actual location of all-posts.org!
-                     (file+headline "c:/Users/lionqu/blog/all-blog.org" "Blog Ideas")
-                     (function org-hugo-new-subtree-post-capture-template))))
+    (add-to-list 'org-capture-templates
+                 '("h"                ;`org-capture' binding + h
+                   "Hugo post"
+                   entry
+                   ;; It is assumed that below file is present in `org-directory'
+                   ;; and that it has a "Blog Ideas" heading. It can even be a
+                   ;; symlink pointing to the actual location of all-posts.org!
+                   (file+headline "c:/Users/lionqu/blog/all-blog.org" "Blog Ideas")
+                   (function org-hugo-new-subtree-post-capture-template))))
 #+end_src
 
 配置 all-blog.org, 让它在保存内容的时候自动生成博客内容。
@@ -1272,44 +1272,44 @@ https://ox-hugo.scripter.co/doc/auto-export-on-saving/
 https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
 修复一个运行报错：
 #+begin_src emacs-lisp
-  ;  (global-linum-mode 1)
+                                          ;  (global-linum-mode 1)
   (global-display-line-numbers-mode t)    ;修改成这个来显示行号，性能更好
 #+end_src
 ** 安装 mysys2
 1. 下载 https://www.msys2.org/
 2. 安装 C/C++ 必要的软件工具
-    #+begin_src  sh
-    pacman -Syu
-    pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb make mingw-w64-x86_64-clang mingw-w64-x86_64-clang-tools-extra
-    #+end_src
+   #+begin_src  sh
+     pacman -Syu
+     pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb make mingw-w64-x86_64-clang mingw-w64-x86_64-clang-tools-extra
+   #+end_src
 3. 设置环境变量
-    #+begin_src sh
-    C:\msys64\mingw64\bin
-    C:\msys64\usr\bin
-    #+end_src 
+   #+begin_src sh
+     C:\msys64\mingw64\bin
+     C:\msys64\usr\bin
+   #+end_src 
 
 ** 安装 eglot(Emacs 29 自带 eglot)
-    #+begin_src emacs-lisp
-      (require 'eglot)
-      (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-      (add-hook 'c-mode-hook #'eglot-ensure)
-      (add-hook 'c++-mode-hook #'eglot-ensure)
-    #+end_src
+#+begin_src emacs-lisp
+  (require 'eglot)
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-hook 'c-mode-hook #'eglot-ensure)
+  (add-hook 'c++-mode-hook #'eglot-ensure)
+#+end_src
 
 ** 一键运行代码
 1. 安装 quickrun:
-    #+begin_src emacs-lisp
-    (use-package quickrun
-        :ensure t
-        :commands (quickrun)
-        :init
-        (quickrun-add-command "c++/c1z"
-        '((:command . "g++")
-            (:exec . ("%c -std=c++1z %o -o %e %s"
-                    "%e %a"))
-            (:remove . ("%e")))
-        :default "c++"))
-    #+end_src
+   #+begin_src emacs-lisp
+     (use-package quickrun
+       :ensure t
+       :commands (quickrun)
+       :init
+       (quickrun-add-command "c++/c1z"
+         '((:command . "g++")
+           (:exec . ("%c -std=c++1z %o -o %e %s"
+                     "%e %a"))
+           (:remove . ("%e")))
+         :default "c++"))
+   #+end_src
 2. 自定义快捷键
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f5>") 'quickrun)
@@ -1486,51 +1486,51 @@ A special state entered after launching an operator, but before specifying the c
 #+end_src
 *** evil-collections
 #+begin_src emacs-lisp
-(use-package evil-collection
-  :ensure t
-  :demand t
-  :config
-  (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list))
-  (evil-collection-init)
+  (use-package evil-collection
+    :ensure t
+    :demand t
+    :config
+    (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list))
+    (evil-collection-init)
 
-   (cl-loop for (mode . state) in
-            '((org-agenda-mode . normal)
-              (Custom-mode . emacs)
-              (eshell-mode . emacs)
-              (makey-key-mode . motion))
-            do (evil-set-initial-state mode state))
+    (cl-loop for (mode . state) in
+             '((org-agenda-mode . normal)
+               (Custom-mode . emacs)
+               (eshell-mode . emacs)
+               (makey-key-mode . motion))
+             do (evil-set-initial-state mode state))
 
 #+end_src
 *** evil-surround
 #+begin_src emacs-lisp
-(use-package evil-surround
-  :ensure t
-  :init
-  (global-evil-surround-mode 1))
+  (use-package evil-surround
+    :ensure t
+    :init
+    (global-evil-surround-mode 1))
 #+end_src
 *** evil-nerd-commenter
 #+begin_src emacs-lisp
-(use-package evil-nerd-commenter
-  :init
-  (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-  (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-  )
+  (use-package evil-nerd-commenter
+    :init
+    (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+    (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+    )
 #+end_src
 *** evil-snipe
 #+begin_src emacs-lisp
-(use-package evil-snipe
-  :ensure t
-  :diminish
-  :init
-  (evil-snipe-mode +1)
-  (evil-snipe-override-mode +1))
+  (use-package evil-snipe
+    :ensure t
+    :diminish
+    :init
+    (evil-snipe-mode +1)
+    (evil-snipe-override-mode +1))
 #+end_src
 *** evil-matchit
 #+begin_src emacs-lisp
-(use-package evil-matchit
-  :ensure
-  :init
-  (global-evil-matchit-mode 1))
+  (use-package evil-matchit
+    :ensure
+    :init
+    (global-evil-matchit-mode 1))
 #+end_src
 ** 高阶用法（自定义 text-obj 或者 自定义 commands)
 1. https://github.com/noctuid/evil-guide#modes
@@ -1544,7 +1544,7 @@ A special state entered after launching an operator, but before specifying the c
 ** Some minor fix:
 #+begin_src emacs-lisp
 
-;; make c-j/c-k work in vertico selection
+  ;; make c-j/c-k work in vertico selection
   (define-key vertico-map (kbd "C-j") 'vertico-next)
   (define-key vertico-map (kbd "C-k") 'vertico-previous)
 
@@ -1554,19 +1554,19 @@ A special state entered after launching an operator, but before specifying the c
 #+end_src
 ** 多光标操作 iedit & evil-multiedit
 #+begin_src emacs-lisp
-(use-package iedit
-  :ensure t
-  :init
-  (setq iedit-toggle-key-default nil)
-  :config
-  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
-  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
+  (use-package iedit
+    :ensure t
+    :init
+    (setq iedit-toggle-key-default nil)
+    :config
+    (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+    (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
 
-(use-package evil-multiedit
-  :ensure t
-  :commands (evil-multiedit-default-keybinds)
-  :init
-  (evil-multiedit-default-keybinds))
+  (use-package evil-multiedit
+    :ensure t
+    :commands (evil-multiedit-default-keybinds)
+    :init
+    (evil-multiedit-default-keybinds))
 #+end_src
 ** expand-region
 #+begin_src emacs-lisp
@@ -1643,22 +1643,22 @@ A special state entered after launching an operator, but before specifying the c
             (lambda () (backward-char 2))
           (evil-ex command-string)))))
 
-(define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
+  (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
 #+end_src
 ** 安装 quelpa 插件
 #+begin_src emacs-lisp
-(use-package quelpa)
+  (use-package quelpa)
 
-(unless (package-installed-p 'quelpa-use-package)
-  (quelpa
-   '(quelpa-use-package
-     :fetcher git
-     :url "https://github.com/quelpa/quelpa-use-package.git")))
+  (unless (package-installed-p 'quelpa-use-package)
+    (quelpa
+     '(quelpa-use-package
+       :fetcher git
+       :url "https://github.com/quelpa/quelpa-use-package.git")))
 
-(use-package quelpa-use-package
-  :init
-  (setq quelpa-use-package-inhibit-loading-quelpa t)
-  :demand t)
+  (use-package quelpa-use-package
+    :init
+    (setq quelpa-use-package-inhibit-loading-quelpa t)
+    :demand t)
 #+end_src
 ** symbol-overlay & highlight-global
 #+begin_src emacs-lisp
@@ -1698,15 +1698,15 @@ http://ftp.gnu.org/gnu/windows/emacs/emacs-29/
 ** 安装 treesit-auto 插件
 https://github.com/renzmann/treesit-auto
 #+begin_src emacs-lisp
-(use-package treesit-auto
-  :demand t
-  :config
-  (setq treesit-auto-install 'prompt)
-  (global-treesit-auto-mode))
+  (use-package treesit-auto
+    :demand t
+    :config
+    (setq treesit-auto-install 'prompt)
+    (global-treesit-auto-mode))
 #+end_src
 ** 配置 fontlock level
 #+begin_src emacs-lisp
-    (setq treesit-font-lock-level 4)
+  (setq treesit-font-lock-level 4)
 #+end_src
 ** 跳转函数列表 consult-imenu
 #+begin_src emacs-lisp
@@ -1725,30 +1725,30 @@ https://github.com/renzmann/treesit-auto
 #+end_src
 ** 添加 snippets 支持
 #+begin_src emacs-lisp
-(use-package yasnippet
-  :ensure t
-  :hook ((prog-mode . yas-minor-mode)
-         (org-mode . yas-minor-mode))
-  :init
-  :config
-  (progn
-    (setq hippie-expand-try-functions-list
-          '(yas/hippie-try-expand
-            try-complete-file-name-partially
-            try-expand-all-abbrevs
-            try-expand-dabbrev
-            try-expand-dabbrev-all-buffers
-            try-expand-dabbrev-from-kill
-            try-complete-lisp-symbol-partially
-            try-complete-lisp-symbol))))
+  (use-package yasnippet
+    :ensure t
+    :hook ((prog-mode . yas-minor-mode)
+           (org-mode . yas-minor-mode))
+    :init
+    :config
+    (progn
+      (setq hippie-expand-try-functions-list
+            '(yas/hippie-try-expand
+              try-complete-file-name-partially
+              try-expand-all-abbrevs
+              try-expand-dabbrev
+              try-expand-dabbrev-all-buffers
+              try-expand-dabbrev-from-kill
+              try-complete-lisp-symbol-partially
+              try-complete-lisp-symbol))))
 
-(use-package yasnippet-snippets
-  :ensure t
-  :after yasnippet)
+  (use-package yasnippet-snippets
+    :ensure t
+    :after yasnippet)
 #+end_src
 ** 在头文件和源文件之间进行跳转
 #+begin_src emacs-lisp
-ff-find-related-file
+  ff-find-related-file
 #+end_src
 ** 参考链接
 - https://github.com/emacs-mirror/emacs/blob/master/admin/notes/tree-sitter/starter-guide
@@ -1756,4 +1756,198 @@ ff-find-related-file
 - https://mp.weixin.qq.com/s/kChdHIuh2ch9w5RiCHxo3w （Emacs 29 更新内容）
 - [[https://mp.weixin.qq.com/s?__biz=MzA4NDU1NTg2Ng==&mid=2452309008&idx=1&sn=c5f822e36cc38e6d91683495e029adac&chksm=883a8525bf4d0c336f6c1e3c9e2c934b751bd364f3e5565f9bb944b57a022b0d4aa6a5068146&cur_album_id=1930972115608928260&scene=189#wechat_redirect][Emacs Treesitter]]
 
+* 第十六天：窗口管理
+** Evil 的窗口选择操作
+- C-w h/j/j/k
+** 推荐插件
+*** [[https://github.com/nschum/window-numbering.el][window numbering]]
+
+#+begin_src emacs-lisp
+(use-package window-numbering
+  :init
+  :hook (after-init . window-numbering-mode))
+#+end_src
+*** [[https://github.com/sabof/es-windows][es-windows]]
+
+#+begin_src emacs-lisp
+(use-package es-windows
+  :ensure t)
+#+end_src
+*** [[https://github.com/nschum/window-numbering.el][Buffer move]] 
+
+#+begin_src emacs-lisp
+(use-package buffer-move
+  :ensure t)
+#+end_src
+*** [[https://github.com/dpsutton/resize-mode][Resize windows]] 
+#+begin_src emacs-lisp
+(use-package resize-window
+  :ensure t
+  :init
+  (defvar resize-window-dispatch-alist
+    '((?n resize-window--enlarge-down " Resize - Expand down" t)
+      (?p resize-window--enlarge-up " Resize - Expand up" t)
+      (?f resize-window--enlarge-horizontally " Resize - horizontally" t)
+      (?b resize-window--shrink-horizontally " Resize - shrink horizontally" t)
+      (?r resize-window--reset-windows " Resize - reset window layout" nil)
+      (?w resize-window--cycle-window-positive " Resize - cycle window" nil)
+      (?W resize-window--cycle-window-negative " Resize - cycle window" nil)
+      (?2 split-window-below " Split window horizontally" nil)
+      (?3 split-window-right " Slit window vertically" nil)
+      (?0 resize-window--delete-window " Delete window" nil)
+      (?K resize-window--kill-other-windows " Kill other windows (save state)" nil)
+      (?y resize-window--restore-windows " (when state) Restore window configuration" nil)
+      (?? resize-window--display-menu " Resize - display menu" nil))
+    "List of actions for `resize-window-dispatch-default.
+Main data structure of the dispatcher with the form:
+\(char function documentation match-capitals\)"))
+#+end_src
+*** Winner (builtin)
+#+begin_src emacs-lisp
+(use-package winner
+  :ensure nil
+  :commands (winner-undo winner-redo)
+  :hook (after-init . winner-mode)
+  :init (setq winner-boring-buffers '("*Completions*"
+                                      "*Compile-Log*"
+                                      "*inferior-lisp*"
+                                      "*Fuzzy Completions*"
+                                      "*Apropos*"
+                                      "*Help*"
+                                      "*cvs*"
+                                      "*Buffer List*"
+                                      "*Ibuffer*"
+                                      "*esh command on file*")))
+#+end_src
+*** [[https://github.com/karthink/popper][Popper]]
+#+begin_src emacs-lisp
+  (use-package popper
+    :defines popper-echo-dispatch-actions
+    :commands popper-group-by-directory
+    :bind (:map popper-mode-map
+                ("s-`" . popper-toggle-latest)
+                ("s-o"   . popper-cycle)
+                ("M-`" . popper-toggle-type))
+    :hook (emacs-startup . popper-mode)
+    :init
+    (setq popper-reference-buffers
+          '("\\*Messages\\*"
+            "Output\\*$" "\\*Pp Eval Output\\*$"
+            "\\*Compile-Log\\*"
+            "\\*Completions\\*"
+            "\\*Warnings\\*"
+            "\\*Flymake diagnostics.*\\*"
+            "\\*Async Shell Command\\*"
+            "\\*Apropos\\*"
+            "\\*Backtrace\\*"
+            "\\*prodigy\\*"
+            "\\*Calendar\\*"
+            "\\*Embark Actions\\*"
+            "\\*Finder\\*"
+            "\\*Kill Ring\\*"
+            "\\*Embark Export:.*\\*"
+            "\\*Edit Annotation.*\\*"
+            "\\*Flutter\\*"
+            bookmark-bmenu-mode
+            lsp-bridge-ref-mode
+            comint-mode
+            compilation-mode
+            help-mode helpful-mode
+            tabulated-list-mode
+            Buffer-menu-mode
+            occur-mode
+            gnus-article-mode devdocs-mode
+            grep-mode occur-mode rg-mode deadgrep-mode ag-mode pt-mode
+            ivy-occur-mode ivy-occur-grep-mode
+            process-menu-mode list-environment-mode cargo-process-mode
+            youdao-dictionary-mode osx-dictionary-mode fanyi-mode
+
+            "^\\*eshell.*\\*.*$" eshell-mode
+            "^\\*shell.*\\*.*$"  shell-mode
+            "^\\*terminal.*\\*.*$" term-mode
+            "^\\*vterm.*\\*.*$"  vterm-mode
+
+            "\\*DAP Templates\\*$" dap-server-log-mode
+            "\\*ELP Profiling Restuls\\*" profiler-report-mode
+            "\\*Flycheck errors\\*$" " \\*Flycheck checker\\*$"
+            "\\*Paradox Report\\*$" "\\*package update results\\*$" "\\*Package-Lint\\*$"
+            "\\*[Wo]*Man.*\\*$"
+            "\\*ert\\*$" overseer-buffer-mode
+            "\\*gud-debug\\*$"
+            "\\*lsp-help\\*$" "\\*lsp session\\*$"
+            "\\*quickrun\\*$"
+            "\\*tldr\\*$"
+            "\\*vc-.*\\*$"
+            "\\*eldoc\\*"
+            "^\\*elfeed-entry\\*$"
+            "^\\*macro expansion\\**"
+
+            "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*"
+            "\\*Gofmt Errors\\*$" "\\*Go Test\\*$" godoc-mode
+            "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"
+            "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
+            "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
+            rustic-cargo-outdated-mode rustic-cargo-test-moed))
+
+    (when (display-grayscale-p)
+      (setq popper-mode-line
+            '(:eval
+              (concat
+               (propertize " " 'face 'mode-line-emphasis)
+               (all-the-icons-octicon "pin" :height 0.9 :v-adjust 0.0 :face 'mode-line-emphasis)
+               (propertize " " 'face 'mode-line-emphasis)))))
+
+    (setq popper-echo-dispatch-actions t)
+    (setq popper-group-function nil)
+    :config
+    (popper-echo-mode 1)
+
+    (with-no-warnings
+      (defun my-popper-fit-window-height (win)
+        "Determine the height of popup window WIN by fitting it to the buffer's content."
+        (fit-window-to-buffer
+         win
+         (floor (frame-height) 3)
+         (floor (frame-height) 3)))
+      (setq popper-window-height #'my-popper-fit-window-height)
+
+      (defun popper-close-window-hack (&rest _)
+        "Close popper window via `C-g'."
+        ;; `C-g' can deactivate region
+        (when (and (called-interactively-p 'interactive)
+                   (not (region-active-p))
+                   popper-open-popup-alist)
+          (let ((window (caar popper-open-popup-alist)))
+            (when (window-live-p window)
+              (delete-window window)))))
+      (advice-add #'keyboard-quit :before #'popper-close-window-hack)))
+#+end_src
+** 按键绑定
+#+begin_src emacs-lisp
+  (global-definer
+    ;; 这里是其他的快捷键
+    "0" 'select-window-0
+    "1" 'select-window-1
+    "2" 'select-window-2
+    "3" 'select-window-3
+    "4" 'select-window-4
+    "5" 'select-window-5)
+
+  (+general-global-menu! "window" "w"
+    "/" 'split-window-right
+    "-" 'split-window-below
+    "m" 'delete-other-windows
+    "u" 'winner-undo
+    "z" 'winner-redo
+    "w" 'esw/select-window
+    "s" 'esw/swap-two-windows
+    "d" 'esw/delete-window
+    "=" 'balance-windows-area
+    "r" 'esw/move-window
+    "x" 'resize-window
+    "H" 'buf-move-left
+    "L" 'buf-move-right
+    "J" 'buf-move-down
+    "K" 'buf-move-up)
+#+end_src
 
