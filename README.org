@@ -1956,7 +1956,7 @@ Main data structure of the dispatcher with the form:
 偏爱使用 Emacs 内置 package
 ** 使用内置的 tab-bar-mode
 #+begin_src emacs-lisp
-  (use-package tab-bar-mode
+  (use-package tab-bar
     :ensure nil
     :init
     (tab-bar-mode t)
