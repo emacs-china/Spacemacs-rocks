@@ -2141,18 +2141,21 @@ pacman -S mingw64/mingw-w64-x86_64-aspell-en
 1. add "*C:\msys64\mingw64\bin" to  to PATH
 2. Error: The file "c:\msys64\mingw64/lib/aspell-0.60/﻿en_US" can not be opened for reading.
 
-** YouDao Dictionary 
+** Fanyi Dictionary 
 *** How to install 
 #+begin_src emacs-lisp
-(use-package youdao-dictionary
-  :commands (youdao-dictionary-search-at-point+)
-  :init
-  (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
-#+end_src
-*** Config the app Key and app secret 
-#+begin_src sh
-export YOUDAO_SECRET_KEY=your-own-secret-key
-export YOUDAO_APP_KEY=your-own-app-key
+(use-package fanyi
+  :ensure t
+  :custom
+  (fanyi-providers '(;; 海词
+                     ;; fanyi-haici-provider
+                     ;; 有道同义词词典
+                     fanyi-youdao-thesaurus-provider
+                     ;; Etymonline
+                     fanyi-etymon-provider
+                     ;; Longman
+                     ;; fanyi-longman-provider)
+		   )))
 #+end_src
 ** Some useful keybindings
 #+begin_src emacs-lisp
