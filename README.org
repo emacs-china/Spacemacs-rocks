@@ -2081,7 +2081,37 @@ Main data structure of the dispatcher with the form:
 #+ATTR_HTML: :width 300px
 ** Org Protocol
 *** How to config
-*** Capture links and paragraphs 
+**** 1. Step 1: Get emacsclient to work
+**** 2. 生成 org-protocol.reg
+#+begin_src sh
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\org-protocol]
+"URL Protocol"=""
+@="URL:Org Protocol"
+
+[HKEY_CLASSES_ROOT\org-protocol\shell]
+
+[HKEY_CLASSES_ROOT\org-protocol\shell\open]
+
+[HKEY_CLASSES_ROOT\org-protocol\shell\open\command]
+@="\"C:\\Program Files\\Emacs\\emacs-29.1\\bin\\emacsclientw.exe\"  \"%1\""
+#+end_src
+**** 3. add org templates
+#+begin_src emacs-lisp
+  (setq org-agenda-file-note (expand-file-name "~/notes.org"))
+  (setq org-capture-templates
+        '(
+          ("x" "Web Collections" entry
+           (file+headline org-agenda-file-note "Web")
+           "* %U %:annotation\n\n%:initial\n\n%?")
+          ))
+#+end_src
+**** 4. add chrome bookmark 
+#+begin_src sh
+javascript:location.href='org-protocol://capture?template=x&url=%27+encodeURIComponent(location.href)+%27&title=%27+encodeURIComponent(document.title)+%27&body=%27+encodeURIComponent(function(){var html = "";var sel = window.getSelection();if (sel.rangeCount) {var container = document.createElement("div");for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());}html = container.innerHTML;}var dataDom = document.createElement(%27div%27);dataDom.innerHTML = html;dataDom.querySelectorAll(%27a%27).forEach(function(item, idx) {console.log(%27find a link%27);var url = new URL(item.href, window.location.href).href;var content = item.innerText;item.innerText = %27[[%27+url+%27][%27+content+%27]]%27;});[%27p%27, %27h1%27, %27h2%27, %27h3%27, %27h4%27].forEach(function(tag, idx){dataDom.querySelectorAll(tag).forEach(function(item, index) {var content = item.innerHTML.trim();if (content.length > 0) {item.innerHTML = content + %27&#13;&#10;';}});});return dataDom.innerText.trim();}())
+#+end_src
+
 ** Spell checking
 *** Install emacs packages
 #+begin_src emacs-lisp
@@ -2134,6 +2164,7 @@ export YOUDAO_APP_KEY=your-own-app-key
 * 第十九天： Org Roam 与中文输入法 Rime
 ** 安装 Org Oram
 ** Oram 基本使用
+** Org roam UI and Org roam server
 ** 安装 Rime
 
 
