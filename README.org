@@ -2065,21 +2065,34 @@ Main data structure of the dispatcher with the form:
 *** How to install 
 *** Capture links and paragraphs 
 ** Spell checking
+*** Install emacs packages
 #+begin_src emacs-lisp
 
-  (use-package flyspell-correct
-    :ensure t
-    :init)
+    (use-package flyspell-correct
+      :ensure t
+      :init)
 
-  (use-package ispell
-    :ensure nil
-    :init
-    (if sys/win32p
-        (setq ispell-program-name "aspell"))
-    (dolist (hook '(text-mode-hook))
-      (add-hook hook (lambda () (flyspell-mode 1))))
-    (ispell-change-dictionary "american" t))
+    (use-package ispell
+      :ensure nil
+      :init
+      (setq ispell-program-name "aspell")
+      (dolist (hook '(text-mode-hook))
+        (add-hook hook (lambda () (flyspell-mode 1))))
+      (setq ispell-personal-dictionary "c:/msys64/mingw64/lib/aspell-0.60/en_GB")
+  )
+
+      (define-key evil-insert-state-map (kbd "C-;") 'flyspell-correct-previous)
+
 #+end_src
+*** Install spell 
+#+begin_src sh
+pacman -S mingw64/mingw-w64-x86_64-aspell
+pacman -S mingw64/mingw-w64-x86_64-aspell-en
+#+end_src
+*** Configuration 
+1. add "*C:\msys64\mingw64\bin" to  to PATH
+2. Error: The file "c:\msys64\mingw64/lib/aspell-0.60/﻿en_US" can not be opened for reading.
+
 ** YouDao Dictionary 
 *** How to install 
 #+begin_src emacs-lisp
@@ -2108,4 +2121,4 @@ export YOUDAO_APP_KEY=your-own-app-key
 
 * 第二十天：Emacs 配置问题排查
 
-* 第二十一天： 优化启动性能，借鉴其他人的配置
+* 第二十一天： 优化性能，借鉴其他人的配置
