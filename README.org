@@ -2163,6 +2163,26 @@ export YOUDAO_APP_KEY=your-own-app-key
 
 * 第十九天： Org Roam 与中文输入法 Rime
 ** 安装 Org Oram
+在 HOME 新建一个 org 目录夹，用来存储你的 org roam 笔记。
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
+#+end_src
 ** Oram 基本使用
 ** Org roam UI and Org roam server
 ** 安装 Rime
