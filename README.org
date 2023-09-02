@@ -2056,3 +2056,56 @@ Main data structure of the dispatcher with the form:
 ** 工作流介绍
 - 自动加载 workspace
 - 手动加载 workspace(减少启动时间)
+
+* 第十八天： Org-mode 进阶
+** Org Download
+*** how to install 
+*** Change image size
+** Org Protocol
+*** How to install 
+*** Capture links and paragraphs 
+** Spell checking
+#+begin_src emacs-lisp
+
+  (use-package flyspell-correct
+    :ensure t
+    :init)
+
+  (use-package ispell
+    :ensure nil
+    :init
+    (if sys/win32p
+        (setq ispell-program-name "aspell"))
+    (dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+    (ispell-change-dictionary "american" t))
+#+end_src
+** YouDao Dictionary 
+*** How to install 
+#+begin_src emacs-lisp
+(use-package youdao-dictionary
+  :commands (youdao-dictionary-search-at-point+)
+  :init
+  (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
+#+end_src
+*** Config the app Key and app secret 
+#+begin_src sh
+export YOUDAO_SECRET_KEY=your-own-secret-key
+export YOUDAO_APP_KEY=your-own-app-key
+#+end_src
+** Some useful keybindings
+#+begin_src emacs-lisp
+  C-RET  for creating new headlines
+  M-RET  for creating new lists
+  M-left/right/up/down
+#+end_src
+
+* 第十九天： Org Roam 与中文输入法 Rime
+** 安装 Org Oram
+** Oram 基本使用
+** 安装 Rime
+
+
+* 第二十天：Emacs 配置问题排查
+
+* 第二十一天： 优化启动性能，借鉴其他人的配置
