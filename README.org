@@ -2060,9 +2060,27 @@ Main data structure of the dispatcher with the form:
 * 第十八天： Org-mode 进阶
 ** Org Download
 *** how to install 
+#+begin_src emacs-lisp
+(use-package org-download
+    :ensure t
+    :demand t
+    :after org
+    :config
+    (add-hook 'dired-mode-hook 'org-download-enable)
+    (setq org-download-screenshot-method "powershell -c Add-Type -AssemblyName System.Windows.Forms;$image = [Windows.Forms.Clipboard]::GetImage();$image.Save('%s', [System.Drawing.Imaging.ImageFormat]::Png)")
+    (defun org-download-annotate-default (link)
+      "Annotate LINK with the time of download."
+      (make-string 0 ?\s))
+
+    (setq-default org-download-heading-lvl nil
+                  org-download-image-dir "./img"
+                  ;; org-download-screenshot-method "screencapture -i %s"
+                  org-download-screenshot-file (expand-file-name "screenshot.jpg" temporary-file-directory)))
+#+end_src
 *** Change image size
+#+ATTR_HTML: :width 300px
 ** Org Protocol
-*** How to install 
+*** How to config
 *** Capture links and paragraphs 
 ** Spell checking
 *** Install emacs packages
