@@ -2168,7 +2168,7 @@ pacman -S mingw64/mingw-w64-x86_64-aspell-en
   M-left/right/up/down
 #+end_src
 
-* 第十九天： Org Roam 与中文输入法 Rime
+* 第十九天： Org Roam
 ** 安装 Org Oram
 在 HOME 新建一个 org 目录夹，用来存储你的 org roam 笔记。
 #+begin_src emacs-lisp
