@@ -2059,6 +2059,9 @@ Main data structure of the dispatcher with the form:
 
 * 第十八天： Org-mode 进阶
 ** Org Download
+#+begin_src emacs-lisp
+(org-return-follows-link t)
+#+end_src
 *** how to install 
 #+begin_src emacs-lisp
 (use-package org-download
@@ -2079,6 +2082,7 @@ Main data structure of the dispatcher with the form:
 #+end_src
 *** Change image size
 #+ATTR_HTML: :width 300px
+use yasnippets
 ** Org Protocol
 *** How to config
 **** 1. Step 1: Get emacsclient to work
@@ -2168,29 +2172,69 @@ pacman -S mingw64/mingw-w64-x86_64-aspell-en
 ** 安装 Org Oram
 在 HOME 新建一个 org 目录夹，用来存储你的 org roam 笔记。
 #+begin_src emacs-lisp
-(use-package org-roam
-  :ensure t
-  :custom
-  (org-roam-directory (file-truename "~/org"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+  (use-package org-roam
+    :ensure t
+    :custom
+    (org-roam-directory (file-truename "~/org"))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n g" . org-roam-graph)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n c" . org-roam-capture)
+           ;; Dailies
+           ("C-c n j" . org-roam-dailies-capture-today))
+    :config
+    ;; If you're using a vertical completion framework, you might want a more informative completion interface
+    (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+    (org-roam-db-autosync-mode)
+    ;; If using org-roam-protocol
+    (require 'org-roam-protocol))
 #+end_src
-** Oram 基本使用
+** Org roam 基本使用
+*** 安装 corfu 来进行补全
+#+begin_src emacs-lisp
+(use-package corfu
+  :init
+  (progn
+    (setq corfu-auto t)
+    (setq corfu-cycle t)
+    (setq corfu-quit-at-boundary t)
+    (setq corfu-quit-no-match t)
+    (setq corfu-preview-current nil)
+    (setq corfu-min-width 80)
+    (setq corfu-max-width 100)
+    (setq corfu-auto-delay 0.2)
+    (setq corfu-auto-prefix 1)
+    (setq corfu-on-exact-match nil)
+    (global-corfu-mode)
+    ))
+#+end_src
+*** 新建笔记和查找笔记
+C-c n f
+*** 建立笔记引用
+[[]] 
+*** 查找引用
+org-return-follows-link t
+c-c n l (org-roam-buffer-toggle)
+
+*** 已有的 headline 转换为一个节点
+org-id-get-create
+refile node
 ** Org roam UI and Org roam server
 ** 安装 Rime
 
 
 * 第二十天：Emacs 配置问题排查
+** 不能安装包，提示签名错误
+Failed to verify signature archive-contents.sig
+
+#+begin_src emacs-lisp
+(let ((package-check-signature nil))
+   (package-install 'gnu-elpa-keyring-update))
+#+end_src
+
+ [[https://emacs-china.org/t/failed-to-verify-signature-archive-contents-sig/20508/5][Failed to verify signature archive-contents.sig - Emacs-general - Emacs China]]
+** 配置有问题，启动不了怎么办？
+** 依赖不对怎么办？
 
 * 第二十一天： 优化性能，借鉴其他人的配置
