@@ -2220,21 +2220,122 @@ c-c n l (org-roam-buffer-toggle)
 *** 已有的 headline 转换为一个节点
 org-id-get-create
 refile node
-** Org roam UI and Org roam server
-** 安装 Rime
+** 直接从 github 安装插件
+#+begin_src emacs-lisp
+(require 'cl-lib)
+(require 'use-package-core)
+
+(cl-defun slot/vc-install (&key (fetcher "github") repo name rev backend)
+  (let* ((url (format "https://www.%s.com/%s" fetcher repo))
+         (iname (when name (intern name)))
+         (package-name (or iname (intern (file-name-base repo)))))
+    (unless (package-installed-p package-name)
+      (package-vc-install url iname rev backend))))
+
+(defvar package-vc-use-package-keyword :vc)
+
+(defun package-vc-use-package-set-keyword ()
+  (unless (member package-vc-use-package-keyword use-package-keywords)
+    (setq use-package-keywords
+          (let* ((pos (cl-position :unless use-package-keywords))
+                 (head (cl-subseq use-package-keywords 0 (+ 1 pos)))
+                 (tail (nthcdr (+ 1 pos) use-package-keywords)))
+            (append head (list package-vc-use-package-keyword) tail)))))
+
+(defun use-package-normalize/:vc (name-symbol keyword args)
+  (let ((arg (car args)))
+    (pcase arg
+      ((or `nil `t) (list name-symbol))
+      ((pred symbolp) args)
+      ((pred listp) (cond
+                     ((listp (car arg)) arg)
+                     ((string-match "^:" (symbol-name (car arg))) (cons name-symbol arg))
+                     ((symbolp (car arg)) args)))
+      (_ nil))))
+
+(defun use-package-handler/:vc (name-symbol keyword args rest state)
+  (let ((body (use-package-process-keywords name-symbol rest state)))
+    ;; This happens at macro expansion time, not when the expanded code is
+    ;; compiled or evaluated.
+    (if args
+        (use-package-concat
+         `((unless (package-installed-p ',(pcase (car args)
+                                            ((pred symbolp) (car args))
+                                            ((pred listp) (car (car args)))))
+             (apply #'slot/vc-install ',(cdr args))))
+         body)
+      body)))
+
+(defun package-vc-use-package-override-:ensure (func name-symbol keyword ensure rest state)
+  (let ((ensure (if (plist-member rest :vc)
+                    nil
+                  ensure)))
+    (funcall func name-symbol keyword ensure rest state)))
+
+(defun package-vc-use-package-activate-advice ()
+  (advice-add
+   'use-package-handler/:ensure
+   :around
+   #'package-vc-use-package-override-:ensure))
+
+(defun package-vc-use-package-deactivate-advice ()
+  (advice-remove
+   'use-package-handler/:ensure
+   #'package-vc-use-package-override-:ensure))
+
+;; register keyword on require
+(package-vc-use-package-set-keyword)
+#+end_src
+** Org roam UI
+#+begin_src emacs-lisp
+  (use-package org-roam-ui
+    :vc (:fetcher "github" :repo "org-roam/org-roam-ui"))
+#+end_src
+- 鼠标操作
+- 可视化
+- 实时显示链接
 
 
 * 第二十天：Emacs 配置问题排查
+** 配置有问题，启动不了怎么办？
+emacs-debug --init
 ** 不能安装包，提示签名错误
 Failed to verify signature archive-contents.sig
 
 #+begin_src emacs-lisp
-(let ((package-check-signature nil))
-   (package-install 'gnu-elpa-keyring-update))
+  (setq package-check-signature nil)
 #+end_src
 
  [[https://emacs-china.org/t/failed-to-verify-signature-archive-contents-sig/20508/5][Failed to verify signature archive-contents.sig - Emacs-general - Emacs China]]
-** 配置有问题，启动不了怎么办？
-** 依赖不对怎么办？
+** a pax extended header, 包解压失败，可以使用 use-package :vc 直接安装
+使用 mysys2 的时候，系统会使用 unix 的 tar 去解压会有问题
+windows 上面需要使用 system32/tar 这个程序去解压。
+#+begin_src emacs-lisp
+解决办法可以是 mv /usr/bin/tar /usr/bin/tarbak
+#+end_src
+** 上 Emacs China! 上 Emacs China! 上 Emacs China! （重要的事情说 3 遍）
 
 * 第二十一天： 优化性能，借鉴其他人的配置
+** how to Profile performace
+** 怎么度量启动性能
+#+begin_src emacs-lisp
+(use-package benchmark-init
+  :ensure t
+  :demand t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
+** use-package 哪些操作可以优化性能
+https://systemcrafters.net/emacs-from-scratch/cut-start-up-time-in-half/
+** 借鉴大佬的配置，作为框架
+*** 社区配置
+Spacemacs & DoomEmacs 
+
+*** 个人配置
+- https://github.com/purcell/emacs.d
+- https://github.com/bbatsov/prelude
+- https://github.com/bbatsov/prelude
+- https://github.com/seagle0128/.emacs.d
+- https://github.com/zilongshanren/emacs.d （子龙山人）
+
