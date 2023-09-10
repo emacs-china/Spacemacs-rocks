@@ -2059,9 +2059,6 @@ Main data structure of the dispatcher with the form:
 
 * 第十八天： Org-mode 进阶
 ** Org Download
-#+begin_src emacs-lisp
-(org-return-follows-link t)
-#+end_src
 *** how to install 
 #+begin_src emacs-lisp
 (use-package org-download
@@ -2081,7 +2078,8 @@ Main data structure of the dispatcher with the form:
                   org-download-screenshot-file (expand-file-name "screenshot.jpg" temporary-file-directory)))
 #+end_src
 *** Change image size
-#+ATTR_HTML: :width 300px
+#+ATTR_HTML: :width 1000px
+
 use yasnippets
 ** Org Protocol
 *** How to config
@@ -2115,6 +2113,11 @@ Windows Registry Editor Version 5.00
 #+begin_src sh
 javascript:location.href='org-protocol://capture?template=x&url=%27+encodeURIComponent(location.href)+%27&title=%27+encodeURIComponent(document.title)+%27&body=%27+encodeURIComponent(function(){var html = "";var sel = window.getSelection();if (sel.rangeCount) {var container = document.createElement("div");for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());}html = container.innerHTML;}var dataDom = document.createElement(%27div%27);dataDom.innerHTML = html;dataDom.querySelectorAll(%27a%27).forEach(function(item, idx) {console.log(%27find a link%27);var url = new URL(item.href, window.location.href).href;var content = item.innerText;item.innerText = %27[[%27+url+%27][%27+content+%27]]%27;});[%27p%27, %27h1%27, %27h2%27, %27h3%27, %27h4%27].forEach(function(tag, idx){dataDom.querySelectorAll(tag).forEach(function(item, index) {var content = item.innerHTML.trim();if (content.length > 0) {item.innerHTML = content + %27&#13;&#10;';}});});return dataDom.innerText.trim();}())
 #+end_src
+**** 6. return follow link 
+#+begin_src emacs-lisp
+(org-return-follows-link t)
+#+end_src
+
 
 ** Spell checking
 *** Install emacs packages
