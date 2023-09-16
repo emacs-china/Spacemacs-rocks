@@ -2078,7 +2078,9 @@ Main data structure of the dispatcher with the form:
                   org-download-screenshot-file (expand-file-name "screenshot.jpg" temporary-file-directory)))
 #+end_src
 *** Change image size
+#+begin_src 
 #+ATTR_HTML: :width 1000px
+#+end_src
 
 use yasnippets
 ** Org Protocol
