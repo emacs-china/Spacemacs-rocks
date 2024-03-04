@@ -675,7 +675,9 @@ variable）的时候，比如这里的 =cursor-type= ，我们需要区分 =setq
 
 * 第七天：模块化配置文件管理
 
-视频地址如下
+视频地址如下:
+- [[https://www.youtube.com/watch?v=_imJVq7KNvA][Youtube]]
+- [[https://www.bilibili.com/video/BV1yR4y1P7sD/?vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
 
 ** 使用多文件存储配置文件
 
@@ -822,6 +824,8 @@ https://github.com/trev-dev/emacs
 * 第八天：macro 和 use-package
 
 视频地址如下
+- [[https://www.youtube.com/watch?v=j8Ietu_bMjE&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=9][Youtube]]
+- [[https://www.bilibili.com/video/BV1gF411j7VK/?vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
 
 ** 更好的默认设置
 
@@ -1010,6 +1014,9 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 * 第九天 Use-package 更多设置
 
+视频地址如下:
+- [[https://www.youtube.com/watch?v=X_sj5_5YiWk&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=11][Youtube]]
+- [[https://www.bilibili.com/video/BV1xv4y137vS/?vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
 ** Use-package 和更多默认设置
 
 *** 安装 restart-emacs 
@@ -1080,6 +1087,11 @@ Use-package 的更多信息参见以下地址: [[https://github.com/jwiegley/use
 
 
 * 第十天： orgmode 基础
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=nocgop6CHRI&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=12][Youtube]]
+- [[https://www.bilibili.com/video/BV1ES4y1B7Df/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** org mode 简介
 *** 查看 orgmode 版本号
 
@@ -1158,6 +1170,11 @@ in agenda view ,
 https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
 
 * 第十一天：使用 ox-hugo 来写博客
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=NWaiqi89tgk&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=14][Youtube]]
+- [[https://www.bilibili.com/video/BV1ZR4y1X7D7/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 使用 org mode 写博客，然后托管在 Github 上面，我们可以打造一个非常好用便捷且免费的写作系统。
 ** 安装 hugo
 在 windows 上面安装 hugo 有多种方法，本文使用 chocolatey 包管理器。
@@ -1268,6 +1285,11 @@ https://ox-hugo.scripter.co/doc/auto-export-on-saving/
 3. 添加 github workflow
 
 * 第十二天： 使用 eglot 来编写、运行和调试 C/C++ 代码
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=6zN3RYwaHYY&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=16][Youtube]]
+- [[https://www.bilibili.com/video/BV1QF41197g7/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** 安装 Emacs 29 （pretest 版本下载地址）
 https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
 修复一个运行报错：
@@ -1334,6 +1356,11 @@ https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D
 | break 11 if xxx | 条件断点                                               |
 
 * 第十三天：使用 Evil, 地球上最厉害的 vim 按键模拟
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=QqFaKyQ_pZ8&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=13][Youtube]]
+- [[https://www.bilibili.com/video/BV1T14y1X7CW/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** 安装 Evil
 *** Install from melpa
 #+begin_src emacs-lisp
@@ -1541,6 +1568,11 @@ A special state entered after launching an operator, but before specifying the c
 
 
 * 第十四天：精选 packages, 大大提升你的 Emacs 编辑效率
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=7hAqzTF1iRs&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=14][Youtube]]
+- [[https://www.bilibili.com/video/BV1zh4y1k7a5/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** Some minor fix:
 #+begin_src emacs-lisp
 
@@ -1693,6 +1725,11 @@ A special state entered after launching an operator, but before specifying the c
 #+end_src
 
 * 第十五天：使用 Treesit + eglot 来打造现代编程 IDE
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=Jzy9Au3CNFY&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=15][Youtube]]
+- [[https://www.bilibili.com/video/BV1W8411o7NM/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** 正式版本 Emacs 29
 http://ftp.gnu.org/gnu/windows/emacs/emacs-29/
 ** 安装 treesit-auto 插件
@@ -1757,6 +1794,11 @@ https://github.com/renzmann/treesit-auto
 - [[https://mp.weixin.qq.com/s?__biz=MzA4NDU1NTg2Ng==&mid=2452309008&idx=1&sn=c5f822e36cc38e6d91683495e029adac&chksm=883a8525bf4d0c336f6c1e3c9e2c934b751bd364f3e5565f9bb944b57a022b0d4aa6a5068146&cur_album_id=1930972115608928260&scene=189#wechat_redirect][Emacs Treesitter]]
 
 * 第十六天：窗口管理
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=nK6162fLsYM&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=16][Youtube]]
+- [[https://www.bilibili.com/video/BV15h4y1c71Z/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** Evil 的窗口选择操作
 - C-w h/j/j/k
 ** 推荐插件
@@ -1952,6 +1994,11 @@ Main data structure of the dispatcher with the form:
 #+end_src
 
 * 第十七天：工作区间管理
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=DDlgJe4HJNY&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=17][Youtube]]
+- [[https://www.bilibili.com/video/BV12p4y1J7Jx/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** Awesome Tab 的问题
 偏爱使用 Emacs 内置 package
 ** 使用内置的 tab-bar-mode
@@ -2058,6 +2105,11 @@ Main data structure of the dispatcher with the form:
 - 手动加载 workspace(减少启动时间)
 
 * 第十八天： Org-mode 进阶
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=onZfDDctl0Q&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=18][Youtube]]
+- [[https://www.bilibili.com/video/BV1oh4y1P73D/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** Org Download
 *** how to install 
 #+begin_src emacs-lisp
@@ -2174,6 +2226,11 @@ pacman -S mingw64/mingw-w64-x86_64-aspell-en
 #+end_src
 
 * 第十九天： Org Roam
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=M_DPLkiu3Gc&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=19][Youtube]]
+- [[https://www.bilibili.com/video/BV1uk4y1P7xr/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** 安装 Org Oram
 在 HOME 新建一个 org 目录夹，用来存储你的 org roam 笔记。
 #+begin_src emacs-lisp
@@ -2302,6 +2359,11 @@ refile node
 
 
 * 第二十天：Emacs 配置问题排查
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=uuGrzmCwu7s&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=20][Youtube]]
+- [[https://www.bilibili.com/video/BV1Vz4y1j7LB/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** 配置有问题，启动不了怎么办？
 emacs-debug --init
 ** 不能安装包，提示签名错误
@@ -2321,6 +2383,11 @@ windows 上面需要使用 system32/tar 这个程序去解压。
 ** 上 Emacs China! 上 Emacs China! 上 Emacs China! （重要的事情说 3 遍）
 
 * 第二十一天： 优化性能，借鉴其他人的配置
+
+视频地址如下:
+- [[https://www.youtube.com/watch?v=Va9lcfsVKgU&list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&index=21][Youtube]]
+- [[https://www.bilibili.com/video/BV1Ah4y1N7Kb/?spm_id_from=333.788&vd_source=341db5d3a9324a7e00c10cbce0022a91][Bilibili]]
+
 ** how to Profile performace
 ** 怎么度量启动性能
 #+begin_src emacs-lisp
