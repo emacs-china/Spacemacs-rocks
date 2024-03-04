@@ -1,0 +1,4453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-03-04 Mon 12:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Master Emacs in 21 Days</title>
+<meta name="author" content="zilongshanren" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-table-headers/0.1.19/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="readtheorg/js/readtheorg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/languages/lisp.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Master Emacs in 21 Days</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org593aa3c">21 天学会 Emacs（2022 Edition）</a></li>
+<li><a href="#org6835ed3">第一天：准备开始(安装与改键)</a>
+<ul>
+<li><a href="#org56301ea">基础操作</a></li>
+</ul>
+</li>
+<li><a href="#orgc9b305f">第二天： 打造属于你的记事本</a>
+<ul>
+<li><a href="#org7b7b018">内置功能</a>
+<ul>
+<li><a href="#orgcfd105e">给 Windows 右键菜单添加 OpenWithEmacs 功能</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb3d6606">第三天：Elisp 基础、Org 基础和包管理器</a>
+<ul>
+<li><a href="#org2519268">学习基础 Elisp</a></li>
+<li><a href="#org382f3c9">开始 Hacking！</a></li>
+<li><a href="#org80b2f08">插件管理</a></li>
+<li><a href="#org24dc3bc">Org-mode</a></li>
+</ul>
+</li>
+<li><a href="#orgdb14f27">第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化</a>
+<ul>
+<li><a href="#org52e23e5">关于 lexical binding</a></li>
+<li><a href="#org9484c9a">配置 gnu 和 melpa 镜像</a></li>
+<li><a href="#org8633d14">增强 minibuffer 补全：vertico 和 Orderless</a></li>
+<li><a href="#org46a946a">配置 Marginalia 增强 minubuffer 的 annotation</a></li>
+<li><a href="#orgd1c0e93">minibuffer action 和自适应的 context menu：Embark</a></li>
+<li><a href="#org6088ed3">增强文件内搜索和跳转函数定义：Consult</a></li>
+</ul>
+</li>
+<li><a href="#org8dac255">第五天：手动安装插件和使用外部程序</a>
+<ul>
+<li><a href="#org3765e79">手工安装插件和更多 Emacs 内置功能定制</a></li>
+<li><a href="#orgdb35df8">使用外网命令行工具</a></li>
+</ul>
+</li>
+<li><a href="#org850ce0c">第六天：Emacs 作为超级前端</a>
+<ul>
+<li><a href="#orgd05e8dc">使用 Emacs 来打开文件管理器</a></li>
+<li><a href="#org69ff8e6">增强 embark 和 consult，批量搜索替换大杀器</a></li>
+<li><a href="#org648633d">使用拼音进行搜索</a></li>
+<li><a href="#org958531b">Emacs 也很美</a></li>
+</ul>
+</li>
+<li><a href="#org49ceb00">第七天：模块化配置文件管理</a>
+<ul>
+<li><a href="#org6a66f98">使用多文件存储配置文件</a></li>
+<li><a href="#orgd21fff0">使用 Org 来管理配置文件</a></li>
+</ul>
+</li>
+<li><a href="#org4bcb4f9">第八天：macro 和 use-package</a>
+<ul>
+<li><a href="#org71b4927">更好的默认设置</a></li>
+<li><a href="#orgb6af158">Macro</a></li>
+<li><a href="#org2aa8047">什么是宏</a></li>
+<li><a href="#org1adff52">Use-package</a>
+<ul>
+<li><a href="#orgfa685c5">安装 Use-package</a></li>
+<li><a href="#orgb3e29ff">简介</a></li>
+<li><a href="#org26dea33">一些简单的用法</a></li>
+<li><a href="#orgffb4e7d">为什么使用 Use-package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orge9b85a9">第九天 Use-package 更多设置</a>
+<ul>
+<li><a href="#org27db439">Use-package 和更多默认设置</a>
+<ul>
+<li><a href="#orgf1d90d0">安装 restart-emacs</a></li>
+<li><a href="#org73cc833">自动安装</a></li>
+<li><a href="#org2ecc8a9">保存光标历史，记住上个命令</a></li>
+<li><a href="#orgb623673">显示文件行、列、大小 ，美化状态栏</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1a23c17">第十天： orgmode 基础</a>
+<ul>
+<li><a href="#orgf91cf23">org mode 简介</a>
+<ul>
+<li><a href="#org4e42143">查看 orgmode 版本号</a></li>
+<li><a href="#orga220168">安装最新版本</a></li>
+<li><a href="#org4906300">org todo</a></li>
+<li><a href="#orgc870b60">org agenda</a></li>
+<li><a href="#org4afb23b">org capture</a></li>
+<li><a href="#org5678a92">org effect</a></li>
+<li><a href="#org83b25b3">org tags</a></li>
+<li><a href="#org3d2b3de">org priority</a></li>
+</ul>
+</li>
+<li><a href="#org50613f7">参考资料</a></li>
+</ul>
+</li>
+<li><a href="#org3cb1084">第十一天：使用 ox-hugo 来写博客</a>
+<ul>
+<li><a href="#orga0cc27e">安装 hugo</a>
+<ul>
+<li><a href="#org657709b">安卓 choco 包管理器</a></li>
+<li><a href="#org252193c">安装 hugo</a></li>
+</ul>
+</li>
+<li><a href="#org9d621ea">新建博客站点</a></li>
+<li><a href="#org4fbc714">安装 hugo 主题 even</a></li>
+<li><a href="#orgb264f36">测试站点</a></li>
+<li><a href="#org62de0bd">使用 org mode 来写博客</a></li>
+<li><a href="#orgbecafca">配置 github 和 github workflow 来自动发布博客</a></li>
+</ul>
+</li>
+<li><a href="#org5ae8bda">第十二天： 使用 eglot 来编写、运行和调试 C/C++ 代码</a>
+<ul>
+<li><a href="#orgdbf5a87">安装 Emacs 29 （pretest 版本下载地址）</a></li>
+<li><a href="#orgf444644">安装 mysys2</a></li>
+<li><a href="#org3d8395b">安装 eglot(Emacs 29 自带 eglot)</a></li>
+<li><a href="#org4a74698">一键运行代码</a></li>
+<li><a href="#orgecbf8d7">使用 gdb 调试</a></li>
+</ul>
+</li>
+<li><a href="#org95b0b91">第十三天：使用 Evil, 地球上最厉害的 vim 按键模拟</a>
+<ul>
+<li><a href="#org3d0483e">安装 Evil</a>
+<ul>
+<li><a href="#org9fc921b">Install from melpa</a></li>
+<li><a href="#org05c2a5f">Install undo tree</a></li>
+</ul>
+</li>
+<li><a href="#org6c99875">Modes and States</a>
+<ul>
+<li><a href="#orge5d7ffb">Normal State  (N)</a></li>
+<li><a href="#org0bc3d86">Insert State (I)</a></li>
+<li><a href="#org5ea99cd">Emacs State  (E)</a></li>
+<li><a href="#orga94b6d1">Visual State (V)</a></li>
+<li><a href="#orgad6effa">Motion State (M)</a></li>
+<li><a href="#org360abc3">Replace State (R)</a></li>
+<li><a href="#orgb1addd4">Operator-Pending State (O)</a></li>
+</ul>
+</li>
+<li><a href="#org5062c30">Evil 基础用法</a>
+<ul>
+<li><a href="#orgbfd8d10">增删改查 （text-obj, commands, replace ）</a></li>
+<li><a href="#org2167e12">如果对 evil 不太熟悉，还可以使用这个插件来练习 evil 的使用： https://github.com/clsty/evil-tutor-sc</a></li>
+</ul>
+</li>
+<li><a href="#org91893e8">自定义快捷键</a>
+<ul>
+<li><a href="#orge480f8e">定义不同 state 下面的快捷键</a></li>
+<li><a href="#org58caf5f">spacemacs like 快捷键如何定义</a></li>
+</ul>
+</li>
+<li><a href="#org5677c33">相关插件列表（推荐我自己经常用的）</a>
+<ul>
+<li><a href="#orge2e2556">evil-anzu</a></li>
+<li><a href="#orgdf29fa1">evil-collections</a></li>
+<li><a href="#org2ce26aa">evil-surround</a></li>
+<li><a href="#org66fbb74">evil-nerd-commenter</a></li>
+<li><a href="#org338ab54">evil-snipe</a></li>
+<li><a href="#orga0612ed">evil-matchit</a></li>
+</ul>
+</li>
+<li><a href="#org3383e31">高阶用法（自定义 text-obj 或者 自定义 commands)</a></li>
+</ul>
+</li>
+<li><a href="#orgf4a9ca2">第十四天：精选 packages, 大大提升你的 Emacs 编辑效率</a>
+<ul>
+<li><a href="#orgaf7e4ae">Some minor fix:</a></li>
+<li><a href="#org4333727">多光标操作 iedit &amp; evil-multiedit</a></li>
+<li><a href="#org288381f">expand-region</a></li>
+<li><a href="#org96af902">interactive replace</a></li>
+<li><a href="#orgf6435be">安装 quelpa 插件</a></li>
+<li><a href="#orga37851f">symbol-overlay &amp; highlight-global</a></li>
+</ul>
+</li>
+<li><a href="#org4dc86a5">第十五天：使用 Treesit + eglot 来打造现代编程 IDE</a>
+<ul>
+<li><a href="#orgc1ce929">正式版本 Emacs 29</a></li>
+<li><a href="#org8370fd3">安装 treesit-auto 插件</a></li>
+<li><a href="#org984e7ed">配置 fontlock level</a></li>
+<li><a href="#org56a3ea9">跳转函数列表 consult-imenu</a></li>
+<li><a href="#org53bedea">查找定义和引用</a></li>
+<li><a href="#org538115b">添加 snippets 支持</a></li>
+<li><a href="#orge0a2370">在头文件和源文件之间进行跳转</a></li>
+<li><a href="#org6578244">参考链接</a></li>
+</ul>
+</li>
+<li><a href="#org0f3f57c">第十六天：窗口管理</a>
+<ul>
+<li><a href="#orgade5723">Evil 的窗口选择操作</a></li>
+<li><a href="#org47907f7">推荐插件</a>
+<ul>
+<li><a href="#orgf803789">window numbering</a></li>
+<li><a href="#org7155519">es-windows</a></li>
+<li><a href="#org8968d69">Buffer move</a></li>
+<li><a href="#org3c190c5">Resize windows</a></li>
+<li><a href="#orga65a8bc">Winner (builtin)</a></li>
+<li><a href="#orgadafcd6">Popper</a></li>
+</ul>
+</li>
+<li><a href="#org02d9f30">按键绑定</a></li>
+</ul>
+</li>
+<li><a href="#org0da1945">第十七天：工作区间管理</a>
+<ul>
+<li><a href="#org448eb28">Awesome Tab 的问题</a></li>
+<li><a href="#org564f983">使用内置的 tab-bar-mode</a></li>
+<li><a href="#org51a839f">工作区间</a></li>
+<li><a href="#org4b32f64">按键绑定</a></li>
+<li><a href="#org8f60807">工作流介绍</a></li>
+</ul>
+</li>
+<li><a href="#org09d23b8">第十八天： Org-mode 进阶</a>
+<ul>
+<li><a href="#org037a19f">Org Download</a>
+<ul>
+<li><a href="#orgbcf8297">how to install</a></li>
+<li><a href="#orga7e9a4f">Change image size</a></li>
+</ul>
+</li>
+<li><a href="#org6875229">Org Protocol</a>
+<ul>
+<li><a href="#org81caae3">How to config</a></li>
+</ul>
+</li>
+<li><a href="#orgdb8c5c4">Spell checking</a>
+<ul>
+<li><a href="#orgf95c38c">Install emacs packages</a></li>
+<li><a href="#org44ec18f">Install spell</a></li>
+<li><a href="#org6504e27">Configuration</a></li>
+</ul>
+</li>
+<li><a href="#orgcd2ab00">Fanyi Dictionary</a>
+<ul>
+<li><a href="#orgdd8ab73">How to install</a></li>
+</ul>
+</li>
+<li><a href="#orgb7354dc">Some useful keybindings</a></li>
+</ul>
+</li>
+<li><a href="#orgc6cf12b">第十九天： Org Roam</a>
+<ul>
+<li><a href="#org0e63a50">安装 Org Oram</a></li>
+<li><a href="#org69125a9">Org roam 基本使用</a>
+<ul>
+<li><a href="#org4b71d87">安装 corfu 来进行补全</a></li>
+<li><a href="#org25d771a">新建笔记和查找笔记</a></li>
+<li><a href="#org023a284">建立笔记引用</a></li>
+<li><a href="#org1a68b6c">查找引用</a></li>
+<li><a href="#orgcacbcc3">已有的 headline 转换为一个节点</a></li>
+</ul>
+</li>
+<li><a href="#org30f0f73">直接从 github 安装插件</a></li>
+<li><a href="#org616411e">Org roam UI</a></li>
+</ul>
+</li>
+<li><a href="#org1a66aed">第二十天：Emacs 配置问题排查</a>
+<ul>
+<li><a href="#org8f4e30b">配置有问题，启动不了怎么办？</a></li>
+<li><a href="#org13445f6">不能安装包，提示签名错误</a></li>
+<li><a href="#org8c8b05d">a pax extended header, 包解压失败，可以使用 use-package :vc 直接安装</a></li>
+<li><a href="#orgd39d81d">上 Emacs China! 上 Emacs China! 上 Emacs China! （重要的事情说 3 遍）</a></li>
+</ul>
+</li>
+<li><a href="#org2049d1b">第二十一天： 优化性能，借鉴其他人的配置</a>
+<ul>
+<li><a href="#orgbb9a9f7">how to Profile performace</a></li>
+<li><a href="#orgf69d726">怎么度量启动性能</a></li>
+<li><a href="#org8f48c18">use-package 哪些操作可以优化性能</a></li>
+<li><a href="#org37a139c">借鉴大佬的配置，作为框架</a>
+<ul>
+<li><a href="#orge672198">社区配置</a></li>
+<li><a href="#org026dc2d">个人配置</a></li>
+</ul>
+</li>
+<li><a href="#org3a8f1c6">小技巧：</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org593aa3c" class="outline-2">
+<h2 id="org593aa3c">21 天学会 Emacs（2022 Edition）</h2>
+<div class="outline-text-2" id="text-org593aa3c">
+<p>
+<b>GitHub</b> <a href="https://github.com/emacs-china/Spacemacs-rocks">Emacs Rocks</a> <b>作者</b> <a href="https://github.com/zilongshanren/">zilongshanren</a> <b>编者</b> <a href="https://github.com/li-xinyang">li-xinyang</a>, <a href="https://github.com/lsytj0413">lsytj0413</a>
+</p>
+
+<p>
+在这一季中我们计划用 21 天学习 Emacs 的使用。从基础安装开始到可以
+运用到工作生产环节中。为了确保学习质量，请务必完成和理解计划中的每一项学习任务。(新的系列全部使用 Vallina Emacs)
+</p>
+
+<p>
+Update（2022 年 1 月 15 日）: 本系列视频教程最早录制于 2016 年，距今已经有 5 年多的历史了，
+在此期间 Emacs 社区又进化了非常多。出现了更活跃的 Doom Emacs 社区配置，拥有 GCC Emacs，所以
+现在回头来看当时的视频教程，显得多少有些过时了。以前 21 天的视频教程显得有些冗长，我打算在 2022 年
+更新所有这些视频教程，并且控制每一个视频的时长（20 分钟左右），希望这个系列教程能够帮助到大家。
+</p>
+
+<p>
+<b>本视频的代码仓库：</b> <a href="https://gitee.com/emacs-china/emacs.d">https://gitee.com/emacs-china/emacs.d</a>
+</p>
+
+<p>
+原来 21 天的视频地址：
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=0hpVuoyO8_o&amp;list=PLZx9tb9Niew8qMjpCjeYnsezCE-s5mKw_">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1sp4y1Y73S?from=search&amp;seid=10747273033486124295&amp;spm_id_from=333.337.0.0">Bilibili</a></li>
+</ul>
+
+<p>
+原来 21 天的教程地址：
+</p>
+
+<p>
+<a href="http://book1.emacs-china.org/">《21天学会Emacs》</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6835ed3" class="outline-2">
+<h2 id="org6835ed3">第一天：准备开始(安装与改键)</h2>
+<div class="outline-text-2" id="text-org6835ed3">
+<p>
+视频地址如下：
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=0HZa7ttGLiU">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV12P4y1j7EL/">Bilibili</a></li>
+</ul>
+
+<p>
+<b>说在最前面</b>
+</p>
+
+<p>
+如果你第一次听说 Emacs 你可以在<a href="http://emacs.sexy/">性感的 Emacs（Emacs is Sexy）</a>一文中找到使用它的理
+由！我相信你一定会被它的强大所吸引。
+</p>
+
+<p>
+如果你还没有安装 Emacs 可以在 Doom Emacs 的安装文档中查找<a href="https://github.com/hlissner/doom-emacs/blob/master/docs/getting_started.org#install">安装方法</a>，根据你所使用的操作系统去下载对应
+版本的 Emacs 就行了。（新手不推荐从源码进行编译安装，因为这会比较困难）
+</p>
+
+<p>
+因为考虑到比较多的用户之前可能没有接触过 Mac 或者 Linux，所以新的系列视频我会直接使用 Windows 系统来
+进行演示。Windows 下配置 Emacs 环境可以参考我之前在论坛写的<a href="https://emacs-china.org/t/windows-emacs/7907">文章</a>。
+</p>
+
+<p>
+由于 Windows 系统的一些限制，某一些 Emacs 的功能（Magit，lsp 等）表现并不是很好（主要指的是性能），读者可以
+尝试安装 WLS 来使用 Emacs，具体方法可以参考<a href="https://hkvim.com/post/windows-setup/">这篇文章</a>。
+</p>
+
+<p>
+在开始本教程之前请务必先完成 Emacs 提供的官方教程（完成时间大约 30 分钟），它可
+以通过使用 <code>C-h t</code> （同时按住 Ctrl 与 h 键，接着按 t 键 <code>t</code> 在这里代表 tutorial）
+在 Emacs 中直接将其打开。（当然你也可以在观看视频之后再去阅读 Emacs Tutorial）
+</p>
+
+<p>
+Emacs Lisp 是 Emacs 所用的编程语言，你可以在阅读<a href="https://learnxinyminutes.com/docs/elisp/">这篇教程（Learn X in Y Minutes）</a>
+后很快地了解它的基础用法。
+</p>
+</div>
+
+<div id="outline-container-org56301ea" class="outline-3">
+<h3 id="org56301ea">基础操作</h3>
+<div class="outline-text-3" id="text-org56301ea">
+<p>
+在讲解基本操作之前，先跟大家讲一下改键。改键的作用除了可以让你的小拇指更健康以外，还可以统一我们的交流语言，
+让大家后面学习过程可以更轻松。（这部分如果没有相关基础，强烈建议先看视频是怎么操作的）
+</p>
+
+<p>
+Windows 键盘布局：
+</p>
+
+
+<div id="org65ad1fc" class="figure">
+<p><img src="./Images/1600px-KB_United_States-NoAltGr.svg.png" alt="1600px-KB_United_States-NoAltGr.svg.png" />
+</p>
+</div>
+
+<p>
+Windows 改键方法：
+</p>
+
+<p>
+使用 SharpKeys 来把 Left Window 键改成 Left Alt 键，Left Alt 键改成 App 键，大小写键改成 Ctrl 键。
+</p>
+
+
+<div id="org9688cd9" class="figure">
+<p><img src="./Images/sharpKeys.png" alt="sharpKeys.png" />
+</p>
+</div>
+
+<p>
+Emacs 默认 Alt 键就是 Meta，而 App 键我们改成 super 键，可以通过下面的 Elisp 代码来完成。
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq w32-apps-modifier 'super)       ; 通过SharpKeys改成了 Application
+</code>
+</pre>
+</div>
+
+<p>
+Mac 键盘布局：
+</p>
+
+
+<div id="org95478ec" class="figure">
+<p><img src="./Images/mac-keyboard-layout.jpeg" alt="mac-keyboard-layout.jpeg" />
+</p>
+</div>
+
+<p>
+Mac 下面大小写键改成 Ctrl 键（参考视频），Mac 系列只需要修改这个按键，其他的按键可以通过 Elisp 来修改：
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq mac-option-modifier 'meta
+      mac-command-modifier 'super)
+</code>
+</pre>
+</div>
+
+<p>
+常见符号所代表的意义如下
+</p>
+
+<ul class="org-ul">
+<li>M(eta)：统一改到 option 键（Mac），left windows 键（Windows）</li>
+<li>s(uper)：统一改到 command 键（Mac），left Alt 键（windows）</li>
+<li>S(Shift)：不用修改</li>
+<li>C(trl)：统一改成 Caps Lock（大小写切换键，这样可以拯救你的小拇指健康）</li>
+</ul>
+
+
+<p>
+光标的移动是编辑器中最常用的操作所以必须熟知。（只需要掌握这些基础的光标移动操作，后续我会介绍 Vim 的光标移动操作，
+我个人认为 Vim 的光标移动更高效，大家先熟知这几个常用的移动命令即可。）
+</p>
+
+<ul class="org-ul">
+<li><code>C-f</code> 为前移一个字符， <code>f</code> 代表 forward。</li>
+<li><code>C-b</code> 为后移一个字符， <code>b</code> 代表 backward。</li>
+<li><code>C-p</code> 为上移至前一行， <code>p</code> 代表 previous。</li>
+<li><code>C-n</code> 为上移至下一行， <code>n</code> 代表 next。</li>
+<li><code>C-a</code> 为移至行首， <code>a</code> 代表 ahead。</li>
+<li><code>C-e</code> 为移至行尾， <code>e</code> 代表 end。</li>
+</ul>
+
+<p>
+为什么不使用鼠标而去学习这些奇怪的按键组合呢？因为这些按键在某些时候是非常高效的，比如在 Emacs 里面，Shell 终端里面，
+甚至整个 Mac 系统都内置了这种按键。我本人在使用 Vim 或者其他 IDE 的时候也会使用 Emacs 的这套按键。
+</p>
+
+<p>
+*学习可以迁移的技能*，这一点非常重要！一旦学会了将可以终身受用。
+</p>
+
+<p>
+现在我们可以把 Mac 下面的复制、粘贴、剪切、全选等命令移植到 Emacs 中来了，并且这一套按键是跨平台的。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(global-set-key (kbd "s-a") 'mark-whole-buffer) ;;对应Windows上面的Ctrl-a 全选
+(global-set-key (kbd "s-c") 'kill-ring-save) ;;对应Windows上面的Ctrl-c 复制
+(global-set-key (kbd "s-s") 'save-buffer) ;; 对应Windows上面的Ctrl-s 保存
+(global-set-key (kbd "s-v") 'yank) ;对应Windows上面的Ctrl-v 粘贴
+(global-set-key (kbd "s-z") 'undo) ;对应Windows上面的Ctrol-z 撤销
+(global-set-key (kbd "s-x") 'kill-region) ;对应Windows上面的Ctrol-x 剪切
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc9b305f" class="outline-2">
+<h2 id="orgc9b305f">第二天： 打造属于你的记事本</h2>
+<div class="outline-text-2" id="text-orgc9b305f">
+<p>
+视频地址如下：
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=fxE1L-scvbk">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1jY411h7Ts/">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org7b7b018" class="outline-3">
+<h3 id="org7b7b018">内置功能</h3>
+<div class="outline-text-3" id="text-org7b7b018">
+<p>
+Emacs 功能强大，但是部分功能默认情况下并未开启。下面就有几个例子，
+</p>
+
+<p>
+编辑器内显示行号可使用 <code>M-x linum-mode</code> 来开启。
+</p>
+
+<p>
+<b>获取帮助</b>
+</p>
+
+<p>
+Emacs 是一个富文档编辑器（Self document, extensible editor）而下面的三种方法在学
+习 Emacs 的过程中也非常重要。他们分别是，
+</p>
+
+<ul class="org-ul">
+<li><code>C-h k</code> 寻找快捷键的帮助信息</li>
+<li><code>C-h v</code> 寻找变量的帮助信息</li>
+<li><code>C-h f</code> 寻找函数的帮助信息</li>
+</ul>
+</div>
+
+<div id="outline-container-orgcfd105e" class="outline-4">
+<h4 id="orgcfd105e">给 Windows 右键菜单添加 OpenWithEmacs 功能</h4>
+<div class="outline-text-4" id="text-orgcfd105e">
+<pre class="example">
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell]
+[HKEY_CLASSES_ROOT\*\shell\openwemacs]
+@="&amp;Edit with Emacs"
+[HKEY_CLASSES_ROOT\*\shell\openwemacs\command]
+@="C:\\emax64\\bin\\emacsclientw.exe -n \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs]
+@="Edit &amp;with Emacs"
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs\command]
+@="C:\\emax64\\bin\\emacsclientw.exe -n \"%1\""
+</code>
+</pre>
+
+<p>
+使用这个 OpenWithEmacs 的功能，Emacs 需要开启 Server Mode，代码如下：
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(server-mode 1)
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb3d6606" class="outline-2">
+<h2 id="orgb3d6606">第三天：Elisp 基础、Org 基础和包管理器</h2>
+<div class="outline-text-2" id="text-orgb3d6606">
+<p>
+视频地址如下：
+</p>
+<ul class="org-ul">
+<li><a href="https://www.bilibili.com/video/BV1yP4y177xj?spm_id_from=333.999.0.0">Bilibili</a></li>
+<li><a href="https://www.youtube.com/watch?v=-tX66neahhM&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=4&amp;t=3s">Youtube</a></li>
+</ul>
+</div>
+
+
+<div id="outline-container-org2519268" class="outline-3">
+<h3 id="org2519268">学习基础 Elisp</h3>
+<div class="outline-text-3" id="text-org2519268">
+<p>
+请务必完成<a href="https://learnxinyminutes.com/docs/elisp/">这篇教程（Learn X in Y Minutes）</a>来了解 Elisp 的使用（阅读时间大约 15
+分钟），你也可以在<a href="https://learnxinyminutes.com/docs/zh-cn/elisp-cn/">这里</a>找到它的中文版。Emacs Lisp 为一个函数式的语言，所以它全部
+功能都是由函数来实现的。
+</p>
+
+<p>
+下面为一些简单的例子
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; 2 + 2
+(+ 2 2)
+
+;; 2 + 3 * 4
+(+ 2 (* 3 4))
+
+;; 定义变量
+(setq name "username")
+(message name) ; -&gt; "username"
+
+;; 定义函数
+(defun func ()
+  (message "Hello, %s" name))
+
+;; 执行函数
+(func) ; -&gt; Hello, username
+
+;; 设置快捷键
+(global-set-key (kbd "&lt;f1&gt;") 'func)
+
+;; 使函数可直接被调用可添加 (interactive)
+(defun func ()
+  (interactive)
+  (message "Hello, %s" name))
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org382f3c9" class="outline-3">
+<h3 id="org382f3c9">开始 Hacking！</h3>
+<div class="outline-text-3" id="text-org382f3c9">
+<p>
+Emacs 的配置文件默认保存在 <code>~/.emacs.d/init.el</code> 文件中。（如果其不存在可自行创建，
+配置文件也可保存在 <code>~/.emacs</code> 文件中，他们之间的区别我们会在后面做讨论）
+</p>
+
+<p>
+<b><b>注意：</b></b> 如果希望把配置放在 <code>~/.emacs.d/init.el</code> 文件中，那么需要手工删除
+<code>~/.emacs</code> 文件。
+</p>
+
+<p>
+在开始配置之前让我们先来区别 Emacs 中 Major Mode 与 Minor Mode 的区别。Major
+Mode 通常是定义对于一种文件类型编辑的核心规则，例如语法高亮、缩进、快捷键绑定等。
+而 Minor Mode 是除去 Major Mode 所提供的核心功能以外的额外编辑功能（辅助功能）。
+例如在下面的配置文件中 <code>tool-bar-mode</code> 与 <code>linum-mode</code> 等均为 Minor Mode*。
+</p>
+
+<p>
+简单来说就是，一种文件类型同时只能存在一种 Major Mode 但是它可以同时激活一种或多
+种 Minor Mode。如果你希望知道当前的模式信息，可以使用 <code>C-h m</code> 来显示当前所有开启
+的全部 Minor Mode 的信息。
+</p>
+
+<p>
+<b>简单的编辑器自定义</b>
+</p>
+
+<p>
+下面是一些简单的编辑器配置信息，你需要做的就是将其写入你的配置文件中
+（ <code>~/.emacs.d/init.el</code> ）即可。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+(tool-bar-mode -1)
+
+;; 关闭文件滑动控件
+(scroll-bar-mode -1)
+
+;; 显示行号
+(global-linum-mode 1)
+
+;; 更改光标的样式（不能生效，解决方案见第二集）
+(setq cursor-type 'bar)
+
+(icomplete-mode 1)
+
+
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 &lt;f2&gt; 键上
+(global-set-key (kbd "&lt;f2&gt;") 'open-init-file)
+
+</code>
+</pre>
+</div>
+
+<p>
+在每次编辑配置文件后，刚刚做的修改并不会立刻生效。这时你需要重启编辑器或者重新加
+载配置文件。重新加载配置文件你需要在当前配置文件中使用 <code>M-x load-file</code> 双击两次
+回车确认默认文件名，或者使用 <code>M-x eval-buffer</code> 去执行当前缓冲区的所有 Lisp 命令。
+你也可以使用 <code>C-x C-e</code> 来执行某一行的 Lisp 代码。这些可使刚刚修改的配置文件生效。
+当然你也可以将这些函数绑定为快捷键。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org80b2f08" class="outline-3">
+<h3 id="org80b2f08">插件管理</h3>
+<div class="outline-text-3" id="text-org80b2f08">
+<p>
+使用默认的插件管理系统（可在菜单栏 <code>Options &gt; Manage Emacs Packages</code> 中找到）安
+装 <a href="http://company-mode.github.io/">Company</a> 插件，他是一个用于代码补全的插件。它的名字代表补全一切的意思（ <b>Comp</b>
+lete <b>Any</b> thing）。因为默认的插件管理系统提供的插件十分有限，所以我们会在之后的
+几天中继续将其强化。
+</p>
+
+<p>
+使用的下面的配置将 Company-mode 在全局模式下激活
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">                                        ; 开启全局 Company 补全
+(global-company-mode 1)
+
+;; company mode 默认选择上一条和下一条候选项命令 M-n M-p
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org24dc3bc" class="outline-3">
+<h3 id="org24dc3bc">Org-mode</h3>
+<div class="outline-text-3" id="text-org24dc3bc">
+<p>
+简单的 Org-mode 使用，它可以列出提纲，并方便地使用 <code>tab</code> 键来对其进行展开与关闭。
+<code>C-c C-t</code> 可以将一个条目转换成一条待办事件。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="org">* 为一级标题
+** 为二级标题
+*** 为三级标题并以此类推
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb14f27" class="outline-2">
+<h2 id="orgdb14f27">第四天：增强 Emacs 补全，让 Hacking 更加有趣和可视化</h2>
+<div class="outline-text-2" id="text-orgdb14f27">
+<p>
+视频地址如下：
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=HzlLxWTD6QY">Youtube</a></li>
+
+<li><a href="https://www.bilibili.com/video/BV1uL4y1t7Lm/">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org52e23e5" class="outline-3">
+<h3 id="org52e23e5">关于 lexical binding</h3>
+<div class="outline-text-3" id="text-org52e23e5">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
+;; -*- lexical-binding: t -*-
+(let ((x 1))    ; x is lexically bound.
+  (+ x 3))
+⇒ 4
+
+(defun getx ()
+  x)            ; x is used free in this function.
+
+(let ((x 1))    ; x is lexically bound.
+  (getx))
+;;error→ Symbol's value as variable is void: x
+</code>
+</pre>
+</div>
+
+<p>
+关于<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html">lexical binding</a> 更多的细节，可以自行阅读 Emacs 的官方文档。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 160);;
+
+;;让鼠标滚动更好用
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9484c9a" class="outline-3">
+<h3 id="org9484c9a">配置 gnu 和 melpa 镜像</h3>
+<div class="outline-text-3" id="text-org9484c9a">
+<p>
+在进行美化之前我们需要配置插件的源（默认的源非常有限），最常使用的是 <a href="https://melpa.org/">MELPA</a>
+（Milkypostman's Emacs Lisp Package Archive）。它有非常多的插件（3000 多个插件）。
+添加源后，我们就可以使用 <code>M-x package-list-packages</code>
+来查看所有 MELPA 上的插件了。在表单中可以使用 <code>i</code> 来标记安装 <code>d</code> 来标记删除，
+<code>U</code> 来更新，并用 <code>x</code> 来确认。你也可以使用 <code>u</code> 来撤销标记操作。
+</p>
+
+<p>
+你可以直接将下面的代码复制到你的配置文件顶端，从而直接使用 Melpa 作为插件的源。
+</p>
+
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'package)
+(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+
+                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(package-initialize)
+
+;;防止反复调用 package-refresh-contents 会影响加载速度
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+;;modeline上显示我的所有的按键和执行的命令
+(package-install 'keycast)
+(keycast-mode t)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8633d14" class="outline-3">
+<h3 id="org8633d14">增强 minibuffer 补全：<a href="https://github.com/minad/vertico">vertico</a> 和 <a href="https://github.com/oantolin/orderless">Orderless</a></h3>
+<div class="outline-text-3" id="text-org8633d14">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'vertico)
+(vertico-mode t)
+
+(package-install 'orderless)
+(setq completion-styles '(orderless))
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org46a946a" class="outline-3">
+<h3 id="org46a946a">配置 <a href="https://github.com/minad/marginalia">Marginalia</a> 增强 minubuffer 的 annotation</h3>
+<div class="outline-text-3" id="text-org46a946a">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'marginalia)
+(marginalia-mode t)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd1c0e93" class="outline-3">
+<h3 id="orgd1c0e93">minibuffer action 和自适应的 context menu：<a href="https://github.com/oantolin/embark">Embark</a></h3>
+<div class="outline-text-3" id="text-orgd1c0e93">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+(package-install 'embark)
+(global-set-key (kbd "C-;") 'embark-act)
+(setq prefix-help-command 'embark-prefix-help-command)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6088ed3" class="outline-3">
+<h3 id="org6088ed3">增强文件内搜索和跳转函数定义：<a href="https://github.com/minad/consult">Consult</a></h3>
+<div class="outline-text-3" id="text-org6088ed3">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'consult)
+;;replace swiper
+(global-set-key (kbd "C-s") 'consult-line)
+;;consult-imenu
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org8dac255" class="outline-2">
+<h2 id="org8dac255">第五天：手动安装插件和使用外部程序</h2>
+<div class="outline-text-2" id="text-org8dac255">
+<p>
+视频地址如下：
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=EPZe8Ix_dnU">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Kr4y1Y73S/">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org3765e79" class="outline-3">
+<h3 id="org3765e79">手工安装插件和更多 Emacs 内置功能定制</h3>
+<div class="outline-text-3" id="text-org3765e79">
+<p>
+如果你想深入学习 Emacs Lisp 可以阅读 GNU 提供的 <a href="https://www.gnu.org/software/emacs/manual/html_mono/eintr.html">An Introduction to Programming
+in Emacs Lisp</a> 。（也可以 <code>M-x info</code> 然后选择 Emacs Lisp Intro）
+</p>
+
+<p>
+我们先解决前一天中遇到的一些问题。首先是在对象是一个缓冲区局部变量（Buffer-local
+variable）的时候，比如这里的 <code>cursor-type</code> ，我们需要区分 <code>setq</code> 与
+<code>setq-default</code> ： <code>setq</code> 设置当前缓冲区（Buffer）中的变量值， <code>setq-default</code> 设
+置的为全局的变量的值（具体内容可以在 <a href="http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp">StackOverflow 找到</a>）。下面是一个例子，用于
+设置光标样式的方法。
+</p>
+
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq-default cursor-type 'bar)
+(show-paren-mode t)
+
+;;另外一件安装插件的方法
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/awesome-tab/"))
+
+(require 'awesome-tab)
+
+(awesome-tab-mode t)
+
+(defun awesome-tab-buffer-groups ()
+  "`awesome-tab-buffer-groups' control buffers' group rules.
+Group awesome-tab with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+All buffer name start with * will group to \"Emacs\".
+Other buffer group by `awesome-tab-get-group-name' with project name."
+  (list
+   (cond
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+         (memq major-mode '(magit-process-mode
+                            magit-status-mode
+                            magit-diff-mode
+                            magit-log-mode
+                            magit-file-mode
+                            magit-blob-mode
+                            magit-blame-mode)))
+     "Emacs")
+    ((derived-mode-p 'eshell-mode)
+     "EShell")
+    ((derived-mode-p 'dired-mode)
+     "Dired")
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode")
+    ((derived-mode-p 'eaf-mode)
+     "EAF")
+    (t
+     (awesome-tab-get-group-name (current-buffer))))))
+</code>
+</pre>
+</div>
+
+<p>
+其次就是它使用到了 <code>quote</code>, 它其实就是我们之前常常见到的 <code>'</code> （单引号）的完全体。
+因为它在 Lisp 中十分常用，所以就提供了简写的方法。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; 下面两行的效果完全相同的
+(quote foo)
+'foo
+</code>
+</pre>
+</div>
+
+<p>
+<code>quote</code> 的意思是不要执行后面的内容，返回它原本的内容（具体请参考下面的例子）
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(print '(+ 1 1)) ;; -&gt; (+ 1 1)
+(print (+ 1 1))  ;; -&gt; 2
+</code>
+</pre>
+</div>
+
+<p>
+更多关于 <code>quote</code> 的内容可以在<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Quoting.html">这里</a>找到，或者在<a href="http://stackoverflow.com/questions/134887/when-to-use-quote-in-lisp">这里</a>找到 StackOverflow 上对于它的讨论。
+</p>
+
+<p>
+因为通常我们的配置文件以及项目文件均使用版本控制系统，所以自动生成的备份文件就显
+得有些多余。我们还可以禁止 Emacs 自动生成备份文件，例如 <code>init.el~</code> 。（ <code>~</code> 为后
+缀的文件为自动生成的备份文件）我们可以使用下面的方法将其关闭。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq make-backup-files nil)
+</code>
+</pre>
+</div>
+
+<p>
+使用下面的配置来加入最近打开过文件的选项让我们更快捷的在图形界面的菜单中打开最近
+编辑过的文件。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+
+;; 这个快捷键绑定可以用之后的插件 counsel 代替
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+</code>
+</pre>
+</div>
+
+<p>
+<code>require</code> 的意思为从文件中加载特性，你可以在杀哥的网站读到关于 Emacs Lisp 库系统
+的更多内容，文章在<a href="http://ergoemacs.org/emacs/elisp_library_system.html">这里</a>。
+</p>
+
+<p>
+使用下面的配置文件将删除功能配置成与其他图形界面的编辑器相同，即当你选中一段文字
+之后输入一个字符会替换掉你选中部分的文字。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(delete-selection-mode 1)
+</code>
+</pre>
+</div>
+
+<p>
+下面的这些函数可以让你找到不同函数，变量以及快捷键所定义的文件位置。因为非常常用
+所以我们建议将其设置为与查找文档类似的快捷键（如下所示），
+</p>
+
+<ul class="org-ul">
+<li><code>find-function</code> （ <code>C-h C-f</code> ）</li>
+<li><code>find-variable</code> （ <code>C-h C-v</code> ）</li>
+<li><code>find-function-on-key</code> （ <code>C-h C-k</code> ）</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdb35df8" class="outline-3">
+<h3 id="orgdb35df8">使用外网命令行工具</h3>
+<div class="outline-text-3" id="text-orgdb35df8">
+<p>
+下载安装 <a href="https://github.com/m-parashar/emax64/releases/download/20200930/emax.7z">emax</a>，配置 emacs 加载路径
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(progn
+  (defvar emax-root (concat (expand-file-name "~") "/emax"))
+  (defvar emax-bin (concat emax-root "/bin"))
+  (defvar emax-bin64 (concat emax-root "/bin64"))
+
+  (setq exec-path (cons emax-bin exec-path))
+  (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+
+  (setq exec-path (cons emax-bin64 exec-path))
+  (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+
+  (setq emacsd-bin (concat user-emacs-directory "bin"))
+  (setq exec-path (cons  emacsd-bin exec-path))
+  (setenv "PATH" (concat emacsd-bin  ";" (getenv "PATH")))
+
+  ;;可选安装msys64
+  ;;下载地址: http://repo.msys2.org/mingw/sources/
+  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+
+  ;; (dolist (dir '("~/emax/" "~/emax/bin/" "~/emax/bin64/" "~/emax/lisp/" "~/emax/elpa/"))
+  ;;   (add-to-list 'load-path dir))
+  )
+</code>
+</pre>
+</div>
+<p>
+使用 M-x shell 来学习命令行操作，可以参考 <a href="https://missing.csail.mit.edu/2020/">https://missing.csail.mit.edu/2020/</a> 来学习，living in Emacs。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org850ce0c" class="outline-2">
+<h2 id="org850ce0c">第六天：Emacs 作为超级前端</h2>
+<div class="outline-text-2" id="text-org850ce0c">
+<p>
+视频地址：
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=sr1mFqjE0YM">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1tm4y1o7pd/">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgd05e8dc" class="outline-3">
+<h3 id="orgd05e8dc">使用 Emacs 来打开文件管理器</h3>
+<div class="outline-text-3" id="text-orgd05e8dc">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(shell-command-to-string "explorer.exe C:\\")
+
+(shell-command-to-string "explorer.exe ~/.emacs.d")
+
+(shell-command-to-string
+ (encode-coding-string
+  (replace-regexp-in-string "/" "\\\\"
+                            (format "explorer.exe %s" (expand-file-name "~/.emacs.d")))
+  'gbk))
+
+(defun consult-directory-externally (file)
+  "Open FILE externally using the default application of the system."
+  (interactive "fOpen externally: ")
+  (if (and (eq system-type 'windows-nt)
+           (fboundp 'w32-shell-execute))
+      (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\"
+                                                                               (format "explorer.exe %s" (file-name-directory (expand-file-name file)))) 'gbk))
+    (call-process (pcase system-type
+                    ('darwin "open")
+                    ('cygwin "cygstart")
+                    (_ "xdg-open"))
+                  nil 0 nil
+                  (file-name-directory (expand-file-name file)))))
+
+(define-key embark-file-map (kbd "E") #'consult-directory-externally)
+;;打开当前文件的目录
+(defun my-open-current-directory ()
+  (interactive)
+  (consult-directory-externally default-directory))
+
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org69ff8e6" class="outline-3">
+<h3 id="org69ff8e6">增强 embark 和 consult，批量搜索替换大杀器</h3>
+<div class="outline-text-3" id="text-org69ff8e6">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'embark-consult)
+(package-install 'wgrep)
+(setq wgrep-auto-save-buffer t)
+
+(eval-after-load
+    'consult
+  '(eval-after-load
+       'embark
+     '(progn
+        (require 'embark-consult)
+        (add-hook
+         'embark-collect-mode-hook
+         #'consult-preview-at-point-mode))))
+
+(define-key minibuffer-local-map (kbd "C-c C-e") 'embark-export-write)
+
+;;使用ripgrep来进行搜索
+;;consult-ripgrep
+
+;;everyting
+;;consult-locate
+;; 配置搜索中文
+(progn
+  (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))
+  (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
+  )
+(eval-after-load 'consult
+  (progn
+    (setq
+     consult-narrow-key "&lt;"
+     consult-line-numbers-widen t
+     consult-async-min-input 2
+     consult-async-refresh-delay  0.15
+     consult-async-input-throttle 0.2
+     consult-async-input-debounce 0.1)
+    ))
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org648633d" class="outline-3">
+<h3 id="org648633d">使用拼音进行搜索</h3>
+<div class="outline-text-3" id="text-org648633d">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'pyim)
+
+(defun eh-orderless-regexp (orig_func component)
+  (let ((result (funcall orig_func component)))
+    (pyim-cregexp-build result)))
+
+
+(defun toggle-chinese-search ()
+  (interactive)
+  (if (not (advice-member-p #'eh-orderless-regexp 'orderless-regexp))
+      (advice-add 'orderless-regexp :around #'eh-orderless-regexp)
+    (advice-remove 'orderless-regexp #'eh-orderless-regexp)))
+
+(defun disable-py-search (&amp;optional args)
+  (if (advice-member-p #'eh-orderless-regexp 'orderless-regexp)
+      (advice-remove 'orderless-regexp #'eh-orderless-regexp)))
+
+;; (advice-add 'exit-minibuffer :after #'disable-py-search)
+(add-hook 'minibuffer-exit-hook 'disable-py-search)
+
+(global-set-key (kbd "s-p") 'toggle-chinese-search)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org958531b" class="outline-3">
+<h3 id="org958531b">Emacs 也很美</h3>
+<div class="outline-text-3" id="text-org958531b">
+<p>
+高亮当前行，当文本内容很多时可以很容易找到光标的位置。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(global-hl-line-mode 1)
+</code>
+</pre>
+</div>
+
+<p>
+<b>安装主题</b>
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'monokai-theme)
+</code>
+</pre>
+</div>
+
+<p>
+然后使用下面的配置使其每次打开编辑器时加载主题，
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(load-theme 'monokai 1)
+</code>
+</pre>
+</div>
+
+
+<p>
+使用 <code>M-x customize-group</code> 后选择对应的插件名称，可以进入可视化选项区对指定的插
+件做自定义设置。当选择 Save for future session 后，刚刚做的设计就会被保存在你的
+配置文件（ <code>init.el</code> ）中。关于各个插件的安装与使用方法通常都可以在其官方页面找
+到（GitHub Pages 或者是项目仓库中的 README 文件）。我们强烈建议大家在安装这些插
+件后阅读使用方法来更好的将它们使用到你的日常工作当中使效率最大化。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org49ceb00" class="outline-2">
+<h2 id="org49ceb00">第七天：模块化配置文件管理</h2>
+<div class="outline-text-2" id="text-org49ceb00">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=_imJVq7KNvA">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1yR4y1P7sD/?vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org6a66f98" class="outline-3">
+<h3 id="org6a66f98">使用多文件存储配置文件</h3>
+<div class="outline-text-3" id="text-org6a66f98">
+<p>
+将不同的配置代码放置到不同的文件中，使其模块化，这让我们的后续维护变得更加简单。
+下面是我们现在的 <code>~/.emacs.d/</code> 目录中的样子，
+</p>
+
+<pre class="example" id="org138f489">
+├── auto-save-list # 自动生成的保存数据
+├── elpa           # 下载的插件目录
+├── init.el        # 我们的配置文件
+└── recentf        # 最近访问的文件列表
+</pre>
+
+<p>
+通常我们只保存配置文件和对其进行版本控制，其他的插件均为在第一次使用编辑器时再通
+过网络重新下载，当然你也可以选择将全部配置文件进行版本控制来保证自己时刻拥有最稳
+定的生产环境。
+</p>
+
+<p>
+custom.el
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+(load custom-file 'no-error 'no-message)
+</code>
+</pre>
+</div>
+
+<p>
+现在我们想将原本混合在一起的配置文件分为下面的几个模块（每一个模块为一个独立的配
+置文件并将其保存在指定的子目录中），它们分别是
+</p>
+
+<pre class="example" id="org24f1753">
+init-packages.el        # 插件管理
+init-ui.el              # 视觉层配置
+init-better-defaults.el # 增强内置功能
+init-keybindings.el     # 快捷键绑定
+init-org.el             # Org 模式相关的全部设定
+custom.el              # 存放使用编辑器接口产生的配置信息
+</pre>
+
+<p>
+下面为将配置文件进行模块化后的目录结构，
+</p>
+
+<pre class="example" id="org4c3e498">
+├── init.el
+└── lisp
+    ├── custom.el
+    ├── init-better-defaults.el
+    ├── init-keybindings.el
+    ├── init-packages.el
+    ├── init-ui.el
+    └── init-org.el
+</pre>
+
+<p>
+使用模块化配置就可以让我们在之后的配置中迅速的定位与更改配置内容，让整个过程变得
+更有条理也更加高效。
+</p>
+
+<p>
+和之前一样 <code>init.el</code> 是配置文件的入口，现在它便成为了所有模块配置文件的入口，所
+以要使用这些模块时，我们需要在其中引用需要加载的模块。下面以 <code>init-packages.el</code>
+（此配置为添加插件的模块） 为例，详细说明如何模块化以及应用的方法。
+</p>
+
+<p>
+下面为 <code>~/.emacs.d/lisp/init-packages.el</code> 模块中的代码
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'package)
+(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+
+                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(package-initialize)
+
+;;防止反复调用 package-refresh-contents 会影响加载速度
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+;; 文件末尾
+(provide 'init-packages)
+</code>
+</pre>
+</div>
+
+<p>
+下面为 <code>~/.emacs.d/init.el</code> 入口文件中的代码
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;; Package Management
+;; -----------------------------------------------------------------
+(require 'init-packages)
+</code>
+</pre>
+</div>
+
+<p>
+模块化要做的其实非常简单，我们要做的其实就是把某一个更改编辑器某定部分（例如，插
+件管理，显示层，快捷键绑定等）的配置代码写入一个独立的文件中并在末尾为其添加
+<code>(provide 'module-name)</code> (这里我们的模块名为 <code>init-packages</code> )使其可以在入口文件
+中被调用，然后再在入口文件中将其引用既可。
+</p>
+
+<p>
+这里需要注意的是，我们需要在入口文件中添加 <code>(add-to-list 'load-path
+"~/.emacs.d/lisp/")</code> 这可以让 Emacs 找到需要加载的模块所处的位置。
+</p>
+
+<p>
+这里推荐大家两个还不错的 Emacs 配置：
+</p>
+
+<p>
+<a href="https://github.com/condy0919/.emacs.d">https://github.com/condy0919/.emacs.d</a>
+</p>
+
+<p>
+<a href="https://github.com/seagle0128/.emacs.d">https://github.com/seagle0128/.emacs.d</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd21fff0" class="outline-3">
+<h3 id="orgd21fff0">使用 Org 来管理配置文件</h3>
+<div class="outline-text-3" id="text-orgd21fff0">
+<p>
+Org-mode 下的文学编程将颠覆你对于 Emacs 的看法。因为我们也可以使用 Org 来管理
+Emacs 的配置文件（本人其实更倾向于用多个文件来管理配置文件）。
+</p>
+
+<p>
+在 Org-mode 中你可以直接开启新的缓冲区（Buffer）直接用相应的 Major Mode 来编辑代码块内的内容。在代码块中使用 C-c ' 会直接打开对应模式的缓冲区（不仅限于 Lisp）。 这样就使在 Org-mode 中编辑代码变的十分方便快捷。
+</p>
+
+<p>
+使用 &lt;s 然后 Tab 可以直接插入代码块的代码片段（Snippet），更多类似的代码片段 （Org-mode Easy Templates）可以在这里找到。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'org-tempo)  ;开启easy template
+
+;; 禁用左尖括号
+(setq electric-pair-inhibit-predicate
+      `(lambda (c)
+         (if (char-equal c ?\&lt;) t (,electric-pair-inhibit-predicate c))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local electric-pair-inhibit-predicate
+                        `(lambda (c)
+                           (if (char-equal c ?\&lt;) t (,electric-pair-inhibit-predicate c))))))
+</code>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; Your code goes here
+;; 你的代码写在这里
+</code>
+</pre>
+</div>
+
+<p>
+你需要将下面的代码放入配置入口文件（ <code>init.el</code> ）中，
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "zilongshanren.org" user-emacs-directory))
+</code>
+</pre>
+</div>
+
+<p>
+之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录
+结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可（文件名为
+<code>org-file-name.org</code> ）。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自
+己和他人更直观的，理解你的配置文件或者代码。
+</p>
+
+<p>
+这里也给大家推荐一些使用 org-mode 进行配置管理的优秀范例：
+</p>
+
+<p>
+<a href="https://github.com/trev-dev/emacs">https://github.com/trev-dev/emacs</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4bcb4f9" class="outline-2">
+<h2 id="org4bcb4f9">第八天：macro 和 use-package</h2>
+<div class="outline-text-2" id="text-org4bcb4f9">
+<p>
+视频地址如下
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=j8Ietu_bMjE&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=9">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1gF411j7VK/?vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org71b4927" class="outline-3">
+<h3 id="org71b4927">更好的默认设置</h3>
+<div class="outline-text-3" id="text-org71b4927">
+<p>
+在这一节我们会配置我们的编辑器使其有更好的使用体验。整个过程就如同搭积木一般，将
+更好的体验建立在已有的功能基础之上。这样的优化使整个过程变得更高效，也更有趣。
+</p>
+
+<p>
+下面的代码可以使 Emacs 自动加载外部修改过的文件。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(global-auto-revert-mode 1)
+</code>
+</pre>
+</div>
+
+<p>
+使用下面的代码可以关闭自动生产的保存文件（之前我们已经关闭过了 Emacs 自动生产的
+备份文件了，现在是关闭自动保存文件）。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq auto-save-default nil)
+</code>
+</pre>
+</div>
+
+<p>
+如果你发现你在使用中发现了那些编辑行为与你预期的不相符时，你可以通过搜索引擎去寻
+找解决方案然后将其加入你的配置中并打造一个真正属于你的神器！
+</p>
+
+
+<p>
+也许你并不喜欢听到错误时的“哔哔”的警告提示音，使用下面的代码你可以关闭 Emacs 中的警告音，
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq ring-bell-function 'ignore)
+</code>
+</pre>
+</div>
+
+<p>
+每一次当 Emacs 需要与你确认某个命令时需要输入 <code>(yes or no)</code> 比较麻烦，所有我们可
+以使用下面的代码，设置一个别名将其简化为只输入 <code>(y or n)</code> 。
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(fset 'yes-or-no-p 'y-or-n-p)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb6af158" class="outline-3">
+<h3 id="orgb6af158">Macro</h3>
+</div>
+
+<div id="outline-container-org2aa8047" class="outline-3">
+<h3 id="org2aa8047">什么是宏</h3>
+<div class="outline-text-3" id="text-org2aa8047">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq my-var 1)
+(setq my-var (1+ my-var))
+
+(defmacro inc (var)
+  (list 'setq var (list '1+ var)))
+
+(macroexpand '(inc my-var))
+
+(inc my-var)
+
+;;; pass by value
+(defun inc-2 (var)
+  (setq var (1+ var)))
+
+
+(inc-2 my-var)
+
+;; Backquote allows you to:
+
+;; quote a list, and
+;; selectively evaluate elements of the list (with comma ,), or:
+;; splice (eval &amp; spread) the element with ,@
+
+`(a list of ,(+ 2 3) elements)
+
+(setq some-list '(2 3))
+
+`(1 ,@some-list 4 ,@some-list)
+</code>
+</pre>
+</div>
+
+<p>
+Backquote：
+</p>
+
+<p>
+<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html">https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1adff52" class="outline-3">
+<h3 id="org1adff52">Use-package</h3>
+<div class="outline-text-3" id="text-org1adff52">
+</div>
+<div id="outline-container-orgfa685c5" class="outline-4">
+<h4 id="orgfa685c5">安装 Use-package</h4>
+<div class="outline-text-4" id="text-orgfa685c5">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(package-install 'use-package) 
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb3e29ff" class="outline-4">
+<h4 id="orgb3e29ff">简介</h4>
+<div class="outline-text-4" id="text-orgb3e29ff">
+<p>
+Use-package 是一个宏, 它能让你将一个包的 <b>require</b> 和它的相关的初始化等配置组织
+在一起, 避免对同一个包的配置代码散落在不同的文件中.
+</p>
+
+<p>
+Use-package 的更多信息参见以下地址: <a href="https://github.com/jwiegley/use-package">Use-package</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org26dea33" class="outline-4">
+<h4 id="org26dea33">一些简单的用法</h4>
+<div class="outline-text-4" id="text-org26dea33">
+</div>
+<ul class="org-ul">
+<li><a id="org108a7ec"></a>更安全的 require<br />
+<div class="outline-text-5" id="text-org108a7ec">
+<p>
+在 Emacs 中, 当我们要引入一个包时, 通常会使用以下代码:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'package-name)
+</code>
+</pre>
+</div>
+
+<p>
+但是当 <b>package-name</b> 不在 <b>load-path</b> 中时, 以上代码会抛出错误. 使用
+<b>Use-package</b> 可以避免:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package package-name)
+</code>
+</pre>
+</div>
+
+<p>
+以上代码展开的结果如下:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(if
+    (not
+     (require 'package-name nil 't))
+    (ignore
+     (message
+      (format "Cannot load %s" 'package-name))))
+</code>
+</pre>
+</div>
+
+<p>
+可以看到, <b>Use-package</b> 使用 <b>ignore</b> 来避免抛出错误, 这样当某个包不存在时,
+<b>eamcs</b> 也能够正常启动.
+</p>
+</div>
+</li>
+
+<li><a id="org16fc323"></a>将配置集中<br />
+<div class="outline-text-5" id="text-org16fc323">
+<p>
+当我们引入某个包时, 有可能需要定义一些与这个包相关的变量, 使用 <b>Use-package</b> 实
+现这个需求如下:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package package-name
+  :init
+  (setq my-var1 "xxx")
+  :config
+  (progn
+    (setq my-var2 "xxx")
+    (setq my-var3 "xxx")
+    )
+  )
+</code>
+</pre>
+</div>
+
+<p>
+在上例中, <b>init</b> 后的代码在包的 require 之前执行, 如果这段代码出错则跳过包的 require.
+</p>
+
+<p>
+<b>config</b> 后的代码在包的 require 之后执行.
+</p>
+
+<p>
+<b>init</b> 与 <b>config</b> 之后只能接单个表达式语句, 如果需要执行多个语句, 可以用 <b>progn</b> .
+</p>
+</div>
+</li>
+
+<li><a id="org6ec62d9"></a>autoload<br />
+<div class="outline-text-5" id="text-org6ec62d9">
+<p>
+使用 require 时会引入这个包, 但是当你的包很多时会影响启动速度. 而使用 autoload
+则可以在真正需要这个包时再 require, 提高启动速度, 避免无谓的 require.
+</p>
+
+<p>
+使用 <b>Use-package</b> 可以轻松的实现这个功能:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package package-name
+  :commands
+  (global-company-mode)
+  :defer t
+  )
+</code>
+</pre>
+</div>
+
+<p>
+使用 <b>commands</b> 可以让 package 延迟加载, 如以上代码会首先判断 package 的符号是否
+存在, 如果存在则在 <b>package-name</b> 的路径下加载. <b>defer</b> 也可以让 <b>package-name</b>
+进行延迟加载.
+</p>
+</div>
+</li>
+
+<li><a id="orgb75bd55"></a>键绑定<br />
+<div class="outline-text-5" id="text-orgb75bd55">
+<p>
+在之前的代码中, 如果我们需要绑定一个键, 需要使用 <b>global-key-bind</b> 或
+<b>define-key</b> 实现, 而使用*Use-package* 实现更简单:
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package company
+  :bind (:map company-active-map
+              ("C-n" . 'company-select-next)
+              ("C-p" . 'company-select-previous))
+  :init
+  (global-company-mode t)
+  :config
+  (setq company-minimum-prefix-length 1)
+  (setq company-idle-delay 0))
+</code>
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+
+
+
+<div id="outline-container-orgffb4e7d" class="outline-4">
+<h4 id="orgffb4e7d">为什么使用 Use-package</h4>
+<div class="outline-text-4" id="text-orgffb4e7d">
+<ol class="org-ol">
+<li>Use-package 能让相关的配置更为集中, 避免配置分散带来的维护困难</li>
+<li>Use-package 有完善的错误处理, 使配置代码更为健壮</li>
+<li>Spacemacs，DoomEmacs  也大量使用了 Use-package</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9b85a9" class="outline-2">
+<h2 id="orge9b85a9">第九天 Use-package 更多设置</h2>
+<div class="outline-text-2" id="text-orge9b85a9">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=X_sj5_5YiWk&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=11">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1xv4y137vS/?vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+<div id="outline-container-org27db439" class="outline-3">
+<h3 id="org27db439">Use-package 和更多默认设置</h3>
+<div class="outline-text-3" id="text-org27db439">
+</div>
+<div id="outline-container-orgf1d90d0" class="outline-4">
+<h4 id="orgf1d90d0">安装 restart-emacs</h4>
+<div class="outline-text-4" id="text-orgf1d90d0">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package restart-emacs
+  :ensure t)
+
+;;emacs --debug-init
+</code>
+</pre>
+</div>
+
+<p>
+删除 company 这个包, 看看会出现什么
+</p>
+</div>
+</div>
+
+<div id="outline-container-org73cc833" class="outline-4">
+<h4 id="org73cc833">自动安装</h4>
+<div class="outline-text-4" id="text-org73cc833">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+;; Setup `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+</code>
+</pre>
+</div>
+<p>
+这个选项会自动安装包，但是不会自动更新包到最新版本。
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> 清理所有的 package-install</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2ecc8a9" class="outline-4">
+<h4 id="org2ecc8a9">保存光标历史，记住上个命令</h4>
+<div class="outline-text-4" id="text-org2ecc8a9">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package savehist
+  :ensure nil
+  :hook (after-init . savehist-mode)
+  :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+              history-length 1000
+              savehist-additional-variables '(mark-ring
+                                              global-mark-ring
+                                              search-ring
+                                              regexp-search-ring
+                                              extended-command-history)
+              savehist-autosave-interval 300)
+  )
+
+(use-package saveplace
+  :ensure nil
+  :hook (after-init . save-place-mode))
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb623673" class="outline-4">
+<h4 id="orgb623673">显示文件行、列、大小 ，美化状态栏</h4>
+<div class="outline-text-4" id="text-orgb623673">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package simple
+  :ensure nil
+  :hook (after-init . size-indication-mode)
+  :init
+  (progn
+    (setq column-number-mode t)
+    ))
+
+;;modeline上显示我的所有的按键和执行的命令
+(package-install 'keycast)
+(add-to-list 'global-mode-string '("" keycast-mode-line))
+(keycast-mode t)
+
+;; 这里的执行顺序非常重要，doom-modeline-mode 的激活时机一定要在设置global-mode-string 之后‘
+(use-package doom-modeline
+  :ensure t
+
+  :init
+  (doom-modeline-mode t))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1a23c17" class="outline-2">
+<h2 id="org1a23c17">第十天： orgmode 基础</h2>
+<div class="outline-text-2" id="text-org1a23c17">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=nocgop6CHRI&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=12">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1ES4y1B7Df/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgf91cf23" class="outline-3">
+<h3 id="orgf91cf23">org mode 简介</h3>
+<div class="outline-text-3" id="text-orgf91cf23">
+</div>
+<div id="outline-container-org4e42143" class="outline-4">
+<h4 id="org4e42143">查看 orgmode 版本号</h4>
+<div class="outline-text-4" id="text-org4e42143">
+<p>
+C-h v org-version
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga220168" class="outline-4">
+<h4 id="orga220168">安装最新版本</h4>
+<div class="outline-text-4" id="text-orga220168">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; 安装org 之前，一定要配置 use-package 不使用内置的org 版本，可以使用本段代码最后面的代码，具体位置可以参考视频
+(use-package org
+  :pin melpa
+  :ensure t)
+
+(use-package org-contrib
+  :pin nongnu
+  )
+
+;; 添加新的 nongnu 的源
+("nongnu" . "http://elpa.zilongshanren.com/nongnu/")
+
+;;; 这个配置一定要配置在 use-package 的初始化之前，否则无法正常安装
+(assq-delete-all 'org package--builtins)
+(assq-delete-all 'org package--builtin-versions)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4906300" class="outline-4">
+<h4 id="org4906300">org todo</h4>
+<div class="outline-text-4" id="text-org4906300">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
+
+;;fix doom modeline
+:custom-face
+(mode-line ((t (:height 0.9))))
+(mode-line-inactive ((t (:height 0.9))))
+
+(require 'org-checklist)
+;; need repeat task and properties
+(setq org-log-done t)
+(setq org-log-into-drawer t)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc870b60" class="outline-4">
+<h4 id="orgc870b60">org agenda</h4>
+<div class="outline-text-4" id="text-orgc870b60">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">;; C-c C-s schedule
+;; C-c C-d deadline
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-files '("~/gtd.org"))
+(setq org-agenda-span 'day)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4afb23b" class="outline-4">
+<h4 id="org4afb23b">org capture</h4>
+<div class="outline-text-4" id="text-org4afb23b">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/gtd.org" "Workspace")
+         "* TODO [#B] %?\n  %i\n %U"
+         :empty-lines 1)))
+
+(global-set-key (kbd "C-c r") 'org-capture)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5678a92" class="outline-4">
+<h4 id="org5678a92">org effect</h4>
+<div class="outline-text-4" id="text-org5678a92">
+<p>
+在 agenda view 中, 按 e 键可以设置 effort, 按 _ 可以过滤指定 effort 的 heading
+</p>
+</div>
+</div>
+
+<div id="outline-container-org83b25b3" class="outline-4">
+<h4 id="org83b25b3">org tags</h4>
+<div class="outline-text-4" id="text-org83b25b3">
+<p>
+在 agenda view 中, 按 : 可以按照 tag 名称来过滤 todo 的 heading （tips: 这里快捷键都可以通过 M-x 来查看）
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3d2b3de" class="outline-4">
+<h4 id="org3d2b3de">org priority</h4>
+<div class="outline-text-4" id="text-org3d2b3de">
+<p>
+in agenda view ,
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq org-agenda-custom-commands
+      '(("c" "重要且紧急的事"
+         ((tags-todo "+PRIORITY=\"A\"")))
+        ;; ...other commands here
+        ))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org50613f7" class="outline-3">
+<h3 id="org50613f7">参考资料</h3>
+<div class="outline-text-3" id="text-org50613f7">
+<p>
+<a href="https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html">https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3cb1084" class="outline-2">
+<h2 id="org3cb1084">第十一天：使用 ox-hugo 来写博客</h2>
+<div class="outline-text-2" id="text-org3cb1084">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=NWaiqi89tgk&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=14">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1ZR4y1X7D7/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+
+<p>
+使用 org mode 写博客，然后托管在 Github 上面，我们可以打造一个非常好用便捷且免费的写作系统。
+</p>
+</div>
+<div id="outline-container-orga0cc27e" class="outline-3">
+<h3 id="orga0cc27e">安装 hugo</h3>
+<div class="outline-text-3" id="text-orga0cc27e">
+<p>
+在 windows 上面安装 hugo 有多种方法，本文使用 chocolatey 包管理器。
+</p>
+
+<p>
+其他操作系统以及 windows 平台更多的安装方法参考以下链接：
+<a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a>
+</p>
+</div>
+
+<div id="outline-container-org657709b" class="outline-4">
+<h4 id="org657709b">安卓 choco 包管理器</h4>
+<div class="outline-text-4" id="text-org657709b">
+<p>
+使用 powershell 来安装（如果你的系统没有 powershell, 需要首先安装 powershell).
+</p>
+
+<p>
+使用管理员权限打开 powershell
+</p>
+<div class="org-src-container">
+<pre>
+<code class="sh">Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+</code>
+</pre>
+</div>
+
+<p>
+安装完后，在 powershell 中输入 choco, 你会得到如下截图则说明安装成功：
+</p>
+
+
+<div id="orgc717d36" class="figure">
+<p><img src="img/2022-10-16_20-36-02_screenshot.jpg" alt="2022-10-16_20-36-02_screenshot.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org252193c" class="outline-4">
+<h4 id="org252193c">安装 hugo</h4>
+<div class="outline-text-4" id="text-org252193c">
+<div class="org-src-container">
+<pre>
+<code class="sh">choco install hugo --confirm
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9d621ea" class="outline-3">
+<h3 id="org9d621ea">新建博客站点</h3>
+<div class="outline-text-3" id="text-org9d621ea">
+<div class="org-src-container">
+<pre>
+<code class="sh">hugo new site blog
+</code>
+</pre>
+</div>
+
+<p>
+使用 git 来管理你的博客系统：
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="sh">cd blog 
+git init 
+git add .
+git commit -m "first commit"
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4fbc714" class="outline-3">
+<h3 id="org4fbc714">安装 hugo 主题 even</h3>
+<div class="outline-text-3" id="text-org4fbc714">
+<p>
+我们使用 git submodule 来安装：
+</p>
+<div class="org-src-container">
+<pre>
+<code class="sh">git submodule add https://github.com/olOwOlo/hugo-theme-even themes/even
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb264f36" class="outline-3">
+<h3 id="orgb264f36">测试站点</h3>
+<div class="outline-text-3" id="text-orgb264f36">
+<p>
+拷贝 even 主题中的 examplesite 里面的内容到 testblog:
+</p>
+
+<p>
+在命令行中输入 hugo server, 此命令会自动生成博客内容到 public 目录，同时会在本地启动一个 http 服务器供我们来预览博客。
+关于 even 主题更多地使用请参考官方主页：
+</p>
+
+<p>
+<b><b>注意：</b></b> 如果要显示草稿内容，需要使用 `hugo server -D`
+</p>
+
+<p>
+<a href="https://github.com/olOwOlo/hugo-theme-even">https://github.com/olOwOlo/hugo-theme-even</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org62de0bd" class="outline-3">
+<h3 id="org62de0bd">使用 org mode 来写博客</h3>
+<div class="outline-text-3" id="text-org62de0bd">
+<p>
+首先我们需要安装 <a href="https://github.com/kaushalmodi/ox-hugo">https://github.com/kaushalmodi/ox-hugo</a>
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package ox-hugo
+  :ensure t   ;Auto-install the package from Melpa
+  :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+  :after ox)
+</code>
+</pre>
+</div>
+
+<p>
+ox-hugo 有两种方式来写博客。
+</p>
+<ul class="org-ul">
+<li>每篇博客一个 org 文件</li>
+<li>每一个 org subtree 是一篇博客（这种是推荐的方式）</li>
+</ul>
+
+<p>
+使用 org capture 来新建博客：(注意 elisp 中 blog 文件的路径要替换成你自己的)
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+    (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat "* TODO " title)
+                   ":PROPERTIES:"
+                   ,(concat ":EXPORT_FILE_NAME: " fname)
+                   ":END:"
+                   "\n\n")          ;Place the cursor here finally
+                 "\n")))
+
+  (add-to-list 'org-capture-templates
+               '("h"                ;`org-capture' binding + h
+                 "Hugo post"
+                 entry
+                 ;; It is assumed that below file is present in `org-directory'
+                 ;; and that it has a "Blog Ideas" heading. It can even be a
+                 ;; symlink pointing to the actual location of all-posts.org!
+                 (file+headline "c:/Users/lionqu/blog/all-blog.org" "Blog Ideas")
+                 (function org-hugo-new-subtree-post-capture-template))))
+</code>
+</pre>
+</div>
+
+<p>
+配置 all-blog.org, 让它在保存内容的时候自动生成博客内容。
+</p>
+
+<p>
+<a href="https://ox-hugo.scripter.co/doc/auto-export-on-saving/">https://ox-hugo.scripter.co/doc/auto-export-on-saving/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbecafca" class="outline-3">
+<h3 id="orgbecafca">配置 github 和 github workflow 来自动发布博客</h3>
+<div class="outline-text-3" id="text-orgbecafca">
+<ol class="org-ol">
+<li>新建一个 github 仓库</li>
+<li>添加 remote 并 push 到远程</li>
+<li>添加 github workflow</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5ae8bda" class="outline-2">
+<h2 id="org5ae8bda">第十二天： 使用 eglot 来编写、运行和调试 C/C++ 代码</h2>
+<div class="outline-text-2" id="text-org5ae8bda">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=6zN3RYwaHYY&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=16">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1QF41197g7/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgdbf5a87" class="outline-3">
+<h3 id="orgdbf5a87">安装 Emacs 29 （pretest 版本下载地址）</h3>
+<div class="outline-text-3" id="text-orgdbf5a87">
+<p>
+<a href="https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D">https://alpha.gnu.org/gnu/emacs/pretest/windows/emacs-29/?C=M;O=D</a>
+修复一个运行报错：
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">                                        ;  (global-linum-mode 1)
+(global-display-line-numbers-mode t)    ;修改成这个来显示行号，性能更好
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf444644" class="outline-3">
+<h3 id="orgf444644">安装 mysys2</h3>
+<div class="outline-text-3" id="text-orgf444644">
+<ol class="org-ol">
+<li>下载 <a href="https://www.msys2.org/">https://www.msys2.org/</a></li>
+<li><p>
+安装 C/C++ 必要的软件工具
+</p>
+<div class="org-src-container">
+<pre>
+<code class="sh">pacman -Syu
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb make mingw-w64-x86_64-clang mingw-w64-x86_64-clang-tools-extra
+</code>
+</pre>
+</div></li>
+<li><p>
+设置环境变量
+</p>
+<div class="org-src-container">
+<pre>
+<code class="sh">C:\msys64\mingw64\bin
+C:\msys64\usr\bin
+</code>
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3d8395b" class="outline-3">
+<h3 id="org3d8395b">安装 eglot(Emacs 29 自带 eglot)</h3>
+<div class="outline-text-3" id="text-org3d8395b">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'eglot)
+(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+(add-hook 'c-mode-hook #'eglot-ensure)
+(add-hook 'c++-mode-hook #'eglot-ensure)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a74698" class="outline-3">
+<h3 id="org4a74698">一键运行代码</h3>
+<div class="outline-text-3" id="text-org4a74698">
+<ol class="org-ol">
+<li><p>
+安装 quickrun:
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package quickrun
+  :ensure t
+  :commands (quickrun)
+  :init
+  (quickrun-add-command "c++/c1z"
+    '((:command . "g++")
+      (:exec . ("%c -std=c++1z %o -o %e %s"
+                "%e %a"))
+      (:remove . ("%e")))
+    :default "c++"))
+</code>
+</pre>
+</div></li>
+<li>自定义快捷键</li>
+</ol>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(global-set-key (kbd "&lt;f5&gt;") 'quickrun)
+</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgecbf8d7" class="outline-3">
+<h3 id="orgecbf8d7">使用 gdb 调试</h3>
+<div class="outline-text-3" id="text-orgecbf8d7">
+<ol class="org-ol">
+<li>运行 M-x compile, 输入 g++ -g -o test.o test.cpp</li>
+<li>使用 M-x gud-gdb  输入 gdb ./test.o</li>
+<li>常用调试命令</li>
+</ol>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">name</th>
+<th scope="col" class="org-left">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">list</td>
+<td class="org-left">显示源代码</td>
+</tr>
+
+<tr>
+<td class="org-left">break</td>
+<td class="org-left">新增断点， break main, break 12（行号）</td>
+</tr>
+
+<tr>
+<td class="org-left">info</td>
+<td class="org-left">查看断点或者局部变量信息 info breakpoints, info locals</td>
+</tr>
+
+<tr>
+<td class="org-left">run</td>
+<td class="org-left">开始调试</td>
+</tr>
+
+<tr>
+<td class="org-left">next</td>
+<td class="org-left">类似 step over</td>
+</tr>
+
+<tr>
+<td class="org-left">step</td>
+<td class="org-left">跳转到函数内部</td>
+</tr>
+
+<tr>
+<td class="org-left">continue</td>
+<td class="org-left">继续运行到下一个断点</td>
+</tr>
+
+<tr>
+<td class="org-left">quit</td>
+<td class="org-left">退出调试</td>
+</tr>
+
+<tr>
+<td class="org-left">watch</td>
+<td class="org-left">内存断点</td>
+</tr>
+
+<tr>
+<td class="org-left">display</td>
+<td class="org-left">类似 IDE 里面的 watch 功能</td>
+</tr>
+
+<tr>
+<td class="org-left">break 11 if xxx</td>
+<td class="org-left">条件断点</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org95b0b91" class="outline-2">
+<h2 id="org95b0b91">第十三天：使用 Evil, 地球上最厉害的 vim 按键模拟</h2>
+<div class="outline-text-2" id="text-org95b0b91">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=QqFaKyQ_pZ8&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=13">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1T14y1X7CW/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org3d0483e" class="outline-3">
+<h3 id="org3d0483e">安装 Evil</h3>
+<div class="outline-text-3" id="text-org3d0483e">
+</div>
+<div id="outline-container-org9fc921b" class="outline-4">
+<h4 id="org9fc921b">Install from melpa</h4>
+<div class="outline-text-4" id="text-org9fc921b">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (evil-mode)
+
+  ;; https://emacs.stackexchange.com/questions/46371/how-can-i-get-ret-to-follow-org-mode-links-when-using-evil-mode
+  (with-eval-after-load 'evil-maps
+    (define-key evil-motion-state-map (kbd "RET") nil))
+  )
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org05c2a5f" class="outline-4">
+<h4 id="org05c2a5f">Install undo tree</h4>
+<div class="outline-text-4" id="text-org05c2a5f">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package undo-tree
+  :diminish
+  :init
+  (global-undo-tree-mode 1)
+  (setq undo-tree-auto-save-history nil)
+  (evil-set-undo-system 'undo-tree))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6c99875" class="outline-3">
+<h3 id="org6c99875">Modes and States</h3>
+<div class="outline-text-3" id="text-org6c99875">
+</div>
+<div id="outline-container-orge5d7ffb" class="outline-4">
+<h4 id="orge5d7ffb">Normal State  (N)</h4>
+<div class="outline-text-4" id="text-orge5d7ffb">
+<p>
+This is the default “resting state” of Evil, in which the main body of vi bindings are defined.
+</p>
+</div>
+</div>
+<div id="outline-container-org0bc3d86" class="outline-4">
+<h4 id="org0bc3d86">Insert State (I)</h4>
+<div class="outline-text-4" id="text-org0bc3d86">
+<p>
+This is the state for insertion of text, where non-modified keys will insert the corresponding character in the buffer.
+</p>
+</div>
+</div>
+<div id="outline-container-org5ea99cd" class="outline-4">
+<h4 id="org5ea99cd">Emacs State  (E)</h4>
+<div class="outline-text-4" id="text-org5ea99cd">
+<p>
+A state that as closely as possible mimics default Emacs behaviour, by eliminating all vi bindings, except for C-z, to re-enter normal state.
+</p>
+</div>
+</div>
+<div id="outline-container-orga94b6d1" class="outline-4">
+<h4 id="orga94b6d1">Visual State (V)</h4>
+<div class="outline-text-4" id="text-orga94b6d1">
+<p>
+A state for selecting text regions. Motions are available for modifying the selected region, and operators are available for acting on it.
+</p>
+</div>
+</div>
+<div id="outline-container-orgad6effa" class="outline-4">
+<h4 id="orgad6effa">Motion State (M)</h4>
+<div class="outline-text-4" id="text-orgad6effa">
+<p>
+A special state useful for buffers that are read-only, where motions are available but editing operations are not.
+</p>
+</div>
+</div>
+<div id="outline-container-org360abc3" class="outline-4">
+<h4 id="org360abc3">Replace State (R)</h4>
+<div class="outline-text-4" id="text-org360abc3">
+<p>
+A special state mostly similar to insert state, except it replaces text instead of inserting.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb1addd4" class="outline-4">
+<h4 id="orgb1addd4">Operator-Pending State (O)</h4>
+<div class="outline-text-4" id="text-orgb1addd4">
+<p>
+A special state entered after launching an operator, but before specifying the corresponding motion or text object.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5062c30" class="outline-3">
+<h3 id="org5062c30">Evil 基础用法</h3>
+<div class="outline-text-3" id="text-org5062c30">
+</div>
+<div id="outline-container-orgbfd8d10" class="outline-4">
+<h4 id="orgbfd8d10">增删改查 （text-obj, commands, replace ）</h4>
+</div>
+<div id="outline-container-org2167e12" class="outline-4">
+<h4 id="org2167e12">如果对 evil 不太熟悉，还可以使用这个插件来练习 evil 的使用： <a href="https://github.com/clsty/evil-tutor-sc">https://github.com/clsty/evil-tutor-sc</a></h4>
+</div>
+</div>
+<div id="outline-container-org91893e8" class="outline-3">
+<h3 id="org91893e8">自定义快捷键</h3>
+<div class="outline-text-3" id="text-org91893e8">
+</div>
+<div id="outline-container-orge480f8e" class="outline-4">
+<h4 id="orge480f8e">定义不同 state 下面的快捷键</h4>
+<div class="outline-text-4" id="text-orge480f8e">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+(define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
+(define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
+
+(define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
+(define-key evil-normal-state-map (kbd "] b") 'next-buffer)
+(define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
+(define-key evil-motion-state-map (kbd "] b") 'next-buffer)
+
+(evil-define-key 'normal dired-mode-map
+  (kbd "&lt;RET&gt;") 'dired-find-alternate-file
+  (kbd "C-k") 'dired-up-directory
+  "`" 'dired-open-term
+  "o" 'dired-find-file-other-window
+  "s" 'hydra-dired-quick-sort/body
+  "z" 'dired-get-size
+  "!" 'zilongshanren/do-shell-and-copy-to-kill-ring
+  ")" 'dired-omit-mode)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org58caf5f" class="outline-4">
+<h4 id="org58caf5f">spacemacs like 快捷键如何定义</h4>
+<div class="outline-text-4" id="text-org58caf5f">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+(use-package general
+  :init
+  (with-eval-after-load 'evil
+    (general-add-hook 'after-init-hook
+                      (lambda (&amp;rest _)
+                        (when-let ((messages-buffer (get-buffer "*Messages*")))
+                          (with-current-buffer messages-buffer
+                            (evil-normalize-keymaps))))
+                      nil
+                      nil
+                      t))
+
+
+  (general-create-definer global-definer
+    :keymaps 'override
+    :states '(insert emacs normal hybrid motion visual operator)
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC")
+
+  (defmacro +general-global-menu! (name infix-key &amp;rest body)
+    "Create a definer named +general-global-NAME wrapping global-definer.
+Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY."
+    (declare (indent 2))
+    `(progn
+       (general-create-definer ,(intern (concat "+general-global-" name))
+         :wrapping global-definer
+         :prefix-map ',(intern (concat "+general-global-" name "-map"))
+         :infix ,infix-key
+         :wk-full-keys nil
+         "" '(:ignore t :which-key ,name))
+       (,(intern (concat "+general-global-" name))
+        ,@body)))
+
+  (general-create-definer global-leader
+    :keymaps 'override
+    :states '(emacs normal hybrid motion visual operator)
+    :prefix ","
+    "" '(:ignore t :which-key (lambda (arg) `(,(cadr (split-string (car arg) " ")) . ,(replace-regexp-in-string "-mode$" "" (symbol-name major-mode)))))))
+
+(use-package general
+  :init
+  (global-definer
+    "!" 'shell-command
+    "SPC" 'execute-extended-command
+    "'" 'vertico-repeat
+    "+" 'text-scale-increase
+    "-" 'text-scale-decrease
+    "u" 'universal-argument
+    "hdf" 'describe-function
+    "hdv" 'describe-variable
+    "hdk" 'describe-key
+    )
+
+  (+general-global-menu! "buffer" "b"
+    "d" 'kill-current-buffer
+    "b" '(consult-buffer :which-key "consult buffer")
+    "B" 'switch-to-buffer
+    "p" 'previous-buffer
+    "R" 'rename-buffer
+    "M" '((lambda () (interactive) (switch-to-buffer "*Messages*"))
+          :which-key "messages-buffer")
+    "n" 'next-buffer
+    "i" 'ibuffer
+    "f" 'my-open-current-directory
+    "k" 'kill-buffer
+    "y" 'copy-buffer-name
+    "K" 'kill-other-buffers)
+</code>
+</pre>
+</div>
+<p>
+参考我的配置： <a href="https://github.com/zilongshanren/emacs.d/blob/eglot/lisp/init-keybindings.el">https://github.com/zilongshanren/emacs.d/blob/eglot/lisp/init-keybindings.el</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5677c33" class="outline-3">
+<h3 id="org5677c33">相关插件列表（推荐我自己经常用的）</h3>
+<div class="outline-text-3" id="text-org5677c33">
+</div>
+<div id="outline-container-orge2e2556" class="outline-4">
+<h4 id="orge2e2556">evil-anzu</h4>
+<div class="outline-text-4" id="text-orge2e2556">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-anzu
+  :ensure t
+  :after evil
+  :diminish
+  :demand t
+  :init
+  (global-anzu-mode t))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdf29fa1" class="outline-4">
+<h4 id="orgdf29fa1">evil-collections</h4>
+<div class="outline-text-4" id="text-orgdf29fa1">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-collection
+  :ensure t
+  :demand t
+  :config
+  (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list))
+  (evil-collection-init)
+
+  (cl-loop for (mode . state) in
+           '((org-agenda-mode . normal)
+             (Custom-mode . emacs)
+             (eshell-mode . emacs)
+             (makey-key-mode . motion))
+           do (evil-set-initial-state mode state))
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2ce26aa" class="outline-4">
+<h4 id="org2ce26aa">evil-surround</h4>
+<div class="outline-text-4" id="text-org2ce26aa">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-surround
+  :ensure t
+  :init
+  (global-evil-surround-mode 1))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org66fbb74" class="outline-4">
+<h4 id="org66fbb74">evil-nerd-commenter</h4>
+<div class="outline-text-4" id="text-org66fbb74">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-nerd-commenter
+  :init
+  (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+  (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+  )
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org338ab54" class="outline-4">
+<h4 id="org338ab54">evil-snipe</h4>
+<div class="outline-text-4" id="text-org338ab54">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-snipe
+  :ensure t
+  :diminish
+  :init
+  (evil-snipe-mode +1)
+  (evil-snipe-override-mode +1))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga0612ed" class="outline-4">
+<h4 id="orga0612ed">evil-matchit</h4>
+<div class="outline-text-4" id="text-orga0612ed">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package evil-matchit
+  :ensure
+  :init
+  (global-evil-matchit-mode 1))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3383e31" class="outline-3">
+<h3 id="org3383e31">高阶用法（自定义 text-obj 或者 自定义 commands)</h3>
+<div class="outline-text-3" id="text-org3383e31">
+<ol class="org-ol">
+<li><a href="https://github.com/noctuid/evil-guide#modes">https://github.com/noctuid/evil-guide#modes</a></li>
+<li><a href="https://evil.readthedocs.io/en/latest/overview.html">https://evil.readthedocs.io/en/latest/overview.html</a></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orgf4a9ca2" class="outline-2">
+<h2 id="orgf4a9ca2">第十四天：精选 packages, 大大提升你的 Emacs 编辑效率</h2>
+<div class="outline-text-2" id="text-orgf4a9ca2">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=7hAqzTF1iRs&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=14">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1zh4y1k7a5/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgaf7e4ae" class="outline-3">
+<h3 id="orgaf7e4ae">Some minor fix:</h3>
+<div class="outline-text-3" id="text-orgaf7e4ae">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+;; make c-j/c-k work in vertico selection
+(define-key vertico-map (kbd "C-j") 'vertico-next)
+(define-key vertico-map (kbd "C-k") 'vertico-previous)
+
+;; make consult-ripgrep work
+(add-to-list 'process-coding-system-alist 
+             '("[rR][gG]" . (utf-8-dos . windows-1251-dos)))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4333727" class="outline-3">
+<h3 id="org4333727">多光标操作 iedit &amp; evil-multiedit</h3>
+<div class="outline-text-3" id="text-org4333727">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package iedit
+  :ensure t
+  :init
+  (setq iedit-toggle-key-default nil)
+  :config
+  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
+
+(use-package evil-multiedit
+  :ensure t
+  :commands (evil-multiedit-default-keybinds)
+  :init
+  (evil-multiedit-default-keybinds))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org288381f" class="outline-3">
+<h3 id="org288381f">expand-region</h3>
+<div class="outline-text-3" id="text-org288381f">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package expand-region
+  :config
+  (defadvice er/prepare-for-more-expansions-internal
+      (around helm-ag/prepare-for-more-expansions-internal activate)
+    ad-do-it
+    (let ((new-msg (concat (car ad-return-value)
+                           ", H to highlight in buffers"
+                           ", / to search in project, "
+                           "e iedit mode in functions"
+                           "f to search in files, "
+                           "b to search in opened buffers"))
+          (new-bindings (cdr ad-return-value)))
+      (cl-pushnew
+       '("H" (lambda ()
+               (interactive)
+               (call-interactively
+                'zilongshanren/highlight-dwim)))
+       new-bindings)
+      (cl-pushnew
+       '("/" (lambda ()
+               (interactive)
+               (call-interactively
+                'my/search-project-for-symbol-at-point)))
+       new-bindings)
+      (cl-pushnew
+       '("e" (lambda ()
+               (interactive)
+               (call-interactively
+                'evil-multiedit-match-all)))
+       new-bindings)
+      (cl-pushnew
+       '("f" (lambda ()
+               (interactive)
+               (call-interactively
+                'find-file)))
+       new-bindings)
+      (cl-pushnew
+       '("b" (lambda ()
+               (interactive)
+               (call-interactively
+                'consult-line)))
+       new-bindings)
+      (setq ad-return-value (cons new-msg new-bindings)))))
+</code>
+</pre>
+</div>
+<p>
+添加一个快捷键，让标记和搜索功能更方便：
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+;;;###autoload
+(defun my/search-project-for-symbol-at-point ()
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (consult-ripgrep (project-root (project-current))
+                         (buffer-substring (region-beginning) (region-end))))))
+
+(global-definer
+  "hc" 'zilongshanren/clearn-highlight
+  "hH" 'zilongshanren/highlight-dwim
+  "v" 'er/expand-region
+  )
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org96af902" class="outline-3">
+<h3 id="org96af902">interactive replace</h3>
+<div class="outline-text-3" id="text-org96af902">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(defun zilongshanren/evil-quick-replace (beg end )
+  (interactive "r")
+  (when (evil-visual-state-p)
+    (evil-exit-visual-state)
+    (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
+      (setq command-string (format "%%s /%s//g" selection))
+      (minibuffer-with-setup-hook
+          (lambda () (backward-char 2))
+        (evil-ex command-string)))))
+
+(define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf6435be" class="outline-3">
+<h3 id="orgf6435be">安装 quelpa 插件</h3>
+<div class="outline-text-3" id="text-orgf6435be">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package quelpa)
+
+(unless (package-installed-p 'quelpa-use-package)
+  (quelpa
+   '(quelpa-use-package
+     :fetcher git
+     :url "https://github.com/quelpa/quelpa-use-package.git")))
+
+(use-package quelpa-use-package
+  :init
+  (setq quelpa-use-package-inhibit-loading-quelpa t)
+  :demand t)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga37851f" class="outline-3">
+<h3 id="orga37851f">symbol-overlay &amp; highlight-global</h3>
+<div class="outline-text-3" id="text-orga37851f">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(defun zilongshanren/highlight-dwim ()
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (highlight-frame-toggle)
+        (deactivate-mark))
+    (symbol-overlay-put)))
+
+(defun zilongshanren/clearn-highlight ()
+  (interactive)
+  (clear-highlight-frame)
+  (symbol-overlay-remove-all))
+
+(use-package symbol-overlay
+  :config
+  (define-key symbol-overlay-map (kbd "h") 'nil))
+
+(use-package highlight-global
+  :ensure nil
+  :commands (highlight-frame-toggle)
+  :quelpa (highlight-global :fetcher github :repo "glen-dai/highlight-global")
+  :config
+  (progn
+    (setq-default highlight-faces
+                  '(('hi-red-b . 0)
+                    ('hi-aquamarine . 0)
+                    ('hi-pink . 0)
+                    ('hi-blue-b . 0)))))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4dc86a5" class="outline-2">
+<h2 id="org4dc86a5">第十五天：使用 Treesit + eglot 来打造现代编程 IDE</h2>
+<div class="outline-text-2" id="text-org4dc86a5">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=Jzy9Au3CNFY&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=15">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1W8411o7NM/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgc1ce929" class="outline-3">
+<h3 id="orgc1ce929">正式版本 Emacs 29</h3>
+<div class="outline-text-3" id="text-orgc1ce929">
+<p>
+<a href="http://ftp.gnu.org/gnu/windows/emacs/emacs-29/">http://ftp.gnu.org/gnu/windows/emacs/emacs-29/</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org8370fd3" class="outline-3">
+<h3 id="org8370fd3">安装 treesit-auto 插件</h3>
+<div class="outline-text-3" id="text-org8370fd3">
+<p>
+<a href="https://github.com/renzmann/treesit-auto">https://github.com/renzmann/treesit-auto</a>
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package treesit-auto
+  :demand t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org984e7ed" class="outline-3">
+<h3 id="org984e7ed">配置 fontlock level</h3>
+<div class="outline-text-3" id="text-org984e7ed">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq treesit-font-lock-level 4)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org56a3ea9" class="outline-3">
+<h3 id="org56a3ea9">跳转函数列表 consult-imenu</h3>
+<div class="outline-text-3" id="text-org56a3ea9">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(+general-global-menu! "search" "s"
+  "j" 'consult-imenu
+  "p" 'consult-ripgrep
+  "k" 'consult-keep-lines
+  "f" 'consult-focus-lines)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org53bedea" class="outline-3">
+<h3 id="org53bedea">查找定义和引用</h3>
+<div class="outline-text-3" id="text-org53bedea">
+<p>
+使用 ctrl-o 返回
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">xref-find-references
+xref-find-definitions
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org538115b" class="outline-3">
+<h3 id="org538115b">添加 snippets 支持</h3>
+<div class="outline-text-3" id="text-org538115b">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package yasnippet
+  :ensure t
+  :hook ((prog-mode . yas-minor-mode)
+         (org-mode . yas-minor-mode))
+  :init
+  :config
+  (progn
+    (setq hippie-expand-try-functions-list
+          '(yas/hippie-try-expand
+            try-complete-file-name-partially
+            try-expand-all-abbrevs
+            try-expand-dabbrev
+            try-expand-dabbrev-all-buffers
+            try-expand-dabbrev-from-kill
+            try-complete-lisp-symbol-partially
+            try-complete-lisp-symbol))))
+
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0a2370" class="outline-3">
+<h3 id="orge0a2370">在头文件和源文件之间进行跳转</h3>
+<div class="outline-text-3" id="text-orge0a2370">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">ff-find-related-file
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6578244" class="outline-3">
+<h3 id="org6578244">参考链接</h3>
+<div class="outline-text-3" id="text-org6578244">
+<ul class="org-ul">
+<li><a href="https://github.com/emacs-mirror/emacs/blob/master/admin/notes/tree-sitter/starter-guide">https://github.com/emacs-mirror/emacs/blob/master/admin/notes/tree-sitter/starter-guide</a></li>
+<li><a href="https://www.masteringemacs.org/article/how-to-get-started-tree-sitter">https://www.masteringemacs.org/article/how-to-get-started-tree-sitter</a></li>
+<li><a href="https://mp.weixin.qq.com/s/kChdHIuh2ch9w5RiCHxo3w">https://mp.weixin.qq.com/s/kChdHIuh2ch9w5RiCHxo3w</a> （Emacs 29 更新内容）</li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzA4NDU1NTg2Ng==&amp;mid=2452309008&amp;idx=1&amp;sn=c5f822e36cc38e6d91683495e029adac&amp;chksm=883a8525bf4d0c336f6c1e3c9e2c934b751bd364f3e5565f9bb944b57a022b0d4aa6a5068146&amp;cur_album_id=1930972115608928260&amp;scene=189#wechat_redirect">Emacs Treesitter</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0f3f57c" class="outline-2">
+<h2 id="org0f3f57c">第十六天：窗口管理</h2>
+<div class="outline-text-2" id="text-org0f3f57c">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=nK6162fLsYM&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=16">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV15h4y1c71Z/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgade5723" class="outline-3">
+<h3 id="orgade5723">Evil 的窗口选择操作</h3>
+<div class="outline-text-3" id="text-orgade5723">
+<ul class="org-ul">
+<li>C-w h/j/j/k</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org47907f7" class="outline-3">
+<h3 id="org47907f7">推荐插件</h3>
+<div class="outline-text-3" id="text-org47907f7">
+</div>
+<div id="outline-container-orgf803789" class="outline-4">
+<h4 id="orgf803789"><a href="https://github.com/nschum/window-numbering.el">window numbering</a></h4>
+<div class="outline-text-4" id="text-orgf803789">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package window-numbering
+  :init
+  :hook (after-init . window-numbering-mode))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7155519" class="outline-4">
+<h4 id="org7155519"><a href="https://github.com/sabof/es-windows">es-windows</a></h4>
+<div class="outline-text-4" id="text-org7155519">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package es-windows
+  :ensure t)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8968d69" class="outline-4">
+<h4 id="org8968d69"><a href="https://github.com/nschum/window-numbering.el">Buffer move</a></h4>
+<div class="outline-text-4" id="text-org8968d69">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package buffer-move
+  :ensure t)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c190c5" class="outline-4">
+<h4 id="org3c190c5"><a href="https://github.com/dpsutton/resize-mode">Resize windows</a></h4>
+<div class="outline-text-4" id="text-org3c190c5">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package resize-window
+  :ensure t
+  :init
+  (defvar resize-window-dispatch-alist
+    '((?n resize-window--enlarge-down " Resize - Expand down" t)
+      (?p resize-window--enlarge-up " Resize - Expand up" t)
+      (?f resize-window--enlarge-horizontally " Resize - horizontally" t)
+      (?b resize-window--shrink-horizontally " Resize - shrink horizontally" t)
+      (?r resize-window--reset-windows " Resize - reset window layout" nil)
+      (?w resize-window--cycle-window-positive " Resize - cycle window" nil)
+      (?W resize-window--cycle-window-negative " Resize - cycle window" nil)
+      (?2 split-window-below " Split window horizontally" nil)
+      (?3 split-window-right " Slit window vertically" nil)
+      (?0 resize-window--delete-window " Delete window" nil)
+      (?K resize-window--kill-other-windows " Kill other windows (save state)" nil)
+      (?y resize-window--restore-windows " (when state) Restore window configuration" nil)
+      (?? resize-window--display-menu " Resize - display menu" nil))
+    "List of actions for `resize-window-dispatch-default.
+Main data structure of the dispatcher with the form:
+\(char function documentation match-capitals\)"))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga65a8bc" class="outline-4">
+<h4 id="orga65a8bc">Winner (builtin)</h4>
+<div class="outline-text-4" id="text-orga65a8bc">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package winner
+  :ensure nil
+  :commands (winner-undo winner-redo)
+  :hook (after-init . winner-mode)
+  :init (setq winner-boring-buffers '("*Completions*"
+                                      "*Compile-Log*"
+                                      "*inferior-lisp*"
+                                      "*Fuzzy Completions*"
+                                      "*Apropos*"
+                                      "*Help*"
+                                      "*cvs*"
+                                      "*Buffer List*"
+                                      "*Ibuffer*"
+                                      "*esh command on file*")))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgadafcd6" class="outline-4">
+<h4 id="orgadafcd6"><a href="https://github.com/karthink/popper">Popper</a></h4>
+<div class="outline-text-4" id="text-orgadafcd6">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package popper
+  :defines popper-echo-dispatch-actions
+  :commands popper-group-by-directory
+  :bind (:map popper-mode-map
+              ("s-`" . popper-toggle-latest)
+              ("s-o"   . popper-cycle)
+              ("M-`" . popper-toggle-type))
+  :hook (emacs-startup . popper-mode)
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$" "\\*Pp Eval Output\\*$"
+          "\\*Compile-Log\\*"
+          "\\*Completions\\*"
+          "\\*Warnings\\*"
+          "\\*Flymake diagnostics.*\\*"
+          "\\*Async Shell Command\\*"
+          "\\*Apropos\\*"
+          "\\*Backtrace\\*"
+          "\\*prodigy\\*"
+          "\\*Calendar\\*"
+          "\\*Embark Actions\\*"
+          "\\*Finder\\*"
+          "\\*Kill Ring\\*"
+          "\\*Embark Export:.*\\*"
+          "\\*Edit Annotation.*\\*"
+          "\\*Flutter\\*"
+          bookmark-bmenu-mode
+          lsp-bridge-ref-mode
+          comint-mode
+          compilation-mode
+          help-mode helpful-mode
+          tabulated-list-mode
+          Buffer-menu-mode
+          occur-mode
+          gnus-article-mode devdocs-mode
+          grep-mode occur-mode rg-mode deadgrep-mode ag-mode pt-mode
+          ivy-occur-mode ivy-occur-grep-mode
+          process-menu-mode list-environment-mode cargo-process-mode
+          youdao-dictionary-mode osx-dictionary-mode fanyi-mode
+
+          "^\\*eshell.*\\*.*$" eshell-mode
+          "^\\*shell.*\\*.*$"  shell-mode
+          "^\\*terminal.*\\*.*$" term-mode
+          "^\\*vterm.*\\*.*$"  vterm-mode
+
+          "\\*DAP Templates\\*$" dap-server-log-mode
+          "\\*ELP Profiling Restuls\\*" profiler-report-mode
+          "\\*Flycheck errors\\*$" " \\*Flycheck checker\\*$"
+          "\\*Paradox Report\\*$" "\\*package update results\\*$" "\\*Package-Lint\\*$"
+          "\\*[Wo]*Man.*\\*$"
+          "\\*ert\\*$" overseer-buffer-mode
+          "\\*gud-debug\\*$"
+          "\\*lsp-help\\*$" "\\*lsp session\\*$"
+          "\\*quickrun\\*$"
+          "\\*tldr\\*$"
+          "\\*vc-.*\\*$"
+          "\\*eldoc\\*"
+          "^\\*elfeed-entry\\*$"
+          "^\\*macro expansion\\**"
+
+          "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*"
+          "\\*Gofmt Errors\\*$" "\\*Go Test\\*$" godoc-mode
+          "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"
+          "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
+          "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
+          rustic-cargo-outdated-mode rustic-cargo-test-moed))
+
+  (when (display-grayscale-p)
+    (setq popper-mode-line
+          '(:eval
+            (concat
+             (propertize " " 'face 'mode-line-emphasis)
+             (all-the-icons-octicon "pin" :height 0.9 :v-adjust 0.0 :face 'mode-line-emphasis)
+             (propertize " " 'face 'mode-line-emphasis)))))
+
+  (setq popper-echo-dispatch-actions t)
+  (setq popper-group-function nil)
+  :config
+  (popper-echo-mode 1)
+
+  (with-no-warnings
+    (defun my-popper-fit-window-height (win)
+      "Determine the height of popup window WIN by fitting it to the buffer's content."
+      (fit-window-to-buffer
+       win
+       (floor (frame-height) 3)
+       (floor (frame-height) 3)))
+    (setq popper-window-height #'my-popper-fit-window-height)
+
+    (defun popper-close-window-hack (&amp;rest _)
+      "Close popper window via `C-g'."
+      ;; `C-g' can deactivate region
+      (when (and (called-interactively-p 'interactive)
+                 (not (region-active-p))
+                 popper-open-popup-alist)
+        (let ((window (caar popper-open-popup-alist)))
+          (when (window-live-p window)
+            (delete-window window)))))
+    (advice-add #'keyboard-quit :before #'popper-close-window-hack)))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org02d9f30" class="outline-3">
+<h3 id="org02d9f30">按键绑定</h3>
+<div class="outline-text-3" id="text-org02d9f30">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(global-definer
+  ;; 这里是其他的快捷键
+  "0" 'select-window-0
+  "1" 'select-window-1
+  "2" 'select-window-2
+  "3" 'select-window-3
+  "4" 'select-window-4
+  "5" 'select-window-5)
+
+(+general-global-menu! "window" "w"
+  "/" 'split-window-right
+  "-" 'split-window-below
+  "m" 'delete-other-windows
+  "u" 'winner-undo
+  "z" 'winner-redo
+  "w" 'esw/select-window
+  "s" 'esw/swap-two-windows
+  "d" 'esw/delete-window
+  "=" 'balance-windows-area
+  "r" 'esw/move-window
+  "x" 'resize-window
+  "H" 'buf-move-left
+  "L" 'buf-move-right
+  "J" 'buf-move-down
+  "K" 'buf-move-up)
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0da1945" class="outline-2">
+<h2 id="org0da1945">第十七天：工作区间管理</h2>
+<div class="outline-text-2" id="text-org0da1945">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=DDlgJe4HJNY&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=17">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV12p4y1J7Jx/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org448eb28" class="outline-3">
+<h3 id="org448eb28">Awesome Tab 的问题</h3>
+<div class="outline-text-3" id="text-org448eb28">
+<p>
+偏爱使用 Emacs 内置 package
+</p>
+</div>
+</div>
+<div id="outline-container-org564f983" class="outline-3">
+<h3 id="org564f983">使用内置的 tab-bar-mode</h3>
+<div class="outline-text-3" id="text-org564f983">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package tab-bar
+  :ensure nil
+  :init
+  (tab-bar-mode t)
+  (setq tab-bar-new-tab-choice "*scratch*") ;; buffer to show in new tabs
+  (setq tab-bar-close-button-show nil)      ;; hide tab close / X button
+  (setq tab-bar-show 1)                     ;; hide bar if &lt;= 1 tabs open
+  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+
+  (custom-set-faces
+   '(tab-bar ((t (:inherit mode-line))))
+   '(tab-bar-tab ((t (:inherit mode-line :foreground "#993644"))))
+   '(tab-bar-tab-inactive ((t (:inherit mode-line-inactive :foreground "black")))))
+
+  (defvar ct/circle-numbers-alist
+    '((0 . "⓪")
+      (1 . "①")
+      (2 . "②")
+      (3 . "③")
+      (4 . "④")
+      (5 . "⑤")
+      (6 . "⑥")
+      (7 . "⑦")
+      (8 . "⑧")
+      (9 . "⑨"))
+    "Alist of integers to strings of circled unicode numbers.")
+
+  (defun ct/tab-bar-tab-name-format-default (tab i)
+    (let ((current-p (eq (car tab) 'current-tab))
+          (tab-num (if (and tab-bar-tab-hints (&lt; i 10))
+                       (alist-get i ct/circle-numbers-alist) "")))
+      (propertize
+       (concat tab-num
+               " "
+               (alist-get 'name tab)
+               (or (and tab-bar-close-button-show
+                        (not (eq tab-bar-close-button-show
+                                 (if current-p 'non-selected 'selected)))
+                        tab-bar-close-button)
+                   "")
+               " ")
+       'face (funcall tab-bar-tab-face-function tab))))
+  (setq tab-bar-tab-name-format-function #'ct/tab-bar-tab-name-format-default)
+  (setq tab-bar-tab-hints t))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org51a839f" class="outline-3">
+<h3 id="org51a839f">工作区间</h3>
+<div class="outline-text-3" id="text-org51a839f">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package tabspaces
+  ;; use this next line only if you also use straight, otherwise ignore it.
+  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
+  :commands (tabspaces-switch-or-create-workspace
+             tabspaces-open-or-create-project-and-workspace)
+  :custom
+  (tabspaces-use-filtered-buffers-as-default t)
+  (tabspaces-default-tab "Default")
+  (tabspaces-remove-to-default t)
+  (tabspaces-include-buffers '("*scratch*"))
+  ;; maybe slow
+  (tabspaces-session t)
+  (tabspaces-session-auto-restore t)
+  :config
+  ;; Filter Buffers for Consult-Buffer
+
+  (with-eval-after-load 'consult
+    ;; hide full buffer list (still available with "b" prefix)
+    (consult-customize consult--source-buffer :hidden nil :default nil)
+    ;; set consult-workspace buffer list
+    (defvar consult--source-workspace
+      (list :name "Workspace Buffers"
+            :narrow ?w
+            :history 'buffer-name-history
+            :category 'buffer
+            :state #'consult--buffer-state
+            :default t
+            :items (lambda () (consult--buffer-query
+                               :predicate #'tabspaces--local-buffer-p
+                               :sort 'visibility
+                               :as #'buffer-name)))
+
+      "Set workspace buffer list for consult-buffer.")
+    (add-to-list 'consult-buffer-sources 'consult--source-workspace)))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4b32f64" class="outline-3">
+<h3 id="org4b32f64">按键绑定</h3>
+<div class="outline-text-3" id="text-org4b32f64">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(+general-global-menu! "layout" "l"
+  "l" 'tabspaces-switch-or-create-workspace
+  "L" 'tabspaces-restore-session
+  "p" 'tabspaces-open-or-create-project-and-workspace
+  "f" 'tabspaces-project-switch-project-open-file
+  "s" 'tabspaces-save-session
+  "B" 'tabspaces-switch-buffer-and-tab
+  "b" 'tabspaces-switch-to-buffer
+  "R" 'tab-rename
+  "TAB" 'tab-bar-switch-to-recent-tab
+  "r" 'tabspaces-remove-current-buffer
+  "k" 'tabspaces-close-workspace)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f60807" class="outline-3">
+<h3 id="org8f60807">工作流介绍</h3>
+<div class="outline-text-3" id="text-org8f60807">
+<ul class="org-ul">
+<li>自动加载 workspace</li>
+<li>手动加载 workspace(减少启动时间)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org09d23b8" class="outline-2">
+<h2 id="org09d23b8">第十八天： Org-mode 进阶</h2>
+<div class="outline-text-2" id="text-org09d23b8">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=onZfDDctl0Q&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=18">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1oh4y1P73D/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org037a19f" class="outline-3">
+<h3 id="org037a19f">Org Download</h3>
+<div class="outline-text-3" id="text-org037a19f">
+</div>
+<div id="outline-container-orgbcf8297" class="outline-4">
+<h4 id="orgbcf8297">how to install</h4>
+<div class="outline-text-4" id="text-orgbcf8297">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package org-download
+    :ensure t
+    :demand t
+    :after org
+    :config
+    (add-hook 'dired-mode-hook 'org-download-enable)
+    (setq org-download-screenshot-method "powershell -c Add-Type -AssemblyName System.Windows.Forms;$image = [Windows.Forms.Clipboard]::GetImage();$image.Save('%s', [System.Drawing.Imaging.ImageFormat]::Png)")
+    (defun org-download-annotate-default (link)
+      "Annotate LINK with the time of download."
+      (make-string 0 ?\s))
+
+    (setq-default org-download-heading-lvl nil
+                  org-download-image-dir "./img"
+                  ;; org-download-screenshot-method "screencapture -i %s"
+                  org-download-screenshot-file (expand-file-name "screenshot.jpg" temporary-file-directory)))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga7e9a4f" class="outline-4">
+<h4 id="orga7e9a4f">Change image size</h4>
+<div class="outline-text-4" id="text-orga7e9a4f">
+<pre class="example">
+#+ATTR_HTML: :width 1000px
+</code>
+</pre>
+
+<p>
+use yasnippets
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org6875229" class="outline-3">
+<h3 id="org6875229">Org Protocol</h3>
+<div class="outline-text-3" id="text-org6875229">
+</div>
+<div id="outline-container-org81caae3" class="outline-4">
+<h4 id="org81caae3">How to config</h4>
+<div class="outline-text-4" id="text-org81caae3">
+</div>
+<ul class="org-ul">
+<li><a id="org009dd50"></a>1. Step 1: Get emacsclient to work<br /></li>
+<li><a id="orgce4058e"></a>2. 生成 org-protocol.reg<br />
+<div class="outline-text-5" id="text-orgce4058e">
+<div class="org-src-container">
+<pre>
+<code class="sh">Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\org-protocol]
+"URL Protocol"=""
+@="URL:Org Protocol"
+
+[HKEY_CLASSES_ROOT\org-protocol\shell]
+
+[HKEY_CLASSES_ROOT\org-protocol\shell\open]
+
+[HKEY_CLASSES_ROOT\org-protocol\shell\open\command]
+@="\"C:\\Program Files\\Emacs\\emacs-29.1\\bin\\emacsclientw.exe\"  \"%1\""
+</code>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org8025ce5"></a>3. add org templates<br />
+<div class="outline-text-5" id="text-org8025ce5">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq org-agenda-file-note (expand-file-name "~/notes.org"))
+(setq org-capture-templates
+      '(
+        ("x" "Web Collections" entry
+         (file+headline org-agenda-file-note "Web")
+         "* %U %:annotation\n\n%:initial\n\n%?")
+        ))
+</code>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org8de51a2"></a>4. add chrome bookmark<br />
+<div class="outline-text-5" id="text-org8de51a2">
+<div class="org-src-container">
+<pre>
+<code class="sh">javascript:location.href='org-protocol://capture?template=x&amp;url=%27+encodeURIComponent(location.href)+%27&amp;title=%27+encodeURIComponent(document.title)+%27&amp;body=%27+encodeURIComponent(function(){var html = "";var sel = window.getSelection();if (sel.rangeCount) {var container = document.createElement("div");for (var i = 0, len = sel.rangeCount; i &lt; len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());}html = container.innerHTML;}var dataDom = document.createElement(%27div%27);dataDom.innerHTML = html;dataDom.querySelectorAll(%27a%27).forEach(function(item, idx) {console.log(%27find a link%27);var url = new URL(item.href, window.location.href).href;var content = item.innerText;item.innerText = %27[[%27+url+%27][%27+content+%27]]%27;});[%27p%27, %27h1%27, %27h2%27, %27h3%27, %27h4%27].forEach(function(tag, idx){dataDom.querySelectorAll(tag).forEach(function(item, index) {var content = item.innerHTML.trim();if (content.length &gt; 0) {item.innerHTML = content + %27&amp;#13;&amp;#10;';}});});return dataDom.innerText.trim();}())
+</code>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgf044ff5"></a>6. return follow link<br />
+<div class="outline-text-5" id="text-orgf044ff5">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(org-return-follows-link t)
+</code>
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgdb8c5c4" class="outline-3">
+<h3 id="orgdb8c5c4">Spell checking</h3>
+<div class="outline-text-3" id="text-orgdb8c5c4">
+</div>
+<div id="outline-container-orgf95c38c" class="outline-4">
+<h4 id="orgf95c38c">Install emacs packages</h4>
+<div class="outline-text-4" id="text-orgf95c38c">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">
+  (use-package flyspell-correct
+    :ensure t
+    :init)
+
+  (use-package ispell
+    :ensure nil
+    :init
+    (setq ispell-program-name "aspell")
+    (dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+    (setq ispell-personal-dictionary "c:/msys64/mingw64/lib/aspell-0.60/en_GB")
+)
+
+    (define-key evil-insert-state-map (kbd "C-;") 'flyspell-correct-previous)
+
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org44ec18f" class="outline-4">
+<h4 id="org44ec18f">Install spell</h4>
+<div class="outline-text-4" id="text-org44ec18f">
+<div class="org-src-container">
+<pre>
+<code class="sh">pacman -S mingw64/mingw-w64-x86_64-aspell
+pacman -S mingw64/mingw-w64-x86_64-aspell-en
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6504e27" class="outline-4">
+<h4 id="org6504e27">Configuration</h4>
+<div class="outline-text-4" id="text-org6504e27">
+<ol class="org-ol">
+<li>add "*C:\msys64\mingw64\bin" to  to PATH</li>
+<li>Error: The file "c:\msys64\mingw64/lib/aspell-0.60/﻿en_US" can not be opened for reading.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcd2ab00" class="outline-3">
+<h3 id="orgcd2ab00">Fanyi Dictionary</h3>
+<div class="outline-text-3" id="text-orgcd2ab00">
+</div>
+<div id="outline-container-orgdd8ab73" class="outline-4">
+<h4 id="orgdd8ab73">How to install</h4>
+<div class="outline-text-4" id="text-orgdd8ab73">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package fanyi
+  :ensure t
+  :custom
+  (fanyi-providers '(;; 海词
+                     ;; fanyi-haici-provider
+                     ;; 有道同义词词典
+                     fanyi-youdao-thesaurus-provider
+                     ;; Etymonline
+                     fanyi-etymon-provider
+                     ;; Longman
+                     ;; fanyi-longman-provider)
+                   )))
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb7354dc" class="outline-3">
+<h3 id="orgb7354dc">Some useful keybindings</h3>
+<div class="outline-text-3" id="text-orgb7354dc">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">C-RET  for creating new headlines
+M-RET  for creating new lists
+M-left/right/up/down
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc6cf12b" class="outline-2">
+<h2 id="orgc6cf12b">第十九天： Org Roam</h2>
+<div class="outline-text-2" id="text-orgc6cf12b">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=M_DPLkiu3Gc&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=19">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1uk4y1P7xr/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org0e63a50" class="outline-3">
+<h3 id="org0e63a50">安装 Org Oram</h3>
+<div class="outline-text-3" id="text-org0e63a50">
+<p>
+在 HOME 新建一个 org 目录夹，用来存储你的 org roam 笔记。
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org69125a9" class="outline-3">
+<h3 id="org69125a9">Org roam 基本使用</h3>
+<div class="outline-text-3" id="text-org69125a9">
+</div>
+<div id="outline-container-org4b71d87" class="outline-4">
+<h4 id="org4b71d87">安装 corfu 来进行补全</h4>
+<div class="outline-text-4" id="text-org4b71d87">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package corfu
+  :init
+  (progn
+    (setq corfu-auto t)
+    (setq corfu-cycle t)
+    (setq corfu-quit-at-boundary t)
+    (setq corfu-quit-no-match t)
+    (setq corfu-preview-current nil)
+    (setq corfu-min-width 80)
+    (setq corfu-max-width 100)
+    (setq corfu-auto-delay 0.2)
+    (setq corfu-auto-prefix 1)
+    (setq corfu-on-exact-match nil)
+    (global-corfu-mode)
+    ))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org25d771a" class="outline-4">
+<h4 id="org25d771a">新建笔记和查找笔记</h4>
+<div class="outline-text-4" id="text-org25d771a">
+<p>
+C-c n f
+</p>
+</div>
+</div>
+<div id="outline-container-org023a284" class="outline-4">
+<h4 id="org023a284">建立笔记引用</h4>
+<div class="outline-text-4" id="text-org023a284">
+<p>
+[[]] 
+</p>
+</div>
+</div>
+<div id="outline-container-org1a68b6c" class="outline-4">
+<h4 id="org1a68b6c">查找引用</h4>
+<div class="outline-text-4" id="text-org1a68b6c">
+<p>
+org-return-follows-link t
+c-c n l (org-roam-buffer-toggle)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcacbcc3" class="outline-4">
+<h4 id="orgcacbcc3">已有的 headline 转换为一个节点</h4>
+<div class="outline-text-4" id="text-orgcacbcc3">
+<p>
+org-id-get-create
+refile node
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org30f0f73" class="outline-3">
+<h3 id="org30f0f73">直接从 github 安装插件</h3>
+<div class="outline-text-3" id="text-org30f0f73">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(require 'cl-lib)
+(require 'use-package-core)
+
+(cl-defun slot/vc-install (&amp;key (fetcher "github") repo name rev backend)
+  (let* ((url (format "https://www.%s.com/%s" fetcher repo))
+         (iname (when name (intern name)))
+         (package-name (or iname (intern (file-name-base repo)))))
+    (unless (package-installed-p package-name)
+      (package-vc-install url iname rev backend))))
+
+(defvar package-vc-use-package-keyword :vc)
+
+(defun package-vc-use-package-set-keyword ()
+  (unless (member package-vc-use-package-keyword use-package-keywords)
+    (setq use-package-keywords
+          (let* ((pos (cl-position :unless use-package-keywords))
+                 (head (cl-subseq use-package-keywords 0 (+ 1 pos)))
+                 (tail (nthcdr (+ 1 pos) use-package-keywords)))
+            (append head (list package-vc-use-package-keyword) tail)))))
+
+(defun use-package-normalize/:vc (name-symbol keyword args)
+  (let ((arg (car args)))
+    (pcase arg
+      ((or `nil `t) (list name-symbol))
+      ((pred symbolp) args)
+      ((pred listp) (cond
+                     ((listp (car arg)) arg)
+                     ((string-match "^:" (symbol-name (car arg))) (cons name-symbol arg))
+                     ((symbolp (car arg)) args)))
+      (_ nil))))
+
+(defun use-package-handler/:vc (name-symbol keyword args rest state)
+  (let ((body (use-package-process-keywords name-symbol rest state)))
+    ;; This happens at macro expansion time, not when the expanded code is
+    ;; compiled or evaluated.
+    (if args
+        (use-package-concat
+         `((unless (package-installed-p ',(pcase (car args)
+                                            ((pred symbolp) (car args))
+                                            ((pred listp) (car (car args)))))
+             (apply #'slot/vc-install ',(cdr args))))
+         body)
+      body)))
+
+(defun package-vc-use-package-override-:ensure (func name-symbol keyword ensure rest state)
+  (let ((ensure (if (plist-member rest :vc)
+                    nil
+                  ensure)))
+    (funcall func name-symbol keyword ensure rest state)))
+
+(defun package-vc-use-package-activate-advice ()
+  (advice-add
+   'use-package-handler/:ensure
+   :around
+   #'package-vc-use-package-override-:ensure))
+
+(defun package-vc-use-package-deactivate-advice ()
+  (advice-remove
+   'use-package-handler/:ensure
+   #'package-vc-use-package-override-:ensure))
+
+;; register keyword on require
+(package-vc-use-package-set-keyword)
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org616411e" class="outline-3">
+<h3 id="org616411e">Org roam UI</h3>
+<div class="outline-text-3" id="text-org616411e">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package org-roam-ui
+  :vc (:fetcher "github" :repo "org-roam/org-roam-ui"))
+</code>
+</pre>
+</div>
+<ul class="org-ul">
+<li>鼠标操作</li>
+<li>可视化</li>
+<li>实时显示链接</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1a66aed" class="outline-2">
+<h2 id="org1a66aed">第二十天：Emacs 配置问题排查</h2>
+<div class="outline-text-2" id="text-org1a66aed">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=uuGrzmCwu7s&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=20">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Vz4y1j7LB/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org8f4e30b" class="outline-3">
+<h3 id="org8f4e30b">配置有问题，启动不了怎么办？</h3>
+<div class="outline-text-3" id="text-org8f4e30b">
+<p>
+emacs-debug &#x2013;init
+</p>
+</div>
+</div>
+<div id="outline-container-org13445f6" class="outline-3">
+<h3 id="org13445f6">不能安装包，提示签名错误</h3>
+<div class="outline-text-3" id="text-org13445f6">
+<p>
+Failed to verify signature archive-contents.sig
+</p>
+
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(setq package-check-signature nil)
+</code>
+</pre>
+</div>
+
+<p>
+<a href="https://emacs-china.org/t/failed-to-verify-signature-archive-contents-sig/20508/5">Failed to verify signature archive-contents.sig - Emacs-general - Emacs China</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org8c8b05d" class="outline-3">
+<h3 id="org8c8b05d">a pax extended header, 包解压失败，可以使用 use-package :vc 直接安装</h3>
+<div class="outline-text-3" id="text-org8c8b05d">
+<p>
+使用 mysys2 的时候，系统会使用 unix 的 tar 去解压会有问题
+windows 上面需要使用 system32/tar 这个程序去解压。
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">解决办法可以是 mv /usr/bin/tar /usr/bin/tarbak
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd39d81d" class="outline-3">
+<h3 id="orgd39d81d">上 Emacs China! 上 Emacs China! 上 Emacs China! （重要的事情说 3 遍）</h3>
+</div>
+</div>
+
+<div id="outline-container-org2049d1b" class="outline-2">
+<h2 id="org2049d1b">第二十一天： 优化性能，借鉴其他人的配置</h2>
+<div class="outline-text-2" id="text-org2049d1b">
+<p>
+视频地址如下:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=Va9lcfsVKgU&amp;list=PLZx9tb9Niew-CXp_C0LfiJo-SpsQBVBq2&amp;index=21">Youtube</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Ah4y1N7Kb/?spm_id_from=333.788&amp;vd_source=341db5d3a9324a7e00c10cbce0022a91">Bilibili</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgbb9a9f7" class="outline-3">
+<h3 id="orgbb9a9f7">how to Profile performace</h3>
+</div>
+<div id="outline-container-orgf69d726" class="outline-3">
+<h3 id="orgf69d726">怎么度量启动性能</h3>
+<div class="outline-text-3" id="text-orgf69d726">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(use-package benchmark-init
+  :ensure t
+  :demand t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+</code>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f48c18" class="outline-3">
+<h3 id="org8f48c18">use-package 哪些操作可以优化性能</h3>
+<div class="outline-text-3" id="text-org8f48c18">
+<p>
+<a href="https://systemcrafters.net/emacs-from-scratch/cut-start-up-time-in-half/">https://systemcrafters.net/emacs-from-scratch/cut-start-up-time-in-half/</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org37a139c" class="outline-3">
+<h3 id="org37a139c">借鉴大佬的配置，作为框架</h3>
+<div class="outline-text-3" id="text-org37a139c">
+</div>
+<div id="outline-container-orge672198" class="outline-4">
+<h4 id="orge672198">社区配置</h4>
+<div class="outline-text-4" id="text-orge672198">
+<p>
+Spacemacs &amp; DoomEmacs 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org026dc2d" class="outline-4">
+<h4 id="org026dc2d">个人配置</h4>
+<div class="outline-text-4" id="text-org026dc2d">
+<ul class="org-ul">
+<li><a href="https://github.com/purcell/emacs.d">https://github.com/purcell/emacs.d</a></li>
+<li><a href="https://github.com/bbatsov/prelude">https://github.com/bbatsov/prelude</a></li>
+<li><a href="https://github.com/bbatsov/prelude">https://github.com/bbatsov/prelude</a></li>
+<li><a href="https://github.com/seagle0128/.emacs.d">https://github.com/seagle0128/.emacs.d</a></li>
+<li><a href="https://github.com/zilongshanren/emacs.d">https://github.com/zilongshanren/emacs.d</a> （子龙山人）</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3a8f1c6" class="outline-3">
+<h3 id="org3a8f1c6">小技巧：</h3>
+<div class="outline-text-3" id="text-org3a8f1c6">
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">(defun spacemacs/alternate-buffer (&amp;optional window)
+  "Switch back and forth between current and last buffer in the
+current window.
+If `spacemacs-layouts-restrict-spc-tab' is `t' then this only switches between
+the current layouts buffers."
+  (interactive)
+  (cl-destructuring-bind (buf start pos)
+      (if (bound-and-true-p spacemacs-layouts-restrict-spc-tab)
+          (let ((buffer-list (persp-buffer-list))
+                (my-buffer (window-buffer window)))
+            ;; find buffer of the same persp in window
+            (seq-find (lambda (it) ;; predicate
+                        (and (not (eq (car it) my-buffer))
+                             (member (car it) buffer-list)))
+                      (window-prev-buffers)
+                      ;; default if found none
+                      (list nil nil nil)))
+        (or (cl-find (window-buffer window) (window-prev-buffers)
+                     :key #'car :test-not #'eq)
+            (list (other-buffer) nil nil)))
+    (if (not buf)
+        (message "Last buffer not found.")
+      (set-window-buffer-start-and-point window buf start pos))))
+</code>
+</pre>
+</div>
+<p>
+按键绑定：
+</p>
+<div class="org-src-container">
+<pre>
+<code class="emacs-lisp">"TAB" 'spacemacs/alternate-buffer
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: zilongshanren</p>
+<p class="date">Created: 2024-03-04 Mon 12:22</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
